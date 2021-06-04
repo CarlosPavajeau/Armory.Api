@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <AssemblyName>Armory.Shared</AssemblyName>
+        <RootNamespace>Armory.Shared</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Domain" />
+      <Folder Include="Extensions" />
+      <Folder Include="Helpers" />
+      <Folder Include="Infrastructure" />
+      <Folder Include="Validator" />
+    </ItemGroup>
+
+</Project>

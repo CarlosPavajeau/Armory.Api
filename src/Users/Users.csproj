@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <AssemblyName>Armory.Users</AssemblyName>
+        <RootNamespace>Armory.Users</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Application" />
+      <Folder Include="Domain" />
+      <Folder Include="Infrastructure" />
+    </ItemGroup>
+
+</Project>
