@@ -35,6 +35,8 @@ namespace Armory.Api.Extensions
             services.AddScoped<ICommandBus, InMemoryCommandBus>();
             services.AddScoped<IQueryBus, InMemoryQueryBus>();
 
+            services.Configure<SecretKey>(configuration.GetSection("SecretKey"));
+
             return services;
         }
     }

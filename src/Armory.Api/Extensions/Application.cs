@@ -1,6 +1,8 @@
 using Armory.Shared.Extensions;
 using Armory.Shared.Helpers;
+using Armory.Users.Application.Authenticate;
 using Armory.Users.Application.Create;
+using Armory.Users.Application.GenerateJwt;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Armory.Api.Extensions
@@ -10,6 +12,8 @@ namespace Armory.Api.Extensions
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddScoped<ArmoryUserCreator, ArmoryUserCreator>();
+            services.AddScoped<ArmoryUserAuthenticator, ArmoryUserAuthenticator>();
+            services.AddScoped<JwtGenerator, JwtGenerator>();
 
             services.AddCommandServices(AssemblyHelper.GetInstance(Assemblies.Users));
             services.AddQueryServices(AssemblyHelper.GetInstance(Assemblies.Users));

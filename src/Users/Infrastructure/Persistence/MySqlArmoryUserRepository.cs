@@ -7,18 +7,30 @@ namespace Armory.Users.Infrastructure.Persistence
 {
     public class MySqlArmoryUserRepository : IArmoryUserRepository
     {
-        private readonly ArmoryUserDbContext _context;
         private readonly UserManager<ArmoryUser> _userManager;
+        private readonly SignInManager<ArmoryUser> _signInManager;
 
-        public MySqlArmoryUserRepository(ArmoryUserDbContext context, UserManager<ArmoryUser> userManager)
+        public MySqlArmoryUserRepository(UserManager<ArmoryUser> userManager, SignInManager<ArmoryUser> signInManager)
         {
-            _context = context;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public async Task<IdentityResult> Save(ArmoryUser user, string password)
         {
             return await _userManager.CreateAsync(user, password);
+        }
+
+        public async Task<ArmoryUser> FindByUsernameOrEmail(string usernameOrEmail)
+        {
+            var user = await _userManager.FindByNameAsync(usernameOrEmail) ??
+                       await _userManager.FindByEmailAsync(usernameOrEmail);
+            return user;
+        }
+
+        public async Task<SignInResult> Authenticate(ArmoryUser user, string password, bool isPersistent)
+        {
+            return await _signInManager.PasswordSignInAsync(user, password, isPersistent, false);
         }
     }
 }

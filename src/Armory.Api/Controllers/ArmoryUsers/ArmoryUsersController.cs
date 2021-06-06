@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Command;
 using Armory.Users.Application.Create;
