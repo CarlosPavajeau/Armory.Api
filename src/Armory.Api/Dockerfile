@@ -5,10 +5,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["src/Armory.Api/Armory.Api.csproj", "Armory.Api/"]
-RUN dotnet restore "src/Armory.Api/Armory.Api.csproj"
+COPY ["src/Armory.Api/Armory.Api.csproj", "./Armory.Api/"]
+RUN dotnet restore "./Armory.Api/Armory.Api.csproj"
 COPY . .
-WORKDIR "/src/Armory.Api"
+WORKDIR "/src/src/Armory.Api"
 RUN dotnet build "Armory.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
