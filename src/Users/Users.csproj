@@ -7,9 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Application" />
-      <Folder Include="Domain" />
-      <Folder Include="Infrastructure" />
+      <ProjectReference Include="..\Shared\Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.6" />
+      <PackageReference Include="MySql.EntityFrameworkCore" Version="5.0.3.1" />
     </ItemGroup>
 
 </Project>
