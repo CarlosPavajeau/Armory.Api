@@ -19,7 +19,11 @@ namespace Armory.Users.Application.Create
         {
             var user = ArmoryUser.Create(username, email, phone);
 
-            await _repository.Save(user, password);
+            var result = await _repository.Save(user, password);
+            if (!result.Succeeded)
+            {
+                throw new ArmoryUserNotCreate(result);
+            }
         }
     }
 }
