@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  armory_api_db:
+    image: "mysql:latest"
+    container_name: armory_api_database
+    restart: "always"
+    ports:
+      - "3300:3306"
+    networks:
+      - armory_network
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+      MYSQL_DATABASE: armory
+      MYSQL_USER: uarmory
+      MYSQL_PASSWORD: uarmorypassword
+    volumes:
+      - armory_db:/var/lib/mysql
+  api:
+    container_name: armory_api
+    build:
+      context: .
+      dockerfile: src/Armory.Api/Dockerfile
+    networks:
+      - armory_network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    ports:
+      - "3000:80"
+    depends_on:
+      - armory_api_db
+
+networks:
+  armory_network:
+
+volumes:
+  armory_db:
