@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Command;
+using Armory.Shared.Domain.Bus.Query;
 using Armory.Users.Application.Create;
+using Armory.Users.Application.GeneratePasswordResetToken;
 using Armory.Users.Domain;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +12,13 @@ namespace Armory.Api.Controllers.ArmoryUsers
     [Route("[controller]")]
     public class ArmoryUsersController : ControllerBase
     {
-        private readonly ICommandBus _bus;
+        private readonly ICommandBus _commandBus;
+        private readonly IQueryBus _queryBus;
 
-        public ArmoryUsersController(ICommandBus bus)
+        public ArmoryUsersController(ICommandBus commandBus, IQueryBus queryBus)
         {
-            _bus = bus;
+            _commandBus = commandBus;
+            _queryBus = queryBus;
         }
 
         [HttpPost]
@@ -22,7 +26,7 @@ namespace Armory.Api.Controllers.ArmoryUsers
         {
             try
             {
-                await _bus.Dispatch(new CreateArmoryUserCommand(request.UserName, request.Email, request.Phone,
+                await _commandBus.Dispatch(new CreateArmoryUserCommand(request.UserName, request.Email, request.Phone,
                     request.Password));
             }
             catch (ArmoryUserNotCreate e)
@@ -36,6 +40,21 @@ namespace Armory.Api.Controllers.ArmoryUsers
             }
 
             return Ok();
+        }
+
+        [HttpPost("[action]/{userNameOrEmail}")]
+        public async Task<IActionResult> ResetPassword(string userNameOrEmail)
+        {
+            var response = await _queryBus.Ask<PasswordResetTokenResponse>(
+                new GeneratePasswordResetTokenQuery(userNameOrEmail));
+            if (response.TokenGenerated)
+            {
+                return Ok();
+            }
+
+            ModelState.AddModelError("UserNotFound",
+                $"El usuario identificado con '{userNameOrEmail}' no se encuentra registrado.");
+            return NotFound(new ValidationProblemDetails(ModelState));
         }
     }
 }

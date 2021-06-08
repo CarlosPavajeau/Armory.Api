@@ -32,5 +32,10 @@ namespace Armory.Users.Infrastructure.Persistence
         {
             return await _signInManager.PasswordSignInAsync(user, password, isPersistent, false);
         }
+
+        public async Task<string> GeneratePasswordResetToken(ArmoryUser user)
+        {
+            return await _userManager.GeneratePasswordResetTokenAsync(user);
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace Armory.Users.Domain
         Task<IdentityResult> Save(ArmoryUser user, string password);
         Task<ArmoryUser> FindByUsernameOrEmail(string usernameOrEmail);
         Task<SignInResult> Authenticate(ArmoryUser user, string password, bool isPersistent);
+        Task<string> GeneratePasswordResetToken(ArmoryUser user);
     }
 }
