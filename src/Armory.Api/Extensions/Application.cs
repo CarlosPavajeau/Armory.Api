@@ -4,6 +4,7 @@ using Armory.Users.Application.Authenticate;
 using Armory.Users.Application.Create;
 using Armory.Users.Application.GenerateJwt;
 using Armory.Users.Application.GeneratePasswordResetToken;
+using Armory.Users.Application.ResetPassword;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Armory.Api.Extensions
@@ -16,6 +17,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<ArmoryUserAuthenticator, ArmoryUserAuthenticator>();
             services.AddScoped<JwtGenerator, JwtGenerator>();
             services.AddScoped<PasswordResetTokenGenerator, PasswordResetTokenGenerator>();
+            services.AddScoped<PasswordRestorer, PasswordRestorer>();
 
             services.AddCommandServices(AssemblyHelper.GetInstance(Assemblies.Users));
             services.AddQueryServices(AssemblyHelper.GetInstance(Assemblies.Users));

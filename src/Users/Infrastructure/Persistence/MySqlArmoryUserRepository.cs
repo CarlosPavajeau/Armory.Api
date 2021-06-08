@@ -38,6 +38,11 @@ namespace Armory.Users.Infrastructure.Persistence
             return await _userManager.GeneratePasswordResetTokenAsync(user);
         }
 
+        public async Task<IdentityResult> ResetPassword(ArmoryUser user, string token, string newPassword)
+        {
+            return await _userManager.ResetPasswordAsync(user, token, newPassword);
+        }
+
         public async Task Logout()
         {
             await _signInManager.SignOutAsync();
