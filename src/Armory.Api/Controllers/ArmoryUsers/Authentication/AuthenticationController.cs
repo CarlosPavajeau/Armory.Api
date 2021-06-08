@@ -3,6 +3,7 @@ using Armory.Shared.Domain.Bus.Command;
 using Armory.Shared.Domain.Bus.Query;
 using Armory.Users.Application.Authenticate;
 using Armory.Users.Application.GenerateJwt;
+using Armory.Users.Application.Logout;
 using Armory.Users.Domain;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,6 +44,13 @@ namespace Armory.Api.Controllers.ArmoryUsers.Authentication
 
             var token = await _queryBus.Ask<string>(new GenerateJwtQuery(request.UsernameOrEmail));
             return Ok(token);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Logout()
+        {
+            await _commandBus.Dispatch(new LogoutCommand());
+            return Ok();
         }
     }
 }
