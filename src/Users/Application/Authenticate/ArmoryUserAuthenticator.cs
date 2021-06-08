@@ -17,13 +17,13 @@ namespace Armory.Users.Application.Authenticate
             var user = await _repository.FindByUsernameOrEmail(usernameOrEmail);
             if (user == null)
             {
-                throw new ArmoryUserNotAuthenticate();
+                throw new ArmoryUserNotFound();
             }
 
             var result = await _repository.Authenticate(user, password, isPersistent);
             if (!result.Succeeded)
             {
-                throw new ArmoryUserNotAuthenticate(result);
+                throw new ArmoryUserNotAuthenticate();
             }
         }
     }

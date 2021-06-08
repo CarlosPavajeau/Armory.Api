@@ -29,21 +29,19 @@ namespace Armory.Api.Controllers.ArmoryUsers.Authentication
                 await _commandBus.Dispatch(new AuthenticateCommand(request.UsernameOrEmail, request.Password,
                     request.IsPersistent));
             }
-            catch (ArmoryUserNotAuthenticate e)
+            catch (ArmoryUserNotAuthenticate)
             {
-                if (e.Result != null)
-                {
-                    ModelState.AddModelError("IncorrectPassword", "Contraseña de acceso incorrecta.");
-                    return BadRequest(new ValidationProblemDetails(ModelState));
-                }
-
+                ModelState.AddModelError("IncorrectPassword", "Contraseña de acceso incorrecta.");
+                return BadRequest(new ValidationProblemDetails(ModelState));
+            }
+            catch (ArmoryUserNotFound)
+            {
                 ModelState.AddModelError("UserNotFound",
                     $"El usuario identificado con '{request.UsernameOrEmail}' no se encuentra registrado.");
                 return NotFound(new ValidationProblemDetails(ModelState));
             }
 
             var token = await _queryBus.Ask<string>(new GenerateJwtQuery(request.UsernameOrEmail));
-
             return Ok(token);
         }
     }
