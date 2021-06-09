@@ -5,11 +5,13 @@ using Armory.Users.Application.Authenticate;
 using Armory.Users.Application.GenerateJwt;
 using Armory.Users.Application.Logout;
 using Armory.Users.Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Armory.Api.Controllers.ArmoryUsers.Authentication
 {
     [ApiController]
+    [Authorize]
     [Route("[controller]")]
     public class AuthenticationController : ControllerBase
     {
@@ -23,6 +25,7 @@ namespace Armory.Api.Controllers.ArmoryUsers.Authentication
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult<string>> Authenticate([FromBody] AuthenticationRequest request)
         {
             try

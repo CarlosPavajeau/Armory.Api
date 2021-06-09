@@ -11,12 +11,14 @@ using Armory.Users.Application.Create;
 using Armory.Users.Application.GeneratePasswordResetToken;
 using Armory.Users.Application.ResetPassword;
 using Armory.Users.Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Armory.Api.Controllers.ArmoryUsers
 {
     [ApiController]
+    [Authorize]
     [Route("[controller]")]
     public class ArmoryUsersController : ControllerBase
     {
@@ -40,6 +42,7 @@ namespace Armory.Api.Controllers.ArmoryUsers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> RegisterUser([FromBody] CreateArmoryUserRequest request)
         {
             try
@@ -63,6 +66,7 @@ namespace Armory.Api.Controllers.ArmoryUsers
         }
 
         [HttpPost("[action]/{userNameOrEmail}")]
+        [AllowAnonymous]
         public async Task<IActionResult> ForgottenPassword(string userNameOrEmail)
         {
             var response = await _queryBus.Ask<PasswordResetTokenResponse>(
@@ -73,6 +77,7 @@ namespace Armory.Api.Controllers.ArmoryUsers
         }
 
         [HttpPost("[action]/{usernameOrEmail}")]
+        [AllowAnonymous]
         public async Task<IActionResult> ResetPassword(string usernameOrEmail, [FromBody] ResetPasswordRequest request)
         {
             try
