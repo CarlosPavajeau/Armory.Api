@@ -5,6 +5,7 @@ using Armory.Shared.Infrastructure.Bus.Command;
 using Armory.Shared.Infrastructure.Bus.Event;
 using Armory.Shared.Infrastructure.Bus.Query;
 using Armory.Users.Domain;
+using Armory.Users.Infrastructure.Identity;
 using Armory.Users.Infrastructure.Persistence;
 using Armory.Users.Infrastructure.Persistence.EntityFramework;
 using Microsoft.AspNetCore.Identity;
@@ -25,6 +26,7 @@ namespace Armory.Api.Extensions
 
             services.AddIdentity<ArmoryUser, ArmoryRole>()
                 .AddEntityFrameworkStores<ArmoryUserDbContext>()
+                .AddErrorDescriber<SpanishIdentityErrorDescriber>()
                 .AddDefaultTokenProviders();
 
             services.AddScoped<ArmoryUserDbContext, ArmoryUserDbContext>();
