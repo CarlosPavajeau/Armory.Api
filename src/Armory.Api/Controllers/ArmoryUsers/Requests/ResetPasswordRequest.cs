@@ -1,4 +1,4 @@
-namespace Armory.Api.Controllers.ArmoryUsers
+namespace Armory.Api.Controllers.ArmoryUsers.Requests
 {
     public class ResetPasswordRequest
     {
