@@ -42,6 +42,21 @@ namespace Armory.Users.Infrastructure.Persistence
             return await _userManager.ResetPasswordAsync(user, token, newPassword);
         }
 
+        public async Task<IdentityResult> ChangePassword(ArmoryUser user, string oldPassword, string newPassword)
+        {
+            return await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+        }
+
+        public async Task<string> GenerateEmailConfirmationToken(ArmoryUser user)
+        {
+            return await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        }
+
+        public async Task<IdentityResult> ConfirmEmail(ArmoryUser user, string token)
+        {
+            return await _userManager.ConfirmEmailAsync(user, token);
+        }
+
         public async Task Logout()
         {
             await _signInManager.SignOutAsync();

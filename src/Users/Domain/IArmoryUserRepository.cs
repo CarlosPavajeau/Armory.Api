@@ -10,6 +10,9 @@ namespace Armory.Users.Domain
         Task<SignInResult> Authenticate(ArmoryUser user, string password, bool isPersistent);
         Task<string> GeneratePasswordResetToken(ArmoryUser user);
         Task<IdentityResult> ResetPassword(ArmoryUser user, string token, string newPassword);
+        Task<IdentityResult> ChangePassword(ArmoryUser user, string oldPassword, string newPassword);
+        Task<string> GenerateEmailConfirmationToken(ArmoryUser user);
+        Task<IdentityResult> ConfirmEmail(ArmoryUser user, string token);
         Task Logout();
     }
 }

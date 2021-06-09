@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Armory.Users.Domain
 {
-    public class ArmoryUserNotCreated : Exception
+    public class EmailNotConfirmed : Exception
     {
         public IEnumerable<IdentityError> Errors { get; }
 
-        public ArmoryUserNotCreated(IEnumerable<IdentityError> errors)
+        public EmailNotConfirmed(IEnumerable<IdentityError> errors)
         {
             Errors = errors;
         }

@@ -1,7 +1,10 @@
 using Armory.Shared.Extensions;
 using Armory.Shared.Helpers;
 using Armory.Users.Application.Authenticate;
+using Armory.Users.Application.ChangePassword;
+using Armory.Users.Application.ConfirmEmail;
 using Armory.Users.Application.Create;
+using Armory.Users.Application.GenerateEmailConfirmationToken;
 using Armory.Users.Application.GenerateJwt;
 using Armory.Users.Application.GeneratePasswordResetToken;
 using Armory.Users.Application.ResetPassword;
@@ -18,6 +21,9 @@ namespace Armory.Api.Extensions
             services.AddScoped<JwtGenerator, JwtGenerator>();
             services.AddScoped<PasswordResetTokenGenerator, PasswordResetTokenGenerator>();
             services.AddScoped<PasswordRestorer, PasswordRestorer>();
+            services.AddScoped<PasswordChanger, PasswordChanger>();
+            services.AddScoped<EmailConfirmationTokenGenerator, EmailConfirmationTokenGenerator>();
+            services.AddScoped<EmailConfirmer, EmailConfirmer>();
 
             services.AddCommandServices(AssemblyHelper.GetInstance(Assemblies.Users));
             services.AddQueryServices(AssemblyHelper.GetInstance(Assemblies.Users));

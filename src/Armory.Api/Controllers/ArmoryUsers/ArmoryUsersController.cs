@@ -1,12 +1,17 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Armory.Api.Controllers.ArmoryUsers.Requests;
 using Armory.Shared.Domain;
 using Armory.Shared.Domain.Bus.Command;
 using Armory.Shared.Domain.Bus.Query;
+using Armory.Users.Application.ChangePassword;
+using Armory.Users.Application.ConfirmEmail;
 using Armory.Users.Application.Create;
 using Armory.Users.Application.GeneratePasswordResetToken;
 using Armory.Users.Application.ResetPassword;
 using Armory.Users.Domain;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Armory.Api.Controllers.ArmoryUsers
@@ -24,6 +29,16 @@ namespace Armory.Api.Controllers.ArmoryUsers
             _queryBus = queryBus;
         }
 
+        private IActionResult IdentityErrors(IEnumerable<IdentityError> errors)
+        {
+            foreach (var error in errors)
+            {
+                ModelState.AddModelError(error.Code, error.Description);
+            }
+
+            return BadRequest(new ValidationProblemDetails(ModelState));
+        }
+
         [HttpPost]
         public async Task<IActionResult> RegisterUser([FromBody] CreateArmoryUserRequest request)
         {
@@ -32,17 +47,19 @@ namespace Armory.Api.Controllers.ArmoryUsers
                 await _commandBus.Dispatch(new CreateArmoryUserCommand(request.UserName, request.Email, request.Phone,
                     request.Password));
             }
-            catch (ArmoryUserNotCreate e)
+            catch (ArmoryUserNotCreated e)
             {
-                foreach (var error in e.Result.Errors)
-                {
-                    ModelState.AddModelError(error.Code, error.Description);
-                }
-
-                return BadRequest(new ValidationProblemDetails(ModelState));
+                return IdentityErrors(e.Errors);
             }
 
             return Ok();
+        }
+
+        private IActionResult ArmoryUserNotFound(string usernameOrEmail)
+        {
+            ModelState.AddModelError("UserNotFound",
+                $"El usuario identificado con '{usernameOrEmail}' no se encuentra registrado.");
+            return NotFound(new ValidationProblemDetails(ModelState));
         }
 
         [HttpPost("[action]/{userNameOrEmail}")]
@@ -50,14 +67,9 @@ namespace Armory.Api.Controllers.ArmoryUsers
         {
             var response = await _queryBus.Ask<PasswordResetTokenResponse>(
                 new GeneratePasswordResetTokenQuery(userNameOrEmail));
-            if (response.TokenGenerated)
-            {
-                return Ok(Utils.StringToBase64(response.Token));
-            }
-
-            ModelState.AddModelError("UserNotFound",
-                $"El usuario identificado con '{userNameOrEmail}' no se encuentra registrado.");
-            return NotFound(new ValidationProblemDetails(ModelState));
+            return response.TokenGenerated
+                ? Ok(Utils.StringToBase64(response.Token))
+                : ArmoryUserNotFound(userNameOrEmail);
         }
 
         [HttpPost("[action]/{usernameOrEmail}")]
@@ -75,18 +87,51 @@ namespace Armory.Api.Controllers.ArmoryUsers
             }
             catch (ArmoryUserNotFound)
             {
-                ModelState.AddModelError("UserNotFound",
-                    $"El usuario identificado con '{usernameOrEmail}' no se encuentra registrado.");
-                return NotFound(new ValidationProblemDetails(ModelState));
+                return ArmoryUserNotFound(usernameOrEmail);
             }
             catch (PasswordNotReset e)
             {
-                foreach (var error in e.Errors)
-                {
-                    ModelState.AddModelError(error.Code, error.Description);
-                }
+                return IdentityErrors(e.Errors);
+            }
 
-                return BadRequest(new ValidationProblemDetails(ModelState));
+            return Ok();
+        }
+
+        [HttpPut("[action]/{usernameOrEmail}")]
+        public async Task<IActionResult> ChangePassword(string usernameOrEmail,
+            [FromBody] ChangePasswordRequest request)
+        {
+            try
+            {
+                await _commandBus.Dispatch(new ChangePasswordCommand(usernameOrEmail, request.OldPassword,
+                    request.NewPassword));
+            }
+            catch (ArmoryUserNotFound)
+            {
+                return ArmoryUserNotFound(usernameOrEmail);
+            }
+            catch (PasswordNotChange e)
+            {
+                return IdentityErrors(e.Errors);
+            }
+
+            return Ok();
+        }
+
+        [HttpPost("[action]/{usernameOrEmail}")]
+        public async Task<IActionResult> ConfirmEmail(string usernameOrEmail, [FromQuery] string token)
+        {
+            try
+            {
+                await _commandBus.Dispatch(new ConfirmEmailCommand(usernameOrEmail, token));
+            }
+            catch (ArmoryUserNotFound)
+            {
+                return ArmoryUserNotFound(usernameOrEmail);
+            }
+            catch (EmailNotConfirmed e)
+            {
+                return IdentityErrors(e.Errors);
             }
 
             return Ok();
