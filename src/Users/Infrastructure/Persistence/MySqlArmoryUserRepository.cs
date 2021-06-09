@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Armory.Users.Domain;
-using Armory.Users.Infrastructure.Persistence.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 
 namespace Armory.Users.Infrastructure.Persistence
