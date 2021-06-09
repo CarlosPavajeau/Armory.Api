@@ -22,7 +22,7 @@ namespace Armory.Users.Application.Create
             var result = await _repository.Save(user, password);
             if (!result.Succeeded)
             {
-                throw new ArmoryUserNotCreate(result);
+                throw new ArmoryUserNotCreated(result);
             }
         }
     }
