@@ -89,5 +89,12 @@ namespace Armory.Api.Extensions
 
             return app;
         }
+
+        public static IApplicationBuilder ConfigureCors(this IApplicationBuilder app)
+        {
+            app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
+            return app;
+        }
     }
 }
