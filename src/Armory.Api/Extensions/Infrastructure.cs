@@ -5,6 +5,9 @@ using Armory.Shared.Domain.Bus.Query;
 using Armory.Shared.Infrastructure.Bus.Command;
 using Armory.Shared.Infrastructure.Bus.Event;
 using Armory.Shared.Infrastructure.Bus.Query;
+using Armory.Squadron.Domain;
+using Armory.Squadron.Infrastructure.Persistence;
+using Armory.Squadron.Infrastructure.Persistence.EntityFramework;
 using Armory.Users.Domain;
 using Armory.Users.Infrastructure.Identity;
 using Armory.Users.Infrastructure.Persistence;
@@ -24,6 +27,7 @@ namespace Armory.Api.Extensions
             IConfiguration configuration)
         {
             services.AddScoped<IArmoryUserRepository, MySqlArmoryUserRepository>();
+            services.AddScoped<ISquadronRepository, MySqlSquadronRepository>();
             services.AddScoped<InMemoryApplicationEventBus, InMemoryApplicationEventBus>();
             services.AddScoped<IEventBus, InMemoryApplicationEventBus>();
 
@@ -33,7 +37,11 @@ namespace Armory.Api.Extensions
                 .AddDefaultTokenProviders();
 
             services.AddScoped<ArmoryUserDbContext, ArmoryUserDbContext>();
+            services.AddScoped<SquadronDbContext, SquadronDbContext>();
             services.AddDbContext<ArmoryUserDbContext>(
+                options => options.UseMySQL(configuration.GetConnectionString("DefaultConnection")),
+                ServiceLifetime.Transient);
+            services.AddDbContext<SquadronDbContext>(
                 options => options.UseMySQL(configuration.GetConnectionString("DefaultConnection")),
                 ServiceLifetime.Transient);
 

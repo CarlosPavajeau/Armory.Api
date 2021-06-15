@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Squadron\Squadron.csproj" />
       <ProjectReference Include="..\Users\Users.csproj" />
     </ItemGroup>
 
