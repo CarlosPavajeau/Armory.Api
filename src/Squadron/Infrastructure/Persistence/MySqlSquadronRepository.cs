@@ -18,5 +18,10 @@ namespace Armory.Squadron.Infrastructure.Persistence
             await _context.Squadrons.AddAsync(squadron);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<Domain.Squadron> Find(string code)
+        {
+            return await _context.Squadrons.FindAsync(code);
+        }
     }
 }

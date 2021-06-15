@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using Armory.Api.Controllers.Squadron.Requests;
 using Armory.Shared.Domain.Bus.Command;
 using Armory.Shared.Domain.Bus.Query;
+using Armory.Squadron.Application;
 using Armory.Squadron.Application.Create;
+using Armory.Squadron.Application.SearchByCode;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,6 +39,20 @@ namespace Armory.Api.Controllers.Squadron
             }
 
             return Ok();
+        }
+
+        [HttpGet("{code}")]
+        public async Task<ActionResult<SquadronResponse>> GetSquadron(string code)
+        {
+            var response = await _queryBus.Ask<SquadronResponse>(new SearchSquadronByCodeQuery(code));
+            if (response != null)
+            {
+                return Ok(response);
+            }
+
+            ModelState.AddModelError("SquadronNotFound",
+                $"El escuadrón con el código '{code}' no se encuentra registrado.");
+            return NotFound(new ValidationProblemDetails(ModelState));
         }
     }
 }

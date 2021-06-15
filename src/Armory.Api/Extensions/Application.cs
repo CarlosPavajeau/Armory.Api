@@ -1,6 +1,7 @@
 using Armory.Shared.Extensions;
 using Armory.Shared.Helpers;
 using Armory.Squadron.Application.Create;
+using Armory.Squadron.Application.SearchByCode;
 using Armory.Users.Application.Authenticate;
 using Armory.Users.Application.ChangePassword;
 using Armory.Users.Application.ConfirmEmail;
@@ -29,6 +30,7 @@ namespace Armory.Api.Extensions
             services.AddQueryServices(AssemblyHelper.GetInstance(Assemblies.Users));
 
             services.AddScoped<SquadronCreator, SquadronCreator>();
+            services.AddScoped<SquadronByCodeSearcher, SquadronByCodeSearcher>();
             services.AddCommandServices(AssemblyHelper.GetInstance(Assemblies.Squadron));
             services.AddQueryServices(AssemblyHelper.GetInstance(Assemblies.Squadron));
 

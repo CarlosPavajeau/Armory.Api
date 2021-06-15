@@ -5,5 +5,6 @@ namespace Armory.Squadron.Domain
     public interface ISquadronRepository
     {
         Task Save(Squadron squadron);
+        Task<Squadron> Find(string code);
     }
 }
