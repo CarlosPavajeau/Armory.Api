@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Armory.Squadron.Domain;
 using Armory.Squadron.Infrastructure.Persistence.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 
 namespace Armory.Squadron.Infrastructure.Persistence
 {
@@ -22,6 +24,11 @@ namespace Armory.Squadron.Infrastructure.Persistence
         public async Task<Domain.Squadron> Find(string code)
         {
             return await _context.Squadrons.FindAsync(code);
+        }
+
+        public async Task<IEnumerable<Domain.Squadron>> GetAll()
+        {
+            return await _context.Squadrons.ToListAsync();
         }
     }
 }

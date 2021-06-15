@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Armory.Api.Controllers.Squadron.Requests;
 using Armory.Shared.Domain.Bus.Command;
 using Armory.Shared.Domain.Bus.Query;
 using Armory.Squadron.Application;
 using Armory.Squadron.Application.Create;
+using Armory.Squadron.Application.SearchAll;
 using Armory.Squadron.Application.SearchByCode;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +41,13 @@ namespace Armory.Api.Controllers.Squadron
             }
 
             return Ok();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<SquadronResponse>>> GetSquadrons()
+        {
+            var response = await _queryBus.Ask<IEnumerable<SquadronResponse>>(new SearchAllSquadronsQuery());
+            return Ok(response);
         }
 
         [HttpGet("{code}")]
