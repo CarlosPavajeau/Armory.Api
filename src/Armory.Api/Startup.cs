@@ -22,7 +22,8 @@ namespace Armory.Api
             services.AddControllers();
             services.AddApplication()
                 .AddInfrastructure(Configuration)
-                .AddSwagger();
+                .AddSwagger()
+                .AddJwtAuthentication(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using Armory.Shared.Domain.Bus.Command;
 using Armory.Shared.Domain.Bus.Event;
 using Armory.Shared.Domain.Bus.Query;
@@ -12,11 +13,13 @@ using Armory.Users.Domain;
 using Armory.Users.Infrastructure.Identity;
 using Armory.Users.Infrastructure.Persistence;
 using Armory.Users.Infrastructure.Persistence.EntityFramework;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace Armory.Api.Extensions
@@ -85,6 +88,31 @@ namespace Armory.Api.Extensions
                         ArraySegment<string>.Empty
                     }
                 });
+            });
+
+            return services;
+        }
+
+        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services,
+            IConfiguration configuration)
+        {
+            var key = Encoding.UTF8.GetBytes(configuration["SecretKey:Key"]);
+
+            services.AddAuthentication(c =>
+            {
+                c.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                c.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(c =>
+            {
+                c.RequireHttpsMetadata = false;
+                c.SaveToken = true;
+                c.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
             });
 
             return services;
