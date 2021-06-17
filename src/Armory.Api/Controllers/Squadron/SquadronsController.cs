@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using Armory.Api.Controllers.Squadron.Requests;
 using Armory.Shared.Domain.Bus.Command;
 using Armory.Shared.Domain.Bus.Query;
-using Armory.Squadron.Application;
-using Armory.Squadron.Application.Create;
-using Armory.Squadron.Application.SearchAll;
-using Armory.Squadron.Application.SearchByCode;
+using Armory.Squadrons.Application;
+using Armory.Squadrons.Application.Create;
+using Armory.Squadrons.Application.SearchAll;
+using Armory.Squadrons.Application.SearchByCode;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

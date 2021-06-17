@@ -6,13 +6,12 @@ using Armory.Shared.Domain.Bus.Query;
 using Armory.Shared.Infrastructure.Bus.Command;
 using Armory.Shared.Infrastructure.Bus.Event;
 using Armory.Shared.Infrastructure.Bus.Query;
-using Armory.Squadron.Domain;
-using Armory.Squadron.Infrastructure.Persistence;
-using Armory.Squadron.Infrastructure.Persistence.EntityFramework;
+using Armory.Shared.Infrastructure.Persistence.EntityFramework;
+using Armory.Squadrons.Domain;
+using Armory.Squadrons.Infrastructure.Persistence;
 using Armory.Users.Domain;
 using Armory.Users.Infrastructure.Identity;
 using Armory.Users.Infrastructure.Persistence;
-using Armory.Users.Infrastructure.Persistence.EntityFramework;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -35,16 +34,12 @@ namespace Armory.Api.Extensions
             services.AddScoped<IEventBus, InMemoryApplicationEventBus>();
 
             services.AddIdentity<ArmoryUser, ArmoryRole>()
-                .AddEntityFrameworkStores<ArmoryUserDbContext>()
+                .AddEntityFrameworkStores<ArmoryDbContext>()
                 .AddErrorDescriber<SpanishIdentityErrorDescriber>()
                 .AddDefaultTokenProviders();
 
-            services.AddScoped<ArmoryUserDbContext, ArmoryUserDbContext>();
-            services.AddScoped<SquadronDbContext, SquadronDbContext>();
-            services.AddDbContext<ArmoryUserDbContext>(
-                options => options.UseMySQL(configuration.GetConnectionString("DefaultConnection")),
-                ServiceLifetime.Transient);
-            services.AddDbContext<SquadronDbContext>(
+            services.AddScoped<ArmoryDbContext, ArmoryDbContext>();
+            services.AddDbContext<ArmoryDbContext>(
                 options => options.UseMySQL(configuration.GetConnectionString("DefaultConnection")),
                 ServiceLifetime.Transient);
 

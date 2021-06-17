@@ -1,8 +1,8 @@
 using Armory.Shared.Extensions;
 using Armory.Shared.Helpers;
-using Armory.Squadron.Application.Create;
-using Armory.Squadron.Application.SearchAll;
-using Armory.Squadron.Application.SearchByCode;
+using Armory.Squadrons.Application.Create;
+using Armory.Squadrons.Application.SearchAll;
+using Armory.Squadrons.Application.SearchByCode;
 using Armory.Users.Application.Authenticate;
 using Armory.Users.Application.ChangePassword;
 using Armory.Users.Application.ConfirmEmail;
@@ -27,14 +27,12 @@ namespace Armory.Api.Extensions
             services.AddScoped<PasswordChanger, PasswordChanger>();
             services.AddScoped<EmailConfirmationTokenGenerator, EmailConfirmationTokenGenerator>();
             services.AddScoped<EmailConfirmer, EmailConfirmer>();
-            services.AddCommandServices(AssemblyHelper.GetInstance(Assemblies.Users));
-            services.AddQueryServices(AssemblyHelper.GetInstance(Assemblies.Users));
+            services.AddCommandServices(AssemblyHelper.GetInstance(Assemblies.Armory));
+            services.AddQueryServices(AssemblyHelper.GetInstance(Assemblies.Armory));
 
             services.AddScoped<SquadronCreator, SquadronCreator>();
             services.AddScoped<SquadronByCodeSearcher, SquadronByCodeSearcher>();
             services.AddScoped<SquadronsSearcher, SquadronsSearcher>();
-            services.AddCommandServices(AssemblyHelper.GetInstance(Assemblies.Squadron));
-            services.AddQueryServices(AssemblyHelper.GetInstance(Assemblies.Squadron));
 
             return services;
         }

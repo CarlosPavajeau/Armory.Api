@@ -15,7 +15,6 @@ namespace Armory.Shared.Helpers
 
     public static class Assemblies
     {
-        public const string Users = "Armory.Users";
-        public const string Squadron = "Armory.Squadron";
+        public const string Armory = "Armory";
     }
 }
