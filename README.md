@@ -9,15 +9,18 @@ The next project is the definition of the api for the administration of the data
 [![Version](https://img.shields.io/github/v/tag/cantte/Armory.Api)](https://github.com/cantte/Armory.Api/releases)
 
 ## Build status
+
 [![BuildStatus](https://img.shields.io/github/workflow/status/cantte/Armory.Api/.NET)](https://github.com/cantte/Armory.Api/actions/workflows/dotnet.yml)
 
 ## How to install
 
-### Requeriments
+### Requirements
+
 - .Net5
 - ASP.NET
 - Docker
 - MySql
 
 ### Steps (docker)
+
 - run 'docker-compose up --build'
