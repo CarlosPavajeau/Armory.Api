@@ -132,10 +132,8 @@ namespace Armory.Api.Extensions
             return app;
         }
 
-        public static IApplicationBuilder SeedRoles(this IApplicationBuilder app)
+        public static IApplicationBuilder SeedRoles(this IApplicationBuilder app, RoleManager<ArmoryRole> roleManager)
         {
-            var roleManager = app.ApplicationServices.GetRequiredService<RoleManager<ArmoryRole>>();
-
             if (!roleManager.RoleExistsAsync("Developer").Result)
             {
                 var developerRole = new ArmoryRole {Name = "Developer"};
