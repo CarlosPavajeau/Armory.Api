@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
@@ -14,5 +15,7 @@ namespace Armory.Users.Domain
         Task<string> GenerateEmailConfirmationToken(ArmoryUser user);
         Task<IdentityResult> ConfirmEmail(ArmoryUser user, string token);
         Task Logout();
+
+        Task<IEnumerable<ArmoryUser>> SearchAllUsersInRole(string roleName);
     }
 }

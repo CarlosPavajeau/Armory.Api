@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Armory.Users.Domain;
 using Microsoft.AspNetCore.Identity;
@@ -60,6 +61,11 @@ namespace Armory.Users.Infrastructure.Persistence
         public async Task Logout()
         {
             await _signInManager.SignOutAsync();
+        }
+
+        public async Task<IEnumerable<ArmoryUser>> SearchAllUsersInRole(string roleName)
+        {
+            return await _userManager.GetUsersInRoleAsync(roleName);
         }
     }
 }
