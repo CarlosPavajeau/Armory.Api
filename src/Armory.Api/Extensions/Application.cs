@@ -1,3 +1,10 @@
+using Armory.People.Application.Create;
+using Armory.People.Application.Delete;
+using Armory.People.Application.SearchAll;
+using Armory.People.Application.SearchAllByRole;
+using Armory.People.Application.SearchByArmoryUserId;
+using Armory.People.Application.SearchById;
+using Armory.People.Application.Update;
 using Armory.Shared.Extensions;
 using Armory.Shared.Helpers;
 using Armory.Squadrons.Application.Create;
@@ -27,12 +34,21 @@ namespace Armory.Api.Extensions
             services.AddScoped<PasswordChanger, PasswordChanger>();
             services.AddScoped<EmailConfirmationTokenGenerator, EmailConfirmationTokenGenerator>();
             services.AddScoped<EmailConfirmer, EmailConfirmer>();
-            services.AddCommandServices(AssemblyHelper.GetInstance(Assemblies.Armory));
-            services.AddQueryServices(AssemblyHelper.GetInstance(Assemblies.Armory));
+
+            services.AddScoped<PersonCreator, PersonCreator>();
+            services.AddScoped<PersonDeleter, PersonDeleter>();
+            services.AddScoped<PeopleSearcher, PeopleSearcher>();
+            services.AddScoped<PeopleByRoleSearcher, PeopleByRoleSearcher>();
+            services.AddScoped<PersonByArmoryUserIdSearcher, PersonByArmoryUserIdSearcher>();
+            services.AddScoped<PersonByIdSearcher, PersonByIdSearcher>();
+            services.AddScoped<PersonUpdater, PersonUpdater>();
 
             services.AddScoped<SquadronCreator, SquadronCreator>();
             services.AddScoped<SquadronByCodeSearcher, SquadronByCodeSearcher>();
             services.AddScoped<SquadronsSearcher, SquadronsSearcher>();
+
+            services.AddCommandServices(AssemblyHelper.GetInstance(Assemblies.Armory));
+            services.AddQueryServices(AssemblyHelper.GetInstance(Assemblies.Armory));
 
             return services;
         }

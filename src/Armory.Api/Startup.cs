@@ -44,6 +44,8 @@ namespace Armory.Api
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.SeedRoles();
+
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }

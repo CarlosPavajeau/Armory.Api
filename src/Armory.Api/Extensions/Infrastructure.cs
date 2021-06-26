@@ -1,5 +1,7 @@
 using System;
 using System.Text;
+using Armory.People.Domain;
+using Armory.People.Infrastructure;
 using Armory.Shared.Domain.Bus.Command;
 using Armory.Shared.Domain.Bus.Event;
 using Armory.Shared.Domain.Bus.Query;
@@ -28,8 +30,6 @@ namespace Armory.Api.Extensions
         public static IServiceCollection AddInfrastructure(this IServiceCollection services,
             IConfiguration configuration)
         {
-            services.AddScoped<IArmoryUserRepository, MySqlArmoryUserRepository>();
-            services.AddScoped<ISquadronRepository, MySqlSquadronRepository>();
             services.AddScoped<InMemoryApplicationEventBus, InMemoryApplicationEventBus>();
             services.AddScoped<IEventBus, InMemoryApplicationEventBus>();
 
@@ -47,6 +47,10 @@ namespace Armory.Api.Extensions
             services.AddScoped<IQueryBus, InMemoryQueryBus>();
 
             services.Configure<SecretKey>(configuration.GetSection("SecretKey"));
+
+            services.AddScoped<IArmoryUserRepository, MySqlArmoryUserRepository>();
+            services.AddScoped<ISquadronRepository, MySqlSquadronRepository>();
+            services.AddScoped<IPersonRepository, MySqlPersonRepository>();
 
             return services;
         }
@@ -124,6 +128,19 @@ namespace Armory.Api.Extensions
         public static IApplicationBuilder ConfigureCors(this IApplicationBuilder app)
         {
             app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
+            return app;
+        }
+
+        public static IApplicationBuilder SeedRoles(this IApplicationBuilder app)
+        {
+            var roleManager = app.ApplicationServices.GetRequiredService<RoleManager<ArmoryRole>>();
+
+            if (!roleManager.RoleExistsAsync("Developer").Result)
+            {
+                var developerRole = new ArmoryRole {Name = "Developer"};
+                var result = roleManager.CreateAsync(developerRole).Result;
+            }
 
             return app;
         }

@@ -1,9 +1,12 @@
+using Armory.People.Domain;
 using Microsoft.AspNetCore.Identity;
 
 namespace Armory.Users.Domain
 {
     public sealed class ArmoryUser : IdentityUser
     {
+        public Person Person { get; set; }
+
         public ArmoryUser(string username, string email, string phone)
         {
             UserName = username;
