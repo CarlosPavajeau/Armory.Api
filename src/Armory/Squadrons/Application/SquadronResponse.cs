@@ -17,7 +17,7 @@ namespace Armory.Squadrons.Application
 
         public static SquadronResponse FromAggregate(Squadron squadron)
         {
-            return new SquadronResponse(squadron.Code, squadron.Name, squadron.ArmoryUserId);
+            return new(squadron.Code, squadron.Name, squadron.ArmoryUserId);
         }
     }
 }
