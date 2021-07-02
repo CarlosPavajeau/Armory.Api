@@ -60,7 +60,7 @@ namespace Armory.Api.Controllers.People
         private NotFoundObjectResult PersonNotFound(string id)
         {
             ModelState.AddModelError("PersonNotFound",
-                $"No se encontró ninguna persona con la identificación '${id}'.");
+                $"No se encontró ninguna persona con la identificación '{id}'.");
             return NotFound(new ValidationProblemDetails(ModelState));
         }
 
@@ -93,7 +93,7 @@ namespace Armory.Api.Controllers.People
             }
 
             ModelState.AddModelError("PersonNotFound",
-                $"No se encontró ninguna persona con el id de usuario '${userId}'.");
+                $"No se encontró ninguna persona con el id de usuario '{userId}'.");
             return NotFound(new ValidationProblemDetails(ModelState));
         }
 
