@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Armory.People.Domain;
 using Armory.Users.Domain;
 
 namespace Armory.Squadrons.Domain
@@ -8,15 +9,15 @@ namespace Armory.Squadrons.Domain
     {
         [Key, MaxLength(50)] public string Code { get; set; }
         [Required, MaxLength(128)] public string Name { get; set; }
-        [Required] public string ArmoryUserId { get; set; }
+        [Required] public string PersonId { get; set; }
 
-        [ForeignKey("ArmoryUserId")] public ArmoryUser User { get; set; }
+        [ForeignKey("PersonId")] public Person Owner { get; set; }
 
-        public Squadron(string code, string name, string armoryUserId)
+        public Squadron(string code, string name, string personId)
         {
             Code = code;
             Name = name;
-            ArmoryUserId = armoryUserId;
+            PersonId = personId;
         }
 
         private Squadron()

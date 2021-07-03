@@ -14,7 +14,7 @@ namespace Armory.Squadrons.Application.Create
 
         public async Task Handle(CreateSquadronCommand command)
         {
-            await _creator.Create(command.Code, command.Name, command.ArmoryUserId);
+            await _creator.Create(command.Code, command.Name, command.PersonId);
         }
     }
 }

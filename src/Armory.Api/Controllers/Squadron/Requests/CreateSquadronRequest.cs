@@ -4,6 +4,6 @@ namespace Armory.Api.Controllers.Squadron.Requests
     {
         public string Code { get; set; }
         public string Name { get; set; }
-        public string ArmoryUserId { get; set; }
+        public string PersonId { get; set; }
     }
 }

@@ -6,13 +6,13 @@ namespace Armory.Squadrons.Application.Create
     {
         public string Code { get; }
         public string Name { get; }
-        public string ArmoryUserId { get; }
+        public string PersonId { get; }
 
-        public CreateSquadronCommand(string code, string name, string armoryUserId)
+        public CreateSquadronCommand(string code, string name, string personId)
         {
             Code = code;
             Name = name;
-            ArmoryUserId = armoryUserId;
+            PersonId = personId;
         }
     }
 }

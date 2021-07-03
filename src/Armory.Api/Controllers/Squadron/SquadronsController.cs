@@ -32,7 +32,7 @@ namespace Armory.Api.Controllers.Squadron
         {
             try
             {
-                await _commandBus.Dispatch(new CreateSquadronCommand(request.Code, request.Name, request.ArmoryUserId));
+                await _commandBus.Dispatch(new CreateSquadronCommand(request.Code, request.Name, request.PersonId));
             }
             catch (Exception e)
             {
