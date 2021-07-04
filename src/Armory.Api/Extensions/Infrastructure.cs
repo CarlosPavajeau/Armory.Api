@@ -140,6 +140,24 @@ namespace Armory.Api.Extensions
                 var result = roleManager.CreateAsync(developerRole).Result;
             }
 
+            if (!roleManager.RoleExistsAsync("SquadronLeader").Result)
+            {
+                var squadronLeader = new ArmoryRole {Name = "SquadronLeader"};
+                var result = roleManager.CreateAsync(squadronLeader).Result;
+            }
+
+            if (!roleManager.RoleExistsAsync("SquadLeader").Result)
+            {
+                var squadLeader = new ArmoryRole {Name = "SquadLeader"};
+                var result = roleManager.CreateAsync(squadLeader).Result;
+            }
+
+            if (!roleManager.RoleExistsAsync("StoreLeader").Result)
+            {
+                var inventoryLeader = new ArmoryRole {Name = "StoreLeader"};
+                var result = roleManager.CreateAsync(inventoryLeader).Result;
+            }
+
             return app;
         }
     }
