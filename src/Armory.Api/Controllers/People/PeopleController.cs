@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Armory.Api.Controllers.People.Requests;
 using Armory.People.Application;
+using Armory.People.Application.CheckExists;
 using Armory.People.Application.Create;
 using Armory.People.Application.Delete;
 using Armory.People.Application.SearchAll;
@@ -41,10 +42,17 @@ namespace Armory.Api.Controllers.People
                 await _commandBus.Dispatch(new CreatePersonCommand(request.Id, request.FirstName, request.SecondName,
                     request.LastName, request.SecondLastName, request.ArmoryUserId));
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException)
             {
-                Console.WriteLine(e);
-                throw;
+                var personExists = await _queryBus.Ask<bool>(new CheckPersonExistsQuery(request.Id));
+                if (!personExists)
+                {
+                    throw;
+                }
+
+                ModelState.AddModelError("PersonAlreadyRegistered",
+                    $"Ya existe una persona con la identificación {request.Id}");
+                return Conflict(new ValidationProblemDetails(ModelState));
             }
 
             return Ok();

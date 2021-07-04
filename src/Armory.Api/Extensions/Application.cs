@@ -1,3 +1,4 @@
+using Armory.People.Application.CheckExists;
 using Armory.People.Application.Create;
 using Armory.People.Application.Delete;
 using Armory.People.Application.SearchAll;
@@ -42,6 +43,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<PersonByArmoryUserIdSearcher, PersonByArmoryUserIdSearcher>();
             services.AddScoped<PersonByIdSearcher, PersonByIdSearcher>();
             services.AddScoped<PersonUpdater, PersonUpdater>();
+            services.AddScoped<PersonExistsChecker, PersonExistsChecker>();
 
             services.AddScoped<SquadronCreator, SquadronCreator>();
             services.AddScoped<SquadronByCodeSearcher, SquadronByCodeSearcher>();

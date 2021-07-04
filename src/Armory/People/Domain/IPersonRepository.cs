@@ -12,6 +12,7 @@ namespace Armory.People.Domain
 
         Task<IEnumerable<Person>> SearchAll();
         Task<IEnumerable<Person>> SearchAllByRole(string roleName);
+        Task<bool> CheckExists(string id);
 
         Task Update(Person newPerson);
         Task Delete(Person person);

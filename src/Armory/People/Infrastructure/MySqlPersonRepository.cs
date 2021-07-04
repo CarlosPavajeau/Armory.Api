@@ -50,6 +50,11 @@ namespace Armory.People.Infrastructure
                 .ToListAsync();
         }
 
+        public async Task<bool> CheckExists(string id)
+        {
+            return await _context.People.AnyAsync(p => p.Id == id);
+        }
+
         public async Task Update(Person newPerson)
         {
             _context.People.Update(newPerson);
