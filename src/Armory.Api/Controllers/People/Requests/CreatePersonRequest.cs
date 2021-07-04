@@ -8,7 +8,8 @@ namespace Armory.Api.Controllers.People.Requests
         public string SecondName { get; set; }
         public string LastName { get; set; }
         public string SecondLastName { get; set; }
-
-        public string ArmoryUserId { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+        public string RoleName { get; set; }
     }
 }

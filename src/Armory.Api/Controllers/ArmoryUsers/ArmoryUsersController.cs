@@ -8,7 +8,6 @@ using Armory.Shared.Domain.Bus.Query;
 using Armory.Users.Application;
 using Armory.Users.Application.ChangePassword;
 using Armory.Users.Application.ConfirmEmail;
-using Armory.Users.Application.Create;
 using Armory.Users.Application.GeneratePasswordResetToken;
 using Armory.Users.Application.ResetPassword;
 using Armory.Users.Application.SearchAllRoles;
@@ -41,23 +40,6 @@ namespace Armory.Api.Controllers.ArmoryUsers
             }
 
             return BadRequest(new ValidationProblemDetails(ModelState));
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> RegisterUser([FromBody] CreateArmoryUserRequest request)
-        {
-            try
-            {
-                await _commandBus.Dispatch(new CreateArmoryUserCommand(request.UserName, request.Email, request.Phone,
-                    request.Password));
-            }
-            catch (ArmoryUserNotCreated e)
-            {
-                return IdentityErrors(e.Errors);
-            }
-
-            return Ok();
         }
 
         private IActionResult ArmoryUserNotFound(string usernameOrEmail)

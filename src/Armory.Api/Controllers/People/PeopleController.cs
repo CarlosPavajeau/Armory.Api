@@ -40,7 +40,7 @@ namespace Armory.Api.Controllers.People
             try
             {
                 await _commandBus.Dispatch(new CreatePersonCommand(request.Id, request.FirstName, request.SecondName,
-                    request.LastName, request.SecondLastName, request.ArmoryUserId));
+                    request.LastName, request.SecondLastName, request.Email, request.PhoneNumber, request.RoleName));
             }
             catch (DbUpdateException)
             {

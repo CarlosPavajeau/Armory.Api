@@ -11,6 +11,7 @@ using Armory.Shared.Helpers;
 using Armory.Squadrons.Application.Create;
 using Armory.Squadrons.Application.SearchAll;
 using Armory.Squadrons.Application.SearchByCode;
+using Armory.Users.Application.AddToRole;
 using Armory.Users.Application.Authenticate;
 using Armory.Users.Application.ChangePassword;
 using Armory.Users.Application.ConfirmEmail;
@@ -36,6 +37,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<PasswordChanger, PasswordChanger>();
             services.AddScoped<EmailConfirmationTokenGenerator, EmailConfirmationTokenGenerator>();
             services.AddScoped<EmailConfirmer, EmailConfirmer>();
+            services.AddScoped<RoleAggregator, RoleAggregator>();
             services.AddScoped<RoleSearcher, RoleSearcher>();
 
             services.AddScoped<PersonCreator, PersonCreator>();

@@ -10,18 +10,22 @@ namespace Armory.People.Application.Create
         public string SecondName { get; }
         public string LastName { get; }
         public string SecondLastName { get; }
+        public string Email { get; }
+        public string PhoneNumber { get; }
 
-        public string ArmoryUserId { get; }
+        public string RoleName { get; }
 
         public CreatePersonCommand(string id, string firstName, string secondName, string lastName,
-            string secondLastName, string armoryUserId)
+            string secondLastName, string email, string phoneNumber, string roleName)
         {
             Id = id;
             FirstName = firstName;
             SecondName = secondName;
             LastName = lastName;
             SecondLastName = secondLastName;
-            ArmoryUserId = armoryUserId;
+            Email = email;
+            PhoneNumber = phoneNumber;
+            RoleName = roleName;
         }
     }
 }

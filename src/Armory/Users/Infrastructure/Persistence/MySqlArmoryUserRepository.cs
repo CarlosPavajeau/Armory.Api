@@ -77,5 +77,10 @@ namespace Armory.Users.Infrastructure.Persistence
         {
             return await _dbContext.Roles.ToListAsync();
         }
+
+        public async Task<IdentityResult> AddToRole(ArmoryUser user, string roleName)
+        {
+            return await _userManager.AddToRoleAsync(user, roleName);
+        }
     }
 }

@@ -18,5 +18,7 @@ namespace Armory.Users.Domain
 
         Task<IEnumerable<ArmoryUser>> SearchAllUsersInRole(string roleName);
         Task<IEnumerable<ArmoryRole>> SearchAllRoles();
+
+        Task<IdentityResult> AddToRole(ArmoryUser user, string roleName);
     }
 }

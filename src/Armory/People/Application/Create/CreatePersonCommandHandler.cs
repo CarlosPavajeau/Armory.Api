@@ -15,7 +15,7 @@ namespace Armory.People.Application.Create
         public async Task Handle(CreatePersonCommand command)
         {
             await _creator.Create(command.Id, command.FirstName, command.SecondName, command.LastName,
-                command.SecondLastName, command.ArmoryUserId);
+                command.SecondLastName, command.Email, command.PhoneNumber, command.RoleName);
         }
     }
 }
