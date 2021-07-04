@@ -14,7 +14,9 @@ using Armory.People.Application.Update;
 using Armory.People.Domain;
 using Armory.Shared.Domain.Bus.Command;
 using Armory.Shared.Domain.Bus.Query;
+using Armory.Users.Domain;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,6 +34,16 @@ namespace Armory.Api.Controllers.People
         {
             _commandBus = commandBus;
             _queryBus = queryBus;
+        }
+
+        private IActionResult IdentityErrors(IEnumerable<IdentityError> errors)
+        {
+            foreach (var error in errors)
+            {
+                ModelState.AddModelError(error.Code, error.Description);
+            }
+
+            return BadRequest(new ValidationProblemDetails(ModelState));
         }
 
         [HttpPost]
@@ -53,6 +65,10 @@ namespace Armory.Api.Controllers.People
                 ModelState.AddModelError("PersonAlreadyRegistered",
                     $"Ya existe una persona con la identificación {request.Id}");
                 return Conflict(new ValidationProblemDetails(ModelState));
+            }
+            catch (ArmoryUserNotCreated e)
+            {
+                return IdentityErrors(e.Errors);
             }
 
             return Ok();

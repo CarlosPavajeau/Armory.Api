@@ -38,6 +38,12 @@ namespace Armory.Api.Extensions
                 .AddErrorDescriber<SpanishIdentityErrorDescriber>()
                 .AddDefaultTokenProviders();
 
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            });
+
             services.AddScoped<ArmoryDbContext, ArmoryDbContext>();
             services.AddDbContext<ArmoryDbContext>(
                 options => options.UseMySQL(configuration.GetConnectionString("DefaultConnection")),

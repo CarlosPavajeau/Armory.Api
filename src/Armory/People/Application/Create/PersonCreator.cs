@@ -18,7 +18,7 @@ namespace Armory.People.Application.Create
         public async Task Create(string id, string firstName, string secondName, string lastName, string secondLastName,
             string email, string phoneNumber, string roleName)
         {
-            var user = await _userCreator.Create(id, email, phoneNumber, id, roleName);
+            var user = await _userCreator.Create(id, email, phoneNumber, $"{id}{firstName}", roleName);
             var person = Person.Create(id, firstName, secondName, lastName, secondLastName, user.Id);
 
             await _repository.Save(person);
