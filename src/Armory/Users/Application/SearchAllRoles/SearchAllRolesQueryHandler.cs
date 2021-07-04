@@ -1,0 +1,21 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Armory.Shared.Domain.Bus.Query;
+
+namespace Armory.Users.Application.SearchAllRoles
+{
+    public class SearchAllRolesQueryHandler : IQueryHandler<SearchAllRolesQuery, IEnumerable<ArmoryRoleResponse>>
+    {
+        private readonly RoleSearcher _searcher;
+
+        public SearchAllRolesQueryHandler(RoleSearcher searcher)
+        {
+            _searcher = searcher;
+        }
+
+        public async Task<IEnumerable<ArmoryRoleResponse>> Handle(SearchAllRolesQuery query)
+        {
+            return await _searcher.SearchAllRoles();
+        }
+    }
+}

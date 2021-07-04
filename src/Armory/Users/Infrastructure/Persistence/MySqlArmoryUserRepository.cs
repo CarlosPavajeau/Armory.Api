@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Armory.Shared.Infrastructure.Persistence.EntityFramework;
 using Armory.Users.Domain;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Armory.Users.Infrastructure.Persistence
 {
@@ -9,11 +11,14 @@ namespace Armory.Users.Infrastructure.Persistence
     {
         private readonly UserManager<ArmoryUser> _userManager;
         private readonly SignInManager<ArmoryUser> _signInManager;
+        private readonly ArmoryDbContext _dbContext;
 
-        public MySqlArmoryUserRepository(UserManager<ArmoryUser> userManager, SignInManager<ArmoryUser> signInManager)
+        public MySqlArmoryUserRepository(UserManager<ArmoryUser> userManager, SignInManager<ArmoryUser> signInManager,
+            ArmoryDbContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _dbContext = dbContext;
         }
 
         public async Task<IdentityResult> Save(ArmoryUser user, string password)
@@ -66,6 +71,11 @@ namespace Armory.Users.Infrastructure.Persistence
         public async Task<IEnumerable<ArmoryUser>> SearchAllUsersInRole(string roleName)
         {
             return await _userManager.GetUsersInRoleAsync(roleName);
+        }
+
+        public async Task<IEnumerable<ArmoryRole>> SearchAllRoles()
+        {
+            return await _dbContext.Roles.ToListAsync();
         }
     }
 }

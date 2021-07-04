@@ -17,5 +17,6 @@ namespace Armory.Users.Domain
         Task Logout();
 
         Task<IEnumerable<ArmoryUser>> SearchAllUsersInRole(string roleName);
+        Task<IEnumerable<ArmoryRole>> SearchAllRoles();
     }
 }

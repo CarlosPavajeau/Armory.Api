@@ -19,6 +19,7 @@ using Armory.Users.Application.GenerateEmailConfirmationToken;
 using Armory.Users.Application.GenerateJwt;
 using Armory.Users.Application.GeneratePasswordResetToken;
 using Armory.Users.Application.ResetPassword;
+using Armory.Users.Application.SearchAllRoles;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Armory.Api.Extensions
@@ -35,6 +36,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<PasswordChanger, PasswordChanger>();
             services.AddScoped<EmailConfirmationTokenGenerator, EmailConfirmationTokenGenerator>();
             services.AddScoped<EmailConfirmer, EmailConfirmer>();
+            services.AddScoped<RoleSearcher, RoleSearcher>();
 
             services.AddScoped<PersonCreator, PersonCreator>();
             services.AddScoped<PersonDeleter, PersonDeleter>();

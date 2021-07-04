@@ -5,11 +5,13 @@ using Armory.Api.Controllers.ArmoryUsers.Requests;
 using Armory.Shared.Domain;
 using Armory.Shared.Domain.Bus.Command;
 using Armory.Shared.Domain.Bus.Query;
+using Armory.Users.Application;
 using Armory.Users.Application.ChangePassword;
 using Armory.Users.Application.ConfirmEmail;
 using Armory.Users.Application.Create;
 using Armory.Users.Application.GeneratePasswordResetToken;
 using Armory.Users.Application.ResetPassword;
+using Armory.Users.Application.SearchAllRoles;
 using Armory.Users.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -140,6 +142,13 @@ namespace Armory.Api.Controllers.ArmoryUsers
             }
 
             return Ok();
+        }
+
+        [HttpGet("Roles")]
+        public async Task<ActionResult<IEnumerable<ArmoryRoleResponse>>> GetRoles()
+        {
+            var roles = await _queryBus.Ask<IEnumerable<ArmoryRoleResponse>>(new SearchAllRolesQuery());
+            return Ok(roles);
         }
     }
 }
