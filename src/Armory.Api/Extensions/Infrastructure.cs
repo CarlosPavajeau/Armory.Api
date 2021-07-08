@@ -11,6 +11,8 @@ using Armory.Shared.Infrastructure.Bus.Query;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
 using Armory.Squadrons.Domain;
 using Armory.Squadrons.Infrastructure.Persistence;
+using Armory.Squads.Domain;
+using Armory.Squads.Infrastructure.Persistence;
 using Armory.Users.Domain;
 using Armory.Users.Infrastructure.Identity;
 using Armory.Users.Infrastructure.Persistence;
@@ -57,6 +59,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<IArmoryUserRepository, MySqlArmoryUserRepository>();
             services.AddScoped<ISquadronRepository, MySqlSquadronRepository>();
             services.AddScoped<IPersonRepository, MySqlPersonRepository>();
+            services.AddScoped<ISquadRepository, MySqlSquadRepository>();
 
             return services;
         }

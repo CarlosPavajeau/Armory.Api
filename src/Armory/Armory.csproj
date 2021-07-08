@@ -6,7 +6,6 @@
 
     <ItemGroup>
       <Folder Include="Squadrons" />
-      <Folder Include="Squads" />
       <Folder Include="Troopers" />
       <Folder Include="Users" />
     </ItemGroup>

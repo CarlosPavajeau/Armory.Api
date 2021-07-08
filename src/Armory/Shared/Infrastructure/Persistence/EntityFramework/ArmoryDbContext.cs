@@ -1,6 +1,7 @@
 using Armory.People.Domain;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework.EntityConfigurations;
 using Armory.Squadrons.Domain;
+using Armory.Squads.Domain;
 using Armory.Users.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework
     {
         public DbSet<Squadron> Squadrons { get; set; }
         public DbSet<Person> People { get; set; }
+        public DbSet<Squad> Squads { get; set; }
 
         public ArmoryDbContext(DbContextOptions<ArmoryDbContext> options) : base(options)
         {
@@ -25,6 +27,7 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework
             builder.ApplyConfiguration(new ArmoryUserLoginConfiguration());
             builder.ApplyConfiguration(new ArmoryUserTokenConfiguration());
             builder.ApplyConfiguration(new SquadronConfiguration());
+            builder.ApplyConfiguration(new SquadConfiguration());
         }
     }
 }

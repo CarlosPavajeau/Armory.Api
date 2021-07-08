@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Armory.Squadrons.Domain;
+using Armory.Squads.Domain;
 using Armory.Users.Domain;
 
 namespace Armory.People.Domain
@@ -20,6 +21,7 @@ namespace Armory.People.Domain
         [ForeignKey("ArmoryUserId")] public ArmoryUser ArmoryUser { get; set; }
 
         public ICollection<Squadron> Squadrons { get; set; } = new HashSet<Squadron>();
+        public ICollection<Squad> Squads { get; set; } = new HashSet<Squad>();
 
         public Person(string id, string firstName, string secondName, string lastName, string secondLastName,
             string armoryUserId)

@@ -1,14 +1,15 @@
-using Armory.Squadrons.Domain;
+using Armory.Squads.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Armory.Shared.Infrastructure.Persistence.EntityFramework.EntityConfigurations
 {
-    public class SquadronConfiguration : IEntityTypeConfiguration<Squadron>
+    public class SquadConfiguration : IEntityTypeConfiguration<Squad>
     {
-        public void Configure(EntityTypeBuilder<Squadron> builder)
+        public void Configure(EntityTypeBuilder<Squad> builder)
         {
             builder.Property(p => p.PersonId).HasMaxLength(10);
+            builder.Property(p => p.SquadronCode).HasMaxLength(50);
         }
     }
 }
