@@ -1,3 +1,4 @@
+using Armory.Armament.Weapons.Domain;
 using Armory.People.Domain;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework.EntityConfigurations;
 using Armory.Squadrons.Domain;
@@ -13,6 +14,7 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework
         public DbSet<Squadron> Squadrons { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<Squad> Squads { get; set; }
+        public DbSet<Weapon> Weapons { get; set; }
 
         public ArmoryDbContext(DbContextOptions<ArmoryDbContext> options) : base(options)
         {

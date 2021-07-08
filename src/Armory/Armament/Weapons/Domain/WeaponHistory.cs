@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Armory.Armament.Domain
+namespace Armory.Armament.Weapons.Domain
 {
     public class WeaponHistory
     {

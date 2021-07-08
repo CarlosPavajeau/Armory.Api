@@ -1,3 +1,7 @@
+using Armory.Armament.Weapons.Application.Create;
+using Armory.Armament.Weapons.Application.SearchAll;
+using Armory.Armament.Weapons.Application.SearchByCode;
+using Armory.Armament.Weapons.Application.Update;
 using Armory.People.Application.CheckExists;
 using Armory.People.Application.Create;
 using Armory.People.Application.Delete;
@@ -59,6 +63,11 @@ namespace Armory.Api.Extensions
             services.AddScoped<SquadCreator, SquadCreator>();
             services.AddScoped<SquadsSearcher, SquadsSearcher>();
             services.AddScoped<SquadByCodeSearcher, SquadByCodeSearcher>();
+
+            services.AddScoped<WeaponCreator, WeaponCreator>();
+            services.AddScoped<WeaponSearcher, WeaponSearcher>();
+            services.AddScoped<WeaponByCodeSearcher, WeaponByCodeSearcher>();
+            services.AddScoped<WeaponUpdater, WeaponUpdater>();
 
             services.AddCommandServices(AssemblyHelper.GetInstance(Assemblies.Armory));
             services.AddQueryServices(AssemblyHelper.GetInstance(Assemblies.Armory));

@@ -1,5 +1,7 @@
 using System;
 using System.Text;
+using Armory.Armament.Weapons.Domain;
+using Armory.Armament.Weapons.Infrastructure.Persistence;
 using Armory.People.Domain;
 using Armory.People.Infrastructure;
 using Armory.Shared.Domain.Bus.Command;
@@ -60,6 +62,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<ISquadronRepository, MySqlSquadronRepository>();
             services.AddScoped<IPersonRepository, MySqlPersonRepository>();
             services.AddScoped<ISquadRepository, MySqlSquadRepository>();
+            services.AddScoped<IWeaponsRepository, MySqlWeaponsRepository>();
 
             return services;
         }
