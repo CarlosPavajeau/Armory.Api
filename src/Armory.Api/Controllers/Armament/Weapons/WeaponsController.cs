@@ -48,18 +48,18 @@ namespace Armory.Api.Controllers.Armament.Weapons
             return Ok();
         }
 
-        private NotFoundObjectResult WeaponNotFound(string code)
-        {
-            ModelState.AddModelError("WeaponNotFound",
-                $"No se encontró ningun arma con el código '{code}'.");
-            return NotFound(new ValidationProblemDetails(ModelState));
-        }
-
         [HttpGet]
         public async Task<ActionResult<IEnumerable<WeaponResponse>>> GetWeapons()
         {
             var weapons = await _queryBus.Ask<IEnumerable<WeaponResponse>>(new SearchAllWeaponsQuery());
             return Ok(weapons);
+        }
+
+        private NotFoundObjectResult WeaponNotFound(string code)
+        {
+            ModelState.AddModelError("WeaponNotFound",
+                $"No se encontró ningun arma con el código '{code}'.");
+            return NotFound(new ValidationProblemDetails(ModelState));
         }
 
         [HttpGet("{code}")]
