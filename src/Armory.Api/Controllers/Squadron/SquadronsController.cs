@@ -60,7 +60,7 @@ namespace Armory.Api.Controllers.Squadron
             }
 
             ModelState.AddModelError("SquadronNotFound",
-                $"El escuadrón con el código '{code}' no se encuentra registrado.");
+                $"La escuadrilla con el código '{code}' no se encuentra registrado.");
             return NotFound(new ValidationProblemDetails(ModelState));
         }
     }
