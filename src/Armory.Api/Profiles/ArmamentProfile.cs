@@ -1,4 +1,7 @@
+using Armory.Api.Controllers.Armament.Ammunition.Requests;
 using Armory.Api.Controllers.Armament.Weapons.Requests;
+using Armory.Armament.Ammunition.Application.Create;
+using Armory.Armament.Ammunition.Application.Update;
 using Armory.Armament.Weapons.Application.Create;
 using Armory.Armament.Weapons.Application.Update;
 using AutoMapper;
@@ -11,6 +14,9 @@ namespace Armory.Api.Profiles
         {
             CreateMap<CreateWeaponRequest, CreateWeaponCommand>();
             CreateMap<UpdateWeaponRequest, UpdateWeaponCommand>();
+
+            CreateMap<CreateAmmunitionRequest, CreateAmmunitionCommand>();
+            CreateMap<UpdateAmmunitionRequest, UpdateAmmunitionCommand>();
         }
     }
 }
