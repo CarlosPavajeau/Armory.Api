@@ -3,14 +3,16 @@ using System;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Armory.Migrations
 {
     [DbContext(typeof(ArmoryDbContext))]
-    partial class ArmoryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210710192600_AddEquipments")]
+    partial class AddEquipments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
