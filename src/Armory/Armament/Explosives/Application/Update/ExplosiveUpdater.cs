@@ -12,15 +12,9 @@ namespace Armory.Armament.Explosives.Application.Update
             _repository = repository;
         }
 
-        public async Task Update(string code, string type, string caliber, string mark, string lot, string series,
-            int quantityAvailable)
+        public async Task Update(Explosive explosive, string type, string caliber, string mark, string lot,
+            string series, int quantityAvailable)
         {
-            var explosive = await _repository.Find(code);
-            if (explosive == null)
-            {
-                throw new ExplosiveNotFound();
-            }
-
             explosive.Update(type, caliber, mark, lot, series, quantityAvailable);
             await _repository.Update(explosive);
         }

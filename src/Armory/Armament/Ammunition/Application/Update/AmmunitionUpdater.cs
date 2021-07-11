@@ -12,15 +12,9 @@ namespace Armory.Armament.Ammunition.Application.Update
             _repository = repository;
         }
 
-        public async Task Update(string code, string type, string mark, string caliber, string series, string lot,
-            int quantityAvailable)
+        public async Task Update(Domain.Ammunition ammunition, string type, string mark, string caliber, string series,
+            string lot, int quantityAvailable)
         {
-            var ammunition = await _repository.Find(code);
-            if (ammunition == null)
-            {
-                throw new AmmunitionNotFound();
-            }
-
             ammunition.Update(type, mark, caliber, series, lot, quantityAvailable);
             await _repository.Update(ammunition);
         }

@@ -12,15 +12,9 @@ namespace Armory.People.Application.Update
             _repository = repository;
         }
 
-        public async Task Update(string id, string newFirstName, string newSecondName, string newLastname,
+        public async Task Update(Person person, string newFirstName, string newSecondName, string newLastname,
             string newSecondLastName)
         {
-            var person = await _repository.Find(id);
-            if (person == null)
-            {
-                throw new PersonNotFound();
-            }
-
             person.Update(newFirstName, newSecondName, newLastname, newSecondLastName);
             await _repository.Update(person);
         }

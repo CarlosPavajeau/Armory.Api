@@ -65,7 +65,7 @@ namespace Armory.Api.Controllers.Armament.Equipments
         [HttpGet("{code}")]
         public async Task<ActionResult<EquipmentResponse>> GetEquipment(string code)
         {
-            var equipment = await _queryBus.Ask<EquipmentResponse>(new SearchEquipmentByCodeQuery(code));
+            var equipment = await _queryBus.Ask<EquipmentResponse>(new FindEquipmentQuery(code));
             if (equipment != null)
             {
                 return Ok(equipment);

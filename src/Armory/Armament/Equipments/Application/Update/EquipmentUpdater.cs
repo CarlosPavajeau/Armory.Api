@@ -12,14 +12,8 @@ namespace Armory.Armament.Equipments.Application.Update
             _repository = repository;
         }
 
-        public async Task Update(string code, string type, string model, string series, int quantityAvailable)
+        public async Task Update(Equipment equipment, string type, string model, string series, int quantityAvailable)
         {
-            var equipment = await _repository.Find(code);
-            if (equipment == null)
-            {
-                throw new EquipmentNotFound();
-            }
-
             equipment.Update(type, model, series, quantityAvailable);
             await _repository.Update(equipment);
         }
