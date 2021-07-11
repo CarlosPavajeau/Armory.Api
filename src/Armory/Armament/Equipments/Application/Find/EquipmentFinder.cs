@@ -12,10 +12,9 @@ namespace Armory.Armament.Equipments.Application.Find
             _repository = repository;
         }
 
-        public async Task<EquipmentResponse> Search(string code)
+        public async Task<Equipment> Find(string code)
         {
-            var equipment = await _repository.Find(code);
-            return equipment == null ? null : EquipmentResponse.FromAggregate(equipment);
+            return await _repository.Find(code);
         }
     }
 }

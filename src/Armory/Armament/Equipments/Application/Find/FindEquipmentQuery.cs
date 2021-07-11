@@ -2,11 +2,11 @@ using Armory.Shared.Domain.Bus.Query;
 
 namespace Armory.Armament.Equipments.Application.Find
 {
-    public class SearchEquipmentByCodeQuery : Query
+    public class FindEquipmentQuery : Query
     {
         public string Code { get; }
 
-        public SearchEquipmentByCodeQuery(string code)
+        public FindEquipmentQuery(string code)
         {
             Code = code;
         }
