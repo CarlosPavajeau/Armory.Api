@@ -1,6 +1,6 @@
 using Armory.Shared.Domain.Bus.Query;
 
-namespace Armory.Armament.Equipments.Application.SearchByCode
+namespace Armory.Armament.Equipments.Application.Find
 {
     public class SearchEquipmentByCodeQuery : Query
     {

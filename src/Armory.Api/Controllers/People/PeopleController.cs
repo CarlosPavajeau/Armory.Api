@@ -6,10 +6,10 @@ using Armory.People.Application;
 using Armory.People.Application.CheckExists;
 using Armory.People.Application.Create;
 using Armory.People.Application.Delete;
+using Armory.People.Application.Find;
 using Armory.People.Application.SearchAll;
 using Armory.People.Application.SearchAllByRole;
 using Armory.People.Application.SearchByArmoryUserId;
-using Armory.People.Application.SearchById;
 using Armory.People.Application.Update;
 using Armory.People.Domain;
 using Armory.Shared.Domain.Bus.Command;
@@ -91,7 +91,7 @@ namespace Armory.Api.Controllers.People
         [HttpGet("{id}")]
         public async Task<ActionResult<PersonResponse>> GetPerson(string id)
         {
-            var response = await _queryBus.Ask<PersonResponse>(new SearchPersonByIdQuery(id));
+            var response = await _queryBus.Ask<PersonResponse>(new FindPersonQuery(id));
             if (response != null)
             {
                 return Ok(response);

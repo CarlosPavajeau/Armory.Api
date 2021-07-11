@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Armory.Api.Controllers.Armament.Weapons.Requests;
 using Armory.Armament.Weapons.Application;
 using Armory.Armament.Weapons.Application.Create;
+using Armory.Armament.Weapons.Application.Find;
 using Armory.Armament.Weapons.Application.SearchAll;
-using Armory.Armament.Weapons.Application.SearchByCode;
 using Armory.Armament.Weapons.Application.Update;
 using Armory.Armament.Weapons.Domain;
 using Armory.Shared.Domain.Bus.Command;
@@ -65,7 +65,7 @@ namespace Armory.Api.Controllers.Armament.Weapons
         [HttpGet("{code}")]
         public async Task<ActionResult<WeaponResponse>> GetWeapon(string code)
         {
-            var weapon = await _queryBus.Ask<WeaponResponse>(new SearchWeaponByCodeQuery(code));
+            var weapon = await _queryBus.Ask<WeaponResponse>(new FindWeaponQuery(code));
             if (weapon != null)
             {
                 return Ok(weapon);

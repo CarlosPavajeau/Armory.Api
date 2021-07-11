@@ -1,13 +1,13 @@
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Query;
 
-namespace Armory.Armament.Equipments.Application.SearchByCode
+namespace Armory.Armament.Equipments.Application.Find
 {
     public class SearchEquipmentByCodeQueryHandler : IQueryHandler<SearchEquipmentByCodeQuery, EquipmentResponse>
     {
-        private readonly EquipmentByCodeSearcher _searcher;
+        private readonly EquipmentFinder _searcher;
 
-        public SearchEquipmentByCodeQueryHandler(EquipmentByCodeSearcher searcher)
+        public SearchEquipmentByCodeQueryHandler(EquipmentFinder searcher)
         {
             _searcher = searcher;
         }

@@ -1,13 +1,13 @@
 using System.Threading.Tasks;
 using Armory.Armament.Equipments.Domain;
 
-namespace Armory.Armament.Equipments.Application.SearchByCode
+namespace Armory.Armament.Equipments.Application.Find
 {
-    public class EquipmentByCodeSearcher
+    public class EquipmentFinder
     {
         private readonly IEquipmentsRepository _repository;
 
-        public EquipmentByCodeSearcher(IEquipmentsRepository repository)
+        public EquipmentFinder(IEquipmentsRepository repository)
         {
             _repository = repository;
         }

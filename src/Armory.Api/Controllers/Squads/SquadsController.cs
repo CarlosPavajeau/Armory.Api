@@ -5,8 +5,8 @@ using Armory.Shared.Domain.Bus.Command;
 using Armory.Shared.Domain.Bus.Query;
 using Armory.Squads.Application;
 using Armory.Squads.Application.Create;
+using Armory.Squads.Application.Find;
 using Armory.Squads.Application.SearchAll;
-using Armory.Squads.Application.SearchByCode;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -53,7 +53,7 @@ namespace Armory.Api.Controllers.Squads
         [HttpGet("{code}")]
         public async Task<ActionResult<SquadResponse>> GetSquad(string code)
         {
-            var response = await _queryBus.Ask<SquadResponse>(new SearchSquadByCodeQuery(code));
+            var response = await _queryBus.Ask<SquadResponse>(new FindSquadQuery(code));
             if (response != null)
             {
                 return Ok(response);

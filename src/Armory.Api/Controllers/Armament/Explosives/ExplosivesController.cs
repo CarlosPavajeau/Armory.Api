@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Armory.Api.Controllers.Armament.Explosives.Requests;
 using Armory.Armament.Explosives.Application;
 using Armory.Armament.Explosives.Application.Create;
+using Armory.Armament.Explosives.Application.Find;
 using Armory.Armament.Explosives.Application.SearchAll;
-using Armory.Armament.Explosives.Application.SearchByCode;
 using Armory.Armament.Explosives.Application.Update;
 using Armory.Armament.Explosives.Domain;
 using Armory.Shared.Domain.Bus.Command;
@@ -65,7 +65,7 @@ namespace Armory.Api.Controllers.Armament.Explosives
         [HttpGet("{code}")]
         public async Task<ActionResult<ExplosiveResponse>> GetExplosive(string code)
         {
-            var explosive = await _queryBus.Ask<ExplosiveResponse>(new SearchExplosiveByCodeQuery(code));
+            var explosive = await _queryBus.Ask<ExplosiveResponse>(new FindExplosiveQuery(code));
             if (explosive != null)
             {
                 return Ok(explosive);

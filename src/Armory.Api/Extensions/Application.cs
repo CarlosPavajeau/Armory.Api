@@ -1,35 +1,35 @@
 using Armory.Armament.Ammunition.Application.Create;
+using Armory.Armament.Ammunition.Application.Find;
 using Armory.Armament.Ammunition.Application.SearchAll;
-using Armory.Armament.Ammunition.Application.SearchByCode;
 using Armory.Armament.Ammunition.Application.Update;
 using Armory.Armament.Equipments.Application.Create;
+using Armory.Armament.Equipments.Application.Find;
 using Armory.Armament.Equipments.Application.SearchAll;
-using Armory.Armament.Equipments.Application.SearchByCode;
 using Armory.Armament.Equipments.Application.Update;
 using Armory.Armament.Explosives.Application.Create;
+using Armory.Armament.Explosives.Application.Find;
 using Armory.Armament.Explosives.Application.SearchAll;
-using Armory.Armament.Explosives.Application.SearchByCode;
 using Armory.Armament.Explosives.Application.Update;
 using Armory.Armament.Weapons.Application.Create;
+using Armory.Armament.Weapons.Application.Find;
 using Armory.Armament.Weapons.Application.SearchAll;
-using Armory.Armament.Weapons.Application.SearchByCode;
 using Armory.Armament.Weapons.Application.Update;
 using Armory.People.Application.CheckExists;
 using Armory.People.Application.Create;
 using Armory.People.Application.Delete;
+using Armory.People.Application.Find;
 using Armory.People.Application.SearchAll;
 using Armory.People.Application.SearchAllByRole;
 using Armory.People.Application.SearchByArmoryUserId;
-using Armory.People.Application.SearchById;
 using Armory.People.Application.Update;
 using Armory.Shared.Extensions;
 using Armory.Shared.Helpers;
 using Armory.Squadrons.Application.Create;
+using Armory.Squadrons.Application.Find;
 using Armory.Squadrons.Application.SearchAll;
-using Armory.Squadrons.Application.SearchByCode;
 using Armory.Squads.Application.Create;
+using Armory.Squads.Application.Find;
 using Armory.Squads.Application.SearchAll;
-using Armory.Squads.Application.SearchByCode;
 using Armory.Users.Application.AddToRole;
 using Armory.Users.Application.Authenticate;
 using Armory.Users.Application.ChangePassword;
@@ -64,36 +64,36 @@ namespace Armory.Api.Extensions
             services.AddScoped<PeopleSearcher, PeopleSearcher>();
             services.AddScoped<PeopleByRoleSearcher, PeopleByRoleSearcher>();
             services.AddScoped<PersonByArmoryUserIdSearcher, PersonByArmoryUserIdSearcher>();
-            services.AddScoped<PersonByIdSearcher, PersonByIdSearcher>();
+            services.AddScoped<PersonFinder, PersonFinder>();
             services.AddScoped<PersonUpdater, PersonUpdater>();
             services.AddScoped<PersonExistsChecker, PersonExistsChecker>();
 
             services.AddScoped<SquadronCreator, SquadronCreator>();
-            services.AddScoped<SquadronByCodeSearcher, SquadronByCodeSearcher>();
+            services.AddScoped<SquadronFinder, SquadronFinder>();
             services.AddScoped<SquadronsSearcher, SquadronsSearcher>();
 
             services.AddScoped<SquadCreator, SquadCreator>();
             services.AddScoped<SquadsSearcher, SquadsSearcher>();
-            services.AddScoped<SquadByCodeSearcher, SquadByCodeSearcher>();
+            services.AddScoped<SquadFinder, SquadFinder>();
 
             services.AddScoped<WeaponCreator, WeaponCreator>();
             services.AddScoped<WeaponSearcher, WeaponSearcher>();
-            services.AddScoped<WeaponByCodeSearcher, WeaponByCodeSearcher>();
+            services.AddScoped<WeaponFinder, WeaponFinder>();
             services.AddScoped<WeaponUpdater, WeaponUpdater>();
 
             services.AddScoped<AmmunitionCreator, AmmunitionCreator>();
             services.AddScoped<AmmunitionSearcher, AmmunitionSearcher>();
-            services.AddScoped<AmmunitionByCodeSearcher, AmmunitionByCodeSearcher>();
+            services.AddScoped<AmmunitionFinder, AmmunitionFinder>();
             services.AddScoped<AmmunitionUpdater, AmmunitionUpdater>();
 
             services.AddScoped<EquipmentCreator, EquipmentCreator>();
             services.AddScoped<AllEquipmentsSearcher, AllEquipmentsSearcher>();
-            services.AddScoped<EquipmentByCodeSearcher, EquipmentByCodeSearcher>();
+            services.AddScoped<EquipmentFinder, EquipmentFinder>();
             services.AddScoped<EquipmentUpdater, EquipmentUpdater>();
 
             services.AddScoped<ExplosiveCreator, ExplosiveCreator>();
             services.AddScoped<AllExplosivesSearcher, AllExplosivesSearcher>();
-            services.AddScoped<ExplosiveByCodeSearcher, ExplosiveByCodeSearcher>();
+            services.AddScoped<ExplosiveFinder, ExplosiveFinder>();
             services.AddScoped<ExplosiveUpdater, ExplosiveUpdater>();
 
             services.AddCommandServices(AssemblyHelper.GetInstance(Assemblies.Armory));
