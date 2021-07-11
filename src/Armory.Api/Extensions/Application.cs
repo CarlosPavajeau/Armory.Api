@@ -6,6 +6,10 @@ using Armory.Armament.Equipments.Application.Create;
 using Armory.Armament.Equipments.Application.SearchAll;
 using Armory.Armament.Equipments.Application.SearchByCode;
 using Armory.Armament.Equipments.Application.Update;
+using Armory.Armament.Explosives.Application.Create;
+using Armory.Armament.Explosives.Application.SearchAll;
+using Armory.Armament.Explosives.Application.SearchByCode;
+using Armory.Armament.Explosives.Application.Update;
 using Armory.Armament.Weapons.Application.Create;
 using Armory.Armament.Weapons.Application.SearchAll;
 using Armory.Armament.Weapons.Application.SearchByCode;
@@ -86,6 +90,11 @@ namespace Armory.Api.Extensions
             services.AddScoped<AllEquipmentsSearcher, AllEquipmentsSearcher>();
             services.AddScoped<EquipmentByCodeSearcher, EquipmentByCodeSearcher>();
             services.AddScoped<EquipmentUpdater, EquipmentUpdater>();
+
+            services.AddScoped<ExplosiveCreator, ExplosiveCreator>();
+            services.AddScoped<AllExplosivesSearcher, AllExplosivesSearcher>();
+            services.AddScoped<ExplosiveByCodeSearcher, ExplosiveByCodeSearcher>();
+            services.AddScoped<ExplosiveUpdater, ExplosiveUpdater>();
 
             services.AddCommandServices(AssemblyHelper.GetInstance(Assemblies.Armory));
             services.AddQueryServices(AssemblyHelper.GetInstance(Assemblies.Armory));
