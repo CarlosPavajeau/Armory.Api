@@ -7,7 +7,6 @@
     <ItemGroup>
       <Folder Include="Armament\Weapons" />
       <Folder Include="Squadrons" />
-      <Folder Include="Troopers" />
       <Folder Include="Users" />
     </ItemGroup>
 

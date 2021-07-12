@@ -8,8 +8,12 @@ using Armory.Armament.Explosives.Domain;
 using Armory.Armament.Explosives.Infrastructure.Persistence;
 using Armory.Armament.Weapons.Domain;
 using Armory.Armament.Weapons.Infrastructure.Persistence;
+using Armory.Degrees.Domain;
+using Armory.Degrees.Infrastructure.Persistence;
 using Armory.People.Domain;
 using Armory.People.Infrastructure;
+using Armory.Ranks.Domain;
+using Armory.Ranks.Infrastructure.Persistence;
 using Armory.Shared.Domain.Bus.Command;
 using Armory.Shared.Domain.Bus.Event;
 using Armory.Shared.Domain.Bus.Query;
@@ -21,6 +25,8 @@ using Armory.Squadrons.Domain;
 using Armory.Squadrons.Infrastructure.Persistence;
 using Armory.Squads.Domain;
 using Armory.Squads.Infrastructure.Persistence;
+using Armory.Troopers.Domain;
+using Armory.Troopers.Infrastructure.Persistence;
 using Armory.Users.Domain;
 using Armory.Users.Infrastructure.Identity;
 using Armory.Users.Infrastructure.Persistence;
@@ -72,6 +78,9 @@ namespace Armory.Api.Extensions
             services.AddScoped<IAmmunitionRepository, MySqlAmmunitionRepository>();
             services.AddScoped<IEquipmentsRepository, MySqlEquipmentsRepository>();
             services.AddScoped<IExplosivesRepository, MySqlExplosivesRepository>();
+            services.AddScoped<IRanksRepository, MySqlRanksRepository>();
+            services.AddScoped<IDegreesRepository, MySqlDegreesRepository>();
+            services.AddScoped<ITroopersRepository, MySqlTroopersRepository>();
 
             return services;
         }
