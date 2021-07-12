@@ -8,8 +8,10 @@ using Armory.Squadrons.Application;
 using Armory.Squadrons.Application.Create;
 using Armory.Squadrons.Application.Find;
 using Armory.Squadrons.Application.SearchAll;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Armory.Api.Controllers.Squadron
 {
@@ -20,11 +22,13 @@ namespace Armory.Api.Controllers.Squadron
     {
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
+        private readonly IMapper _mapper;
 
-        public SquadronsController(ICommandBus commandBus, IQueryBus queryBus)
+        public SquadronsController(ICommandBus commandBus, IQueryBus queryBus, IMapper mapper)
         {
             _commandBus = commandBus;
             _queryBus = queryBus;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -32,12 +36,12 @@ namespace Armory.Api.Controllers.Squadron
         {
             try
             {
-                await _commandBus.Dispatch(new CreateSquadronCommand(request.Code, request.Name, request.PersonId));
+                var command = _mapper.Map<CreateSquadronCommand>(request);
+                await _commandBus.Dispatch(command);
             }
-            catch (Exception e)
+            catch (DbUpdateException)
             {
-                Console.WriteLine(e);
-                throw;
+                return BadRequest();
             }
 
             return Ok();

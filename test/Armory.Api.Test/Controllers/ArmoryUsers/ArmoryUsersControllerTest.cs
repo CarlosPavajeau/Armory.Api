@@ -17,7 +17,7 @@ namespace Armory.Api.Test.Controllers.ArmoryUsers
         [SetUp]
         public void SetUp()
         {
-            _controller = new ArmoryUsersController(CommandBus.Object, QueryBus.Object);
+            _controller = new ArmoryUsersController(CommandBus.Object, QueryBus.Object, null);
         }
 
         private void ShouldHaveForgottenPasswordQuery()

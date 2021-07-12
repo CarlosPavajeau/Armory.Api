@@ -7,6 +7,7 @@ using Armory.Squads.Application;
 using Armory.Squads.Application.Create;
 using Armory.Squads.Application.Find;
 using Armory.Squads.Application.SearchAll;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,11 +21,13 @@ namespace Armory.Api.Controllers.Squads
     {
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
+        private readonly IMapper _mapper;
 
-        public SquadsController(ICommandBus commandBus, IQueryBus queryBus)
+        public SquadsController(ICommandBus commandBus, IQueryBus queryBus, IMapper mapper)
         {
             _commandBus = commandBus;
             _queryBus = queryBus;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -32,8 +35,8 @@ namespace Armory.Api.Controllers.Squads
         {
             try
             {
-                await _commandBus.Dispatch(new CreateSquadCommand(request.Code, request.Name, request.PersonId,
-                    request.SquadronCode));
+                var command = _mapper.Map<CreateSquadCommand>(request);
+                await _commandBus.Dispatch(command);
             }
             catch (DbUpdateException)
             {

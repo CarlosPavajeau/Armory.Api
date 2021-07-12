@@ -14,6 +14,7 @@ using Armory.People.Domain;
 using Armory.Shared.Domain.Bus.Command;
 using Armory.Shared.Domain.Bus.Query;
 using Armory.Users.Domain;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -28,11 +29,13 @@ namespace Armory.Api.Controllers.People
     {
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
+        private readonly IMapper _mapper;
 
-        public PeopleController(ICommandBus commandBus, IQueryBus queryBus)
+        public PeopleController(ICommandBus commandBus, IQueryBus queryBus, IMapper mapper)
         {
             _commandBus = commandBus;
             _queryBus = queryBus;
+            _mapper = mapper;
         }
 
         private IActionResult IdentityErrors(IEnumerable<IdentityError> errors)
@@ -50,8 +53,8 @@ namespace Armory.Api.Controllers.People
         {
             try
             {
-                await _commandBus.Dispatch(new CreatePersonCommand(request.Id, request.FirstName, request.SecondName,
-                    request.LastName, request.SecondLastName, request.Email, request.PhoneNumber, request.RoleName));
+                var command = _mapper.Map<CreatePersonCommand>(request);
+                await _commandBus.Dispatch(command);
             }
             catch (DbUpdateException)
             {
@@ -125,8 +128,8 @@ namespace Armory.Api.Controllers.People
         {
             try
             {
-                await _commandBus.Dispatch(new UpdatePersonCommand(id, request.FirstName, request.SecondName,
-                    request.LastName, request.SecondLastName));
+                var command = _mapper.Map<UpdatePersonCommand>(request);
+                await _commandBus.Dispatch(command);
             }
             catch (PersonNotFound)
             {

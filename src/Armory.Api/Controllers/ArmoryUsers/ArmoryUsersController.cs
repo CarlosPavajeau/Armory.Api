@@ -12,6 +12,7 @@ using Armory.Users.Application.GeneratePasswordResetToken;
 using Armory.Users.Application.ResetPassword;
 using Armory.Users.Application.SearchAllRoles;
 using Armory.Users.Domain;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +26,13 @@ namespace Armory.Api.Controllers.ArmoryUsers
     {
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
+        private readonly IMapper _mapper;
 
-        public ArmoryUsersController(ICommandBus commandBus, IQueryBus queryBus)
+        public ArmoryUsersController(ICommandBus commandBus, IQueryBus queryBus, IMapper mapper)
         {
             _commandBus = commandBus;
             _queryBus = queryBus;
+            _mapper = mapper;
         }
 
         private IActionResult IdentityErrors(IEnumerable<IdentityError> errors)
@@ -66,8 +69,8 @@ namespace Armory.Api.Controllers.ArmoryUsers
         {
             try
             {
-                await _commandBus.Dispatch(
-                    new ResetPasswordCommand(usernameOrEmail, request.Token, request.NewPassword));
+                var command = _mapper.Map<ResetPasswordCommand>(request);
+                await _commandBus.Dispatch(command);
             }
             catch (FormatException)
             {
@@ -92,8 +95,8 @@ namespace Armory.Api.Controllers.ArmoryUsers
         {
             try
             {
-                await _commandBus.Dispatch(new ChangePasswordCommand(usernameOrEmail, request.OldPassword,
-                    request.NewPassword));
+                var command = _mapper.Map<ChangePasswordCommand>(request);
+                await _commandBus.Dispatch(command);
             }
             catch (ArmoryUserNotFound)
             {
