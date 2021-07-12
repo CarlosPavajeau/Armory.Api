@@ -17,6 +17,7 @@ services:
     volumes:
       - armory_db:/var/lib/mysql
   api:
+    image: armory_api
     container_name: armory_api
     build:
       context: .
