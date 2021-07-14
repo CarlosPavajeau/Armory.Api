@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using Armory.Armament.Ammunition.Domain;
 using Armory.Armament.Ammunition.Infrastructure.Persistence;
@@ -155,9 +156,10 @@ namespace Armory.Api.Extensions
             return app;
         }
 
-        public static IApplicationBuilder ConfigureCors(this IApplicationBuilder app)
+        public static IApplicationBuilder ConfigureCors(this IApplicationBuilder app, IConfiguration configuration)
         {
-            app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            var allowedUrls = configuration.GetSection("AllowedUrls").Get<List<string>>();
+            app.UseCors(c => c.WithOrigins(allowedUrls.ToArray()).AllowAnyHeader().AllowAnyMethod());
 
             return app;
         }
