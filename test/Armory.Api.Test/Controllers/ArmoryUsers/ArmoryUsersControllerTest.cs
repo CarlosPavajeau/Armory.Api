@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using Armory.Api.Controllers.ArmoryUsers;
 using Armory.Shared.Domain;
 using Armory.Users.Application.GeneratePasswordResetToken;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using NUnit.Framework;
 
@@ -17,7 +19,7 @@ namespace Armory.Api.Test.Controllers.ArmoryUsers
         [SetUp]
         public void SetUp()
         {
-            _controller = new ArmoryUsersController(CommandBus.Object, QueryBus.Object, null);
+            _controller = new ArmoryUsersController(CommandBus.Object, QueryBus.Object, Provider.GetService<IMapper>());
         }
 
         private void ShouldHaveForgottenPasswordQuery()
