@@ -32,8 +32,6 @@ namespace Armory.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, RoleManager<ArmoryRole> roleManager)
         {
-            app.ConfigureCors(Configuration);
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -41,6 +39,7 @@ namespace Armory.Api
             }
 
             app.UseHttpsRedirection();
+            app.ConfigureCors(Configuration);
 
             app.UseRouting();
 

@@ -159,7 +159,8 @@ namespace Armory.Api.Extensions
         public static IApplicationBuilder ConfigureCors(this IApplicationBuilder app, IConfiguration configuration)
         {
             var allowedUrls = configuration.GetSection("AllowedUrls").Get<List<string>>();
-            app.UseCors(c => c.WithOrigins(allowedUrls.ToArray()).AllowAnyHeader().AllowAnyMethod());
+            app.UseCors(c =>
+                c.WithOrigins(allowedUrls.ToArray()).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
             return app;
         }
