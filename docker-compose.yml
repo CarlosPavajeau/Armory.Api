@@ -1,9 +1,9 @@
-version: "3.7"
+version: "3.9"
 
 services:
-  armory_api_db:
+  db:
     image: "mysql:latest"
-    container_name: armory_api_database
+    container_name: armory_database
     restart: "always"
     ports:
       - "3300:3306"
@@ -27,9 +27,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
     ports:
-      - "3000:80"
+      - "5000:80"
     depends_on:
-      - armory_api_db
+      - db
 
 networks:
   armory_network:
