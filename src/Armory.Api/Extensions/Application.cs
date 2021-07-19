@@ -17,6 +17,7 @@ using Armory.Armament.Weapons.Application.Update;
 using Armory.Degrees.Application.Create;
 using Armory.Degrees.Application.Find;
 using Armory.Degrees.Application.SearchAll;
+using Armory.Degrees.Application.SearchAllByRank;
 using Armory.People.Application.CheckExists;
 using Armory.People.Application.Create;
 using Armory.People.Application.Delete;
@@ -113,6 +114,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<DegreeCreator, DegreeCreator>();
             services.AddScoped<DegreeFinder, DegreeFinder>();
             services.AddScoped<AllDegreesSearcher, AllDegreesSearcher>();
+            services.AddScoped<DegreesByRankSearcher, DegreesByRankSearcher>();
 
             services.AddScoped<TroopCreator, TroopCreator>();
             services.AddScoped<TroopFinder, TroopFinder>();

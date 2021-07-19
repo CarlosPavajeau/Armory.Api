@@ -5,6 +5,7 @@ using Armory.Degrees.Application;
 using Armory.Degrees.Application.Create;
 using Armory.Degrees.Application.Find;
 using Armory.Degrees.Application.SearchAll;
+using Armory.Degrees.Application.SearchAllByRank;
 using Armory.Shared.Domain.Bus.Command;
 using Armory.Shared.Domain.Bus.Query;
 using AutoMapper;
@@ -50,6 +51,13 @@ namespace Armory.Api.Controllers.Degrees
         public async Task<ActionResult<IEnumerable<DegreeResponse>>> GetDegrees()
         {
             var degrees = await _queryBus.Ask<IEnumerable<DegreeResponse>>(new SearchAllDegreesQuery());
+            return Ok(degrees);
+        }
+
+        [HttpGet("ByRank/{rankId:int}")]
+        public async Task<ActionResult<IEnumerable<DegreeResponse>>> GetDegreesByRank(int rankId)
+        {
+            var degrees = await _queryBus.Ask<IEnumerable<DegreeResponse>>(new SearchAllDegreesByRankQuery(rankId));
             return Ok(degrees);
         }
 

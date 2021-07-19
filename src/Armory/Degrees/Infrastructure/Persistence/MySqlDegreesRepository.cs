@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Armory.Degrees.Domain;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
@@ -29,6 +30,11 @@ namespace Armory.Degrees.Infrastructure.Persistence
         public async Task<IEnumerable<Degree>> SearchAll()
         {
             return await _context.Degrees.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Degree>> SearchAllByRank(int rankId)
+        {
+            return await _context.Degrees.Where(d => d.RankId == rankId).ToListAsync();
         }
     }
 }

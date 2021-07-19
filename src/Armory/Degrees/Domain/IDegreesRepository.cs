@@ -8,5 +8,6 @@ namespace Armory.Degrees.Domain
         Task Save(Degree degree);
         Task<Degree> Find(int id);
         Task<IEnumerable<Degree>> SearchAll();
+        Task<IEnumerable<Degree>> SearchAllByRank(int rankId);
     }
 }

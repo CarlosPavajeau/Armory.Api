@@ -5,7 +5,6 @@ using Armory.Armament.Weapons.Domain;
 using Armory.Degrees.Domain;
 using Armory.People.Domain;
 using Armory.Ranks.Domain;
-using Armory.Shared.Infrastructure.Persistence.EntityFramework.EntityConfigurations;
 using Armory.Squadrons.Domain;
 using Armory.Squads.Domain;
 using Armory.Troopers.Domain;
