@@ -1,15 +1,19 @@
+using Armory.Armament.Ammunition.Application.CheckExists;
 using Armory.Armament.Ammunition.Application.Create;
 using Armory.Armament.Ammunition.Application.Find;
 using Armory.Armament.Ammunition.Application.SearchAll;
 using Armory.Armament.Ammunition.Application.Update;
+using Armory.Armament.Equipments.Application.CheckExists;
 using Armory.Armament.Equipments.Application.Create;
 using Armory.Armament.Equipments.Application.Find;
 using Armory.Armament.Equipments.Application.SearchAll;
 using Armory.Armament.Equipments.Application.Update;
+using Armory.Armament.Explosives.Application.CheckExists;
 using Armory.Armament.Explosives.Application.Create;
 using Armory.Armament.Explosives.Application.Find;
 using Armory.Armament.Explosives.Application.SearchAll;
 using Armory.Armament.Explosives.Application.Update;
+using Armory.Armament.Weapons.Application.CheckExists;
 using Armory.Armament.Weapons.Application.Create;
 using Armory.Armament.Weapons.Application.Find;
 using Armory.Armament.Weapons.Application.SearchAll;
@@ -31,12 +35,15 @@ using Armory.Ranks.Application.Find;
 using Armory.Ranks.Application.SearchAll;
 using Armory.Shared.Extensions;
 using Armory.Shared.Helpers;
+using Armory.Squadrons.Application.CheckExists;
 using Armory.Squadrons.Application.Create;
 using Armory.Squadrons.Application.Find;
 using Armory.Squadrons.Application.SearchAll;
+using Armory.Squads.Application.CheckExists;
 using Armory.Squads.Application.Create;
 using Armory.Squads.Application.Find;
 using Armory.Squads.Application.SearchAll;
+using Armory.Troopers.Application.CheckExists;
 using Armory.Troopers.Application.Create;
 using Armory.Troopers.Application.Find;
 using Armory.Troopers.Application.SearchAll;
@@ -81,30 +88,36 @@ namespace Armory.Api.Extensions
 
             services.AddScoped<SquadronCreator, SquadronCreator>();
             services.AddScoped<SquadronFinder, SquadronFinder>();
+            services.AddScoped<SquadronExistsChecker, SquadronExistsChecker>();
             services.AddScoped<SquadronsSearcher, SquadronsSearcher>();
 
             services.AddScoped<SquadCreator, SquadCreator>();
-            services.AddScoped<SquadsSearcher, SquadsSearcher>();
             services.AddScoped<SquadFinder, SquadFinder>();
+            services.AddScoped<SquadExistsChecker, SquadExistsChecker>();
+            services.AddScoped<SquadsSearcher, SquadsSearcher>();
 
             services.AddScoped<WeaponCreator, WeaponCreator>();
             services.AddScoped<WeaponSearcher, WeaponSearcher>();
             services.AddScoped<WeaponFinder, WeaponFinder>();
+            services.AddScoped<WeaponExistsChecker, WeaponExistsChecker>();
             services.AddScoped<WeaponUpdater, WeaponUpdater>();
 
             services.AddScoped<AmmunitionCreator, AmmunitionCreator>();
             services.AddScoped<AmmunitionSearcher, AmmunitionSearcher>();
             services.AddScoped<AmmunitionFinder, AmmunitionFinder>();
+            services.AddScoped<AmmunitionExistsChecker, AmmunitionExistsChecker>();
             services.AddScoped<AmmunitionUpdater, AmmunitionUpdater>();
 
             services.AddScoped<EquipmentCreator, EquipmentCreator>();
             services.AddScoped<AllEquipmentsSearcher, AllEquipmentsSearcher>();
             services.AddScoped<EquipmentFinder, EquipmentFinder>();
+            services.AddScoped<EquipmentExistsChecker, EquipmentExistsChecker>();
             services.AddScoped<EquipmentUpdater, EquipmentUpdater>();
 
             services.AddScoped<ExplosiveCreator, ExplosiveCreator>();
             services.AddScoped<AllExplosivesSearcher, AllExplosivesSearcher>();
             services.AddScoped<ExplosiveFinder, ExplosiveFinder>();
+            services.AddScoped<ExplosiveExistsChecker, ExplosiveExistsChecker>();
             services.AddScoped<ExplosiveUpdater, ExplosiveUpdater>();
 
             services.AddScoped<RankCreator, RankCreator>();
@@ -118,6 +131,7 @@ namespace Armory.Api.Extensions
 
             services.AddScoped<TroopCreator, TroopCreator>();
             services.AddScoped<TroopFinder, TroopFinder>();
+            services.AddScoped<TroopExistsChecker, TroopExistsChecker>();
             services.AddScoped<AllTroopsSearcher, AllTroopsSearcher>();
             services.AddScoped<TroopUpdater, TroopUpdater>();
 

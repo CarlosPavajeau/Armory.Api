@@ -16,7 +16,7 @@ namespace Armory.Squadrons.Application.SearchAll
 
         public async Task<IEnumerable<SquadronResponse>> SearchAll()
         {
-            var squadrons = await _repository.GetAll();
+            var squadrons = await _repository.SearchAll();
             return squadrons.Select(SquadronResponse.FromAggregate);
         }
     }

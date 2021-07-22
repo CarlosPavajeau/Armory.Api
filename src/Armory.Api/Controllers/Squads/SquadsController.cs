@@ -4,6 +4,7 @@ using Armory.Api.Controllers.Squads.Requests;
 using Armory.Shared.Domain.Bus.Command;
 using Armory.Shared.Domain.Bus.Query;
 using Armory.Squads.Application;
+using Armory.Squads.Application.CheckExists;
 using Armory.Squads.Application.Create;
 using Armory.Squads.Application.Find;
 using Armory.Squads.Application.SearchAll;
@@ -65,6 +66,13 @@ namespace Armory.Api.Controllers.Squads
             ModelState.AddModelError("SquadNotFound",
                 $"El escuadrón con el código '{code}' no se encuentra registrado.");
             return NotFound(new ValidationProblemDetails(ModelState));
+        }
+
+        [HttpGet("Exists/{code}")]
+        public async Task<ActionResult<bool>> CheckExists(string code)
+        {
+            var exists = await _queryBus.Ask<bool>(new CheckSquadExistsQuery(code));
+            return Ok(exists);
         }
     }
 }

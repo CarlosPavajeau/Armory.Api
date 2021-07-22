@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Armory.Squadrons.Domain
@@ -7,6 +9,7 @@ namespace Armory.Squadrons.Domain
     {
         Task Save(Squadron squadron);
         Task<Squadron> Find(string code);
-        Task<IEnumerable<Squadron>> GetAll();
+        Task<bool> Any(Expression<Func<Squadron, bool>> predicate);
+        Task<IEnumerable<Squadron>> SearchAll();
     }
 }

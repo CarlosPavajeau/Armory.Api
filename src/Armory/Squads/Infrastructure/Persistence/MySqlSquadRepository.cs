@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
 using Armory.Squads.Domain;
@@ -24,6 +26,11 @@ namespace Armory.Squads.Infrastructure.Persistence
         public async Task<Squad> Find(string code)
         {
             return await _context.Squads.FindAsync(code);
+        }
+
+        public async Task<bool> Any(Expression<Func<Squad, bool>> predicate)
+        {
+            return await _context.Squads.AnyAsync(predicate);
         }
 
         public async Task<IEnumerable<Squad>> SearchAll()

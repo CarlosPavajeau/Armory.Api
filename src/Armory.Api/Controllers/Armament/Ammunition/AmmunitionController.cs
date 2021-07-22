@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Armory.Api.Controllers.Armament.Ammunition.Requests;
 using Armory.Armament.Ammunition.Application;
+using Armory.Armament.Ammunition.Application.CheckExists;
 using Armory.Armament.Ammunition.Application.Create;
 using Armory.Armament.Ammunition.Application.Find;
 using Armory.Armament.Ammunition.Application.SearchAll;
@@ -72,6 +73,13 @@ namespace Armory.Api.Controllers.Armament.Ammunition
             }
 
             return AmmunitionNotFound(code);
+        }
+
+        [HttpGet("Exists/{code}")]
+        public async Task<ActionResult<bool>> CheckExists(string code)
+        {
+            var exists = await _queryBus.Ask<bool>(new CheckAmmunitionExistsQuery(code));
+            return Ok(exists);
         }
 
         [HttpPut("{code}")]

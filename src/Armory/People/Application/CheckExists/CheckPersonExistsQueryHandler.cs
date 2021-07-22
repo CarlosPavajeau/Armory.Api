@@ -14,7 +14,7 @@ namespace Armory.People.Application.CheckExists
 
         public async Task<bool> Handle(CheckPersonExistsQuery query)
         {
-            return await _checker.PersonExists(query.Id);
+            return await _checker.Exists(query.Id);
         }
     }
 }

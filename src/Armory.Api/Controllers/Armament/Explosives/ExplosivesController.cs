@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Armory.Api.Controllers.Armament.Explosives.Requests;
 using Armory.Armament.Explosives.Application;
+using Armory.Armament.Explosives.Application.CheckExists;
 using Armory.Armament.Explosives.Application.Create;
 using Armory.Armament.Explosives.Application.Find;
 using Armory.Armament.Explosives.Application.SearchAll;
@@ -72,6 +73,13 @@ namespace Armory.Api.Controllers.Armament.Explosives
             }
 
             return ExplosiveNotFound(code);
+        }
+
+        [HttpGet("Exists/{code}")]
+        public async Task<ActionResult<bool>> CheckExists(string code)
+        {
+            var exists = await _queryBus.Ask<bool>(new CheckExplosiveExistsQuery(code));
+            return Ok(exists);
         }
 
         [HttpPut("{code}")]

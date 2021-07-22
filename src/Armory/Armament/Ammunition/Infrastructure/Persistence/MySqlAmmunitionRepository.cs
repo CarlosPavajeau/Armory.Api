@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Armory.Armament.Ammunition.Domain;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
@@ -29,6 +31,11 @@ namespace Armory.Armament.Ammunition.Infrastructure.Persistence
         public async Task<IEnumerable<Domain.Ammunition>> SearchAll()
         {
             return await _context.Ammunition.ToListAsync();
+        }
+
+        public async Task<bool> Any(Expression<Func<Domain.Ammunition, bool>> predicate)
+        {
+            return await _context.Ammunition.AnyAsync(predicate);
         }
 
         public async Task Update(Domain.Ammunition newAmmunition)

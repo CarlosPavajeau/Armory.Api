@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
 using Armory.Squadrons.Domain;
@@ -26,7 +28,12 @@ namespace Armory.Squadrons.Infrastructure.Persistence
             return await _context.Squadrons.FindAsync(code);
         }
 
-        public async Task<IEnumerable<Squadron>> GetAll()
+        public async Task<bool> Any(Expression<Func<Squadron, bool>> predicate)
+        {
+            return await _context.Squadrons.AnyAsync(predicate);
+        }
+
+        public async Task<IEnumerable<Squadron>> SearchAll()
         {
             return await _context.Squadrons.ToListAsync();
         }

@@ -12,7 +12,7 @@ namespace Armory.People.Application.CheckExists
             _repository = repository;
         }
 
-        public async Task<bool> PersonExists(string id)
+        public async Task<bool> Exists(string id)
         {
             return await _repository.Any(p => p.Id == id);
         }

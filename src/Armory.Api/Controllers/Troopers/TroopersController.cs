@@ -4,6 +4,7 @@ using Armory.Api.Controllers.Troopers.Requests;
 using Armory.Shared.Domain.Bus.Command;
 using Armory.Shared.Domain.Bus.Query;
 using Armory.Troopers.Application;
+using Armory.Troopers.Application.CheckExists;
 using Armory.Troopers.Application.Create;
 using Armory.Troopers.Application.Find;
 using Armory.Troopers.Application.SearchAll;
@@ -72,6 +73,13 @@ namespace Armory.Api.Controllers.Troopers
             }
 
             return TroopNotFound(id);
+        }
+
+        [HttpGet("Exists/{id}")]
+        public async Task<ActionResult<bool>> CheckExists(string id)
+        {
+            var exists = await _queryBus.Ask<bool>(new CheckTroopExistsQuery(id));
+            return Ok(exists);
         }
 
         [HttpPut("{id}")]

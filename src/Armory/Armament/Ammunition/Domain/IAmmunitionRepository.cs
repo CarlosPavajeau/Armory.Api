@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Armory.Armament.Ammunition.Domain
@@ -8,6 +10,7 @@ namespace Armory.Armament.Ammunition.Domain
         Task Save(Ammunition ammunition);
         Task<Ammunition> Find(string code);
         Task<IEnumerable<Ammunition>> SearchAll();
+        Task<bool> Any(Expression<Func<Ammunition, bool>> predicate);
         Task Update(Ammunition newAmmunition);
     }
 }
