@@ -6,9 +6,9 @@ namespace Armory.Users.Application.ConfirmEmail
 {
     public class EmailConfirmer
     {
-        private readonly IArmoryUserRepository _repository;
+        private readonly IArmoryUsersRepository _repository;
 
-        public EmailConfirmer(IArmoryUserRepository repository)
+        public EmailConfirmer(IArmoryUsersRepository repository)
         {
             _repository = repository;
         }

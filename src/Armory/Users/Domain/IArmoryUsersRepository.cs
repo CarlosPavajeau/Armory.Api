@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Armory.Users.Domain
 {
-    public interface IArmoryUserRepository
+    public interface IArmoryUsersRepository
     {
         Task<IdentityResult> Save(ArmoryUser user, string password);
         Task<ArmoryUser> FindByUsernameOrEmail(string usernameOrEmail);

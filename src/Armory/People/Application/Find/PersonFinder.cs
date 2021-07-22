@@ -5,16 +5,16 @@ namespace Armory.People.Application.Find
 {
     public class PersonFinder
     {
-        private readonly IPersonRepository _personRepository;
+        private readonly IPeopleRepository _peopleRepository;
 
-        public PersonFinder(IPersonRepository personRepository)
+        public PersonFinder(IPeopleRepository peopleRepository)
         {
-            _personRepository = personRepository;
+            _peopleRepository = peopleRepository;
         }
 
         public async Task<Person> Find(string id)
         {
-            return await _personRepository.Find(id);
+            return await _peopleRepository.Find(id);
         }
     }
 }

@@ -7,9 +7,9 @@ namespace Armory.Users.Application.SearchAllRoles
 {
     public class RoleSearcher
     {
-        private readonly IArmoryUserRepository _repository;
+        private readonly IArmoryUsersRepository _repository;
 
-        public RoleSearcher(IArmoryUserRepository repository)
+        public RoleSearcher(IArmoryUsersRepository repository)
         {
             _repository = repository;
         }

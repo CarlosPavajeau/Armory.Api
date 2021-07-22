@@ -10,15 +10,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Armory.People.Infrastructure.Persistence
 {
-    public class MySqlPersonRepository : IPersonRepository
+    public class MySqlPeopleRepository : IPeopleRepository
     {
         private readonly ArmoryDbContext _context;
-        private readonly IArmoryUserRepository _armoryUserRepository;
+        private readonly IArmoryUsersRepository _armoryUsersRepository;
 
-        public MySqlPersonRepository(ArmoryDbContext context, IArmoryUserRepository armoryUserRepository)
+        public MySqlPeopleRepository(ArmoryDbContext context, IArmoryUsersRepository armoryUsersRepository)
         {
             _context = context;
-            _armoryUserRepository = armoryUserRepository;
+            _armoryUsersRepository = armoryUsersRepository;
         }
 
         public async Task Save(Person person)
@@ -44,7 +44,7 @@ namespace Armory.People.Infrastructure.Persistence
 
         public async Task<IEnumerable<Person>> SearchAllByRole(string roleName)
         {
-            var usersInRole = await _armoryUserRepository.SearchAllUsersInRole(roleName);
+            var usersInRole = await _armoryUsersRepository.SearchAllUsersInRole(roleName);
             var userIds = usersInRole.Select(u => u.Id);
 
             return await _context.People

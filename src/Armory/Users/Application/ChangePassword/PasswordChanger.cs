@@ -5,9 +5,9 @@ namespace Armory.Users.Application.ChangePassword
 {
     public class PasswordChanger
     {
-        private readonly IArmoryUserRepository _repository;
+        private readonly IArmoryUsersRepository _repository;
 
-        public PasswordChanger(IArmoryUserRepository repository)
+        public PasswordChanger(IArmoryUsersRepository repository)
         {
             _repository = repository;
         }

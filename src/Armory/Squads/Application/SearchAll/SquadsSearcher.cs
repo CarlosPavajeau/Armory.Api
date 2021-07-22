@@ -7,9 +7,9 @@ namespace Armory.Squads.Application.SearchAll
 {
     public class SquadsSearcher
     {
-        private readonly ISquadRepository _repository;
+        private readonly ISquadsRepository _repository;
 
-        public SquadsSearcher(ISquadRepository repository)
+        public SquadsSearcher(ISquadsRepository repository)
         {
             _repository = repository;
         }

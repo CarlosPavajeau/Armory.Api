@@ -6,10 +6,10 @@ namespace Armory.Users.Application.Create
 {
     public class ArmoryUserCreator
     {
-        private readonly IArmoryUserRepository _repository;
+        private readonly IArmoryUsersRepository _repository;
         private readonly RoleAggregator _roleAggregator;
 
-        public ArmoryUserCreator(IArmoryUserRepository repository, RoleAggregator roleAggregator)
+        public ArmoryUserCreator(IArmoryUsersRepository repository, RoleAggregator roleAggregator)
         {
             _repository = repository;
             _roleAggregator = roleAggregator;

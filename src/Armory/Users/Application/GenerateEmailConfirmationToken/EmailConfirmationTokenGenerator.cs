@@ -5,9 +5,9 @@ namespace Armory.Users.Application.GenerateEmailConfirmationToken
 {
     public class EmailConfirmationTokenGenerator
     {
-        private readonly IArmoryUserRepository _repository;
+        private readonly IArmoryUsersRepository _repository;
 
-        public EmailConfirmationTokenGenerator(IArmoryUserRepository repository)
+        public EmailConfirmationTokenGenerator(IArmoryUsersRepository repository)
         {
             _repository = repository;
         }

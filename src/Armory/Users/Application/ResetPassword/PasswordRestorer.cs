@@ -6,9 +6,9 @@ namespace Armory.Users.Application.ResetPassword
 {
     public class PasswordRestorer
     {
-        private readonly IArmoryUserRepository _repository;
+        private readonly IArmoryUsersRepository _repository;
 
-        public PasswordRestorer(IArmoryUserRepository repository)
+        public PasswordRestorer(IArmoryUsersRepository repository)
         {
             _repository = repository;
         }

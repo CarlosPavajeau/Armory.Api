@@ -5,9 +5,9 @@ namespace Armory.People.Application.SearchByArmoryUserId
 {
     public class PersonByArmoryUserIdSearcher
     {
-        private readonly IPersonRepository _repository;
+        private readonly IPeopleRepository _repository;
 
-        public PersonByArmoryUserIdSearcher(IPersonRepository repository)
+        public PersonByArmoryUserIdSearcher(IPeopleRepository repository)
         {
             _repository = repository;
         }

@@ -5,9 +5,9 @@ namespace Armory.Users.Application.GeneratePasswordResetToken
 {
     public class PasswordResetTokenGenerator
     {
-        private readonly IArmoryUserRepository _repository;
+        private readonly IArmoryUsersRepository _repository;
 
-        public PasswordResetTokenGenerator(IArmoryUserRepository repository)
+        public PasswordResetTokenGenerator(IArmoryUsersRepository repository)
         {
             _repository = repository;
         }

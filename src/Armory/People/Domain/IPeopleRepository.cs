@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Armory.People.Domain
 {
-    public interface IPersonRepository
+    public interface IPeopleRepository
     {
         Task Save(Person person);
 

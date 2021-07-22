@@ -5,9 +5,9 @@ namespace Armory.People.Application.Update
 {
     public class PersonUpdater
     {
-        private readonly IPersonRepository _repository;
+        private readonly IPeopleRepository _repository;
 
-        public PersonUpdater(IPersonRepository repository)
+        public PersonUpdater(IPeopleRepository repository)
         {
             _repository = repository;
         }

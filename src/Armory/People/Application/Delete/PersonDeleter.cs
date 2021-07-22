@@ -5,9 +5,9 @@ namespace Armory.People.Application.Delete
 {
     public class PersonDeleter
     {
-        private readonly IPersonRepository _repository;
+        private readonly IPeopleRepository _repository;
 
-        public PersonDeleter(IPersonRepository repository)
+        public PersonDeleter(IPeopleRepository repository)
         {
             _repository = repository;
         }

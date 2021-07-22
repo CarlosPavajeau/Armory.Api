@@ -5,9 +5,9 @@ namespace Armory.Squads.Application.Create
 {
     public class SquadCreator
     {
-        private readonly ISquadRepository _repository;
+        private readonly ISquadsRepository _repository;
 
-        public SquadCreator(ISquadRepository repository)
+        public SquadCreator(ISquadsRepository repository)
         {
             _repository = repository;
         }

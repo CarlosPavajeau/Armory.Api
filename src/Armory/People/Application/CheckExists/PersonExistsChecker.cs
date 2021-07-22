@@ -5,9 +5,9 @@ namespace Armory.People.Application.CheckExists
 {
     public class PersonExistsChecker
     {
-        private readonly IPersonRepository _repository;
+        private readonly IPeopleRepository _repository;
 
-        public PersonExistsChecker(IPersonRepository repository)
+        public PersonExistsChecker(IPeopleRepository repository)
         {
             _repository = repository;
         }

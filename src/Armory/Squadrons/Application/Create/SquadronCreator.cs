@@ -5,9 +5,9 @@ namespace Armory.Squadrons.Application.Create
 {
     public class SquadronCreator
     {
-        private readonly ISquadronRepository _repository;
+        private readonly ISquadronsRepository _repository;
 
-        public SquadronCreator(ISquadronRepository repository)
+        public SquadronCreator(ISquadronsRepository repository)
         {
             _repository = repository;
         }

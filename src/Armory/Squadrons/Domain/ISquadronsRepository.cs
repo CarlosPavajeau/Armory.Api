@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Armory.Squadrons.Domain
 {
-    public interface ISquadronRepository
+    public interface ISquadronsRepository
     {
         Task Save(Squadron squadron);
         Task<Squadron> Find(string code);

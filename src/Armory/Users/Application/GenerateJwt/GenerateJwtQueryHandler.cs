@@ -6,10 +6,10 @@ namespace Armory.Users.Application.GenerateJwt
 {
     public class GenerateJwtQueryHandler : IQueryHandler<GenerateJwtQuery, string>
     {
-        private readonly IArmoryUserRepository _repository;
+        private readonly IArmoryUsersRepository _repository;
         private readonly JwtGenerator _generator;
 
-        public GenerateJwtQueryHandler(IArmoryUserRepository repository, JwtGenerator generator)
+        public GenerateJwtQueryHandler(IArmoryUsersRepository repository, JwtGenerator generator)
         {
             _repository = repository;
             _generator = generator;

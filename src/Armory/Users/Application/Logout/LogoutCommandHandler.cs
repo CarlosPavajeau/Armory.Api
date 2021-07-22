@@ -6,9 +6,9 @@ namespace Armory.Users.Application.Logout
 {
     public class LogoutCommandHandler : ICommandHandler<LogoutCommand>
     {
-        private readonly IArmoryUserRepository _repository;
+        private readonly IArmoryUsersRepository _repository;
 
-        public LogoutCommandHandler(IArmoryUserRepository repository)
+        public LogoutCommandHandler(IArmoryUsersRepository repository)
         {
             _repository = repository;
         }

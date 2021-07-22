@@ -5,9 +5,9 @@ namespace Armory.Squads.Application.CheckExists
 {
     public class SquadExistsChecker
     {
-        private readonly ISquadRepository _repository;
+        private readonly ISquadsRepository _repository;
 
-        public SquadExistsChecker(ISquadRepository repository)
+        public SquadExistsChecker(ISquadsRepository repository)
         {
             _repository = repository;
         }

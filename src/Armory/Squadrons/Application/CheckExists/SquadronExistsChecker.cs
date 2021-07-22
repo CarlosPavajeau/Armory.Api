@@ -5,9 +5,9 @@ namespace Armory.Squadrons.Application.CheckExists
 {
     public class SquadronExistsChecker
     {
-        private readonly ISquadronRepository _repository;
+        private readonly ISquadronsRepository _repository;
 
-        public SquadronExistsChecker(ISquadronRepository repository)
+        public SquadronExistsChecker(ISquadronsRepository repository)
         {
             _repository = repository;
         }

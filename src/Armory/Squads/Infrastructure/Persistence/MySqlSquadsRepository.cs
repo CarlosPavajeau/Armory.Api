@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Armory.Squads.Infrastructure.Persistence
 {
-    public class MySqlSquadRepository : ISquadRepository
+    public class MySqlSquadsRepository : ISquadsRepository
     {
         private readonly ArmoryDbContext _context;
 
-        public MySqlSquadRepository(ArmoryDbContext context)
+        public MySqlSquadsRepository(ArmoryDbContext context)
         {
             _context = context;
         }

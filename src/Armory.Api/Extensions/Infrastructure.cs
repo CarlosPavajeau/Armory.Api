@@ -71,10 +71,10 @@ namespace Armory.Api.Extensions
 
             services.Configure<SecretKey>(configuration.GetSection("SecretKey"));
 
-            services.AddScoped<IArmoryUserRepository, MySqlArmoryUserRepository>();
-            services.AddScoped<ISquadronRepository, MySqlSquadronRepository>();
-            services.AddScoped<IPersonRepository, MySqlPersonRepository>();
-            services.AddScoped<ISquadRepository, MySqlSquadRepository>();
+            services.AddScoped<IArmoryUsersRepository, MySqlArmoryUsersRepository>();
+            services.AddScoped<ISquadronsRepository, MySqlSquadronsRepository>();
+            services.AddScoped<IPeopleRepository, MySqlPeopleRepository>();
+            services.AddScoped<ISquadsRepository, MySqlSquadsRepository>();
             services.AddScoped<IWeaponsRepository, MySqlWeaponsRepository>();
             services.AddScoped<IAmmunitionRepository, MySqlAmmunitionRepository>();
             services.AddScoped<IEquipmentsRepository, MySqlEquipmentsRepository>();

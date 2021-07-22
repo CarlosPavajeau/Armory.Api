@@ -6,9 +6,9 @@ namespace Armory.Users.Application.AddToRole
 {
     public class RoleAggregator
     {
-        private readonly IArmoryUserRepository _repository;
+        private readonly IArmoryUsersRepository _repository;
 
-        public RoleAggregator(IArmoryUserRepository repository)
+        public RoleAggregator(IArmoryUsersRepository repository)
         {
             _repository = repository;
         }

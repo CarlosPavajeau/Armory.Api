@@ -7,13 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Armory.Users.Infrastructure.Persistence
 {
-    public class MySqlArmoryUserRepository : IArmoryUserRepository
+    public class MySqlArmoryUsersRepository : IArmoryUsersRepository
     {
         private readonly UserManager<ArmoryUser> _userManager;
         private readonly SignInManager<ArmoryUser> _signInManager;
         private readonly ArmoryDbContext _dbContext;
 
-        public MySqlArmoryUserRepository(UserManager<ArmoryUser> userManager, SignInManager<ArmoryUser> signInManager,
+        public MySqlArmoryUsersRepository(UserManager<ArmoryUser> userManager, SignInManager<ArmoryUser> signInManager,
             ArmoryDbContext dbContext)
         {
             _userManager = userManager;

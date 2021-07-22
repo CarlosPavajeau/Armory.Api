@@ -7,9 +7,9 @@ namespace Armory.People.Application.SearchAll
 {
     public class PeopleSearcher
     {
-        private readonly IPersonRepository _repository;
+        private readonly IPeopleRepository _repository;
 
-        public PeopleSearcher(IPersonRepository repository)
+        public PeopleSearcher(IPeopleRepository repository)
         {
             _repository = repository;
         }

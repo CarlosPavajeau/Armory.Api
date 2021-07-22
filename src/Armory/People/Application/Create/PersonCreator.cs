@@ -6,10 +6,10 @@ namespace Armory.People.Application.Create
 {
     public class PersonCreator
     {
-        private readonly IPersonRepository _repository;
+        private readonly IPeopleRepository _repository;
         private readonly ArmoryUserCreator _userCreator;
 
-        public PersonCreator(IPersonRepository repository, ArmoryUserCreator userCreator)
+        public PersonCreator(IPeopleRepository repository, ArmoryUserCreator userCreator)
         {
             _repository = repository;
             _userCreator = userCreator;

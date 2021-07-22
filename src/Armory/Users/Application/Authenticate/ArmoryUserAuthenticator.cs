@@ -5,9 +5,9 @@ namespace Armory.Users.Application.Authenticate
 {
     public class ArmoryUserAuthenticator
     {
-        private readonly IArmoryUserRepository _repository;
+        private readonly IArmoryUsersRepository _repository;
 
-        public ArmoryUserAuthenticator(IArmoryUserRepository repository)
+        public ArmoryUserAuthenticator(IArmoryUsersRepository repository)
         {
             _repository = repository;
         }

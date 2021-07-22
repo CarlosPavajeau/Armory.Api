@@ -7,9 +7,9 @@ namespace Armory.Squadrons.Application.SearchAll
 {
     public class SquadronsSearcher
     {
-        private readonly ISquadronRepository _repository;
+        private readonly ISquadronsRepository _repository;
 
-        public SquadronsSearcher(ISquadronRepository repository)
+        public SquadronsSearcher(ISquadronsRepository repository)
         {
             _repository = repository;
         }
