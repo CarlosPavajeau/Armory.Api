@@ -43,7 +43,15 @@ namespace Armory.Api.Controllers.Troopers
             }
             catch (DbUpdateException)
             {
-                return BadRequest();
+                var exists = await _queryBus.Ask<bool>(new CheckTroopExistsQuery(request.Id));
+                if (!exists)
+                {
+                    throw;
+                }
+
+                ModelState.AddModelError("TroopAlreadyRegistered",
+                    $"Ya existe una tropa con la identificación '{request.Id}'");
+                return Conflict(new ValidationProblemDetails(ModelState));
             }
 
             return Ok();

@@ -43,7 +43,15 @@ namespace Armory.Api.Controllers.Armament.Explosives
             }
             catch (DbUpdateException)
             {
-                return BadRequest();
+                var exists = await _queryBus.Ask<bool>(new CheckExplosiveExistsQuery(request.Code));
+                if (!exists)
+                {
+                    throw;
+                }
+
+                ModelState.AddModelError("ExplosiveAlreadyRegistered",
+                    $"Ya existe un explosivo con el código '{request.Code}'");
+                return Conflict(new ValidationProblemDetails(ModelState));
             }
 
             return Ok();

@@ -41,7 +41,15 @@ namespace Armory.Api.Controllers.Squads
             }
             catch (DbUpdateException)
             {
-                return BadRequest();
+                var exists = await _queryBus.Ask<bool>(new CheckSquadExistsQuery(request.Code));
+                if (!exists)
+                {
+                    throw;
+                }
+
+                ModelState.AddModelError("SquadAlreadyRegistered",
+                    $"Ya existe una escuadra con el código '{request.Code}'");
+                return Conflict(new ValidationProblemDetails(ModelState));
             }
 
             return Ok();

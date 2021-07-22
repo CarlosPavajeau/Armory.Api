@@ -43,7 +43,15 @@ namespace Armory.Api.Controllers.Armament.Equipments
             }
             catch (DbUpdateException)
             {
-                return BadRequest();
+                var exists = await _queryBus.Ask<bool>(new CheckEquipmentExistsQuery(request.Code));
+                if (!exists)
+                {
+                    throw;
+                }
+
+                ModelState.AddModelError("EquipmentAlreadyRegistered",
+                    $"Ya existe un equipo especial o accesorio con el código '{request.Code}'");
+                return Conflict(new ValidationProblemDetails(ModelState));
             }
 
             return Ok();

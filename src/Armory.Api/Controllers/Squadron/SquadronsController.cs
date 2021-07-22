@@ -42,7 +42,15 @@ namespace Armory.Api.Controllers.Squadron
             }
             catch (DbUpdateException)
             {
-                return BadRequest();
+                var exists = await _queryBus.Ask<bool>(new CheckSquadronExistsQuery(request.Code));
+                if (!exists)
+                {
+                    throw;
+                }
+
+                ModelState.AddModelError("SquadronAlreadyRegistered",
+                    $"Ya existe una escuadrilla con el código '{request.Code}'");
+                return Conflict(new ValidationProblemDetails(ModelState));
             }
 
             return Ok();

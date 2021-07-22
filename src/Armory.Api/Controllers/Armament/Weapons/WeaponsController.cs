@@ -43,7 +43,15 @@ namespace Armory.Api.Controllers.Armament.Weapons
             }
             catch (DbUpdateException)
             {
-                return BadRequest();
+                var exists = await _queryBus.Ask<bool>(new CheckWeaponExistsQuery(request.Code));
+                if (!exists)
+                {
+                    throw;
+                }
+
+                ModelState.AddModelError("WeaponAlreadyRegistered",
+                    $"Ya existe un arma con el código '{request.Code}'");
+                return Conflict(new ValidationProblemDetails(ModelState));
             }
 
             return Ok();
