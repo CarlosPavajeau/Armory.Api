@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Armory.People.Domain;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
@@ -50,9 +52,9 @@ namespace Armory.People.Infrastructure.Persistence
                 .ToListAsync();
         }
 
-        public async Task<bool> CheckExists(string id)
+        public async Task<bool> Any(Expression<Func<Person, bool>> predicate)
         {
-            return await _context.People.AnyAsync(p => p.Id == id);
+            return await _context.People.AnyAsync(predicate);
         }
 
         public async Task Update(Person newPerson)
