@@ -12,7 +12,7 @@ using Armory.Armament.Weapons.Infrastructure.Persistence;
 using Armory.Degrees.Domain;
 using Armory.Degrees.Infrastructure.Persistence;
 using Armory.People.Domain;
-using Armory.People.Infrastructure;
+using Armory.People.Infrastructure.Persistence;
 using Armory.Ranks.Domain;
 using Armory.Ranks.Infrastructure.Persistence;
 using Armory.Shared.Domain.Bus.Command;

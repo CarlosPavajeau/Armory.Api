@@ -6,7 +6,7 @@ using Armory.Shared.Infrastructure.Persistence.EntityFramework;
 using Armory.Users.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace Armory.People.Infrastructure
+namespace Armory.People.Infrastructure.Persistence
 {
     public class MySqlPersonRepository : IPersonRepository
     {
