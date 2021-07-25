@@ -36,7 +36,7 @@ namespace Armory.Users.Application.Create
                     throw new ArmoryUserNotCreated(roleResult.Errors);
                 }
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
                 throw new ArmoryUserNotCreated(new[]
                 {
