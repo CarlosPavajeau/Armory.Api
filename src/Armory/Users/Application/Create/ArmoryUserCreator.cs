@@ -1,6 +1,8 @@
+using System;
 using System.Threading.Tasks;
 using Armory.Users.Application.AddToRole;
 using Armory.Users.Domain;
+using Microsoft.AspNetCore.Identity;
 
 namespace Armory.Users.Application.Create
 {
@@ -26,11 +28,26 @@ namespace Armory.Users.Application.Create
                 throw new ArmoryUserNotCreated(result.Errors);
             }
 
-            var roleResult = await _roleAggregator.AddToRole(user, roleName);
-            if (!roleResult.Succeeded)
+            try
             {
-                throw new ArmoryUserNotCreated(roleResult.Errors);
+                var roleResult = await _roleAggregator.AddToRole(user, roleName);
+                if (!roleResult.Succeeded)
+                {
+                    throw new ArmoryUserNotCreated(roleResult.Errors);
+                }
             }
+            catch (InvalidOperationException e)
+            {
+                throw new ArmoryUserNotCreated(new[]
+                {
+                    new IdentityError
+                    {
+                        Code = "RoleDoesNotExists",
+                        Description = $"El rol '{roleName}' no existe."
+                    }
+                });
+            }
+
 
             return user;
         }
