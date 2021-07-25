@@ -18,10 +18,12 @@ using Armory.Ranks.Infrastructure.Persistence;
 using Armory.Shared.Domain.Bus.Command;
 using Armory.Shared.Domain.Bus.Event;
 using Armory.Shared.Domain.Bus.Query;
+using Armory.Shared.Domain.Persistence.EntityFramework.Transactions;
 using Armory.Shared.Infrastructure.Bus.Command;
 using Armory.Shared.Infrastructure.Bus.Event;
 using Armory.Shared.Infrastructure.Bus.Query;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
+using Armory.Shared.Infrastructure.Persistence.EntityFramework.Transactions;
 using Armory.Squadrons.Domain;
 using Armory.Squadrons.Infrastructure.Persistence;
 using Armory.Squads.Domain;
@@ -82,6 +84,8 @@ namespace Armory.Api.Extensions
             services.AddScoped<IRanksRepository, MySqlRanksRepository>();
             services.AddScoped<IDegreesRepository, MySqlDegreesRepository>();
             services.AddScoped<ITroopersRepository, MySqlTroopersRepository>();
+
+            services.AddScoped<ITransactionInitializer, TransactionInitializer>();
 
             return services;
         }
