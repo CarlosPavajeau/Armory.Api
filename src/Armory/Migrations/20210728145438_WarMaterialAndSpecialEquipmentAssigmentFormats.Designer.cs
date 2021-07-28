@@ -3,14 +3,16 @@ using System;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Armory.Migrations
 {
     [DbContext(typeof(ArmoryDbContext))]
-    partial class ArmoryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210728145438_WarMaterialAndSpecialEquipmentAssigmentFormats")]
+    partial class WarMaterialAndSpecialEquipmentAssigmentFormats
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -312,105 +314,6 @@ namespace Armory.Migrations
                     b.HasIndex("ExplosiveCode");
 
                     b.ToTable("WarMaterialAndSpecialEquipmentAssignmentFormatExplosives");
-                });
-
-            modelBuilder.Entity("Armory.Formats.Domain.WarMaterialDeliveryCertificateFormat", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("Place")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
-
-                    b.Property<string>("SquadCode")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("SquadronCode")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("TroopId")
-                        .IsRequired()
-                        .HasColumnType("varchar(10)");
-
-                    b.Property<DateTime>("Validity")
-                        .HasColumnType("datetime");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SquadCode");
-
-                    b.HasIndex("SquadronCode");
-
-                    b.HasIndex("TroopId");
-
-                    b.ToTable("WarMaterialDeliveryCertificateFormats");
-                });
-
-            modelBuilder.Entity("Armory.Formats.Domain.WarMaterialDeliveryCertificateFormatAmmunition", b =>
-                {
-                    b.Property<int>("WarMaterialDeliveryCertificateFormatId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AmmunitionCode")
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("WarMaterialDeliveryCertificateFormatId", "AmmunitionCode");
-
-                    b.HasIndex("AmmunitionCode");
-
-                    b.ToTable("WarMaterialDeliveryCertificateFormatAmmunition");
-                });
-
-            modelBuilder.Entity("Armory.Formats.Domain.WarMaterialDeliveryCertificateFormatEquipment", b =>
-                {
-                    b.Property<int>("WarMaterialDeliveryCertificateFormatId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EquipmentCode")
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("WarMaterialDeliveryCertificateFormatId", "EquipmentCode");
-
-                    b.HasIndex("EquipmentCode");
-
-                    b.ToTable("WarMaterialDeliveryCertificateFormatEquipments");
-                });
-
-            modelBuilder.Entity("Armory.Formats.Domain.WarMaterialDeliveryCertificateFormatExplosive", b =>
-                {
-                    b.Property<int>("WarMaterialDeliveryCertificateFormatId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ExplosiveCode")
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("WarMaterialDeliveryCertificateFormatId", "ExplosiveCode");
-
-                    b.HasIndex("ExplosiveCode");
-
-                    b.ToTable("WarMaterialDeliveryCertificateFormatExplosives");
                 });
 
             modelBuilder.Entity("Armory.People.Domain.Person", b =>
@@ -776,21 +679,6 @@ namespace Armory.Migrations
                     b.ToTable("WarMaterialAndSpecialEquipmentAssignmentFormatWeapon");
                 });
 
-            modelBuilder.Entity("WarMaterialDeliveryCertificateFormatWeapon", b =>
-                {
-                    b.Property<int>("WarMaterialDeliveryCertificateFormatsId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WeaponsCode")
-                        .HasColumnType("varchar(50)");
-
-                    b.HasKey("WarMaterialDeliveryCertificateFormatsId", "WeaponsCode");
-
-                    b.HasIndex("WeaponsCode");
-
-                    b.ToTable("WarMaterialDeliveryCertificateFormatWeapon");
-                });
-
             modelBuilder.Entity("Armory.Degrees.Domain.Degree", b =>
                 {
                     b.HasOne("Armory.Ranks.Domain.Rank", "Rank")
@@ -880,90 +768,6 @@ namespace Armory.Migrations
                         .IsRequired();
 
                     b.Navigation("Equipment");
-
-                    b.Navigation("Format");
-                });
-
-            modelBuilder.Entity("Armory.Formats.Domain.WarMaterialDeliveryCertificateFormat", b =>
-                {
-                    b.HasOne("Armory.Squads.Domain.Squad", "Dependency")
-                        .WithMany()
-                        .HasForeignKey("SquadCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Armory.Squadrons.Domain.Squadron", "Unit")
-                        .WithMany()
-                        .HasForeignKey("SquadronCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Armory.Troopers.Domain.Troop", "Applicant")
-                        .WithMany()
-                        .HasForeignKey("TroopId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Applicant");
-
-                    b.Navigation("Dependency");
-
-                    b.Navigation("Unit");
-                });
-
-            modelBuilder.Entity("Armory.Formats.Domain.WarMaterialDeliveryCertificateFormatAmmunition", b =>
-                {
-                    b.HasOne("Armory.Armament.Ammunition.Domain.Ammunition", "Ammunition")
-                        .WithMany("WarMaterialDeliveryCertificateFormatAmmunition")
-                        .HasForeignKey("AmmunitionCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Armory.Formats.Domain.WarMaterialDeliveryCertificateFormat", "Format")
-                        .WithMany("WarMaterialDeliveryCertificateFormatAmmunition")
-                        .HasForeignKey("WarMaterialDeliveryCertificateFormatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ammunition");
-
-                    b.Navigation("Format");
-                });
-
-            modelBuilder.Entity("Armory.Formats.Domain.WarMaterialDeliveryCertificateFormatEquipment", b =>
-                {
-                    b.HasOne("Armory.Armament.Equipments.Domain.Equipment", "Equipment")
-                        .WithMany("WarMaterialDeliveryCertificateFormatEquipments")
-                        .HasForeignKey("EquipmentCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Armory.Formats.Domain.WarMaterialDeliveryCertificateFormat", "Format")
-                        .WithMany("WarMaterialDeliveryCertificateFormatEquipments")
-                        .HasForeignKey("WarMaterialDeliveryCertificateFormatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Equipment");
-
-                    b.Navigation("Format");
-                });
-
-            modelBuilder.Entity("Armory.Formats.Domain.WarMaterialDeliveryCertificateFormatExplosive", b =>
-                {
-                    b.HasOne("Armory.Armament.Explosives.Domain.Explosive", "Explosive")
-                        .WithMany("WarMaterialDeliveryCertificateFormatExplosives")
-                        .HasForeignKey("ExplosiveCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Armory.Formats.Domain.WarMaterialDeliveryCertificateFormat", "Format")
-                        .WithMany("WarMaterialDeliveryCertificateFormatExplosives")
-                        .HasForeignKey("WarMaterialDeliveryCertificateFormatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Explosive");
 
                     b.Navigation("Format");
                 });
@@ -1093,40 +897,19 @@ namespace Armory.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WarMaterialDeliveryCertificateFormatWeapon", b =>
-                {
-                    b.HasOne("Armory.Formats.Domain.WarMaterialDeliveryCertificateFormat", null)
-                        .WithMany()
-                        .HasForeignKey("WarMaterialDeliveryCertificateFormatsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Armory.Armament.Weapons.Domain.Weapon", null)
-                        .WithMany()
-                        .HasForeignKey("WeaponsCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Armory.Armament.Ammunition.Domain.Ammunition", b =>
                 {
                     b.Navigation("WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition");
-
-                    b.Navigation("WarMaterialDeliveryCertificateFormatAmmunition");
                 });
 
             modelBuilder.Entity("Armory.Armament.Equipments.Domain.Equipment", b =>
                 {
                     b.Navigation("WarMaterialAndSpecialEquipmentAssignmentFormatEquipments");
-
-                    b.Navigation("WarMaterialDeliveryCertificateFormatEquipments");
                 });
 
             modelBuilder.Entity("Armory.Armament.Explosives.Domain.Explosive", b =>
                 {
                     b.Navigation("WarMaterialAndSpecialEquipmentAssignmentFormatExplosives");
-
-                    b.Navigation("WarMaterialDeliveryCertificateFormatExplosives");
                 });
 
             modelBuilder.Entity("Armory.Degrees.Domain.Degree", b =>
@@ -1141,15 +924,6 @@ namespace Armory.Migrations
                     b.Navigation("WarMaterialAndSpecialEquipmentAssignmentFormatEquipments");
 
                     b.Navigation("WarMaterialAndSpecialEquipmentAssignmentFormatExplosives");
-                });
-
-            modelBuilder.Entity("Armory.Formats.Domain.WarMaterialDeliveryCertificateFormat", b =>
-                {
-                    b.Navigation("WarMaterialDeliveryCertificateFormatAmmunition");
-
-                    b.Navigation("WarMaterialDeliveryCertificateFormatEquipments");
-
-                    b.Navigation("WarMaterialDeliveryCertificateFormatExplosives");
                 });
 
             modelBuilder.Entity("Armory.People.Domain.Person", b =>

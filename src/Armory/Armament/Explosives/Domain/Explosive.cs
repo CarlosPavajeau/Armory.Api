@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Armory.Formats.Domain;
 
 namespace Armory.Armament.Explosives.Domain
 {
@@ -11,6 +13,14 @@ namespace Armory.Armament.Explosives.Domain
         [Required, MaxLength(256)] public string Lot { get; set; }
         [Required, MaxLength(256)] public string Series { get; set; }
         [Required] public int QuantityAvailable { get; set; }
+
+        public ICollection<WarMaterialAndSpecialEquipmentAssignmentFormatExplosive>
+            WarMaterialAndSpecialEquipmentAssignmentFormatExplosives { get; set; } =
+            new HashSet<WarMaterialAndSpecialEquipmentAssignmentFormatExplosive>();
+
+        public ICollection<WarMaterialDeliveryCertificateFormatExplosive>
+            WarMaterialDeliveryCertificateFormatExplosives { get; set; } =
+            new HashSet<WarMaterialDeliveryCertificateFormatExplosive>();
 
         public Explosive(string code, string type, string caliber, string mark, string lot, string series,
             int quantityAvailable)

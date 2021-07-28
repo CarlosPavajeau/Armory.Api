@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Armory.Formats.Domain;
 
 namespace Armory.Armament.Ammunition.Domain
 {
@@ -11,6 +13,14 @@ namespace Armory.Armament.Ammunition.Domain
         [Required, MaxLength(256)] public string Series { get; set; }
         [Required, MaxLength(256)] public string Lot { get; set; }
         [Required] public int QuantityAvailable { get; set; }
+
+        public ICollection<WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition>
+            WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition { get; set; } =
+            new HashSet<WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition>();
+
+        public ICollection<WarMaterialDeliveryCertificateFormatAmmunition>
+            WarMaterialDeliveryCertificateFormatAmmunition { get; set; } =
+            new HashSet<WarMaterialDeliveryCertificateFormatAmmunition>();
 
         public Ammunition(string code, string type, string mark, string caliber, string series, string lot,
             int quantityAvailable)

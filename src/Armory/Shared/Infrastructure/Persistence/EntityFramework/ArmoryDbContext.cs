@@ -3,6 +3,7 @@ using Armory.Armament.Equipments.Domain;
 using Armory.Armament.Explosives.Domain;
 using Armory.Armament.Weapons.Domain;
 using Armory.Degrees.Domain;
+using Armory.Formats.Domain;
 using Armory.People.Domain;
 using Armory.Ranks.Domain;
 using Armory.Squadrons.Domain;
@@ -26,6 +27,41 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework
         public DbSet<Rank> Ranks { get; set; }
         public DbSet<Degree> Degrees { get; set; }
         public DbSet<Troop> Troopers { get; set; }
+
+        public DbSet<WarMaterialAndSpecialEquipmentAssignmentFormat> WarMaterialAndSpecialEquipmentAssignmentFormats
+        {
+            get;
+            set;
+        }
+
+        public DbSet<WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition>
+            WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition { get; set; }
+
+        public DbSet<WarMaterialAndSpecialEquipmentAssignmentFormatEquipment>
+            WarMaterialAndSpecialEquipmentAssignmentFormatEquipments { get; set; }
+
+        public DbSet<WarMaterialAndSpecialEquipmentAssignmentFormatExplosive>
+            WarMaterialAndSpecialEquipmentAssignmentFormatExplosives { get; set; }
+
+        public DbSet<WarMaterialDeliveryCertificateFormat> WarMaterialDeliveryCertificateFormats { get; set; }
+
+        public DbSet<WarMaterialDeliveryCertificateFormatAmmunition> WarMaterialDeliveryCertificateFormatAmmunition
+        {
+            get;
+            set;
+        }
+
+        public DbSet<WarMaterialDeliveryCertificateFormatEquipment> WarMaterialDeliveryCertificateFormatEquipments
+        {
+            get;
+            set;
+        }
+
+        public DbSet<WarMaterialDeliveryCertificateFormatExplosive> WarMaterialDeliveryCertificateFormatExplosives
+        {
+            get;
+            set;
+        }
 
         public ArmoryDbContext(DbContextOptions<ArmoryDbContext> options) : base(options)
         {
