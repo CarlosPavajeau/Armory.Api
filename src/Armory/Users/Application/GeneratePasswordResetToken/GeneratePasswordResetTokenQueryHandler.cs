@@ -1,10 +1,12 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Query;
-using Armory.Users.Domain;
 
 namespace Armory.Users.Application.GeneratePasswordResetToken
 {
-    public class GeneratePasswordResetTokenQueryHandler : IQueryHandler<GeneratePasswordResetTokenQuery, PasswordResetTokenResponse>
+    public class
+        GeneratePasswordResetTokenQueryHandler : IQueryHandler<GeneratePasswordResetTokenQuery,
+            PasswordResetTokenResponse>
     {
         private readonly PasswordResetTokenGenerator _generator;
 
@@ -13,9 +15,10 @@ namespace Armory.Users.Application.GeneratePasswordResetToken
             _generator = generator;
         }
 
-        public async Task<PasswordResetTokenResponse> Handle(GeneratePasswordResetTokenQuery query)
+        public async Task<PasswordResetTokenResponse> Handle(GeneratePasswordResetTokenQuery request,
+            CancellationToken cancellationToken)
         {
-            return await _generator.GeneratePasswordResetToken(query.UsernameOrEmail);
+            return await _generator.GeneratePasswordResetToken(request.UsernameOrEmail);
         }
     }
 }

@@ -33,8 +33,6 @@ using Armory.People.Application.Update;
 using Armory.Ranks.Application.Create;
 using Armory.Ranks.Application.Find;
 using Armory.Ranks.Application.SearchAll;
-using Armory.Shared.Extensions;
-using Armory.Shared.Helpers;
 using Armory.Squadrons.Application.CheckExists;
 using Armory.Squadrons.Application.Create;
 using Armory.Squadrons.Application.Find;
@@ -134,9 +132,6 @@ namespace Armory.Api.Extensions
             services.AddScoped<TroopExistsChecker, TroopExistsChecker>();
             services.AddScoped<AllTroopsSearcher, AllTroopsSearcher>();
             services.AddScoped<TroopUpdater, TroopUpdater>();
-
-            services.AddCommandServices(AssemblyHelper.GetInstance(Assemblies.Armory));
-            services.AddQueryServices(AssemblyHelper.GetInstance(Assemblies.Armory));
 
             return services;
         }

@@ -1,15 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Armory.Api.Controllers.Squadron.Requests;
-using Armory.Shared.Domain.Bus.Command;
-using Armory.Shared.Domain.Bus.Query;
 using Armory.Squadrons.Application;
 using Armory.Squadrons.Application.CheckExists;
 using Armory.Squadrons.Application.Create;
 using Armory.Squadrons.Application.Find;
 using Armory.Squadrons.Application.SearchAll;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,14 +19,12 @@ namespace Armory.Api.Controllers.Squadron
     [Route("[controller]")]
     public class SquadronsController : ControllerBase
     {
-        private readonly ICommandBus _commandBus;
-        private readonly IQueryBus _queryBus;
+        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
-        public SquadronsController(ICommandBus commandBus, IQueryBus queryBus, IMapper mapper)
+        public SquadronsController(IMediator mediator, IMapper mapper)
         {
-            _commandBus = commandBus;
-            _queryBus = queryBus;
+            _mediator = mediator;
             _mapper = mapper;
         }
 
@@ -38,11 +34,11 @@ namespace Armory.Api.Controllers.Squadron
             try
             {
                 var command = _mapper.Map<CreateSquadronCommand>(request);
-                await _commandBus.Dispatch(command);
+                await _mediator.Send(command);
             }
             catch (DbUpdateException)
             {
-                var exists = await _queryBus.Ask<bool>(new CheckSquadronExistsQuery(request.Code));
+                var exists = await _mediator.Send(new CheckSquadronExistsQuery(request.Code));
                 if (!exists)
                 {
                     throw;
@@ -59,14 +55,14 @@ namespace Armory.Api.Controllers.Squadron
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SquadronResponse>>> GetSquadrons()
         {
-            var response = await _queryBus.Ask<IEnumerable<SquadronResponse>>(new SearchAllSquadronsQuery());
+            var response = await _mediator.Send(new SearchAllSquadronsQuery());
             return Ok(response);
         }
 
         [HttpGet("{code}")]
         public async Task<ActionResult<SquadronResponse>> GetSquadron(string code)
         {
-            var response = await _queryBus.Ask<SquadronResponse>(new FindSquadronQuery(code));
+            var response = await _mediator.Send(new FindSquadronQuery(code));
             if (response != null)
             {
                 return Ok(response);
@@ -80,7 +76,7 @@ namespace Armory.Api.Controllers.Squadron
         [HttpGet("Exists/{code}")]
         public async Task<ActionResult<bool>> CheckExists(string code)
         {
-            var exists = await _queryBus.Ask<bool>(new CheckSquadronExistsQuery(code));
+            var exists = await _mediator.Send(new CheckSquadronExistsQuery(code));
             return Ok(exists);
         }
     }

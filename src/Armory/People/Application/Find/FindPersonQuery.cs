@@ -2,7 +2,7 @@ using Armory.Shared.Domain.Bus.Query;
 
 namespace Armory.People.Application.Find
 {
-    public class FindPersonQuery : Query
+    public class FindPersonQuery : Query<PersonResponse>
     {
         public string Id { get; }
 

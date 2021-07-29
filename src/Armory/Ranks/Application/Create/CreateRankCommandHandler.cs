@@ -1,9 +1,10 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Command;
 
 namespace Armory.Ranks.Application.Create
 {
-    public class CreateRankCommandHandler : ICommandHandler<CreateRankCommand>
+    public class CreateRankCommandHandler : CommandHandler<CreateRankCommand>
     {
         private readonly RankCreator _creator;
 
@@ -12,9 +13,9 @@ namespace Armory.Ranks.Application.Create
             _creator = creator;
         }
 
-        public async Task Handle(CreateRankCommand command)
+        protected override async Task Handle(CreateRankCommand request, CancellationToken cancellationToken)
         {
-            await _creator.Create(command.Name);
+            await _creator.Create(request.Name);
         }
     }
 }

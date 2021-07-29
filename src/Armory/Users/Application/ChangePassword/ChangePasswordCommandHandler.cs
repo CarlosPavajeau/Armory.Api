@@ -1,9 +1,10 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Command;
 
 namespace Armory.Users.Application.ChangePassword
 {
-    public class ChangePasswordCommandHandler : ICommandHandler<ChangePasswordCommand>
+    public class ChangePasswordCommandHandler : CommandHandler<ChangePasswordCommand>
     {
         private readonly PasswordChanger _changer;
 
@@ -12,9 +13,9 @@ namespace Armory.Users.Application.ChangePassword
             _changer = changer;
         }
 
-        public async Task Handle(ChangePasswordCommand command)
+        protected override async Task Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
         {
-            await _changer.ChangePassword(command.UsernameOrEmail, command.OldPassword, command.NewPassword);
+            await _changer.ChangePassword(request.UsernameOrEmail, request.OldPassword, request.NewPassword);
         }
     }
 }

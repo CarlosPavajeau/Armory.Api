@@ -2,7 +2,7 @@ using Armory.Shared.Domain.Bus.Query;
 
 namespace Armory.Squads.Application.CheckExists
 {
-    public class CheckSquadExistsQuery : Query
+    public class CheckSquadExistsQuery : Query<bool>
     {
         public string Code { get; }
 

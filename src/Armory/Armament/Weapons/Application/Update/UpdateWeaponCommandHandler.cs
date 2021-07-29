@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Armament.Weapons.Application.Find;
 using Armory.Armament.Weapons.Domain;
@@ -5,7 +6,7 @@ using Armory.Shared.Domain.Bus.Command;
 
 namespace Armory.Armament.Weapons.Application.Update
 {
-    public class UpdateWeaponCommandHandler : ICommandHandler<UpdateWeaponCommand>
+    public class UpdateWeaponCommandHandler : CommandHandler<UpdateWeaponCommand>
     {
         private readonly WeaponUpdater _updater;
         private readonly WeaponFinder _finder;
@@ -16,17 +17,17 @@ namespace Armory.Armament.Weapons.Application.Update
             _finder = finder;
         }
 
-        public async Task Handle(UpdateWeaponCommand command)
+        protected override async Task Handle(UpdateWeaponCommand request, CancellationToken cancellationToken)
         {
-            var weapon = await _finder.Find(command.Code);
+            var weapon = await _finder.Find(request.Code);
             if (weapon == null)
             {
                 throw new WeaponNotFound();
             }
 
-            await _updater.Update(weapon, command.Type, command.Mark, command.Model, command.Caliber,
-                command.Series, command.Lot, command.NumberOfProviders, command.ProviderCapacity,
-                command.QuantityAvailable);
+            await _updater.Update(weapon, request.Type, request.Mark, request.Model, request.Caliber,
+                request.Series, request.Lot, request.NumberOfProviders, request.ProviderCapacity,
+                request.QuantityAvailable);
         }
     }
 }

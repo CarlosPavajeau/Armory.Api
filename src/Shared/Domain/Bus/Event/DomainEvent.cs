@@ -1,6 +1,8 @@
+using MediatR;
+
 namespace Armory.Shared.Domain.Bus.Event
 {
-    public abstract class DomainEvent
+    public abstract class DomainEvent : INotification
     {
         public string AggregateId { get; set; }
         public string EventId { get; set; }

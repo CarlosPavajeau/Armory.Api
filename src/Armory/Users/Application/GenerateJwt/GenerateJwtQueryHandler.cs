@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Query;
 using Armory.Users.Domain;
@@ -15,9 +16,9 @@ namespace Armory.Users.Application.GenerateJwt
             _generator = generator;
         }
 
-        public async Task<string> Handle(GenerateJwtQuery query)
+        public async Task<string> Handle(GenerateJwtQuery request, CancellationToken cancellationToken)
         {
-            var user = await _repository.FindByUsernameOrEmail(query.Username);
+            var user = await _repository.FindByUsernameOrEmail(request.Username);
             if (user == null)
             {
                 return string.Empty;

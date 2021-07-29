@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Query;
 
@@ -13,9 +14,10 @@ namespace Armory.Users.Application.GenerateEmailConfirmationToken
             _generator = generator;
         }
 
-        public async Task<GenerateConfirmationTokenResponse> Handle(GenerateEmailConfirmationTokenQuery query)
+        public async Task<GenerateConfirmationTokenResponse> Handle(GenerateEmailConfirmationTokenQuery request,
+            CancellationToken cancellationToken)
         {
-            return await _generator.GenerateEmailConfirmationToken(query.UsernameOrEmail);
+            return await _generator.GenerateEmailConfirmationToken(request.UsernameOrEmail);
         }
     }
 }

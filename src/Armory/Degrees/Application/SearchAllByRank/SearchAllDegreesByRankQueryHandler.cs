@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Query;
 
@@ -14,9 +15,10 @@ namespace Armory.Degrees.Application.SearchAllByRank
             _searcher = searcher;
         }
 
-        public async Task<IEnumerable<DegreeResponse>> Handle(SearchAllDegreesByRankQuery query)
+        public async Task<IEnumerable<DegreeResponse>> Handle(SearchAllDegreesByRankQuery request,
+            CancellationToken cancellationToken)
         {
-            return await _searcher.SearchByRank(query.RankId);
+            return await _searcher.SearchByRank(request.RankId);
         }
     }
 }

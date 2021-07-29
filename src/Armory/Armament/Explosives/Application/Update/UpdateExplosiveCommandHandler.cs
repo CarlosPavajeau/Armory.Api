@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Armament.Explosives.Application.Find;
 using Armory.Armament.Explosives.Domain;
@@ -5,7 +6,7 @@ using Armory.Shared.Domain.Bus.Command;
 
 namespace Armory.Armament.Explosives.Application.Update
 {
-    public class UpdateExplosiveCommandHandler : ICommandHandler<UpdateExplosiveCommand>
+    public class UpdateExplosiveCommandHandler : CommandHandler<UpdateExplosiveCommand>
     {
         private readonly ExplosiveUpdater _updater;
         private readonly ExplosiveFinder _finder;
@@ -16,16 +17,16 @@ namespace Armory.Armament.Explosives.Application.Update
             _finder = finder;
         }
 
-        public async Task Handle(UpdateExplosiveCommand command)
+        protected override async Task Handle(UpdateExplosiveCommand request, CancellationToken cancellationToken)
         {
-            var explosive = await _finder.Find(command.Code);
+            var explosive = await _finder.Find(request.Code);
             if (explosive == null)
             {
                 throw new ExplosiveNotFound();
             }
 
-            await _updater.Update(explosive, command.Type, command.Caliber, command.Mark, command.Lot,
-                command.Series, command.QuantityAvailable);
+            await _updater.Update(explosive, request.Type, request.Caliber, request.Mark, request.Lot,
+                request.Series, request.QuantityAvailable);
         }
     }
 }

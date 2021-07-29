@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Query;
 
@@ -14,7 +15,8 @@ namespace Armory.Armament.Equipments.Application.SearchAll
             _searcher = searcher;
         }
 
-        public async Task<IEnumerable<EquipmentResponse>> Handle(SearchAllEquipmentsQuery query)
+        public async Task<IEnumerable<EquipmentResponse>> Handle(SearchAllEquipmentsQuery request,
+            CancellationToken cancellationToken)
         {
             return await _searcher.SearchAll();
         }

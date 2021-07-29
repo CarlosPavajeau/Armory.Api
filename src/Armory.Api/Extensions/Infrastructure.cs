@@ -15,13 +15,8 @@ using Armory.People.Domain;
 using Armory.People.Infrastructure.Persistence;
 using Armory.Ranks.Domain;
 using Armory.Ranks.Infrastructure.Persistence;
-using Armory.Shared.Domain.Bus.Command;
-using Armory.Shared.Domain.Bus.Event;
-using Armory.Shared.Domain.Bus.Query;
 using Armory.Shared.Domain.Persistence.EntityFramework.Transactions;
-using Armory.Shared.Infrastructure.Bus.Command;
-using Armory.Shared.Infrastructure.Bus.Event;
-using Armory.Shared.Infrastructure.Bus.Query;
+using Armory.Shared.Helpers;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework.Transactions;
 using Armory.Squadrons.Domain;
@@ -41,6 +36,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using MediatR;
 
 namespace Armory.Api.Extensions
 {
@@ -49,9 +45,6 @@ namespace Armory.Api.Extensions
         public static IServiceCollection AddInfrastructure(this IServiceCollection services,
             IConfiguration configuration)
         {
-            services.AddScoped<InMemoryApplicationEventBus, InMemoryApplicationEventBus>();
-            services.AddScoped<IEventBus, InMemoryApplicationEventBus>();
-
             services.AddIdentity<ArmoryUser, ArmoryRole>()
                 .AddEntityFrameworkStores<ArmoryDbContext>()
                 .AddErrorDescriber<SpanishIdentityErrorDescriber>()
@@ -68,8 +61,7 @@ namespace Armory.Api.Extensions
                 options => options.UseMySQL(configuration.GetConnectionString("DefaultConnection")),
                 ServiceLifetime.Transient);
 
-            services.AddScoped<ICommandBus, InMemoryCommandBus>();
-            services.AddScoped<IQueryBus, InMemoryQueryBus>();
+            services.AddMediatR(AssemblyHelper.GetInstance(Assemblies.Armory));
 
             services.Configure<SecretKey>(configuration.GetSection("SecretKey"));
 

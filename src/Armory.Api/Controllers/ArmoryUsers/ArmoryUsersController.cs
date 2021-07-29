@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Armory.Api.Controllers.ArmoryUsers.Requests;
 using Armory.Shared.Domain;
-using Armory.Shared.Domain.Bus.Command;
-using Armory.Shared.Domain.Bus.Query;
 using Armory.Users.Application;
 using Armory.Users.Application.ChangePassword;
 using Armory.Users.Application.ConfirmEmail;
@@ -13,6 +11,7 @@ using Armory.Users.Application.ResetPassword;
 using Armory.Users.Application.SearchAllRoles;
 using Armory.Users.Domain;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -24,14 +23,12 @@ namespace Armory.Api.Controllers.ArmoryUsers
     [Route("[controller]")]
     public class ArmoryUsersController : ControllerBase
     {
-        private readonly ICommandBus _commandBus;
-        private readonly IQueryBus _queryBus;
+        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
-        public ArmoryUsersController(ICommandBus commandBus, IQueryBus queryBus, IMapper mapper)
+        public ArmoryUsersController(IMediator mediator, IMapper mapper)
         {
-            _commandBus = commandBus;
-            _queryBus = queryBus;
+            _mediator = mediator;
             _mapper = mapper;
         }
 
@@ -56,7 +53,7 @@ namespace Armory.Api.Controllers.ArmoryUsers
         [AllowAnonymous]
         public async Task<IActionResult> ForgottenPassword(string userNameOrEmail)
         {
-            var response = await _queryBus.Ask<PasswordResetTokenResponse>(
+            var response = await _mediator.Send(
                 new GeneratePasswordResetTokenQuery(userNameOrEmail));
             return response.TokenGenerated
                 ? Ok(Utils.StringToBase64(response.Token))
@@ -70,7 +67,7 @@ namespace Armory.Api.Controllers.ArmoryUsers
             try
             {
                 var command = _mapper.Map<ResetPasswordCommand>(request);
-                await _commandBus.Dispatch(command);
+                await _mediator.Send(command);
             }
             catch (FormatException)
             {
@@ -96,7 +93,7 @@ namespace Armory.Api.Controllers.ArmoryUsers
             try
             {
                 var command = _mapper.Map<ChangePasswordCommand>(request);
-                await _commandBus.Dispatch(command);
+                await _mediator.Send(command);
             }
             catch (ArmoryUserNotFound)
             {
@@ -115,7 +112,7 @@ namespace Armory.Api.Controllers.ArmoryUsers
         {
             try
             {
-                await _commandBus.Dispatch(new ConfirmEmailCommand(usernameOrEmail, token));
+                await _mediator.Send(new ConfirmEmailCommand(usernameOrEmail, token));
             }
             catch (ArmoryUserNotFound)
             {
@@ -132,7 +129,7 @@ namespace Armory.Api.Controllers.ArmoryUsers
         [HttpGet("Roles")]
         public async Task<ActionResult<IEnumerable<ArmoryRoleResponse>>> GetRoles()
         {
-            var roles = await _queryBus.Ask<IEnumerable<ArmoryRoleResponse>>(new SearchAllRolesQuery());
+            var roles = await _mediator.Send(new SearchAllRolesQuery());
             return Ok(roles);
         }
     }

@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Query;
 
@@ -12,9 +13,9 @@ namespace Armory.People.Application.Find
             _searcher = searcher;
         }
 
-        public async Task<PersonResponse> Handle(FindPersonQuery query)
+        public async Task<PersonResponse> Handle(FindPersonQuery request, CancellationToken cancellationToken)
         {
-            var person = await _searcher.Find(query.Id);
+            var person = await _searcher.Find(request.Id);
             return person == null ? null : PersonResponse.FromAggregate(person);
         }
     }

@@ -1,9 +1,10 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Command;
 
 namespace Armory.People.Application.Delete
 {
-    public class DeletePersonCommandHandler : ICommandHandler<DeletePersonCommand>
+    public class DeletePersonCommandHandler : CommandHandler<DeletePersonCommand>
     {
         private readonly PersonDeleter _deleter;
 
@@ -12,9 +13,9 @@ namespace Armory.People.Application.Delete
             _deleter = deleter;
         }
 
-        public async Task Handle(DeletePersonCommand command)
+        protected override async Task Handle(DeletePersonCommand request, CancellationToken cancellationToken)
         {
-            await _deleter.Delete(command.Id);
+            await _deleter.Delete(request.Id);
         }
     }
 }

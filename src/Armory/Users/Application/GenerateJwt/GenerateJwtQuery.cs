@@ -2,7 +2,7 @@ using Armory.Shared.Domain.Bus.Query;
 
 namespace Armory.Users.Application.GenerateJwt
 {
-    public class GenerateJwtQuery : Query
+    public class GenerateJwtQuery : Query<string>
     {
         public string Username { get; }
 

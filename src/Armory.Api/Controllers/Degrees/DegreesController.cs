@@ -9,6 +9,7 @@ using Armory.Degrees.Application.SearchAllByRank;
 using Armory.Shared.Domain.Bus.Command;
 using Armory.Shared.Domain.Bus.Query;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,14 +21,12 @@ namespace Armory.Api.Controllers.Degrees
     [Route("[controller]")]
     public class DegreesController : ControllerBase
     {
-        private readonly ICommandBus _commandBus;
-        private readonly IQueryBus _queryBus;
+        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
-        public DegreesController(ICommandBus commandBus, IQueryBus queryBus, IMapper mapper)
+        public DegreesController(IMediator mediator, IMapper mapper)
         {
-            _commandBus = commandBus;
-            _queryBus = queryBus;
+            _mediator = mediator;
             _mapper = mapper;
         }
 
@@ -37,7 +36,7 @@ namespace Armory.Api.Controllers.Degrees
             try
             {
                 var command = _mapper.Map<CreateDegreeCommand>(request);
-                await _commandBus.Dispatch(command);
+                await _mediator.Send(command);
             }
             catch (DbUpdateException)
             {
@@ -50,14 +49,14 @@ namespace Armory.Api.Controllers.Degrees
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DegreeResponse>>> GetDegrees()
         {
-            var degrees = await _queryBus.Ask<IEnumerable<DegreeResponse>>(new SearchAllDegreesQuery());
+            var degrees = await _mediator.Send(new SearchAllDegreesQuery());
             return Ok(degrees);
         }
 
         [HttpGet("ByRank/{rankId:int}")]
         public async Task<ActionResult<IEnumerable<DegreeResponse>>> GetDegreesByRank(int rankId)
         {
-            var degrees = await _queryBus.Ask<IEnumerable<DegreeResponse>>(new SearchAllDegreesByRankQuery(rankId));
+            var degrees = await _mediator.Send(new SearchAllDegreesByRankQuery(rankId));
             return Ok(degrees);
         }
 
@@ -71,7 +70,7 @@ namespace Armory.Api.Controllers.Degrees
         [HttpGet("{id:int}")]
         public async Task<ActionResult<DegreeResponse>> GetDegree(int id)
         {
-            var degree = await _queryBus.Ask<DegreeResponse>(new FindDegreeQuery(id));
+            var degree = await _mediator.Send(new FindDegreeQuery(id));
             if (degree != null)
             {
                 return Ok(degree);

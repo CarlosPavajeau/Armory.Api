@@ -11,10 +11,9 @@ using Armory.People.Application.SearchAllByRole;
 using Armory.People.Application.SearchByArmoryUserId;
 using Armory.People.Application.Update;
 using Armory.People.Domain;
-using Armory.Shared.Domain.Bus.Command;
-using Armory.Shared.Domain.Bus.Query;
 using Armory.Users.Domain;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -27,14 +26,12 @@ namespace Armory.Api.Controllers.People
     [Route("[controller]")]
     public class PeopleController : ControllerBase
     {
-        private readonly ICommandBus _commandBus;
-        private readonly IQueryBus _queryBus;
+        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
-        public PeopleController(ICommandBus commandBus, IQueryBus queryBus, IMapper mapper)
+        public PeopleController(IMediator mediator, IMapper mapper)
         {
-            _commandBus = commandBus;
-            _queryBus = queryBus;
+            _mediator = mediator;
             _mapper = mapper;
         }
 
@@ -54,11 +51,11 @@ namespace Armory.Api.Controllers.People
             try
             {
                 var command = _mapper.Map<CreatePersonCommand>(request);
-                await _commandBus.Dispatch(command);
+                await _mediator.Send(command);
             }
             catch (DbUpdateException)
             {
-                var personExists = await _queryBus.Ask<bool>(new CheckPersonExistsQuery(request.Id));
+                var personExists = await _mediator.Send(new CheckPersonExistsQuery(request.Id));
                 if (!personExists)
                 {
                     throw;
@@ -79,7 +76,7 @@ namespace Armory.Api.Controllers.People
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PersonResponse>>> GetPeople()
         {
-            var response = await _queryBus.Ask<IEnumerable<PersonResponse>>(new SearchAllPeopleQuery());
+            var response = await _mediator.Send(new SearchAllPeopleQuery());
             return Ok(response);
         }
 
@@ -93,7 +90,7 @@ namespace Armory.Api.Controllers.People
         [HttpGet("{id}")]
         public async Task<ActionResult<PersonResponse>> GetPerson(string id)
         {
-            var response = await _queryBus.Ask<PersonResponse>(new FindPersonQuery(id));
+            var response = await _mediator.Send(new FindPersonQuery(id));
             if (response != null)
             {
                 return Ok(response);
@@ -105,14 +102,14 @@ namespace Armory.Api.Controllers.People
         [HttpGet("ByRole/{role}")]
         public async Task<ActionResult<IEnumerable<PersonResponse>>> GetPeopleByRole(string role)
         {
-            var response = await _queryBus.Ask<IEnumerable<PersonResponse>>(new SearchAllPeopleByRoleQuery(role));
+            var response = await _mediator.Send(new SearchAllPeopleByRoleQuery(role));
             return Ok(response);
         }
 
         [HttpGet("ByUserId/{userId}")]
         public async Task<ActionResult<PersonResponse>> GetPersonByUserId(string userId)
         {
-            var response = await _queryBus.Ask<PersonResponse>(new SearchPersonByArmoryUserIdQuery(userId));
+            var response = await _mediator.Send(new SearchPersonByArmoryUserIdQuery(userId));
             if (response != null)
             {
                 return Ok(response);
@@ -129,7 +126,7 @@ namespace Armory.Api.Controllers.People
             try
             {
                 var command = _mapper.Map<UpdatePersonCommand>(request);
-                await _commandBus.Dispatch(command);
+                await _mediator.Send(command);
             }
             catch (PersonNotFound)
             {
@@ -144,7 +141,7 @@ namespace Armory.Api.Controllers.People
         {
             try
             {
-                await _commandBus.Dispatch(new DeletePersonCommand(id));
+                await _mediator.Send(new DeletePersonCommand(id));
             }
             catch (PersonNotFound)
             {
