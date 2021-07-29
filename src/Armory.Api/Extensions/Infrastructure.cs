@@ -15,10 +15,8 @@ using Armory.People.Domain;
 using Armory.People.Infrastructure.Persistence;
 using Armory.Ranks.Domain;
 using Armory.Ranks.Infrastructure.Persistence;
-using Armory.Shared.Domain.Bus.Event;
 using Armory.Shared.Domain.Persistence.EntityFramework.Transactions;
 using Armory.Shared.Helpers;
-using Armory.Shared.Infrastructure.Bus.Event;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework.Transactions;
 using Armory.Squadrons.Domain;
@@ -47,9 +45,6 @@ namespace Armory.Api.Extensions
         public static IServiceCollection AddInfrastructure(this IServiceCollection services,
             IConfiguration configuration)
         {
-            services.AddScoped<InMemoryApplicationEventBus, InMemoryApplicationEventBus>();
-            services.AddScoped<IEventBus, InMemoryApplicationEventBus>();
-
             services.AddIdentity<ArmoryUser, ArmoryRole>()
                 .AddEntityFrameworkStores<ArmoryDbContext>()
                 .AddErrorDescriber<SpanishIdentityErrorDescriber>()
