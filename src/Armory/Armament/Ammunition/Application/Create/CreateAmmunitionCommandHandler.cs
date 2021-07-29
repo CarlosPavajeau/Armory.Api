@@ -1,9 +1,11 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Command;
+using MediatR;
 
 namespace Armory.Armament.Ammunition.Application.Create
 {
-    public class CreateAmmunitionCommandHandler : ICommandHandler<CreateAmmunitionCommand>
+    public class CreateAmmunitionCommandHandler : CommandHandler<CreateAmmunitionCommand>
     {
         private readonly AmmunitionCreator _creator;
 
@@ -12,10 +14,11 @@ namespace Armory.Armament.Ammunition.Application.Create
             _creator = creator;
         }
 
-        public async Task Handle(CreateAmmunitionCommand command)
+
+        protected override async Task Handle(CreateAmmunitionCommand request, CancellationToken cancellationToken)
         {
-            await _creator.Create(command.Code, command.Type, command.Mark, command.Caliber, command.Series,
-                command.Lot, command.QuantityAvailable);
+            await _creator.Create(request.Code, request.Type, request.Mark, request.Caliber, request.Series,
+                request.Lot, request.QuantityAvailable);
         }
     }
 }

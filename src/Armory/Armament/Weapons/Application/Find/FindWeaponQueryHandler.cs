@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Query;
 
@@ -12,9 +13,9 @@ namespace Armory.Armament.Weapons.Application.Find
             _finder = finder;
         }
 
-        public async Task<WeaponResponse> Handle(FindWeaponQuery query)
+        public async Task<WeaponResponse> Handle(FindWeaponQuery request, CancellationToken cancellationToken)
         {
-            var weapon = await _finder.Find(query.Code);
+            var weapon = await _finder.Find(request.Code);
             return weapon == null ? null : WeaponResponse.FromAggregate(weapon);
         }
     }

@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Query;
 
@@ -12,9 +13,9 @@ namespace Armory.Armament.Explosives.Application.Find
             _finder = finder;
         }
 
-        public async Task<ExplosiveResponse> Handle(FindExplosiveQuery query)
+        public async Task<ExplosiveResponse> Handle(FindExplosiveQuery request, CancellationToken cancellationToken)
         {
-            var explosive = await _finder.Find(query.Code);
+            var explosive = await _finder.Find(request.Code);
             return explosive == null ? null : ExplosiveResponse.FromAggregate(explosive);
         }
     }

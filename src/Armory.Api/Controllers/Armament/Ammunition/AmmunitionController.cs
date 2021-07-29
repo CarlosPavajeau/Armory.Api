@@ -8,9 +8,8 @@ using Armory.Armament.Ammunition.Application.Find;
 using Armory.Armament.Ammunition.Application.SearchAll;
 using Armory.Armament.Ammunition.Application.Update;
 using Armory.Armament.Ammunition.Domain;
-using Armory.Shared.Domain.Bus.Command;
-using Armory.Shared.Domain.Bus.Query;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,14 +21,12 @@ namespace Armory.Api.Controllers.Armament.Ammunition
     [Route("[controller]")]
     public class AmmunitionController : ControllerBase
     {
-        private readonly ICommandBus _commandBus;
-        private readonly IQueryBus _queryBus;
+        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
-        public AmmunitionController(ICommandBus commandBus, IQueryBus queryBus, IMapper mapper)
+        public AmmunitionController(IMediator mediator, IMapper mapper)
         {
-            _commandBus = commandBus;
-            _queryBus = queryBus;
+            _mediator = mediator;
             _mapper = mapper;
         }
 
@@ -39,11 +36,11 @@ namespace Armory.Api.Controllers.Armament.Ammunition
             try
             {
                 var command = _mapper.Map<CreateAmmunitionCommand>(request);
-                await _commandBus.Dispatch(command);
+                await _mediator.Send(command);
             }
             catch (DbUpdateException)
             {
-                var exists = await _queryBus.Ask<bool>(new CheckAmmunitionExistsQuery(request.Code));
+                var exists = await _mediator.Send(new CheckAmmunitionExistsQuery(request.Code));
                 if (!exists)
                 {
                     throw;
@@ -60,7 +57,7 @@ namespace Armory.Api.Controllers.Armament.Ammunition
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AmmunitionResponse>>> GetAmmunition()
         {
-            var ammunition = await _queryBus.Ask<IEnumerable<AmmunitionResponse>>(new SearchAllAmmunitionQuery());
+            var ammunition = await _mediator.Send(new SearchAllAmmunitionQuery());
             return Ok(ammunition);
         }
 
@@ -74,7 +71,7 @@ namespace Armory.Api.Controllers.Armament.Ammunition
         [HttpGet("{code}")]
         public async Task<ActionResult<AmmunitionResponse>> GetAmmunition(string code)
         {
-            var ammunition = await _queryBus.Ask<AmmunitionResponse>(new FindAmmunitionQuery(code));
+            var ammunition = await _mediator.Send(new FindAmmunitionQuery(code));
             if (ammunition != null)
             {
                 return Ok(ammunition);
@@ -86,7 +83,7 @@ namespace Armory.Api.Controllers.Armament.Ammunition
         [HttpGet("Exists/{code}")]
         public async Task<ActionResult<bool>> CheckExists(string code)
         {
-            var exists = await _queryBus.Ask<bool>(new CheckAmmunitionExistsQuery(code));
+            var exists = await _mediator.Send(new CheckAmmunitionExistsQuery(code));
             return Ok(exists);
         }
 
@@ -96,7 +93,7 @@ namespace Armory.Api.Controllers.Armament.Ammunition
             try
             {
                 var command = _mapper.Map<UpdateAmmunitionCommand>(request);
-                await _commandBus.Dispatch(command);
+                await _mediator.Send(command);
             }
             catch (DbUpdateException)
             {

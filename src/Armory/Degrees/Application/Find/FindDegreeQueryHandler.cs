@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Query;
 
@@ -12,9 +13,9 @@ namespace Armory.Degrees.Application.Find
             _finder = finder;
         }
 
-        public async Task<DegreeResponse> Handle(FindDegreeQuery query)
+        public async Task<DegreeResponse> Handle(FindDegreeQuery request, CancellationToken cancellationToken)
         {
-            var degree = await _finder.Find(query.Id);
+            var degree = await _finder.Find(request.Id);
             return degree == null ? null : DegreeResponse.FromAggregate(degree);
         }
     }

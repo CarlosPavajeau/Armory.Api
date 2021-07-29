@@ -1,9 +1,10 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Command;
 
 namespace Armory.Degrees.Application.Create
 {
-    public class CreateDegreeCommandHandler : ICommandHandler<CreateDegreeCommand>
+    public class CreateDegreeCommandHandler : CommandHandler<CreateDegreeCommand>
     {
         private readonly DegreeCreator _creator;
 
@@ -12,9 +13,9 @@ namespace Armory.Degrees.Application.Create
             _creator = creator;
         }
 
-        public async Task Handle(CreateDegreeCommand command)
+        protected override async Task Handle(CreateDegreeCommand request, CancellationToken cancellationToken)
         {
-            await _creator.Create(command.Name, command.RankId);
+            await _creator.Create(request.Name, request.RankId);
         }
     }
 }
