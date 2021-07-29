@@ -1,9 +1,10 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Command;
 
 namespace Armory.Users.Application.Authenticate
 {
-    public class AuthenticateCommandHandler : ICommandHandler<AuthenticateCommand>
+    public class AuthenticateCommandHandler : CommandHandler<AuthenticateCommand>
     {
         private readonly ArmoryUserAuthenticator _authenticator;
 
@@ -12,9 +13,9 @@ namespace Armory.Users.Application.Authenticate
             _authenticator = authenticator;
         }
 
-        public async Task Handle(AuthenticateCommand command)
+        protected override async Task Handle(AuthenticateCommand request, CancellationToken cancellationToken)
         {
-            await _authenticator.Authenticate(command.UsernameOrEmail, command.Password, command.IsPersistent);
+            await _authenticator.Authenticate(request.UsernameOrEmail, request.Password, request.IsPersistent);
         }
     }
 }

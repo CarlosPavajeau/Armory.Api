@@ -5,9 +5,8 @@ using Armory.Ranks.Application;
 using Armory.Ranks.Application.Create;
 using Armory.Ranks.Application.Find;
 using Armory.Ranks.Application.SearchAll;
-using Armory.Shared.Domain.Bus.Command;
-using Armory.Shared.Domain.Bus.Query;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,14 +18,12 @@ namespace Armory.Api.Controllers.Ranks
     [Route("[controller]")]
     public class RanksController : ControllerBase
     {
-        private readonly ICommandBus _commandBus;
-        private readonly IQueryBus _queryBus;
+        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
-        public RanksController(ICommandBus commandBus, IQueryBus queryBus, IMapper mapper)
+        public RanksController(IMediator mediator, IMapper mapper)
         {
-            _commandBus = commandBus;
-            _queryBus = queryBus;
+            _mediator = mediator;
             _mapper = mapper;
         }
 
@@ -36,7 +33,7 @@ namespace Armory.Api.Controllers.Ranks
             try
             {
                 var command = _mapper.Map<CreateRankCommand>(request);
-                await _commandBus.Dispatch(command);
+                await _mediator.Send(command);
             }
             catch (DbUpdateException)
             {
@@ -49,7 +46,7 @@ namespace Armory.Api.Controllers.Ranks
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RankResponse>>> GetRanks()
         {
-            var ranks = await _queryBus.Ask<IEnumerable<RankResponse>>(new SearchAllRanksQuery());
+            var ranks = await _mediator.Send(new SearchAllRanksQuery());
             return Ok(ranks);
         }
 
@@ -63,7 +60,7 @@ namespace Armory.Api.Controllers.Ranks
         [HttpGet("{id:int}")]
         public async Task<ActionResult<RankResponse>> GetRank(int id)
         {
-            var rank = await _queryBus.Ask<RankResponse>(new FindRankQuery(id));
+            var rank = await _mediator.Send(new FindRankQuery(id));
             if (rank != null)
             {
                 return Ok(rank);

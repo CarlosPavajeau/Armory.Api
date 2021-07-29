@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Query;
 
@@ -12,9 +13,9 @@ namespace Armory.Ranks.Application.Find
             _finder = finder;
         }
 
-        public async Task<RankResponse> Handle(FindRankQuery query)
+        public async Task<RankResponse> Handle(FindRankQuery request, CancellationToken cancellationToken)
         {
-            var rank = await _finder.Find(query.Id);
+            var rank = await _finder.Find(request.Id);
             return rank == null ? null : RankResponse.FromAggregate(rank);
         }
     }

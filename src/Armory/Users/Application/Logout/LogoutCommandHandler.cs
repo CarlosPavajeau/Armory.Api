@@ -1,10 +1,11 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Command;
 using Armory.Users.Domain;
 
 namespace Armory.Users.Application.Logout
 {
-    public class LogoutCommandHandler : ICommandHandler<LogoutCommand>
+    public class LogoutCommandHandler : CommandHandler<LogoutCommand>
     {
         private readonly IArmoryUsersRepository _repository;
 
@@ -13,7 +14,7 @@ namespace Armory.Users.Application.Logout
             _repository = repository;
         }
 
-        public async Task Handle(LogoutCommand command)
+        protected override async Task Handle(LogoutCommand request, CancellationToken cancellationToken)
         {
             await _repository.Logout();
         }

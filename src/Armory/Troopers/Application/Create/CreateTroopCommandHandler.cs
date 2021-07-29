@@ -1,9 +1,10 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Command;
 
 namespace Armory.Troopers.Application.Create
 {
-    public class CreateTroopCommandHandler : ICommandHandler<CreateTroopCommand>
+    public class CreateTroopCommandHandler : CommandHandler<CreateTroopCommand>
     {
         private readonly TroopCreator _creator;
 
@@ -12,10 +13,10 @@ namespace Armory.Troopers.Application.Create
             _creator = creator;
         }
 
-        public async Task Handle(CreateTroopCommand command)
+        protected override async Task Handle(CreateTroopCommand request, CancellationToken cancellationToken)
         {
-            await _creator.Create(command.Id, command.FirstName, command.SecondName, command.LastName,
-                command.SecondLastName, command.SquadCode, command.DegreeId);
+            await _creator.Create(request.Id, request.FirstName, request.SecondName, request.LastName,
+                request.SecondLastName, request.SquadCode, request.DegreeId);
         }
     }
 }

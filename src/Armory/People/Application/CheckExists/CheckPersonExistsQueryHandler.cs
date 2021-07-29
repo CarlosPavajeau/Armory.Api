@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Query;
 
@@ -12,9 +13,9 @@ namespace Armory.People.Application.CheckExists
             _checker = checker;
         }
 
-        public async Task<bool> Handle(CheckPersonExistsQuery query)
+        public async Task<bool> Handle(CheckPersonExistsQuery request, CancellationToken cancellationToken)
         {
-            return await _checker.Exists(query.Id);
+            return await _checker.Exists(request.Id);
         }
     }
 }

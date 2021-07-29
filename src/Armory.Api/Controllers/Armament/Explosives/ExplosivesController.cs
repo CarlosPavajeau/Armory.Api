@@ -8,9 +8,8 @@ using Armory.Armament.Explosives.Application.Find;
 using Armory.Armament.Explosives.Application.SearchAll;
 using Armory.Armament.Explosives.Application.Update;
 using Armory.Armament.Explosives.Domain;
-using Armory.Shared.Domain.Bus.Command;
-using Armory.Shared.Domain.Bus.Query;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,14 +21,12 @@ namespace Armory.Api.Controllers.Armament.Explosives
     [Route("[controller]")]
     public class ExplosivesController : ControllerBase
     {
-        private readonly ICommandBus _commandBus;
-        private readonly IQueryBus _queryBus;
+        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
-        public ExplosivesController(ICommandBus commandBus, IQueryBus queryBus, IMapper mapper)
+        public ExplosivesController(IMediator mediator, IMapper mapper)
         {
-            _commandBus = commandBus;
-            _queryBus = queryBus;
+            _mediator = mediator;
             _mapper = mapper;
         }
 
@@ -39,11 +36,11 @@ namespace Armory.Api.Controllers.Armament.Explosives
             try
             {
                 var command = _mapper.Map<CreateExplosiveCommand>(request);
-                await _commandBus.Dispatch(command);
+                await _mediator.Send(command);
             }
             catch (DbUpdateException)
             {
-                var exists = await _queryBus.Ask<bool>(new CheckExplosiveExistsQuery(request.Code));
+                var exists = await _mediator.Send(new CheckExplosiveExistsQuery(request.Code));
                 if (!exists)
                 {
                     throw;
@@ -60,7 +57,7 @@ namespace Armory.Api.Controllers.Armament.Explosives
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ExplosiveResponse>>> GetExplosives()
         {
-            var explosives = await _queryBus.Ask<IEnumerable<ExplosiveResponse>>(new SearchAllExplosivesQuery());
+            var explosives = await _mediator.Send(new SearchAllExplosivesQuery());
             return Ok(explosives);
         }
 
@@ -74,7 +71,7 @@ namespace Armory.Api.Controllers.Armament.Explosives
         [HttpGet("{code}")]
         public async Task<ActionResult<ExplosiveResponse>> GetExplosive(string code)
         {
-            var explosive = await _queryBus.Ask<ExplosiveResponse>(new FindExplosiveQuery(code));
+            var explosive = await _mediator.Send(new FindExplosiveQuery(code));
             if (explosive != null)
             {
                 return Ok(explosive);
@@ -86,7 +83,7 @@ namespace Armory.Api.Controllers.Armament.Explosives
         [HttpGet("Exists/{code}")]
         public async Task<ActionResult<bool>> CheckExists(string code)
         {
-            var exists = await _queryBus.Ask<bool>(new CheckExplosiveExistsQuery(code));
+            var exists = await _mediator.Send(new CheckExplosiveExistsQuery(code));
             return Ok(exists);
         }
 
@@ -96,7 +93,7 @@ namespace Armory.Api.Controllers.Armament.Explosives
             try
             {
                 var command = _mapper.Map<UpdateExplosiveCommand>(request);
-                await _commandBus.Dispatch(command);
+                await _mediator.Send(command);
             }
             catch (DbUpdateException)
             {

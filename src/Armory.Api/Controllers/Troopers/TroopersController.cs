@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Armory.Api.Controllers.Troopers.Requests;
-using Armory.Shared.Domain.Bus.Command;
-using Armory.Shared.Domain.Bus.Query;
 using Armory.Troopers.Application;
 using Armory.Troopers.Application.CheckExists;
 using Armory.Troopers.Application.Create;
@@ -11,6 +9,7 @@ using Armory.Troopers.Application.SearchAll;
 using Armory.Troopers.Application.Update;
 using Armory.Troopers.Domain;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,14 +21,12 @@ namespace Armory.Api.Controllers.Troopers
     [Route("[controller]")]
     public class TroopersController : ControllerBase
     {
-        private readonly ICommandBus _commandBus;
-        private readonly IQueryBus _queryBus;
+        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
-        public TroopersController(ICommandBus commandBus, IQueryBus queryBus, IMapper mapper)
+        public TroopersController(IMediator mediator, IMapper mapper)
         {
-            _commandBus = commandBus;
-            _queryBus = queryBus;
+            _mediator = mediator;
             _mapper = mapper;
         }
 
@@ -39,11 +36,11 @@ namespace Armory.Api.Controllers.Troopers
             try
             {
                 var command = _mapper.Map<CreateTroopCommand>(request);
-                await _commandBus.Dispatch(command);
+                await _mediator.Send(command);
             }
             catch (DbUpdateException)
             {
-                var exists = await _queryBus.Ask<bool>(new CheckTroopExistsQuery(request.Id));
+                var exists = await _mediator.Send(new CheckTroopExistsQuery(request.Id));
                 if (!exists)
                 {
                     throw;
@@ -60,7 +57,7 @@ namespace Armory.Api.Controllers.Troopers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TroopResponse>>> GetTroopers()
         {
-            var troopers = await _queryBus.Ask<IEnumerable<TroopResponse>>(new SearchAllTroopersQuery());
+            var troopers = await _mediator.Send(new SearchAllTroopersQuery());
             return Ok(troopers);
         }
 
@@ -74,7 +71,7 @@ namespace Armory.Api.Controllers.Troopers
         [HttpGet("{id}")]
         public async Task<ActionResult<TroopResponse>> GetTroop(string id)
         {
-            var troop = await _queryBus.Ask<TroopResponse>(new FindTroopQuery(id));
+            var troop = await _mediator.Send(new FindTroopQuery(id));
             if (troop != null)
             {
                 return Ok(troop);
@@ -86,7 +83,7 @@ namespace Armory.Api.Controllers.Troopers
         [HttpGet("Exists/{id}")]
         public async Task<ActionResult<bool>> CheckExists(string id)
         {
-            var exists = await _queryBus.Ask<bool>(new CheckTroopExistsQuery(id));
+            var exists = await _mediator.Send(new CheckTroopExistsQuery(id));
             return Ok(exists);
         }
 
@@ -96,7 +93,7 @@ namespace Armory.Api.Controllers.Troopers
             try
             {
                 var command = _mapper.Map<UpdateTroopCommand>(request);
-                await _commandBus.Dispatch(command);
+                await _mediator.Send(command);
             }
             catch (DbUpdateException)
             {

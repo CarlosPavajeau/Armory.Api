@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Query;
 
@@ -12,9 +13,9 @@ namespace Armory.Troopers.Application.Find
             _finder = finder;
         }
 
-        public async Task<TroopResponse> Handle(FindTroopQuery query)
+        public async Task<TroopResponse> Handle(FindTroopQuery request, CancellationToken cancellationToken)
         {
-            var troop = await _finder.Find(query.Id);
+            var troop = await _finder.Find(request.Id);
             return troop == null ? null : TroopResponse.FromAggregate(troop);
         }
     }

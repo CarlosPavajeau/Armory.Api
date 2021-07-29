@@ -1,5 +1,6 @@
 using Armory.Api.Extensions;
 using Armory.Users.Domain;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -26,7 +27,8 @@ namespace Armory.Api
                 .AddInfrastructure(Configuration)
                 .AddSwagger()
                 .AddJwtAuthentication(Configuration)
-                .AddAutoMapper(typeof(Startup));
+                .AddAutoMapper(typeof(Startup))
+                .AddMediatR(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

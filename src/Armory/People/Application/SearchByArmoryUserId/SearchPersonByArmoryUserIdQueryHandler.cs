@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Query;
 
@@ -12,9 +13,10 @@ namespace Armory.People.Application.SearchByArmoryUserId
             _searcher = searcher;
         }
 
-        public async Task<PersonResponse> Handle(SearchPersonByArmoryUserIdQuery query)
+        public async Task<PersonResponse> Handle(SearchPersonByArmoryUserIdQuery request,
+            CancellationToken cancellationToken)
         {
-            return await _searcher.SearchByArmoryUserId(query.ArmoryUserId);
+            return await _searcher.SearchByArmoryUserId(request.ArmoryUserId);
         }
     }
 }

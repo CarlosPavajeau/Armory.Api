@@ -2,7 +2,7 @@ using Armory.Shared.Domain.Bus.Query;
 
 namespace Armory.Users.Application.GenerateEmailConfirmationToken
 {
-    public class GenerateEmailConfirmationTokenQuery : Query
+    public class GenerateEmailConfirmationTokenQuery : Query<GenerateConfirmationTokenResponse>
     {
         public string UsernameOrEmail { get; }
 

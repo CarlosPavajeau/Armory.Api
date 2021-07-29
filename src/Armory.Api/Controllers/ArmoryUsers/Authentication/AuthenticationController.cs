@@ -1,10 +1,9 @@
 using System.Threading.Tasks;
-using Armory.Shared.Domain.Bus.Command;
-using Armory.Shared.Domain.Bus.Query;
 using Armory.Users.Application.Authenticate;
 using Armory.Users.Application.GenerateJwt;
 using Armory.Users.Application.Logout;
 using Armory.Users.Domain;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,13 +14,11 @@ namespace Armory.Api.Controllers.ArmoryUsers.Authentication
     [Route("[controller]")]
     public class AuthenticationController : ControllerBase
     {
-        private readonly ICommandBus _commandBus;
-        private readonly IQueryBus _queryBus;
+        private readonly IMediator _mediator;
 
-        public AuthenticationController(ICommandBus commandBus, IQueryBus queryBus)
+        public AuthenticationController(IMediator mediator)
         {
-            _commandBus = commandBus;
-            _queryBus = queryBus;
+            _mediator = mediator;
         }
 
         [HttpPost]
@@ -30,7 +27,7 @@ namespace Armory.Api.Controllers.ArmoryUsers.Authentication
         {
             try
             {
-                await _commandBus.Dispatch(new AuthenticateCommand(request.UsernameOrEmail, request.Password,
+                await _mediator.Send(new AuthenticateCommand(request.UsernameOrEmail, request.Password,
                     request.IsPersistent));
             }
             catch (ArmoryUserNotAuthenticate)
@@ -45,14 +42,14 @@ namespace Armory.Api.Controllers.ArmoryUsers.Authentication
                 return NotFound(new ValidationProblemDetails(ModelState));
             }
 
-            var token = await _queryBus.Ask<string>(new GenerateJwtQuery(request.UsernameOrEmail));
+            var token = await _mediator.Send(new GenerateJwtQuery(request.UsernameOrEmail));
             return Ok(token);
         }
 
         [HttpPost("[action]")]
         public async Task<IActionResult> Logout()
         {
-            await _commandBus.Dispatch(new LogoutCommand());
+            await _mediator.Send(new LogoutCommand());
             return Ok();
         }
     }

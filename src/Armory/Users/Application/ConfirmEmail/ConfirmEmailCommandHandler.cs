@@ -1,9 +1,10 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Command;
 
 namespace Armory.Users.Application.ConfirmEmail
 {
-    public class ConfirmEmailCommandHandler : ICommandHandler<ConfirmEmailCommand>
+    public class ConfirmEmailCommandHandler : CommandHandler<ConfirmEmailCommand>
     {
         private readonly EmailConfirmer _confirmer;
 
@@ -12,9 +13,9 @@ namespace Armory.Users.Application.ConfirmEmail
             _confirmer = confirmer;
         }
 
-        public async Task Handle(ConfirmEmailCommand command)
+        protected override async Task Handle(ConfirmEmailCommand request, CancellationToken cancellationToken)
         {
-            await _confirmer.ConfirmEmail(command.UsernameOrEmail, command.Token);
+            await _confirmer.ConfirmEmail(request.UsernameOrEmail, request.Token);
         }
     }
 }

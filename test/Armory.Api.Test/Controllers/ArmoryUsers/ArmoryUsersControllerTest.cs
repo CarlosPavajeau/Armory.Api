@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Armory.Api.Controllers.ArmoryUsers;
 using Armory.Shared.Domain;
@@ -19,19 +20,19 @@ namespace Armory.Api.Test.Controllers.ArmoryUsers
         [SetUp]
         public void SetUp()
         {
-            _controller = new ArmoryUsersController(CommandBus.Object, QueryBus.Object, Provider.GetService<IMapper>());
+            _controller = new ArmoryUsersController(Mediator.Object, Provider.GetService<IMapper>());
         }
 
         private void ShouldHaveForgottenPasswordQuery()
         {
-            QueryBus.Verify(x => x.Ask<PasswordResetTokenResponse>(It.IsAny<GeneratePasswordResetTokenQuery>()),
+            Mediator.Verify(x => x.Send(It.IsAny<GeneratePasswordResetTokenQuery>(), CancellationToken.None),
                 Times.AtLeastOnce());
         }
 
         [Test, Order(3)]
         public async Task Forgotten_Password_With_An_Existing_User()
         {
-            QueryBus.Setup(x => x.Ask<PasswordResetTokenResponse>(It.IsAny<GeneratePasswordResetTokenQuery>()))
+            Mediator.Setup(x => x.Send(It.IsAny<GeneratePasswordResetTokenQuery>(), CancellationToken.None))
                 .ReturnsAsync(new PasswordResetTokenResponse("reset_token"));
 
             var result = await _controller.ForgottenPassword("admin");
@@ -50,7 +51,7 @@ namespace Armory.Api.Test.Controllers.ArmoryUsers
         [Test, Order(4)]
         public async Task Forgotten_Password_With_A_Non_Existent_User()
         {
-            QueryBus.Setup(x => x.Ask<PasswordResetTokenResponse>(It.IsAny<GeneratePasswordResetTokenQuery>()))
+            Mediator.Setup(x => x.Send(It.IsAny<GeneratePasswordResetTokenQuery>(), CancellationToken.None))
                 .ReturnsAsync(new PasswordResetTokenResponse());
 
             var result = await _controller.ForgottenPassword("fail");

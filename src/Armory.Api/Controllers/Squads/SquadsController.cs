@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Armory.Api.Controllers.Squads.Requests;
-using Armory.Shared.Domain.Bus.Command;
-using Armory.Shared.Domain.Bus.Query;
 using Armory.Squads.Application;
 using Armory.Squads.Application.CheckExists;
 using Armory.Squads.Application.Create;
 using Armory.Squads.Application.Find;
 using Armory.Squads.Application.SearchAll;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,14 +19,12 @@ namespace Armory.Api.Controllers.Squads
     [Route("[controller]")]
     public class SquadsController : ControllerBase
     {
-        private readonly ICommandBus _commandBus;
-        private readonly IQueryBus _queryBus;
+        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
-        public SquadsController(ICommandBus commandBus, IQueryBus queryBus, IMapper mapper)
+        public SquadsController(IMediator mediator, IMapper mapper)
         {
-            _commandBus = commandBus;
-            _queryBus = queryBus;
+            _mediator = mediator;
             _mapper = mapper;
         }
 
@@ -37,11 +34,11 @@ namespace Armory.Api.Controllers.Squads
             try
             {
                 var command = _mapper.Map<CreateSquadCommand>(request);
-                await _commandBus.Dispatch(command);
+                await _mediator.Send(command);
             }
             catch (DbUpdateException)
             {
-                var exists = await _queryBus.Ask<bool>(new CheckSquadExistsQuery(request.Code));
+                var exists = await _mediator.Send(new CheckSquadExistsQuery(request.Code));
                 if (!exists)
                 {
                     throw;
@@ -58,14 +55,14 @@ namespace Armory.Api.Controllers.Squads
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SquadResponse>>> GetSquads()
         {
-            var response = await _queryBus.Ask<IEnumerable<SquadResponse>>(new SearchAllSquadsQuery());
+            var response = await _mediator.Send(new SearchAllSquadsQuery());
             return Ok(response);
         }
 
         [HttpGet("{code}")]
         public async Task<ActionResult<SquadResponse>> GetSquad(string code)
         {
-            var response = await _queryBus.Ask<SquadResponse>(new FindSquadQuery(code));
+            var response = await _mediator.Send(new FindSquadQuery(code));
             if (response != null)
             {
                 return Ok(response);
@@ -79,7 +76,7 @@ namespace Armory.Api.Controllers.Squads
         [HttpGet("Exists/{code}")]
         public async Task<ActionResult<bool>> CheckExists(string code)
         {
-            var exists = await _queryBus.Ask<bool>(new CheckSquadExistsQuery(code));
+            var exists = await _mediator.Send(new CheckSquadExistsQuery(code));
             return Ok(exists);
         }
     }
