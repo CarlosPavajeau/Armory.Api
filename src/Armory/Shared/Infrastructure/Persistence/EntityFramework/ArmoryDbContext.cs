@@ -63,6 +63,9 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework
             set;
         }
 
+        public DbSet<AssignedWeaponMagazineFormat> AssignedWeaponMagazineFormats { get; set; }
+        public DbSet<AssignedWeaponMagazineFormatItem> AssignedWeaponMagazineFormatItems { get; set; }
+
         public ArmoryDbContext(DbContextOptions<ArmoryDbContext> options) : base(options)
         {
         }
