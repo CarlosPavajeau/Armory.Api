@@ -14,10 +14,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\ArmoryUsers\Authentication" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\..\src\Armory.Api\Armory.Api.csproj" />
       <ProjectReference Include="..\Shared.Test\Shared.Test.csproj" />
     </ItemGroup>
