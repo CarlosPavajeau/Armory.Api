@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Armory.Api.Controllers.ArmoryUsers.Authentication;
 using Armory.Users.Application.Authenticate;
 using Armory.Users.Application.GenerateJwt;
+using Armory.Users.Application.Logout;
 using Armory.Users.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -85,6 +86,24 @@ namespace Armory.Api.Test.Controllers.ArmoryUsers.Authentication
             ShouldHaveAuthenticate();
             Assert.IsNotNull(result.Result);
             Assert.IsInstanceOf<NotFoundObjectResult>(result.Result);
+        }
+
+
+        private void ShouldHaveLogout()
+        {
+            Mediator.Verify(x => x.Send(It.IsAny<LogoutCommand>(), CancellationToken.None),
+                Times.AtLeastOnce());
+        }
+
+        [Test, Order(4)]
+        public async Task Logout()
+        {
+            var result = await _controller.Logout();
+
+            ShouldHaveLogout();
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOf<OkResult>(result);
         }
     }
 }
