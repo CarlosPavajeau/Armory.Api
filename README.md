@@ -2,6 +2,7 @@
 
 The next project is the definition of the api for the administration of the data of an armory.
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/826fd3ddabf34384be9d4e55371c6dfd)](https://app.codacy.com/gh/cantte/Armory.Api?utm_source=github.com&utm_medium=referral&utm_content=cantte/Armory.Api&utm_campaign=Badge_Grade_Settings)
 [![License](https://img.shields.io/github/license/cantte/Armory.Api)](https://github.com/cantte/Armory.Api/blob/master/LICENSE)
 [![Issues](https://img.shields.io/github/issues/cantte/Armory.Api)](https://github.com/cantte/Armory.Api/issues)
 [![Pull requests](https://img.shields.io/github/issues-pr/cantte/Armory.Api)](https://github.com/cantte/Armory.Api/pulls)
