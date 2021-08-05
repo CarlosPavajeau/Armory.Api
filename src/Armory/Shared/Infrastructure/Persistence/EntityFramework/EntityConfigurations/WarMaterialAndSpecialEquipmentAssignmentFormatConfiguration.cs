@@ -1,5 +1,4 @@
-using System;
-using Armory.Formats.Domain;
+using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -6,12 +6,13 @@ using Armory.Armament.Ammunition.Domain;
 using Armory.Armament.Equipments.Domain;
 using Armory.Armament.Explosives.Domain;
 using Armory.Armament.Weapons.Domain;
+using Armory.Formats.Shared.Domain;
 using Armory.Shared.Domain.Aggregate;
 using Armory.Squadrons.Domain;
 using Armory.Squads.Domain;
 using Armory.Troopers.Domain;
 
-namespace Armory.Formats.Domain
+namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
 {
     public class WarMaterialAndSpecialEquipmentAssignmentFormat : AggregateRoot
     {
@@ -75,10 +76,10 @@ namespace Armory.Formats.Domain
         }
 
         public static WarMaterialAndSpecialEquipmentAssignmentFormat Create(string code, DateTime validity,
-            string place, DateTime date, string unit, string dependency, string applicant, Warehouse warehouse,
+            string place, DateTime date, string squadronCode, string squadCode, string troopId, Warehouse warehouse,
             Purpose purpose, DocMovement docMovement, string physicalLocation, string others)
         {
-            return new(code, validity, place, date, unit, dependency, applicant, warehouse, purpose, docMovement,
+            return new(code, validity, place, date, squadronCode, squadCode, troopId, warehouse, purpose, docMovement,
                 physicalLocation, others);
         }
     }

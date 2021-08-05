@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Armory.Armament.Ammunition.Domain;
 
-namespace Armory.Formats.Domain
+namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
 {
     public class WarMaterialDeliveryCertificateFormatAmmunition
     {

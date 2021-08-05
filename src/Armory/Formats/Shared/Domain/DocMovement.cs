@@ -1,4 +1,4 @@
-namespace Armory.Formats.Domain
+namespace Armory.Formats.Shared.Domain
 {
     public enum DocMovement
     {

@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Armory.Formats.Shared.Domain;
 using Armory.Shared.Domain.Aggregate;
 using Armory.Squadrons.Domain;
 using Armory.Squads.Domain;
 
-namespace Armory.Formats.Domain
+namespace Armory.Formats.AssignedWeaponMagazineFormats.Domain
 {
     public class AssignedWeaponMagazineFormat : AggregateRoot
     {

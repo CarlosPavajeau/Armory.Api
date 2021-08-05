@@ -1,4 +1,4 @@
-using Armory.Formats.Domain;
+using Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

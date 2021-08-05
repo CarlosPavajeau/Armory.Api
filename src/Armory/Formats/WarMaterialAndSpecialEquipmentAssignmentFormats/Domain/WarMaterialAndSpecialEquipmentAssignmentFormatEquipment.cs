@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using Armory.Armament.Ammunition.Domain;
 using Armory.Armament.Equipments.Domain;
 
-namespace Armory.Formats.Domain
+namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
 {
     public class WarMaterialAndSpecialEquipmentAssignmentFormatEquipment
     {

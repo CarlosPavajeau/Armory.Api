@@ -1,4 +1,4 @@
-using Armory.Formats.Domain;
+using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,7 +9,7 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework.EntityConfigu
     {
         public void Configure(EntityTypeBuilder<WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition> builder)
         {
-            builder.HasKey(f => new {f.AmmunitionCode, f.WarMaterialAndSpecialEquipmentAssignmentFormatId});
+            builder.HasKey(f => new { f.AmmunitionCode, f.WarMaterialAndSpecialEquipmentAssignmentFormatId });
         }
     }
 }

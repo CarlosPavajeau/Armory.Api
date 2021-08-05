@@ -11,7 +11,7 @@ using Armory.Squadrons.Domain;
 using Armory.Squads.Domain;
 using Armory.Troopers.Domain;
 
-namespace Armory.Formats.Domain
+namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
 {
     public class WarMaterialDeliveryCertificateFormat : AggregateRoot
     {

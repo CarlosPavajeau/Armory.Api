@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Armory.Formats.Domain;
+using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
+using Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain;
 
 namespace Armory.Armament.Weapons.Domain
 {
