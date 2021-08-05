@@ -11,6 +11,8 @@ The next project is the definition of the api for the administration of the data
 ## Build status
 
 [![BuildStatus](https://img.shields.io/github/workflow/status/cantte/Armory.Api/.NET)](https://github.com/cantte/Armory.Api/actions/workflows/dotnet.yml)
+[![codecov](https://codecov.io/gh/cantte/Armory.Api/branch/master/graph/badge.svg?token=LfZZtN3OAI)](https://codecov.io/gh/cantte/Armory.Api)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6e00a8e35cd34d75907480fae346362f)](https://www.codacy.com/gh/cantte/Armory.Api/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=cantte/Armory.Api&amp;utm_campaign=Badge_Grade)
 
 ## How to install
 
