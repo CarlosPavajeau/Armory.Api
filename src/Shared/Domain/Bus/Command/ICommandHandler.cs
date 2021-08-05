@@ -1,3 +1,4 @@
+using Armory.Shared.Domain.Bus.Command.Generic;
 using MediatR;
 
 namespace Armory.Shared.Domain.Bus.Command

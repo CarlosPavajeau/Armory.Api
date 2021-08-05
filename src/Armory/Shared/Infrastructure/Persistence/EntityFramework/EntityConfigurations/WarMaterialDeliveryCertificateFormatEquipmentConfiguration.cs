@@ -7,11 +7,10 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework.EntityConfigu
     public class
         WarMaterialDeliveryCertificateFormatEquipmentConfiguration : IEntityTypeConfiguration<
             WarMaterialDeliveryCertificateFormatEquipment>
-
     {
         public void Configure(EntityTypeBuilder<WarMaterialDeliveryCertificateFormatEquipment> builder)
         {
-            builder.HasKey(f => new {f.WarMaterialDeliveryCertificateFormatId, f.EquipmentCode});
+            builder.HasKey(f => new { f.WarMaterialDeliveryCertificateFormatId, f.EquipmentCode });
         }
     }
 }

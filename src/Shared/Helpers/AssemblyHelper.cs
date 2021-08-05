@@ -12,9 +12,4 @@ namespace Armory.Shared.Helpers
             return Assemblies.GetOrAdd(key, Assembly.Load(key));
         }
     }
-
-    public static class Assemblies
-    {
-        public const string Armory = "Armory";
-    }
 }

@@ -1,7 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Command;
-using MediatR;
 
 namespace Armory.Armament.Ammunition.Application.Create
 {
@@ -13,7 +12,6 @@ namespace Armory.Armament.Ammunition.Application.Create
         {
             _creator = creator;
         }
-
 
         protected override async Task Handle(CreateAmmunitionCommand request, CancellationToken cancellationToken)
         {

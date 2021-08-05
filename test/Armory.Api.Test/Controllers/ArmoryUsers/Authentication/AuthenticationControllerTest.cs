@@ -88,7 +88,6 @@ namespace Armory.Api.Test.Controllers.ArmoryUsers.Authentication
             Assert.IsInstanceOf<NotFoundObjectResult>(result.Result);
         }
 
-
         private void ShouldHaveLogout()
         {
             Mediator.Verify(x => x.Send(It.IsAny<LogoutCommand>(), CancellationToken.None),

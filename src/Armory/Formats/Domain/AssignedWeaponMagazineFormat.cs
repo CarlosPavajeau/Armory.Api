@@ -12,7 +12,6 @@ namespace Armory.Formats.Domain
     {
         [Key] public int Id { get; set; }
 
-
         [Required, MaxLength(50)] public string Code { get; set; }
         [DataType(DataType.Date)] public DateTime Validity { get; set; }
 

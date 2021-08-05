@@ -48,7 +48,6 @@ namespace Armory.Users.Application.Create
                 });
             }
 
-
             return user;
         }
     }
