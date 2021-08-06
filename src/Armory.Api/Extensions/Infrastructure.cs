@@ -11,6 +11,8 @@ using Armory.Armament.Weapons.Domain;
 using Armory.Armament.Weapons.Infrastructure.Persistence;
 using Armory.Degrees.Domain;
 using Armory.Degrees.Infrastructure.Persistence;
+using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
+using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Infrastructure.Persistence;
 using Armory.People.Domain;
 using Armory.People.Infrastructure.Persistence;
 using Armory.Ranks.Domain;
@@ -58,7 +60,10 @@ namespace Armory.Api.Extensions
 
             services.AddScoped<ArmoryDbContext, ArmoryDbContext>();
             services.AddDbContext<ArmoryDbContext>(
-                options => options.UseMySQL(configuration.GetConnectionString("DefaultConnection")),
+                options => options.UseMySql(
+                        configuration.GetConnectionString("DefaultConnection"),
+                        new MySqlServerVersion(new Version(8, 0, 26)))
+                    .EnableDetailedErrors(),
                 ServiceLifetime.Transient);
 
             services.AddMediatR(AssemblyHelper.GetInstance(Assemblies.Armory));
@@ -76,6 +81,9 @@ namespace Armory.Api.Extensions
             services.AddScoped<IRanksRepository, MySqlRanksRepository>();
             services.AddScoped<IDegreesRepository, MySqlDegreesRepository>();
             services.AddScoped<ITroopersRepository, MySqlTroopersRepository>();
+            services
+                .AddScoped<IWarMaterialAndSpecialEquipmentAssignmentFormatsRepository,
+                    MySqlWarMaterialAndSpecialEquipmentAssignmentFormatsRepository>();
 
             services.AddScoped<ITransactionInitializer, TransactionInitializer>();
 
@@ -86,7 +94,7 @@ namespace Armory.Api.Extensions
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Armory.Api", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Armory.Api", Version = "v1" });
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -165,25 +173,25 @@ namespace Armory.Api.Extensions
         {
             if (!roleManager.RoleExistsAsync("Developer").Result)
             {
-                var developerRole = new ArmoryRole {Name = "Developer"};
+                var developerRole = new ArmoryRole { Name = "Developer" };
                 _ = roleManager.CreateAsync(developerRole).Result;
             }
 
             if (!roleManager.RoleExistsAsync("SquadronLeader").Result)
             {
-                var squadronLeader = new ArmoryRole {Name = "SquadronLeader"};
+                var squadronLeader = new ArmoryRole { Name = "SquadronLeader" };
                 _ = roleManager.CreateAsync(squadronLeader).Result;
             }
 
             if (!roleManager.RoleExistsAsync("SquadLeader").Result)
             {
-                var squadLeader = new ArmoryRole {Name = "SquadLeader"};
+                var squadLeader = new ArmoryRole { Name = "SquadLeader" };
                 _ = roleManager.CreateAsync(squadLeader).Result;
             }
 
             if (!roleManager.RoleExistsAsync("StoreLeader").Result)
             {
-                var inventoryLeader = new ArmoryRole {Name = "StoreLeader"};
+                var inventoryLeader = new ArmoryRole { Name = "StoreLeader" };
                 _ = roleManager.CreateAsync(inventoryLeader).Result;
             }
 

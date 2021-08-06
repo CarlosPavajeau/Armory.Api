@@ -31,7 +31,11 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
         [Required] public string TroopId { get; set; }
         [ForeignKey("TroopId")] public Troop Applicant { get; set; }
 
-        public ICollection<Weapon> Weapons { get; set; } = new HashSet<Weapon>();
+        public ICollection<WarMaterialDeliveryCertificateFormatWeapon> WarMaterialDeliveryCertificateFormatWeapons
+        {
+            get;
+            set;
+        } = new HashSet<WarMaterialDeliveryCertificateFormatWeapon>();
 
         public ICollection<WarMaterialDeliveryCertificateFormatAmmunition>
             WarMaterialDeliveryCertificateFormatAmmunition { get; set; } =
@@ -45,6 +49,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
             WarMaterialDeliveryCertificateFormatExplosives { get; set; } =
             new HashSet<WarMaterialDeliveryCertificateFormatExplosive>();
 
+        [NotMapped] public ICollection<Weapon> Weapons { get; set; } = new HashSet<Weapon>();
         [NotMapped] public ICollection<Ammunition> Ammunition { get; set; } = new HashSet<Ammunition>();
         [NotMapped] public ICollection<Equipment> Equipments { get; set; } = new HashSet<Equipment>();
         [NotMapped] public ICollection<Explosive> Explosives { get; set; } = new HashSet<Explosive>();
@@ -64,7 +69,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
         public static WarMaterialDeliveryCertificateFormat Create(string code, DateTime validity, string place,
             DateTime date, string squadronCode, string squadCode, string troopId)
         {
-            return new(code, validity, place, date, squadCode, squadCode, troopId);
+            return new WarMaterialDeliveryCertificateFormat(code, validity, place, date, squadCode, squadCode, troopId);
         }
     }
 }

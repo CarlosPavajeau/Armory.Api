@@ -18,12 +18,16 @@ namespace Armory.Armament.Weapons.Domain
         [Required] public int ProviderCapacity { get; set; }
         [Required] public int QuantityAvailable { get; set; }
 
-        public ICollection<WarMaterialAndSpecialEquipmentAssignmentFormat>
-            WarMaterialAndSpecialEquipmentAssignmentFormats { get; set; } =
-            new HashSet<WarMaterialAndSpecialEquipmentAssignmentFormat>();
+        public ICollection<WarMaterialAndSpecialEquipmentAssignmentFormatWeapon>
+            WarMaterialAndSpecialEquipmentAssignmentFormatWeapons { get; set; } =
+            new HashSet<WarMaterialAndSpecialEquipmentAssignmentFormatWeapon>();
 
-        public ICollection<WarMaterialDeliveryCertificateFormat> WarMaterialDeliveryCertificateFormats { get; set; } =
-            new HashSet<WarMaterialDeliveryCertificateFormat>();
+        public ICollection<WarMaterialDeliveryCertificateFormatWeapon> WarMaterialDeliveryCertificateFormatWeapons
+        {
+            get;
+            set;
+        } =
+            new HashSet<WarMaterialDeliveryCertificateFormatWeapon>();
 
         public Weapon(string code, string type, string mark, string model, string caliber, string series, string lot,
             int numberOfProviders, int providerCapacity, int quantityAvailable)
@@ -40,7 +44,7 @@ namespace Armory.Armament.Weapons.Domain
             QuantityAvailable = quantityAvailable;
         }
 
-        private Weapon()
+        internal Weapon()
         {
         }
 

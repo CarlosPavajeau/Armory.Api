@@ -16,17 +16,21 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
         public int Quantity { get; set; }
 
         public WarMaterialAndSpecialEquipmentAssignmentFormatEquipment(
-            int warMaterialAndSpecialEquipmentAssignmentFormatId, string equipmentCode, int quantity)
+            WarMaterialAndSpecialEquipmentAssignmentFormat format, string equipmentCode, int quantity)
         {
-            WarMaterialAndSpecialEquipmentAssignmentFormatId = warMaterialAndSpecialEquipmentAssignmentFormatId;
+            Format = format;
             EquipmentCode = equipmentCode;
             Quantity = quantity;
         }
 
-        public static WarMaterialAndSpecialEquipmentAssignmentFormatEquipment Create(
-            int warMaterialAndSpecialEquipmentAssignmentFormatId, string equipmentCode, int quantity)
+        private WarMaterialAndSpecialEquipmentAssignmentFormatEquipment()
         {
-            return new(warMaterialAndSpecialEquipmentAssignmentFormatId, equipmentCode, quantity);
+        }
+
+        public static WarMaterialAndSpecialEquipmentAssignmentFormatEquipment Create(
+            WarMaterialAndSpecialEquipmentAssignmentFormat format, string equipmentCode, int quantity)
+        {
+            return new WarMaterialAndSpecialEquipmentAssignmentFormatEquipment(format, equipmentCode, quantity);
         }
     }
 }
