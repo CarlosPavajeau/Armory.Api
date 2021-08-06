@@ -62,7 +62,8 @@ namespace Armory.Api.Extensions
             services.AddDbContext<ArmoryDbContext>(
                 options => options.UseMySql(
                         configuration.GetConnectionString("DefaultConnection"),
-                        new MySqlServerVersion(new Version(8, 0, 26)))
+                        new MySqlServerVersion(new Version(8, 0, 26)),
+                        builder => { builder.CommandTimeout((int)TimeSpan.FromMinutes(20).TotalSeconds); })
                     .EnableDetailedErrors(),
                 ServiceLifetime.Transient);
 
