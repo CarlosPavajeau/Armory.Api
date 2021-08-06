@@ -49,6 +49,9 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework
         public DbSet<WarMaterialAndSpecialEquipmentAssignmentFormatExplosive>
             WarMaterialAndSpecialEquipmentAssignmentFormatExplosives { get; set; }
 
+        public DbSet<WarMaterialAndSpecialEquipmentAssignmentFormatWeapon>
+            WarMaterialAndSpecialEquipmentAssignmentFormatWeapons { get; set; }
+
         public DbSet<WarMaterialDeliveryCertificateFormat> WarMaterialDeliveryCertificateFormats { get; set; }
 
         public DbSet<WarMaterialDeliveryCertificateFormatAmmunition> WarMaterialDeliveryCertificateFormatAmmunition
@@ -64,6 +67,12 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework
         }
 
         public DbSet<WarMaterialDeliveryCertificateFormatExplosive> WarMaterialDeliveryCertificateFormatExplosives
+        {
+            get;
+            set;
+        }
+
+        public DbSet<WarMaterialDeliveryCertificateFormatWeapon> WarMaterialDeliveryCertificateFormatWeapons
         {
             get;
             set;
