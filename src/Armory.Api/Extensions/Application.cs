@@ -23,6 +23,7 @@ using Armory.Degrees.Application.Find;
 using Armory.Degrees.Application.SearchAll;
 using Armory.Degrees.Application.SearchAllByRank;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Application.Create;
+using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Application.Generate;
 using Armory.People.Application.CheckExists;
 using Armory.People.Application.Create;
 using Armory.People.Application.Delete;
@@ -137,6 +138,9 @@ namespace Armory.Api.Extensions
             services
                 .AddScoped<WarMaterialAndSpecialEquipmentAssignmentFormatCreator,
                     WarMaterialAndSpecialEquipmentAssignmentFormatCreator>();
+            services
+                .AddScoped<WarMaterialAndSpecialEquipmentAssignmentFormatGenerator,
+                    WarMaterialAndSpecialEquipmentAssignmentFormatGenerator>();
 
             return services;
         }
