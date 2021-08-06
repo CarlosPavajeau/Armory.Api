@@ -16,16 +16,10 @@ namespace Armory.Users.Application.ResetPassword
         public async Task ResetPassword(string usernameOrEmail, string token, string newPassword)
         {
             var user = await _repository.FindByUsernameOrEmail(usernameOrEmail);
-            if (user == null)
-            {
-                throw new ArmoryUserNotFound();
-            }
+            if (user == null) throw new ArmoryUserNotFound();
 
             var result = await _repository.ResetPassword(user, Utils.Base64ToString(token), newPassword);
-            if (!result.Succeeded)
-            {
-                throw new PasswordNotReset(result.Errors);
-            }
+            if (!result.Succeeded) throw new PasswordNotReset(result.Errors);
         }
     }
 }

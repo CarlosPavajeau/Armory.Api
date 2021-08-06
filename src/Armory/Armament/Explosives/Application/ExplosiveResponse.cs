@@ -4,14 +4,6 @@ namespace Armory.Armament.Explosives.Application
 {
     public class ExplosiveResponse
     {
-        public string Code { get; }
-        public string Type { get; }
-        public string Caliber { get; }
-        public string Mark { get; }
-        public string Lot { get; }
-        public string Series { get; }
-        public int QuantityAvailable { get; }
-
         public ExplosiveResponse(string code, string type, string caliber, string mark, string lot, string series,
             int quantityAvailable)
         {
@@ -24,9 +16,18 @@ namespace Armory.Armament.Explosives.Application
             QuantityAvailable = quantityAvailable;
         }
 
+        public string Code { get; }
+        public string Type { get; }
+        public string Caliber { get; }
+        public string Mark { get; }
+        public string Lot { get; }
+        public string Series { get; }
+        public int QuantityAvailable { get; }
+
         public static ExplosiveResponse FromAggregate(Explosive explosive)
         {
-            return new(explosive.Code, explosive.Type, explosive.Caliber, explosive.Mark, explosive.Lot,
+            return new ExplosiveResponse(explosive.Code, explosive.Type, explosive.Caliber, explosive.Mark,
+                explosive.Lot,
                 explosive.Series, explosive.QuantityAvailable);
         }
     }

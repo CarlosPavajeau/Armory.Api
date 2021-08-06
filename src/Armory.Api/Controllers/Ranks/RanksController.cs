@@ -18,8 +18,8 @@ namespace Armory.Api.Controllers.Ranks
     [Route("[controller]")]
     public class RanksController : ControllerBase
     {
-        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
         public RanksController(IMediator mediator, IMapper mapper)
         {
@@ -61,10 +61,7 @@ namespace Armory.Api.Controllers.Ranks
         public async Task<ActionResult<RankResponse>> GetRank(int id)
         {
             var rank = await _mediator.Send(new FindRankQuery(id));
-            if (rank != null)
-            {
-                return Ok(rank);
-            }
+            if (rank != null) return Ok(rank);
 
             return RankNotFound(id);
         }

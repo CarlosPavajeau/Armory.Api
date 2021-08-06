@@ -23,8 +23,8 @@ namespace Armory.Api.Controllers.ArmoryUsers
     [Route("[controller]")]
     public class ArmoryUsersController : ControllerBase
     {
-        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
         public ArmoryUsersController(IMediator mediator, IMapper mapper)
         {
@@ -34,10 +34,7 @@ namespace Armory.Api.Controllers.ArmoryUsers
 
         private IActionResult IdentityErrors(IEnumerable<IdentityError> errors)
         {
-            foreach (var error in errors)
-            {
-                ModelState.AddModelError(error.Code, error.Description);
-            }
+            foreach (var error in errors) ModelState.AddModelError(error.Code, error.Description);
 
             return BadRequest(new ValidationProblemDetails(ModelState));
         }

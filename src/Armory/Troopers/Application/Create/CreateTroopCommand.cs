@@ -4,14 +4,6 @@ namespace Armory.Troopers.Application.Create
 {
     public class CreateTroopCommand : Command
     {
-        public string Id { get; }
-        public string FirstName { get; }
-        public string SecondName { get; }
-        public string LastName { get; }
-        public string SecondLastName { get; }
-        public string SquadCode { get; }
-        public int DegreeId { get; }
-
         public CreateTroopCommand(string id, string firstName, string secondName, string lastName,
             string secondLastName, string squadCode, int degreeId)
         {
@@ -23,5 +15,13 @@ namespace Armory.Troopers.Application.Create
             SquadCode = squadCode;
             DegreeId = degreeId;
         }
+
+        public string Id { get; }
+        public string FirstName { get; }
+        public string SecondName { get; }
+        public string LastName { get; }
+        public string SecondLastName { get; }
+        public string SquadCode { get; }
+        public int DegreeId { get; }
     }
 }

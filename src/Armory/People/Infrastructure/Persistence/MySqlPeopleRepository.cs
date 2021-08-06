@@ -12,8 +12,8 @@ namespace Armory.People.Infrastructure.Persistence
 {
     public class MySqlPeopleRepository : IPeopleRepository
     {
-        private readonly ArmoryDbContext _context;
         private readonly IArmoryUsersRepository _armoryUsersRepository;
+        private readonly ArmoryDbContext _context;
 
         public MySqlPeopleRepository(ArmoryDbContext context, IArmoryUsersRepository armoryUsersRepository)
         {

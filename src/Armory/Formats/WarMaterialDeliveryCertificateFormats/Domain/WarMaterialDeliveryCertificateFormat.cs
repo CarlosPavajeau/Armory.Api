@@ -15,11 +15,23 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
 {
     public class WarMaterialDeliveryCertificateFormat : AggregateRoot
     {
+        public WarMaterialDeliveryCertificateFormat(string code, DateTime validity, string place, DateTime date,
+            string squadronCode, string squadCode, string troopId)
+        {
+            Code = code;
+            Validity = validity;
+            Place = place;
+            Date = date;
+            SquadronCode = squadronCode;
+            SquadCode = squadCode;
+            TroopId = troopId;
+        }
+
         [Key] public int Id { get; set; }
 
-        [Required, MaxLength(50)] public string Code { get; set; }
+        [Required] [MaxLength(50)] public string Code { get; set; }
         [DataType(DataType.Date)] public DateTime Validity { get; set; }
-        [Required, MaxLength(256)] public string Place { get; set; }
+        [Required] [MaxLength(256)] public string Place { get; set; }
         [DataType(DataType.Date)] public DateTime Date { get; set; }
 
         [Required] public string SquadronCode { get; set; }
@@ -53,18 +65,6 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
         [NotMapped] public ICollection<Ammunition> Ammunition { get; set; } = new HashSet<Ammunition>();
         [NotMapped] public ICollection<Equipment> Equipments { get; set; } = new HashSet<Equipment>();
         [NotMapped] public ICollection<Explosive> Explosives { get; set; } = new HashSet<Explosive>();
-
-        public WarMaterialDeliveryCertificateFormat(string code, DateTime validity, string place, DateTime date,
-            string squadronCode, string squadCode, string troopId)
-        {
-            Code = code;
-            Validity = validity;
-            Place = place;
-            Date = date;
-            SquadronCode = squadronCode;
-            SquadCode = squadCode;
-            TroopId = troopId;
-        }
 
         public static WarMaterialDeliveryCertificateFormat Create(string code, DateTime validity, string place,
             DateTime date, string squadronCode, string squadCode, string troopId)

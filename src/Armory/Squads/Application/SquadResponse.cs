@@ -4,11 +4,6 @@ namespace Armory.Squads.Application
 {
     public class SquadResponse
     {
-        public string Code { get; }
-        public string Name { get; }
-        public string PersonId { get; }
-        public string SquadronCode { get; }
-
         public SquadResponse(string code, string name, string personId, string squadronCode)
         {
             Code = code;
@@ -17,9 +12,14 @@ namespace Armory.Squads.Application
             SquadronCode = squadronCode;
         }
 
+        public string Code { get; }
+        public string Name { get; }
+        public string PersonId { get; }
+        public string SquadronCode { get; }
+
         public static SquadResponse FromAggregate(Squad squad)
         {
-            return new(squad.Code, squad.Name, squad.PersonId, squad.SquadronCode);
+            return new SquadResponse(squad.Code, squad.Name, squad.PersonId, squad.SquadronCode);
         }
     }
 }

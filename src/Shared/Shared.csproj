@@ -1,19 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
-        <AssemblyName>Armory.Shared</AssemblyName>
-        <RootNamespace>Armory.Shared</RootNamespace>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>Armory.Shared</AssemblyName>
+    <RootNamespace>Armory.Shared</RootNamespace>
+  </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="Domain\FiltersByCriteria" />
-      <Folder Include="Validator" />
-    </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Domain\FiltersByCriteria"/>
+    <Folder Include="Validator"/>
+  </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="MediatR" Version="9.0.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8"/>
+  </ItemGroup>
 
 </Project>

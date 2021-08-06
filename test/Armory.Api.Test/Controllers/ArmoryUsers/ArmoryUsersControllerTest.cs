@@ -15,13 +15,13 @@ namespace Armory.Api.Test.Controllers.ArmoryUsers
     [TestFixture]
     public class ArmoryUsersControllerTest : ApiTest
     {
-        private ArmoryUsersController _controller;
-
         [SetUp]
         public void SetUp()
         {
             _controller = new ArmoryUsersController(Mediator.Object, Provider.GetService<IMapper>());
         }
+
+        private ArmoryUsersController _controller;
 
         private void ShouldHaveForgottenPasswordQuery()
         {
@@ -29,7 +29,8 @@ namespace Armory.Api.Test.Controllers.ArmoryUsers
                 Times.AtLeastOnce());
         }
 
-        [Test, Order(3)]
+        [Test]
+        [Order(3)]
         public async Task Forgotten_Password_With_An_Existing_User()
         {
             Mediator.Setup(x => x.Send(It.IsAny<GeneratePasswordResetTokenQuery>(), CancellationToken.None))
@@ -48,7 +49,8 @@ namespace Armory.Api.Test.Controllers.ArmoryUsers
             Assert.AreEqual("reset_token", Utils.Base64ToString(okResult.Value as string));
         }
 
-        [Test, Order(4)]
+        [Test]
+        [Order(4)]
         public async Task Forgotten_Password_With_A_Non_Existent_User()
         {
             Mediator.Setup(x => x.Send(It.IsAny<GeneratePasswordResetTokenQuery>(), CancellationToken.None))

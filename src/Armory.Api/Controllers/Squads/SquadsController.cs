@@ -19,8 +19,8 @@ namespace Armory.Api.Controllers.Squads
     [Route("[controller]")]
     public class SquadsController : ControllerBase
     {
-        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
         public SquadsController(IMediator mediator, IMapper mapper)
         {
@@ -39,10 +39,7 @@ namespace Armory.Api.Controllers.Squads
             catch (DbUpdateException)
             {
                 var exists = await _mediator.Send(new CheckSquadExistsQuery(request.Code));
-                if (!exists)
-                {
-                    throw;
-                }
+                if (!exists) throw;
 
                 ModelState.AddModelError("SquadAlreadyRegistered",
                     $"Ya existe una escuadra con el código '{request.Code}'");
@@ -63,10 +60,7 @@ namespace Armory.Api.Controllers.Squads
         public async Task<ActionResult<SquadResponse>> GetSquad(string code)
         {
             var response = await _mediator.Send(new FindSquadQuery(code));
-            if (response != null)
-            {
-                return Ok(response);
-            }
+            if (response != null) return Ok(response);
 
             ModelState.AddModelError("SquadNotFound",
                 $"El escuadrón con el código '{code}' no se encuentra registrado.");

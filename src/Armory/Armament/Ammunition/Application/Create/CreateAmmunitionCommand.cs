@@ -4,14 +4,6 @@ namespace Armory.Armament.Ammunition.Application.Create
 {
     public class CreateAmmunitionCommand : Command
     {
-        public string Code { get; }
-        public string Type { get; }
-        public string Mark { get; }
-        public string Caliber { get; }
-        public string Series { get; }
-        public string Lot { get; }
-        public int QuantityAvailable { get; }
-
         public CreateAmmunitionCommand(string code, string type, string mark, string caliber, string series, string lot,
             int quantityAvailable)
         {
@@ -23,5 +15,13 @@ namespace Armory.Armament.Ammunition.Application.Create
             Lot = lot;
             QuantityAvailable = quantityAvailable;
         }
+
+        public string Code { get; }
+        public string Type { get; }
+        public string Mark { get; }
+        public string Caliber { get; }
+        public string Series { get; }
+        public string Lot { get; }
+        public int QuantityAvailable { get; }
     }
 }

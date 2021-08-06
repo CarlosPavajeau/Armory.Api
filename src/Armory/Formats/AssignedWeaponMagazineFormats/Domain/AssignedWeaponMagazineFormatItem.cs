@@ -6,6 +6,16 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Domain
 {
     public class AssignedWeaponMagazineFormatItem
     {
+        public AssignedWeaponMagazineFormatItem(string troopId, bool cartridgeOfLife, bool verifiedInPhysical,
+            bool novelty, string observations)
+        {
+            TroopId = troopId;
+            CartridgeOfLife = cartridgeOfLife;
+            VerifiedInPhysical = verifiedInPhysical;
+            Novelty = novelty;
+            Observations = observations;
+        }
+
         [Key] public int Id { get; set; }
 
         [Required] public string TroopId { get; set; }
@@ -21,21 +31,12 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Domain
         [ForeignKey("AssignedWeaponMagazineFormatId")]
         public AssignedWeaponMagazineFormat AssignedWeaponMagazineFormat { get; set; }
 
-        public AssignedWeaponMagazineFormatItem(string troopId, bool cartridgeOfLife, bool verifiedInPhysical,
-            bool novelty, string observations)
-        {
-            TroopId = troopId;
-            CartridgeOfLife = cartridgeOfLife;
-            VerifiedInPhysical = verifiedInPhysical;
-            Novelty = novelty;
-            Observations = observations;
-        }
-
         public static AssignedWeaponMagazineFormatItem Create(string troopId, bool cartridgeOfLife,
             bool verifiedInPhysical,
             bool novelty, string observations)
         {
-            return new(troopId, cartridgeOfLife, verifiedInPhysical, novelty, observations);
+            return new AssignedWeaponMagazineFormatItem(troopId, cartridgeOfLife, verifiedInPhysical, novelty,
+                observations);
         }
     }
 }

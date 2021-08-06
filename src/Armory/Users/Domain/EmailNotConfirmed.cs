@@ -6,11 +6,11 @@ namespace Armory.Users.Domain
 {
     public class EmailNotConfirmed : Exception
     {
-        public IEnumerable<IdentityError> Errors { get; }
-
         public EmailNotConfirmed(IEnumerable<IdentityError> errors)
         {
             Errors = errors;
         }
+
+        public IEnumerable<IdentityError> Errors { get; }
     }
 }

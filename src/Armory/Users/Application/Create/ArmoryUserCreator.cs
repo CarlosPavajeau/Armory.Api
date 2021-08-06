@@ -23,18 +23,12 @@ namespace Armory.Users.Application.Create
             var user = ArmoryUser.Create(username, email, phoneNumber);
 
             var result = await _repository.Save(user, password);
-            if (!result.Succeeded)
-            {
-                throw new ArmoryUserNotCreated(result.Errors);
-            }
+            if (!result.Succeeded) throw new ArmoryUserNotCreated(result.Errors);
 
             try
             {
                 var roleResult = await _roleAggregator.AddToRole(user, roleName);
-                if (!roleResult.Succeeded)
-                {
-                    throw new ArmoryUserNotCreated(roleResult.Errors);
-                }
+                if (!roleResult.Succeeded) throw new ArmoryUserNotCreated(roleResult.Errors);
             }
             catch (InvalidOperationException)
             {

@@ -21,8 +21,8 @@ namespace Armory.Api.Controllers.Armament.Explosives
     [Route("[controller]")]
     public class ExplosivesController : ControllerBase
     {
-        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
         public ExplosivesController(IMediator mediator, IMapper mapper)
         {
@@ -41,10 +41,7 @@ namespace Armory.Api.Controllers.Armament.Explosives
             catch (DbUpdateException)
             {
                 var exists = await _mediator.Send(new CheckExplosiveExistsQuery(request.Code));
-                if (!exists)
-                {
-                    throw;
-                }
+                if (!exists) throw;
 
                 ModelState.AddModelError("ExplosiveAlreadyRegistered",
                     $"Ya existe un explosivo con el código '{request.Code}'");
@@ -72,10 +69,7 @@ namespace Armory.Api.Controllers.Armament.Explosives
         public async Task<ActionResult<ExplosiveResponse>> GetExplosive(string code)
         {
             var explosive = await _mediator.Send(new FindExplosiveQuery(code));
-            if (explosive != null)
-            {
-                return Ok(explosive);
-            }
+            if (explosive != null) return Ok(explosive);
 
             return ExplosiveNotFound(code);
         }

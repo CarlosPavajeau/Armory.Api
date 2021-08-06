@@ -6,8 +6,6 @@ using Armory.Degrees.Application.Create;
 using Armory.Degrees.Application.Find;
 using Armory.Degrees.Application.SearchAll;
 using Armory.Degrees.Application.SearchAllByRank;
-using Armory.Shared.Domain.Bus.Command;
-using Armory.Shared.Domain.Bus.Query;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -21,8 +19,8 @@ namespace Armory.Api.Controllers.Degrees
     [Route("[controller]")]
     public class DegreesController : ControllerBase
     {
-        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
         public DegreesController(IMediator mediator, IMapper mapper)
         {
@@ -71,10 +69,7 @@ namespace Armory.Api.Controllers.Degrees
         public async Task<ActionResult<DegreeResponse>> GetDegree(int id)
         {
             var degree = await _mediator.Send(new FindDegreeQuery(id));
-            if (degree != null)
-            {
-                return Ok(degree);
-            }
+            if (degree != null) return Ok(degree);
 
             return DegreeNotFound(id);
         }

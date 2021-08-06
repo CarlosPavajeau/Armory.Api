@@ -5,8 +5,6 @@ namespace Armory.Users.Domain
 {
     public sealed class ArmoryUser : IdentityUser
     {
-        public Person Person { get; set; }
-
         public ArmoryUser(string username, string email, string phoneNumber)
         {
             UserName = username;
@@ -17,6 +15,8 @@ namespace Armory.Users.Domain
         private ArmoryUser()
         {
         }
+
+        public Person Person { get; set; }
 
         public static ArmoryUser Create(string username, string email, string phoneNumber)
         {

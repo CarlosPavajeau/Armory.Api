@@ -2,14 +2,6 @@ namespace Armory.Armament.Ammunition.Application
 {
     public class AmmunitionResponse
     {
-        public string Code { get; }
-        public string Type { get; }
-        public string Mark { get; }
-        public string Caliber { get; }
-        public string Series { get; }
-        public string Lot { get; }
-        public int QuantityAvailable { get; }
-
         public AmmunitionResponse(string code, string type, string mark, string caliber, string series, string lot,
             int quantityAvailable)
         {
@@ -22,9 +14,18 @@ namespace Armory.Armament.Ammunition.Application
             QuantityAvailable = quantityAvailable;
         }
 
+        public string Code { get; }
+        public string Type { get; }
+        public string Mark { get; }
+        public string Caliber { get; }
+        public string Series { get; }
+        public string Lot { get; }
+        public int QuantityAvailable { get; }
+
         public static AmmunitionResponse FromAggregate(Domain.Ammunition ammunition)
         {
-            return new(ammunition.Code, ammunition.Type, ammunition.Mark, ammunition.Caliber, ammunition.Series,
+            return new AmmunitionResponse(ammunition.Code, ammunition.Type, ammunition.Mark, ammunition.Caliber,
+                ammunition.Series,
                 ammunition.Lot, ammunition.QuantityAvailable);
         }
     }

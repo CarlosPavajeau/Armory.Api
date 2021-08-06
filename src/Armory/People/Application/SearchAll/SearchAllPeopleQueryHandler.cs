@@ -14,7 +14,8 @@ namespace Armory.People.Application.SearchAll
             _searcher = searcher;
         }
 
-        public async Task<IEnumerable<PersonResponse>> Handle(SearchAllPeopleQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<PersonResponse>> Handle(SearchAllPeopleQuery request,
+            CancellationToken cancellationToken)
         {
             return await _searcher.SearchAll();
         }

@@ -4,17 +4,6 @@ namespace Armory.Armament.Weapons.Application.Update
 {
     public class UpdateWeaponCommand : Command
     {
-        public string Code { get; }
-        public string Type { get; }
-        public string Mark { get; }
-        public string Model { get; }
-        public string Caliber { get; }
-        public string Series { get; }
-        public string Lot { get; }
-        public int NumberOfProviders { get; }
-        public int ProviderCapacity { get; }
-        public int QuantityAvailable { get; }
-
         public UpdateWeaponCommand(string code, string type, string mark, string model, string caliber, string series,
             string lot, int numberOfProviders, int providerCapacity, int quantityAvailable)
         {
@@ -29,5 +18,16 @@ namespace Armory.Armament.Weapons.Application.Update
             ProviderCapacity = providerCapacity;
             QuantityAvailable = quantityAvailable;
         }
+
+        public string Code { get; }
+        public string Type { get; }
+        public string Mark { get; }
+        public string Model { get; }
+        public string Caliber { get; }
+        public string Series { get; }
+        public string Lot { get; }
+        public int NumberOfProviders { get; }
+        public int ProviderCapacity { get; }
+        public int QuantityAvailable { get; }
     }
 }

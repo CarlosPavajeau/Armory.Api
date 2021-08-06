@@ -7,18 +7,6 @@ namespace Armory.Troopers.Domain
 {
     public class Troop
     {
-        [Key, MaxLength(10)] public string Id { get; set; }
-        [MaxLength(50)] public string FirstName { get; set; }
-        [MaxLength(50)] public string SecondName { get; set; }
-        [MaxLength(50)] public string LastName { get; set; }
-        [MaxLength(50)] public string SecondLastName { get; set; }
-
-        public string SquadCode { get; set; }
-        [ForeignKey("SquadCode")] public Squad Squad { get; set; }
-
-        public int DegreeId { get; set; }
-        [ForeignKey("DegreeId")] public Degree Degree { get; set; }
-
         public Troop(string id, string firstName, string secondName, string lastName, string secondLastName,
             string squadCode, int degreeId)
         {
@@ -31,6 +19,18 @@ namespace Armory.Troopers.Domain
             DegreeId = degreeId;
         }
 
+        [Key] [MaxLength(10)] public string Id { get; set; }
+        [MaxLength(50)] public string FirstName { get; set; }
+        [MaxLength(50)] public string SecondName { get; set; }
+        [MaxLength(50)] public string LastName { get; set; }
+        [MaxLength(50)] public string SecondLastName { get; set; }
+
+        public string SquadCode { get; set; }
+        [ForeignKey("SquadCode")] public Squad Squad { get; set; }
+
+        public int DegreeId { get; set; }
+        [ForeignKey("DegreeId")] public Degree Degree { get; set; }
+
         public void Update(string firstName, string secondName, string lastName, string secondLastName)
         {
             FirstName = firstName;
@@ -42,7 +42,7 @@ namespace Armory.Troopers.Domain
         public static Troop Create(string id, string firstName, string secondName, string lastName,
             string secondLastName, string squadCode, int degreeId)
         {
-            return new(id, firstName, secondName, lastName, secondLastName, squadCode, degreeId);
+            return new Troop(id, firstName, secondName, lastName, secondLastName, squadCode, degreeId);
         }
     }
 }

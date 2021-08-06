@@ -4,11 +4,11 @@ namespace Armory.People.Application.Find
 {
     public class FindPersonQuery : Query<PersonResponse>
     {
-        public string Id { get; }
-
         public FindPersonQuery(string id)
         {
             Id = id;
         }
+
+        public string Id { get; }
     }
 }

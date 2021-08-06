@@ -8,8 +8,14 @@ namespace Armory.Degrees.Domain
 {
     public class Degree
     {
+        public Degree(string name, int rankId)
+        {
+            Name = name;
+            RankId = rankId;
+        }
+
         [Key] public int Id { get; set; }
-        [Required, MaxLength(256)] public string Name { get; set; }
+        [Required] [MaxLength(256)] public string Name { get; set; }
 
         public int RankId { get; set; }
 
@@ -17,15 +23,9 @@ namespace Armory.Degrees.Domain
 
         public ICollection<Troop> Troopers { get; set; }
 
-        public Degree(string name, int rankId)
-        {
-            Name = name;
-            RankId = rankId;
-        }
-
         public static Degree Create(string name, int rankId)
         {
-            return new(name, rankId);
+            return new Degree(name, rankId);
         }
     }
 }

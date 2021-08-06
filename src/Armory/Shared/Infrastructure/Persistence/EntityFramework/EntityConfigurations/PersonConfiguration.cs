@@ -1,5 +1,4 @@
 using Armory.People.Domain;
-using Armory.Users.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

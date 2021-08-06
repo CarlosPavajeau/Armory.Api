@@ -4,11 +4,11 @@ namespace Armory.Squads.Application.CheckExists
 {
     public class CheckSquadExistsQuery : Query<bool>
     {
-        public string Code { get; }
-
         public CheckSquadExistsQuery(string code)
         {
             Code = code;
         }
+
+        public string Code { get; }
     }
 }

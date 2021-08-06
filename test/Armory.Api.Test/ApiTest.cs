@@ -8,7 +8,6 @@ namespace Armory.Api.Test
     public class ApiTest : UnitTestCase
     {
         protected readonly Mock<IMediator> Mediator;
-        protected ServiceProvider Provider { get; private set; }
 
         public ApiTest()
         {
@@ -17,9 +16,11 @@ namespace Armory.Api.Test
             Init();
         }
 
+        protected ServiceProvider Provider { get; private set; }
+
         private void Init()
         {
-            ServiceCollection services = new ServiceCollection();
+            var services = new ServiceCollection();
             services.AddAutoMapper(typeof(Startup));
 
             Provider = services.BuildServiceProvider();

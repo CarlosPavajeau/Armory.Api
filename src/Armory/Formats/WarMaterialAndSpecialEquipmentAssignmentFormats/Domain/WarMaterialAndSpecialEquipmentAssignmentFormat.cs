@@ -16,11 +16,29 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
 {
     public class WarMaterialAndSpecialEquipmentAssignmentFormat : AggregateRoot
     {
+        public WarMaterialAndSpecialEquipmentAssignmentFormat(string code, DateTime validity, string place,
+            DateTime date, string squadronCode, string squadCode, string troopId, Warehouse warehouse,
+            Purpose purpose, DocMovement docMovement, string physicalLocation, string others)
+        {
+            Code = code;
+            Validity = validity;
+            Place = place;
+            Date = date;
+            SquadronCode = squadronCode;
+            SquadCode = squadCode;
+            TroopId = troopId;
+            Warehouse = warehouse;
+            Purpose = purpose;
+            DocMovement = docMovement;
+            PhysicalLocation = physicalLocation;
+            Others = others;
+        }
+
         [Key] public int Id { get; set; }
 
-        [Required, MaxLength(50)] public string Code { get; set; }
+        [Required] [MaxLength(50)] public string Code { get; set; }
         [DataType(DataType.Date)] public DateTime Validity { get; set; }
-        [Required, MaxLength(256)] public string Place { get; set; }
+        [Required] [MaxLength(256)] public string Place { get; set; }
         [DataType(DataType.Date)] public DateTime Date { get; set; }
 
         [Required] public string SquadronCode { get; set; }
@@ -35,7 +53,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
         public Purpose Purpose { get; set; }
         public DocMovement DocMovement { get; set; }
 
-        [Required, MaxLength(256)] public string PhysicalLocation { get; set; }
+        [Required] [MaxLength(256)] public string PhysicalLocation { get; set; }
         [MaxLength(256)] public string Others { get; set; }
 
         public ICollection<WarMaterialAndSpecialEquipmentAssignmentFormatWeapon>
@@ -59,24 +77,6 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
         [NotMapped] public ICollection<Equipment> Equipments { get; set; } = new HashSet<Equipment>();
         [NotMapped] public ICollection<Explosive> Explosives { get; set; } = new HashSet<Explosive>();
 
-        public WarMaterialAndSpecialEquipmentAssignmentFormat(string code, DateTime validity, string place,
-            DateTime date, string squadronCode, string squadCode, string troopId, Warehouse warehouse,
-            Purpose purpose, DocMovement docMovement, string physicalLocation, string others)
-        {
-            Code = code;
-            Validity = validity;
-            Place = place;
-            Date = date;
-            SquadronCode = squadronCode;
-            SquadCode = squadCode;
-            TroopId = troopId;
-            Warehouse = warehouse;
-            Purpose = purpose;
-            DocMovement = docMovement;
-            PhysicalLocation = physicalLocation;
-            Others = others;
-        }
-
         public static WarMaterialAndSpecialEquipmentAssignmentFormat Create(string code, DateTime validity,
             string place, DateTime date, string squadronCode, string squadCode, string troopId, Warehouse warehouse,
             Purpose purpose, DocMovement docMovement, string physicalLocation, string others,
@@ -88,29 +88,21 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
                 squadCode, troopId, warehouse, purpose, docMovement, physicalLocation, others);
 
             foreach (var weaponCode in weaponCodes)
-            {
                 format.WarMaterialAndSpecialEquipmentAssignmentFormatWeapons.Add(
                     WarMaterialAndSpecialEquipmentAssignmentFormatWeapon.Create(format, weaponCode));
-            }
 
             foreach (var (ammunitionCode, quantity) in ammunition)
-            {
                 format.WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition.Add(
                     Domain.WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition.Create(format, ammunitionCode,
                         quantity));
-            }
 
             foreach (var (equipmentCode, quantity) in equipments)
-            {
                 format.WarMaterialAndSpecialEquipmentAssignmentFormatEquipments.Add(
                     WarMaterialAndSpecialEquipmentAssignmentFormatEquipment.Create(format, equipmentCode, quantity));
-            }
 
             foreach (var (explosiveCode, quantity) in explosives)
-            {
                 format.WarMaterialAndSpecialEquipmentAssignmentFormatExplosives.Add(
                     WarMaterialAndSpecialEquipmentAssignmentFormatExplosive.Create(format, explosiveCode, quantity));
-            }
 
             return format;
         }

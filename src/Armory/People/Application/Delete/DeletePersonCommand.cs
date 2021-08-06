@@ -4,11 +4,11 @@ namespace Armory.People.Application.Delete
 {
     public class DeletePersonCommand : Command
     {
-        public string Id { get; }
-
         public DeletePersonCommand(string id)
         {
             Id = id;
         }
+
+        public string Id { get; }
     }
 }

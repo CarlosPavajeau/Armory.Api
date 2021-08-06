@@ -2,9 +2,6 @@ namespace Armory.Users.Application.GenerateEmailConfirmationToken
 {
     public class GenerateConfirmationTokenResponse
     {
-        public string Token { get; }
-        public bool TokenGenerated { get; }
-
         public GenerateConfirmationTokenResponse(string token)
         {
             Token = token;
@@ -16,5 +13,8 @@ namespace Armory.Users.Application.GenerateEmailConfirmationToken
             Token = string.Empty;
             TokenGenerated = false;
         }
+
+        public string Token { get; }
+        public bool TokenGenerated { get; }
     }
 }

@@ -4,17 +4,6 @@ namespace Armory.People.Application.Create
 {
     public class CreatePersonCommand : Command
     {
-        public string Id { get; }
-
-        public string FirstName { get; }
-        public string SecondName { get; }
-        public string LastName { get; }
-        public string SecondLastName { get; }
-        public string Email { get; }
-        public string PhoneNumber { get; }
-
-        public string RoleName { get; }
-
         public CreatePersonCommand(string id, string firstName, string secondName, string lastName,
             string secondLastName, string email, string phoneNumber, string roleName)
         {
@@ -27,5 +16,16 @@ namespace Armory.People.Application.Create
             PhoneNumber = phoneNumber;
             RoleName = roleName;
         }
+
+        public string Id { get; }
+
+        public string FirstName { get; }
+        public string SecondName { get; }
+        public string LastName { get; }
+        public string SecondLastName { get; }
+        public string Email { get; }
+        public string PhoneNumber { get; }
+
+        public string RoleName { get; }
     }
 }

@@ -6,11 +6,11 @@ namespace Armory.Users.Domain
 {
     public class ArmoryUserNotCreated : Exception
     {
-        public IEnumerable<IdentityError> Errors { get; }
-
         public ArmoryUserNotCreated(IEnumerable<IdentityError> errors)
         {
             Errors = errors;
         }
+
+        public IEnumerable<IdentityError> Errors { get; }
     }
 }

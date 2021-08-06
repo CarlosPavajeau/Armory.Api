@@ -11,9 +11,21 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Domain
 {
     public class AssignedWeaponMagazineFormat : AggregateRoot
     {
+        public AssignedWeaponMagazineFormat(string code, DateTime validity, string squadronCode,
+            string squadCode, Warehouse warehouse, DateTime date, string comments)
+        {
+            Code = code;
+            Validity = validity;
+            SquadronCode = squadronCode;
+            SquadCode = squadCode;
+            Warehouse = warehouse;
+            Date = date;
+            Comments = comments;
+        }
+
         [Key] public int Id { get; set; }
 
-        [Required, MaxLength(50)] public string Code { get; set; }
+        [Required] [MaxLength(50)] public string Code { get; set; }
         [DataType(DataType.Date)] public DateTime Validity { get; set; }
 
         [Required] public string SquadronCode { get; set; }
@@ -30,22 +42,10 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Domain
         public ICollection<AssignedWeaponMagazineFormatItem> Records { get; set; } =
             new HashSet<AssignedWeaponMagazineFormatItem>();
 
-        public AssignedWeaponMagazineFormat(string code, DateTime validity, string squadronCode,
-            string squadCode, Warehouse warehouse, DateTime date, string comments)
-        {
-            Code = code;
-            Validity = validity;
-            SquadronCode = squadronCode;
-            SquadCode = squadCode;
-            Warehouse = warehouse;
-            Date = date;
-            Comments = comments;
-        }
-
         public static AssignedWeaponMagazineFormat Create(string code, DateTime validity, string squadronCode,
             string squadCode, Warehouse warehouse, DateTime date, string comments)
         {
-            return new(code, validity, squadCode, squadCode, warehouse, date, comments);
+            return new AssignedWeaponMagazineFormat(code, validity, squadCode, squadCode, warehouse, date, comments);
         }
     }
 }

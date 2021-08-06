@@ -4,12 +4,6 @@ namespace Armory.Troopers.Application.Update
 {
     public class UpdateTroopCommand : Command
     {
-        public string Id { get; }
-        public string FirstName { get; }
-        public string SecondName { get; }
-        public string LastName { get; }
-        public string SecondLastName { get; }
-
         public UpdateTroopCommand(string id, string firstName, string secondName, string lastName,
             string secondLastName)
         {
@@ -19,5 +13,11 @@ namespace Armory.Troopers.Application.Update
             LastName = lastName;
             SecondLastName = secondLastName;
         }
+
+        public string Id { get; }
+        public string FirstName { get; }
+        public string SecondName { get; }
+        public string LastName { get; }
+        public string SecondLastName { get; }
     }
 }

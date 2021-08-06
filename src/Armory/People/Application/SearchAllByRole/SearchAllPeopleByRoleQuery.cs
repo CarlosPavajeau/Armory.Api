@@ -5,11 +5,11 @@ namespace Armory.People.Application.SearchAllByRole
 {
     public class SearchAllPeopleByRoleQuery : Query<IEnumerable<PersonResponse>>
     {
-        public string RoleName { get; }
-
         public SearchAllPeopleByRoleQuery(string roleName)
         {
             RoleName = roleName;
         }
+
+        public string RoleName { get; }
     }
 }

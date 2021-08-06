@@ -7,22 +7,6 @@ namespace Armory.Armament.Ammunition.Domain
 {
     public class Ammunition
     {
-        [Key, MaxLength(50)] public string Code { get; set; }
-        [Required, MaxLength(128)] public string Type { get; set; }
-        [Required, MaxLength(256)] public string Mark { get; set; }
-        [Required, MaxLength(256)] public string Caliber { get; set; }
-        [Required, MaxLength(256)] public string Series { get; set; }
-        [Required, MaxLength(256)] public string Lot { get; set; }
-        [Required] public int QuantityAvailable { get; set; }
-
-        public ICollection<WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition>
-            WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition { get; set; } =
-            new HashSet<WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition>();
-
-        public ICollection<WarMaterialDeliveryCertificateFormatAmmunition>
-            WarMaterialDeliveryCertificateFormatAmmunition { get; set; } =
-            new HashSet<WarMaterialDeliveryCertificateFormatAmmunition>();
-
         public Ammunition(string code, string type, string mark, string caliber, string series, string lot,
             int quantityAvailable)
         {
@@ -34,6 +18,22 @@ namespace Armory.Armament.Ammunition.Domain
             Lot = lot;
             QuantityAvailable = quantityAvailable;
         }
+
+        [Key] [MaxLength(50)] public string Code { get; set; }
+        [Required] [MaxLength(128)] public string Type { get; set; }
+        [Required] [MaxLength(256)] public string Mark { get; set; }
+        [Required] [MaxLength(256)] public string Caliber { get; set; }
+        [Required] [MaxLength(256)] public string Series { get; set; }
+        [Required] [MaxLength(256)] public string Lot { get; set; }
+        [Required] public int QuantityAvailable { get; set; }
+
+        public ICollection<WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition>
+            WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition { get; set; } =
+            new HashSet<WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition>();
+
+        public ICollection<WarMaterialDeliveryCertificateFormatAmmunition>
+            WarMaterialDeliveryCertificateFormatAmmunition { get; set; } =
+            new HashSet<WarMaterialDeliveryCertificateFormatAmmunition>();
 
         public void Update(string type, string mark, string caliber, string series, string lot,
             int quantityAvailable)
@@ -49,7 +49,7 @@ namespace Armory.Armament.Ammunition.Domain
         public static Ammunition Create(string code, string type, string mark, string caliber, string series,
             string lot, int quantityAvailable)
         {
-            return new(code, type, mark, caliber, series, lot, quantityAvailable);
+            return new Ammunition(code, type, mark, caliber, series, lot, quantityAvailable);
         }
     }
 }

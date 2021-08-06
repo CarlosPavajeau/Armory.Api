@@ -15,16 +15,10 @@ namespace Armory.Users.Application.Authenticate
         public async Task Authenticate(string usernameOrEmail, string password, bool isPersistent)
         {
             var user = await _repository.FindByUsernameOrEmail(usernameOrEmail);
-            if (user == null)
-            {
-                throw new ArmoryUserNotFound();
-            }
+            if (user == null) throw new ArmoryUserNotFound();
 
             var result = await _repository.Authenticate(user, password, isPersistent);
-            if (!result.Succeeded)
-            {
-                throw new ArmoryUserNotAuthenticate();
-            }
+            if (!result.Succeeded) throw new ArmoryUserNotAuthenticate();
         }
     }
 }

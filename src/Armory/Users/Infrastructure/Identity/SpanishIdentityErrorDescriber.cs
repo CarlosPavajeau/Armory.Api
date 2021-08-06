@@ -6,7 +6,7 @@ namespace Armory.Users.Infrastructure.Identity
     {
         public override IdentityError DefaultError()
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(DefaultError),
                 Description = "Ha ocurrido un error."
@@ -15,7 +15,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError ConcurrencyFailure()
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(ConcurrencyFailure),
                 Description = "Ha ocurrido un error, el objeto ya ha sido modificado (Optimistic concurrency failure)."
@@ -24,7 +24,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError PasswordMismatch()
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(PasswordMismatch),
                 Description = "Contraseña incorrecta."
@@ -33,7 +33,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError InvalidToken()
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(InvalidToken),
                 Description = "Token inválido."
@@ -42,7 +42,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError LoginAlreadyAssociated()
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(LoginAlreadyAssociated),
                 Description = "Un usuario con ese nombre ya existe."
@@ -51,7 +51,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError InvalidUserName(string userName)
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(InvalidUserName),
                 Description = $"El nombre de usuario '{userName}' es inválido. Solo puede contener letras y números."
@@ -60,7 +60,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError InvalidEmail(string email)
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(InvalidEmail),
                 Description = $"La dirección de email '{email}' es inválida.."
@@ -69,7 +69,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError DuplicateUserName(string userName)
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(DuplicateUserName),
                 Description = $"El usuario '{userName}' ya existe, por favor ingrese un nombre diferente."
@@ -78,7 +78,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError DuplicateEmail(string email)
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(DuplicateEmail),
                 Description = $"La direccion de email '{email}' ya se encuentra registrada."
@@ -87,7 +87,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError InvalidRoleName(string role)
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(InvalidRoleName),
                 Description = $"El nombre de rol '{role}' es inválido."
@@ -96,7 +96,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError DuplicateRoleName(string role)
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(DuplicateRoleName),
                 Description = $"El nombre de rol '{role}' ya existe."
@@ -105,7 +105,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError UserAlreadyHasPassword()
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(UserAlreadyHasPassword),
                 Description = "El usuario ya tiene contraseña."
@@ -114,7 +114,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError UserLockoutNotEnabled()
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(UserLockoutNotEnabled),
                 Description = "El bloqueo no esta habilitado para este usuario."
@@ -123,7 +123,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError UserAlreadyInRole(string role)
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(UserAlreadyInRole),
                 Description = $"El usuario ya es parte del rol '{role}'."
@@ -132,7 +132,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError UserNotInRole(string role)
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(UserNotInRole),
                 Description = $"El usuario no es parte del rol '{role}'."
@@ -141,7 +141,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError PasswordTooShort(int length)
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(PasswordTooShort),
                 Description = $"La contraseña deben tener un largo mínimo de {length} caracteres."
@@ -150,7 +150,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError PasswordRequiresNonAlphanumeric()
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(PasswordRequiresNonAlphanumeric),
                 Description = "La contraseña debe contener al menos un caracter alfanumérico."
@@ -159,7 +159,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError PasswordRequiresDigit()
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(PasswordRequiresDigit),
                 Description = "La contraseña debe incluir al menos un dígito ('0'-'9')."
@@ -168,7 +168,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError PasswordRequiresLower()
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(PasswordRequiresLower),
                 Description = "La contraseña debe incluir al menos una letra minúscula ('a'-'z')."
@@ -177,7 +177,7 @@ namespace Armory.Users.Infrastructure.Identity
 
         public override IdentityError PasswordRequiresUpper()
         {
-            return new()
+            return new IdentityError
             {
                 Code = nameof(PasswordRequiresUpper),
                 Description = "La contraseña debe incluir al menos una letra MAYÚSCULA ('A'-'Z')."

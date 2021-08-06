@@ -19,6 +19,10 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework
 {
     public class ArmoryDbContext : IdentityDbContext<ArmoryUser, ArmoryRole, string>
     {
+        public ArmoryDbContext(DbContextOptions<ArmoryDbContext> options) : base(options)
+        {
+        }
+
         public DbSet<Squadron> Squadrons { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<Squad> Squads { get; set; }
@@ -67,10 +71,6 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework
 
         public DbSet<AssignedWeaponMagazineFormat> AssignedWeaponMagazineFormats { get; set; }
         public DbSet<AssignedWeaponMagazineFormatItem> AssignedWeaponMagazineFormatItems { get; set; }
-
-        public ArmoryDbContext(DbContextOptions<ArmoryDbContext> options) : base(options)
-        {
-        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

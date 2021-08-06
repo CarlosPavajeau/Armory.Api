@@ -30,6 +30,7 @@ using Armory.Troopers.Infrastructure.Persistence;
 using Armory.Users.Domain;
 using Armory.Users.Infrastructure.Identity;
 using Armory.Users.Infrastructure.Persistence;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -38,7 +39,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using MediatR;
 
 namespace Armory.Api.Extensions
 {

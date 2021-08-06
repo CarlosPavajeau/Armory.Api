@@ -9,7 +9,7 @@ namespace Armory.Squads.Domain
     {
         Task Save(Squad squad);
         Task<Squad> Find(string code);
-        Task<bool> Any(Expression<Func <Squad, bool>> predicate);
+        Task<bool> Any(Expression<Func<Squad, bool>> predicate);
         Task<IEnumerable<Squad>> SearchAll();
     }
 }

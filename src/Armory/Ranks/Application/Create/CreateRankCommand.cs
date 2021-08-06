@@ -4,11 +4,11 @@ namespace Armory.Ranks.Application.Create
 {
     public class CreateRankCommand : Command
     {
-        public string Name { get; }
-
         public CreateRankCommand(string name)
         {
             Name = name;
         }
+
+        public string Name { get; }
     }
 }

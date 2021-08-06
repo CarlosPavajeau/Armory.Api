@@ -8,8 +8,8 @@ namespace Armory.Armament.Equipments.Application.Update
 {
     public class UpdateEquipmentCommandHandler : CommandHandler<UpdateEquipmentCommand>
     {
-        private readonly EquipmentUpdater _updater;
         private readonly EquipmentFinder _finder;
+        private readonly EquipmentUpdater _updater;
 
         public UpdateEquipmentCommandHandler(EquipmentUpdater updater, EquipmentFinder finder)
         {
@@ -20,10 +20,7 @@ namespace Armory.Armament.Equipments.Application.Update
         protected override async Task Handle(UpdateEquipmentCommand request, CancellationToken cancellationToken)
         {
             var equipment = await _finder.Find(request.Code);
-            if (equipment == null)
-            {
-                throw new EquipmentNotFound();
-            }
+            if (equipment == null) throw new EquipmentNotFound();
 
             await _updater.Update(equipment, request.Type, request.Model, request.Series, request.QuantityAvailable);
         }

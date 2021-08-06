@@ -7,9 +7,9 @@ namespace Armory.People.Application.Create
 {
     public class PersonCreator
     {
+        private readonly ITransactionInitializer _initializer;
         private readonly IPeopleRepository _repository;
         private readonly ArmoryUserCreator _userCreator;
-        private readonly ITransactionInitializer _initializer;
 
         public PersonCreator(IPeopleRepository repository, ArmoryUserCreator userCreator,
             ITransactionInitializer initializer)

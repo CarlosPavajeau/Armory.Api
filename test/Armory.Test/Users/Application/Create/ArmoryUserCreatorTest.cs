@@ -34,10 +34,7 @@ namespace Armory.Test.Users.Application.Create
             Repository.Setup(x => x.AddToRole(It.IsAny<ArmoryUser>(), It.IsAny<string>()))
                 .ReturnsAsync((ArmoryUser _, string roleName) =>
                 {
-                    if (string.IsNullOrEmpty(roleName))
-                    {
-                        throw new InvalidOperationException();
-                    }
+                    if (string.IsNullOrEmpty(roleName)) throw new InvalidOperationException();
 
                     return roleName == "nadmin"
                         ? IdentityResult.Failed(_describer.InvalidRoleName(roleName))
@@ -50,7 +47,8 @@ namespace Armory.Test.Users.Application.Create
             Repository.Verify(x => x.Save(It.IsAny<ArmoryUser>(), It.IsAny<string>()), Times.AtLeastOnce());
         }
 
-        [Test, Order(1)]
+        [Test]
+        [Order(1)]
         public async Task Create_A_Valid_ArmoryUser()
         {
             var user = await _creator.Create("admin", "admin@admin.com", "3000000000", "admin", "admin");
@@ -59,7 +57,8 @@ namespace Armory.Test.Users.Application.Create
             Assert.IsNotNull(user);
         }
 
-        [Test, Order(2)]
+        [Test]
+        [Order(2)]
         public async Task Create_An_Invalid_ArmoryUser()
         {
             try
@@ -75,7 +74,8 @@ namespace Armory.Test.Users.Application.Create
             }
         }
 
-        [Test, Order(3)]
+        [Test]
+        [Order(3)]
         public async Task Create_A_Valid_ArmoryUser_With_Invalid_RoleName()
         {
             try
@@ -95,7 +95,8 @@ namespace Armory.Test.Users.Application.Create
             }
         }
 
-        [Test, Order(4)]
+        [Test]
+        [Order(4)]
         public async Task Create_A_Valid_ArmoryUser_With_Non_Existing_RoleName()
         {
             try

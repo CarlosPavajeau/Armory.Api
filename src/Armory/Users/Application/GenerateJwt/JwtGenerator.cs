@@ -22,7 +22,7 @@ namespace Armory.Users.Application.GenerateJwt
         public string Generate(ArmoryUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            byte[] key = Encoding.UTF8.GetBytes(_secretKey.Key);
+            var key = Encoding.UTF8.GetBytes(_secretKey.Key);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {

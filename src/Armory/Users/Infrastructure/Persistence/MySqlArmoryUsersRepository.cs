@@ -9,9 +9,9 @@ namespace Armory.Users.Infrastructure.Persistence
 {
     public class MySqlArmoryUsersRepository : IArmoryUsersRepository
     {
-        private readonly UserManager<ArmoryUser> _userManager;
-        private readonly SignInManager<ArmoryUser> _signInManager;
         private readonly ArmoryDbContext _dbContext;
+        private readonly SignInManager<ArmoryUser> _signInManager;
+        private readonly UserManager<ArmoryUser> _userManager;
 
         public MySqlArmoryUsersRepository(UserManager<ArmoryUser> userManager, SignInManager<ArmoryUser> signInManager,
             ArmoryDbContext dbContext)

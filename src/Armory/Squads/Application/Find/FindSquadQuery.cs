@@ -4,11 +4,11 @@ namespace Armory.Squads.Application.Find
 {
     public class FindSquadQuery : Query<SquadResponse>
     {
-        public string Code { get; }
-
         public FindSquadQuery(string code)
         {
             Code = code;
         }
+
+        public string Code { get; }
     }
 }

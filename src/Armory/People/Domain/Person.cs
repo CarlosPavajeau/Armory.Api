@@ -9,20 +9,6 @@ namespace Armory.People.Domain
 {
     public class Person
     {
-        [Key, MaxLength(10)] public string Id { get; set; }
-
-        [MaxLength(50)] public string FirstName { get; set; }
-        [MaxLength(50)] public string SecondName { get; set; }
-        [MaxLength(50)] public string LastName { get; set; }
-        [MaxLength(50)] public string SecondLastName { get; set; }
-
-        public string ArmoryUserId { get; set; }
-
-        [ForeignKey("ArmoryUserId")] public ArmoryUser ArmoryUser { get; set; }
-
-        public ICollection<Squadron> Squadrons { get; set; } = new HashSet<Squadron>();
-        public ICollection<Squad> Squads { get; set; } = new HashSet<Squad>();
-
         public Person(string id, string firstName, string secondName, string lastName, string secondLastName,
             string armoryUserId)
         {
@@ -38,6 +24,20 @@ namespace Armory.People.Domain
         {
         }
 
+        [Key] [MaxLength(10)] public string Id { get; set; }
+
+        [MaxLength(50)] public string FirstName { get; set; }
+        [MaxLength(50)] public string SecondName { get; set; }
+        [MaxLength(50)] public string LastName { get; set; }
+        [MaxLength(50)] public string SecondLastName { get; set; }
+
+        public string ArmoryUserId { get; set; }
+
+        [ForeignKey("ArmoryUserId")] public ArmoryUser ArmoryUser { get; set; }
+
+        public ICollection<Squadron> Squadrons { get; set; } = new HashSet<Squadron>();
+        public ICollection<Squad> Squads { get; set; } = new HashSet<Squad>();
+
         public void Update(string firstName, string secondName, string lastName, string secondLastName)
         {
             FirstName = firstName;
@@ -49,7 +49,7 @@ namespace Armory.People.Domain
         public static Person Create(string id, string firstName, string secondName, string lastName,
             string secondLastName, string armoryUserId)
         {
-            return new(id, firstName, secondName, lastName, secondLastName, armoryUserId);
+            return new Person(id, firstName, secondName, lastName, secondLastName, armoryUserId);
         }
     }
 }

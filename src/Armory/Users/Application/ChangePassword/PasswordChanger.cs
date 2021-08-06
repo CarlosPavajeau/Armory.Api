@@ -15,16 +15,10 @@ namespace Armory.Users.Application.ChangePassword
         public async Task ChangePassword(string usernameOrEmail, string oldPassword, string newPassword)
         {
             var user = await _repository.FindByUsernameOrEmail(usernameOrEmail);
-            if (user == null)
-            {
-                throw new ArmoryUserNotFound();
-            }
+            if (user == null) throw new ArmoryUserNotFound();
 
             var result = await _repository.ChangePassword(user, oldPassword, newPassword);
-            if (!result.Succeeded)
-            {
-                throw new PasswordNotChange(result.Errors);
-            }
+            if (!result.Succeeded) throw new PasswordNotChange(result.Errors);
         }
     }
 }

@@ -16,16 +16,10 @@ namespace Armory.Users.Application.ConfirmEmail
         public async Task ConfirmEmail(string usernameOrEmail, string token)
         {
             var user = await _repository.FindByUsernameOrEmail(usernameOrEmail);
-            if (user == null)
-            {
-                throw new ArmoryUserNotFound();
-            }
+            if (user == null) throw new ArmoryUserNotFound();
 
             var result = await _repository.ConfirmEmail(user, Utils.Base64ToString(token));
-            if (!result.Succeeded)
-            {
-                throw new EmailNotConfirmed(result.Errors);
-            }
+            if (!result.Succeeded) throw new EmailNotConfirmed(result.Errors);
         }
     }
 }

@@ -4,11 +4,6 @@ namespace Armory.Squads.Application.Create
 {
     public class CreateSquadCommand : Command
     {
-        public string Code { get; }
-        public string Name { get; }
-        public string PersonId { get; }
-        public string SquadronCode { get; }
-
         public CreateSquadCommand(string code, string name, string personId, string squadronCode)
         {
             Code = code;
@@ -16,5 +11,10 @@ namespace Armory.Squads.Application.Create
             PersonId = personId;
             SquadronCode = squadronCode;
         }
+
+        public string Code { get; }
+        public string Name { get; }
+        public string PersonId { get; }
+        public string SquadronCode { get; }
     }
 }

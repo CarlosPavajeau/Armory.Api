@@ -5,6 +5,14 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
 {
     public class WarMaterialDeliveryCertificateFormatExplosive
     {
+        public WarMaterialDeliveryCertificateFormatExplosive(int warMaterialDeliveryCertificateFormatId,
+            string explosiveCode, int quantity)
+        {
+            WarMaterialDeliveryCertificateFormatId = warMaterialDeliveryCertificateFormatId;
+            ExplosiveCode = explosiveCode;
+            Quantity = quantity;
+        }
+
         public int WarMaterialDeliveryCertificateFormatId { get; set; }
 
         [ForeignKey("WarMaterialDeliveryCertificateFormatId")]
@@ -15,18 +23,11 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
 
         public int Quantity { get; set; }
 
-        public WarMaterialDeliveryCertificateFormatExplosive(int warMaterialDeliveryCertificateFormatId,
-            string explosiveCode, int quantity)
-        {
-            WarMaterialDeliveryCertificateFormatId = warMaterialDeliveryCertificateFormatId;
-            ExplosiveCode = explosiveCode;
-            Quantity = quantity;
-        }
-
         public static WarMaterialDeliveryCertificateFormatExplosive Create(int warMaterialDeliveryCertificateFormatId,
             string ammunitionCode, int quantity)
         {
-            return new(warMaterialDeliveryCertificateFormatId, ammunitionCode, quantity);
+            return new WarMaterialDeliveryCertificateFormatExplosive(warMaterialDeliveryCertificateFormatId,
+                ammunitionCode, quantity);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Armory.Shared.Test.Infrastructure
 
         public void ShouldHavePublished(DomainEvent domainEvent)
         {
-            ShouldHavePublished(new List<DomainEvent> {domainEvent});
+            ShouldHavePublished(new List<DomainEvent> { domainEvent });
         }
     }
 }

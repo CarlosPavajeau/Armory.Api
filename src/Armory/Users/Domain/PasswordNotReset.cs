@@ -6,11 +6,11 @@ namespace Armory.Users.Domain
 {
     public class PasswordNotReset : Exception
     {
-        public IEnumerable<IdentityError> Errors { get; }
-
         public PasswordNotReset(IEnumerable<IdentityError> errors)
         {
             Errors = errors;
         }
+
+        public IEnumerable<IdentityError> Errors { get; }
     }
 }

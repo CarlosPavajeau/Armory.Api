@@ -4,16 +4,16 @@ namespace Armory.Users.Application
 {
     public class ArmoryRoleResponse
     {
-        public string Name { get; }
-
         public ArmoryRoleResponse(string name)
         {
             Name = name;
         }
 
+        public string Name { get; }
+
         public static ArmoryRoleResponse FromAggregate(ArmoryRole role)
         {
-            return new(role.Name);
+            return new ArmoryRoleResponse(role.Name);
         }
     }
 }

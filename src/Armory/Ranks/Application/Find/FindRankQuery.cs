@@ -4,11 +4,11 @@ namespace Armory.Ranks.Application.Find
 {
     public class FindRankQuery : Query<RankResponse>
     {
-        public int Id { get; }
-
         public FindRankQuery(int id)
         {
             Id = id;
         }
+
+        public int Id { get; }
     }
 }

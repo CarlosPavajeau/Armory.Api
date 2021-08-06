@@ -1,12 +1,7 @@
-using System;
-
 namespace Armory.Users.Application.GeneratePasswordResetToken
 {
     public class PasswordResetTokenResponse
     {
-        public string Token { get; }
-        public bool TokenGenerated { get; }
-
         public PasswordResetTokenResponse(string token)
         {
             Token = token;
@@ -18,5 +13,8 @@ namespace Armory.Users.Application.GeneratePasswordResetToken
             Token = string.Empty;
             TokenGenerated = false;
         }
+
+        public string Token { get; }
+        public bool TokenGenerated { get; }
     }
 }
