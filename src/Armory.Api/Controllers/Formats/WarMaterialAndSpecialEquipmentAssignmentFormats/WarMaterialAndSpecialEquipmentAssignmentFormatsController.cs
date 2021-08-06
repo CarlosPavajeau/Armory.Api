@@ -32,7 +32,7 @@ namespace Armory.Api.Controllers.Formats.WarMaterialAndSpecialEquipmentAssignmen
                 var command = _mapper.Map<CreateWarMaterialAndSpecialEquipmentAssignmentFormatCommand>(request);
                 await _mediator.Send(command);
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException)
             {
                 return BadRequest();
             }

@@ -42,7 +42,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
                 request.Explosives);
 
 
-            return await _generator.Generate(format);
+            return _generator.Generate(format);
         }
     }
 }
