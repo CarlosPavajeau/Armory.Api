@@ -688,7 +688,7 @@ namespace Armory.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "WarMaterialAndSpecialEquipmentAssignmentFormatWeapon",
+                name: "WarMaterialAndSpecialEquipmentAssignmentFormatWeapons",
                 columns: table => new
                 {
                     WarMaterialAndSpecialEquipmentAssignmentFormatId = table.Column<int>(type: "int", nullable: false),
@@ -697,15 +697,15 @@ namespace Armory.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WarMaterialAndSpecialEquipmentAssignmentFormatWeapon", x => new { x.WarMaterialAndSpecialEquipmentAssignmentFormatId, x.WeaponCode });
+                    table.PrimaryKey("PK_WarMaterialAndSpecialEquipmentAssignmentFormatWeapons", x => new { x.WarMaterialAndSpecialEquipmentAssignmentFormatId, x.WeaponCode });
                     table.ForeignKey(
-                        name: "FK_WarMaterialAndSpecialEquipmentAssignmentFormatWeapon_WarMate~",
+                        name: "FK_WarMaterialAndSpecialEquipmentAssignmentFormatWeapons_WarMat~",
                         column: x => x.WarMaterialAndSpecialEquipmentAssignmentFormatId,
                         principalTable: "WarMaterialAndSpecialEquipmentAssignmentFormats",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WarMaterialAndSpecialEquipmentAssignmentFormatWeapon_Weapons~",
+                        name: "FK_WarMaterialAndSpecialEquipmentAssignmentFormatWeapons_Weapon~",
                         column: x => x.WeaponCode,
                         principalTable: "Weapons",
                         principalColumn: "Code",
@@ -795,30 +795,28 @@ namespace Armory.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "WarMaterialDeliveryCertificateFormatWeapon",
+                name: "WarMaterialDeliveryCertificateFormatWeapons",
                 columns: table => new
                 {
                     WarMaterialDeliveryCertificateFormatId = table.Column<int>(type: "int", nullable: false),
-                    WeaponCode = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ExplosiveCode = table.Column<string>(type: "varchar(50)", nullable: true)
+                    WeaponCode = table.Column<string>(type: "varchar(50)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WarMaterialDeliveryCertificateFormatWeapon", x => new { x.WarMaterialDeliveryCertificateFormatId, x.WeaponCode });
+                    table.PrimaryKey("PK_WarMaterialDeliveryCertificateFormatWeapons", x => new { x.WarMaterialDeliveryCertificateFormatId, x.WeaponCode });
                     table.ForeignKey(
-                        name: "FK_WarMaterialDeliveryCertificateFormatWeapon_WarMaterialDelive~",
+                        name: "FK_WarMaterialDeliveryCertificateFormatWeapons_WarMaterialDeliv~",
                         column: x => x.WarMaterialDeliveryCertificateFormatId,
                         principalTable: "WarMaterialDeliveryCertificateFormats",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WarMaterialDeliveryCertificateFormatWeapon_Weapons_Explosive~",
-                        column: x => x.ExplosiveCode,
+                        name: "FK_WarMaterialDeliveryCertificateFormatWeapons_Weapons_WeaponCo~",
+                        column: x => x.WeaponCode,
                         principalTable: "Weapons",
                         principalColumn: "Code",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -958,8 +956,8 @@ namespace Armory.Migrations
                 column: "TroopId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WarMaterialAndSpecialEquipmentAssignmentFormatWeapon_WeaponC~",
-                table: "WarMaterialAndSpecialEquipmentAssignmentFormatWeapon",
+                name: "IX_WarMaterialAndSpecialEquipmentAssignmentFormatWeapons_Weapon~",
+                table: "WarMaterialAndSpecialEquipmentAssignmentFormatWeapons",
                 column: "WeaponCode");
 
             migrationBuilder.CreateIndex(
@@ -993,9 +991,9 @@ namespace Armory.Migrations
                 column: "TroopId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WarMaterialDeliveryCertificateFormatWeapon_ExplosiveCode",
-                table: "WarMaterialDeliveryCertificateFormatWeapon",
-                column: "ExplosiveCode");
+                name: "IX_WarMaterialDeliveryCertificateFormatWeapons_WeaponCode",
+                table: "WarMaterialDeliveryCertificateFormatWeapons",
+                column: "WeaponCode");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -1028,7 +1026,7 @@ namespace Armory.Migrations
                 name: "WarMaterialAndSpecialEquipmentAssignmentFormatExplosives");
 
             migrationBuilder.DropTable(
-                name: "WarMaterialAndSpecialEquipmentAssignmentFormatWeapon");
+                name: "WarMaterialAndSpecialEquipmentAssignmentFormatWeapons");
 
             migrationBuilder.DropTable(
                 name: "WarMaterialDeliveryCertificateFormatAmmunition");
@@ -1040,7 +1038,7 @@ namespace Armory.Migrations
                 name: "WarMaterialDeliveryCertificateFormatExplosives");
 
             migrationBuilder.DropTable(
-                name: "WarMaterialDeliveryCertificateFormatWeapon");
+                name: "WarMaterialDeliveryCertificateFormatWeapons");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

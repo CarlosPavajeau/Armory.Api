@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Armory.Migrations
 {
     [DbContext(typeof(ArmoryDbContext))]
-    [Migration("20210806000327_Initial")]
+    [Migration("20210807171528_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -404,7 +404,7 @@ namespace Armory.Migrations
 
                     b.HasIndex("WeaponCode");
 
-                    b.ToTable("WarMaterialAndSpecialEquipmentAssignmentFormatWeapon");
+                    b.ToTable("WarMaterialAndSpecialEquipmentAssignmentFormatWeapons");
                 });
 
             modelBuilder.Entity("Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain.WarMaterialDeliveryCertificateFormat", b =>
@@ -512,16 +512,13 @@ namespace Armory.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("WeaponCode")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("ExplosiveCode")
                         .HasColumnType("varchar(50)");
 
                     b.HasKey("WarMaterialDeliveryCertificateFormatId", "WeaponCode");
 
-                    b.HasIndex("ExplosiveCode");
+                    b.HasIndex("WeaponCode");
 
-                    b.ToTable("WarMaterialDeliveryCertificateFormatWeapon");
+                    b.ToTable("WarMaterialDeliveryCertificateFormatWeapons");
                 });
 
             modelBuilder.Entity("Armory.People.Domain.Person", b =>
@@ -986,7 +983,7 @@ namespace Armory.Migrations
 
             modelBuilder.Entity("Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain.WarMaterialAndSpecialEquipmentAssignmentFormatExplosive", b =>
                 {
-                    b.HasOne("Armory.Armament.Explosives.Domain.Explosive", "Equipment")
+                    b.HasOne("Armory.Armament.Explosives.Domain.Explosive", "Explosive")
                         .WithMany("WarMaterialAndSpecialEquipmentAssignmentFormatExplosives")
                         .HasForeignKey("ExplosiveCode")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -998,7 +995,7 @@ namespace Armory.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Equipment");
+                    b.Navigation("Explosive");
 
                     b.Navigation("Format");
                 });
@@ -1108,13 +1105,15 @@ namespace Armory.Migrations
 
             modelBuilder.Entity("Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain.WarMaterialDeliveryCertificateFormatWeapon", b =>
                 {
-                    b.HasOne("Armory.Armament.Weapons.Domain.Weapon", "Weapon")
-                        .WithMany("WarMaterialDeliveryCertificateFormatWeapons")
-                        .HasForeignKey("ExplosiveCode");
-
                     b.HasOne("Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain.WarMaterialDeliveryCertificateFormat", "Format")
                         .WithMany("WarMaterialDeliveryCertificateFormatWeapons")
                         .HasForeignKey("WarMaterialDeliveryCertificateFormatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Armory.Armament.Weapons.Domain.Weapon", "Weapon")
+                        .WithMany("WarMaterialDeliveryCertificateFormatWeapons")
+                        .HasForeignKey("WeaponCode")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

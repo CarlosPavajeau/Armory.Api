@@ -22,7 +22,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
         public WarMaterialDeliveryCertificateFormat Format { get; set; }
 
         public string WeaponCode { get; set; }
-        [ForeignKey("ExplosiveCode")] public Weapon Weapon { get; set; }
+        [ForeignKey("WeaponCode")] public Weapon Weapon { get; set; }
 
         public static WarMaterialDeliveryCertificateFormatWeapon Create(WarMaterialDeliveryCertificateFormat format,
             string weaponCode)

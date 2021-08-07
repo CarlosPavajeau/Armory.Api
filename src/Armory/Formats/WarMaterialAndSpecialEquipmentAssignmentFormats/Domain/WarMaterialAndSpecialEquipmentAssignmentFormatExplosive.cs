@@ -23,7 +23,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
         public WarMaterialAndSpecialEquipmentAssignmentFormat Format { get; set; }
 
         public string ExplosiveCode { get; set; }
-        [ForeignKey("ExplosiveCode")] public Explosive Equipment { get; set; }
+        [ForeignKey("ExplosiveCode")] public Explosive Explosive { get; set; }
 
         public int Quantity { get; set; }
 
