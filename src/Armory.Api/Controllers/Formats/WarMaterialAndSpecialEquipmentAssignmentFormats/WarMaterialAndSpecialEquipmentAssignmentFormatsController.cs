@@ -44,5 +44,15 @@ namespace Armory.Api.Controllers.Formats.WarMaterialAndSpecialEquipmentAssignmen
                 return BadRequest();
             }
         }
+
+        [HttpGet]
+        public async Task<ActionResult<FileStream>> Get()
+        {
+            var stream =
+                await _mediator.Send(new GenerateWarMaterialAndSpecialEquipmentAssignmentFormatQuery(1));
+
+            stream.Position = 0;
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "format.xlsx");
+        }
     }
 }

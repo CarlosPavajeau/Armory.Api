@@ -20,18 +20,34 @@ namespace Armory.Shared.Infrastructure.ClosedXML
 
         public void SetCommonRangeStyles(IXLRange range)
         {
-            range.Style.Border.OutsideBorder = XLBorderStyleValues.Hair;
-            range.Style.Border.InsideBorder = XLBorderStyleValues.Hair;
-            range.Style.Font.FontSize = 12;
-            range.Style.Font.FontName = "Arial";
+            SetRangeBorders(range, XLBorderStyleValues.Hair);
+            SetRangeFontSize(range, 12);
+            SetRangeFontName(range, "Arial");
             SetRangeFontBold(range, true);
-            range.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-            range.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+            SetRangeAlignment(range, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center);
         }
 
-        public void MergeRange(IXLRange range)
+        public void SetRangeAlignment(IXLRange range, XLAlignmentHorizontalValues horizontal,
+            XLAlignmentVerticalValues vertical)
         {
-            range.Merge();
+            range.Style.Alignment.Horizontal = horizontal;
+            range.Style.Alignment.Vertical = vertical;
+        }
+
+        public void SetRangeOutsideBorder(IXLRange range, XLBorderStyleValues borderStyleValues)
+        {
+            range.Style.Border.OutsideBorder = borderStyleValues;
+        }
+
+        public void SetRangeInsideBorder(IXLRange range, XLBorderStyleValues borderStyleValues)
+        {
+            range.Style.Border.InsideBorder = borderStyleValues;
+        }
+
+        public void SetRangeBorders(IXLRange range, XLBorderStyleValues borderStyleValues)
+        {
+            SetRangeOutsideBorder(range, borderStyleValues);
+            SetRangeInsideBorder(range, borderStyleValues);
         }
 
         public void MergeRangeAndSetValue<T>(IXLRange range, T value)
@@ -48,6 +64,11 @@ namespace Armory.Shared.Infrastructure.ClosedXML
         public void SetRangeFontSize(IXLRange range, double fontSize)
         {
             range.Style.Font.FontSize = fontSize;
+        }
+
+        public void SetRangeFontName(IXLRange range, string fontName)
+        {
+            range.Style.Font.FontName = fontName;
         }
 
         public void SetRangeFillBackgroundColor(IXLRange range, XLColor color)
@@ -67,6 +88,11 @@ namespace Armory.Shared.Infrastructure.ClosedXML
                 cell.Value = values[index];
                 ++index;
             }
+        }
+
+        private static void MergeRange(IXLRangeBase range)
+        {
+            range.Merge();
         }
     }
 }
