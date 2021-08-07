@@ -1,4 +1,3 @@
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Application.Generate;
@@ -7,7 +6,7 @@ using Armory.Shared.Domain.Bus.Command;
 namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Application.Create
 {
     public class CreateWarMaterialAndSpecialEquipmentAssignmentFormatCommandHandler : ICommandHandler<
-        CreateWarMaterialAndSpecialEquipmentAssignmentFormatCommand, MemoryStream>
+        CreateWarMaterialAndSpecialEquipmentAssignmentFormatCommand, int>
     {
         private readonly WarMaterialAndSpecialEquipmentAssignmentFormatCreator _creator;
         private readonly WarMaterialAndSpecialEquipmentAssignmentFormatGenerator _generator;
@@ -20,7 +19,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             _generator = generator;
         }
 
-        public async Task<MemoryStream> Handle(CreateWarMaterialAndSpecialEquipmentAssignmentFormatCommand request,
+        public async Task<int> Handle(CreateWarMaterialAndSpecialEquipmentAssignmentFormatCommand request,
             CancellationToken cancellationToken)
         {
             var format = await _creator.Create(
@@ -41,8 +40,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
                 request.Equipments,
                 request.Explosives);
 
-
-            return _generator.Generate(format);
+            return format.Id;
         }
     }
 }

@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Armory.Formats.Shared.Domain;
 using Armory.Shared.Domain.Bus.Command.Generic;
 
 namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Application.Create
 {
-    public class CreateWarMaterialAndSpecialEquipmentAssignmentFormatCommand : Command<MemoryStream>
+    public class CreateWarMaterialAndSpecialEquipmentAssignmentFormatCommand : Command<int>
     {
         public CreateWarMaterialAndSpecialEquipmentAssignmentFormatCommand(string code, DateTime validity, string place,
             DateTime date, string squadronCode, string squadCode, string troopId, Warehouse warehouse, Purpose purpose,
