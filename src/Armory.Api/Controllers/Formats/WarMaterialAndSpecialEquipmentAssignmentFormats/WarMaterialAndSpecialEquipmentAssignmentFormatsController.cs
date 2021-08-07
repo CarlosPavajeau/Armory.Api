@@ -1,6 +1,8 @@
+using System.IO;
 using System.Threading.Tasks;
 using Armory.Api.Controllers.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Requests;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Application.Create;
+using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Application.Generate;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -24,20 +26,23 @@ namespace Armory.Api.Controllers.Formats.WarMaterialAndSpecialEquipmentAssignmen
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterWarMaterialAndSpecialEquipmentAssignmentFormat(
+        public async Task<ActionResult<FileStream>> RegisterWarMaterialAndSpecialEquipmentAssignmentFormat(
             [FromBody] CreateWarMaterialAndSpecialEquipmentAssignmentFormatRequest request)
         {
             try
             {
                 var command = _mapper.Map<CreateWarMaterialAndSpecialEquipmentAssignmentFormatCommand>(request);
-                await _mediator.Send(command);
+                var formatId = await _mediator.Send(command);
+                var stream =
+                    await _mediator.Send(new GenerateWarMaterialAndSpecialEquipmentAssignmentFormatQuery(formatId));
+
+                stream.Position = 0;
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "format.xlsx");
             }
             catch (DbUpdateException)
             {
                 return BadRequest();
             }
-
-            return Ok();
         }
     }
 }
