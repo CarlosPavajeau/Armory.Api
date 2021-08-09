@@ -23,13 +23,23 @@ namespace Armory.Troopers.Infrastructure.Persistence
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Troop> Find(string id)
+        public async Task<Troop> Find(string id, bool noTracking = true)
         {
+            if (noTracking)
+                return await _context.Troopers
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(t => t.Id == id);
+
             return await _context.Troopers.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Troop>> SearchAll()
+        public async Task<IEnumerable<Troop>> SearchAll(bool noTracking = true)
         {
+            if (noTracking)
+                return await _context.Troopers
+                    .AsNoTracking()
+                    .ToListAsync();
+
             return await _context.Troopers.ToListAsync();
         }
 

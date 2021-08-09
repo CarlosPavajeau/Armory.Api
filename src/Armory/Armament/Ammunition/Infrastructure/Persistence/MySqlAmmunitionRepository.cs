@@ -23,13 +23,23 @@ namespace Armory.Armament.Ammunition.Infrastructure.Persistence
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Domain.Ammunition> Find(string code)
+        public async Task<Domain.Ammunition> Find(string code, bool noTracking = true)
         {
+            if (noTracking)
+                return await _context.Ammunition
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(c => c.Code == code);
+
             return await _context.Ammunition.FindAsync(code);
         }
 
-        public async Task<IEnumerable<Domain.Ammunition>> SearchAll()
+        public async Task<IEnumerable<Domain.Ammunition>> SearchAll(bool noTracking = true)
         {
+            if (noTracking)
+                return await _context.Ammunition
+                    .AsNoTracking()
+                    .ToListAsync();
+
             return await _context.Ammunition.ToListAsync();
         }
 

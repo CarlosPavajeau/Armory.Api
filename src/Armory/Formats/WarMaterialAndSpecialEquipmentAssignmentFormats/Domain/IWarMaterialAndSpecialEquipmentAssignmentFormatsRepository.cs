@@ -5,6 +5,6 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
     public interface IWarMaterialAndSpecialEquipmentAssignmentFormatsRepository
     {
         Task Save(WarMaterialAndSpecialEquipmentAssignmentFormat format);
-        Task<WarMaterialAndSpecialEquipmentAssignmentFormat> Find(int id);
+        Task<WarMaterialAndSpecialEquipmentAssignmentFormat> Find(int id, bool noTracking = true);
     }
 }

@@ -21,13 +21,23 @@ namespace Armory.Ranks.Infrastructure.Persistence
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Rank> Find(int id)
+        public async Task<Rank> Find(int id, bool noTracking = true)
         {
+            if (noTracking)
+                return await _context.Ranks
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(r => r.Id == id);
+
             return await _context.Ranks.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Rank>> SearchAll()
+        public async Task<IEnumerable<Rank>> SearchAll(bool noTracking = true)
         {
+            if (noTracking)
+                return await _context.Ranks
+                    .AsNoTracking()
+                    .ToListAsync();
+
             return await _context.Ranks.ToListAsync();
         }
     }

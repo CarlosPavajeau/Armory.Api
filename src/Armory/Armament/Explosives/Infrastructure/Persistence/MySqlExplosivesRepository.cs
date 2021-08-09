@@ -23,13 +23,23 @@ namespace Armory.Armament.Explosives.Infrastructure.Persistence
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Explosive> Find(string code)
+        public async Task<Explosive> Find(string code, bool noTracking = true)
         {
+            if (noTracking)
+                return await _context.Explosives
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(e => e.Code == code);
+
             return await _context.Explosives.FindAsync(code);
         }
 
-        public async Task<IEnumerable<Explosive>> SearchAll()
+        public async Task<IEnumerable<Explosive>> SearchAll(bool noTracking = true)
         {
+            if (noTracking)
+                return await _context.Explosives
+                    .AsNoTracking()
+                    .ToListAsync();
+
             return await _context.Explosives.ToListAsync();
         }
 

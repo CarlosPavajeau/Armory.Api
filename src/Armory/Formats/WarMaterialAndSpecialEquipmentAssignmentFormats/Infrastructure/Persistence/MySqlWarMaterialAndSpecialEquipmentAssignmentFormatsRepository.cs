@@ -23,9 +23,12 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Infrast
             await _context.SaveChangesAsync();
         }
 
-        public async Task<WarMaterialAndSpecialEquipmentAssignmentFormat> Find(int id)
+        public async Task<WarMaterialAndSpecialEquipmentAssignmentFormat> Find(int id, bool noTracking = true)
         {
-            var format = await _context.WarMaterialAndSpecialEquipmentAssignmentFormats
+            var query = noTracking
+                ? _context.WarMaterialAndSpecialEquipmentAssignmentFormats.AsNoTracking()
+                : _context.WarMaterialAndSpecialEquipmentAssignmentFormats.AsTracking();
+            var format = await query
                 .Include(f => f.WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition)
                 .ThenInclude(x => x.Ammunition)
                 .Include(f => f.WarMaterialAndSpecialEquipmentAssignmentFormatEquipments)

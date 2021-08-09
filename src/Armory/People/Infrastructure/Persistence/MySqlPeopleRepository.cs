@@ -27,25 +27,46 @@ namespace Armory.People.Infrastructure.Persistence
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Person> Find(string personId)
+        public async Task<Person> Find(string personId, bool noTracking = true)
         {
+            if (noTracking)
+                return await _context.People
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(p => p.Id == personId);
+
             return await _context.People.FindAsync(personId);
         }
 
-        public async Task<Person> FindByArmoryUserId(string armoryUserId)
+        public async Task<Person> FindByArmoryUserId(string armoryUserId, bool noTracking = true)
         {
+            if (noTracking)
+                return await _context.People
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(p => p.ArmoryUserId == armoryUserId);
+
             return await _context.People.FirstOrDefaultAsync(p => p.ArmoryUserId == armoryUserId);
         }
 
-        public async Task<IEnumerable<Person>> SearchAll()
+        public async Task<IEnumerable<Person>> SearchAll(bool noTracking = true)
         {
+            if (noTracking)
+                return await _context.People
+                    .AsNoTracking()
+                    .ToListAsync();
+
             return await _context.People.ToListAsync();
         }
 
-        public async Task<IEnumerable<Person>> SearchAllByRole(string roleName)
+        public async Task<IEnumerable<Person>> SearchAllByRole(string roleName, bool noTracking = true)
         {
             var usersInRole = await _armoryUsersRepository.SearchAllUsersInRole(roleName);
             var userIds = usersInRole.Select(u => u.Id);
+
+            if (noTracking)
+                return await _context.People
+                    .AsNoTracking()
+                    .Where(p => userIds.Contains(p.ArmoryUserId))
+                    .ToListAsync();
 
             return await _context.People
                 .Where(p => userIds.Contains(p.ArmoryUserId))

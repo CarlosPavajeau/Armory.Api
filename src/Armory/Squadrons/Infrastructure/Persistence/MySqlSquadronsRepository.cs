@@ -23,8 +23,13 @@ namespace Armory.Squadrons.Infrastructure.Persistence
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Squadron> Find(string code)
+        public async Task<Squadron> Find(string code, bool noTracking = true)
         {
+            if (noTracking)
+                return await _context.Squadrons
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(s => s.Code == code);
+
             return await _context.Squadrons.FindAsync(code);
         }
 
@@ -33,8 +38,13 @@ namespace Armory.Squadrons.Infrastructure.Persistence
             return await _context.Squadrons.AnyAsync(predicate);
         }
 
-        public async Task<IEnumerable<Squadron>> SearchAll()
+        public async Task<IEnumerable<Squadron>> SearchAll(bool noTracking = true)
         {
+            if (noTracking)
+                return await _context.Squadrons
+                    .AsNoTracking()
+                    .ToListAsync();
+
             return await _context.Squadrons.ToListAsync();
         }
     }
