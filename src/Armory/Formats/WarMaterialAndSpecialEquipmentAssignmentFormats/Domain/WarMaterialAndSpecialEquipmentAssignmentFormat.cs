@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using Armory.Armament.Ammunition.Domain;
 using Armory.Armament.Equipments.Domain;
 using Armory.Armament.Explosives.Domain;
 using Armory.Armament.Weapons.Domain;
 using Armory.Formats.Shared.Domain;
 using Armory.Shared.Domain.Aggregate;
+using Armory.Shared.Domain.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
 using Armory.Squadrons.Domain;
 using Armory.Squads.Domain;
 using Armory.Troopers.Domain;
@@ -87,7 +89,8 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
             var format = new WarMaterialAndSpecialEquipmentAssignmentFormat(code, validity, place, date, squadronCode,
                 squadCode, troopId, warehouse, purpose, docMovement, physicalLocation, others);
 
-            foreach (var weaponCode in weaponCodes)
+            var weapons = weaponCodes.ToList();
+            foreach (var weaponCode in weapons)
             {
                 format.WarMaterialAndSpecialEquipmentAssignmentFormatWeapons.Add(
                     WarMaterialAndSpecialEquipmentAssignmentFormatWeapon.Create(format, weaponCode));
@@ -111,6 +114,10 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
                 format.WarMaterialAndSpecialEquipmentAssignmentFormatExplosives.Add(
                     WarMaterialAndSpecialEquipmentAssignmentFormatExplosive.Create(format, explosiveCode, quantity));
             }
+
+            format.Record(
+                new WarMaterialAndSpecialEquipmentAssignmentFormatCreatedDomainEvent(weapons, ammunition,
+                    equipments, explosives));
 
             return format;
         }

@@ -3,17 +3,24 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Armory.Formats.Shared.Domain;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
+using Armory.Shared.Domain.Bus.Event;
+using Armory.Shared.Domain.Persistence.EntityFramework.Transactions;
 
 namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Application.Create
 {
     public class WarMaterialAndSpecialEquipmentAssignmentFormatCreator
     {
+        private readonly IEventBus _eventBus;
+        private readonly ITransactionInitializer _initializer;
         private readonly IWarMaterialAndSpecialEquipmentAssignmentFormatsRepository _repository;
 
         public WarMaterialAndSpecialEquipmentAssignmentFormatCreator(
-            IWarMaterialAndSpecialEquipmentAssignmentFormatsRepository repository)
+            IWarMaterialAndSpecialEquipmentAssignmentFormatsRepository repository, IEventBus eventBus,
+            ITransactionInitializer initializer)
         {
             _repository = repository;
+            _eventBus = eventBus;
+            _initializer = initializer;
         }
 
         public async Task<WarMaterialAndSpecialEquipmentAssignmentFormat> Create(
@@ -52,7 +59,12 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
                 equipments,
                 explosives);
 
+            var transaction = await _initializer.Begin();
+
             await _repository.Save(format);
+            await _eventBus.Publish(format.PullDomainEvents());
+
+            await transaction.CommitAsync();
 
             return format;
         }
