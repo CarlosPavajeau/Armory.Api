@@ -17,9 +17,11 @@ using Armory.People.Domain;
 using Armory.People.Infrastructure.Persistence;
 using Armory.Ranks.Domain;
 using Armory.Ranks.Infrastructure.Persistence;
+using Armory.Shared.Domain.Bus.Event;
 using Armory.Shared.Domain.ClosedXML;
 using Armory.Shared.Domain.Persistence.EntityFramework.Transactions;
 using Armory.Shared.Helpers;
+using Armory.Shared.Infrastructure.Bus.Event;
 using Armory.Shared.Infrastructure.ClosedXML;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework.Transactions;
@@ -89,8 +91,8 @@ namespace Armory.Api.Extensions
                     MySqlWarMaterialAndSpecialEquipmentAssignmentFormatsRepository>();
 
             services.AddScoped<ITransactionInitializer, TransactionInitializer>();
-
             services.AddScoped<IWorksheetManager, WorksheetManager>();
+            services.AddScoped<IEventBus, InMemoryEventBus>();
 
             return services;
         }
