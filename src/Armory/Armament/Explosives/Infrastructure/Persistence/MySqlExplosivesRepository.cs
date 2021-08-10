@@ -26,9 +26,11 @@ namespace Armory.Armament.Explosives.Infrastructure.Persistence
         public async Task<Explosive> Find(string code, bool noTracking = true)
         {
             if (noTracking)
+            {
                 return await _context.Explosives
                     .AsNoTracking()
                     .FirstOrDefaultAsync(e => e.Code == code);
+            }
 
             return await _context.Explosives.FindAsync(code);
         }
@@ -36,9 +38,11 @@ namespace Armory.Armament.Explosives.Infrastructure.Persistence
         public async Task<IEnumerable<Explosive>> SearchAll(bool noTracking = true)
         {
             if (noTracking)
+            {
                 return await _context.Explosives
                     .AsNoTracking()
                     .ToListAsync();
+            }
 
             return await _context.Explosives.ToListAsync();
         }

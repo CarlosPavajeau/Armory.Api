@@ -30,9 +30,11 @@ namespace Armory.People.Infrastructure.Persistence
         public async Task<Person> Find(string personId, bool noTracking = true)
         {
             if (noTracking)
+            {
                 return await _context.People
                     .AsNoTracking()
                     .FirstOrDefaultAsync(p => p.Id == personId);
+            }
 
             return await _context.People.FindAsync(personId);
         }
@@ -40,9 +42,11 @@ namespace Armory.People.Infrastructure.Persistence
         public async Task<Person> FindByArmoryUserId(string armoryUserId, bool noTracking = true)
         {
             if (noTracking)
+            {
                 return await _context.People
                     .AsNoTracking()
                     .FirstOrDefaultAsync(p => p.ArmoryUserId == armoryUserId);
+            }
 
             return await _context.People.FirstOrDefaultAsync(p => p.ArmoryUserId == armoryUserId);
         }
@@ -50,9 +54,11 @@ namespace Armory.People.Infrastructure.Persistence
         public async Task<IEnumerable<Person>> SearchAll(bool noTracking = true)
         {
             if (noTracking)
+            {
                 return await _context.People
                     .AsNoTracking()
                     .ToListAsync();
+            }
 
             return await _context.People.ToListAsync();
         }
@@ -63,10 +69,12 @@ namespace Armory.People.Infrastructure.Persistence
             var userIds = usersInRole.Select(u => u.Id);
 
             if (noTracking)
+            {
                 return await _context.People
                     .AsNoTracking()
                     .Where(p => userIds.Contains(p.ArmoryUserId))
                     .ToListAsync();
+            }
 
             return await _context.People
                 .Where(p => userIds.Contains(p.ArmoryUserId))

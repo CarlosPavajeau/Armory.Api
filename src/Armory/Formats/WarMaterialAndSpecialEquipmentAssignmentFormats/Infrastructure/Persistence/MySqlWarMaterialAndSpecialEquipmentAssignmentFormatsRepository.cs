@@ -42,24 +42,35 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Infrast
                 .Include(f => f.Applicant)
                 .FirstOrDefaultAsync(f => f.Id == id);
 
-            if (format == null) return null;
+            if (format == null)
+            {
+                return null;
+            }
 
             if (format.WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition != null)
+            {
                 format.Ammunition =
                     format.WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition.Select(x => x.Ammunition)
                         .ToHashSet();
+            }
 
             if (format.WarMaterialAndSpecialEquipmentAssignmentFormatEquipments != null)
+            {
                 format.Equipments = format.WarMaterialAndSpecialEquipmentAssignmentFormatEquipments
                     .Select(x => x.Equipment).ToHashSet();
+            }
 
             if (format.WarMaterialAndSpecialEquipmentAssignmentFormatExplosives != null)
+            {
                 format.Explosives = format.WarMaterialAndSpecialEquipmentAssignmentFormatExplosives
                     .Select(x => x.Explosive).ToHashSet();
+            }
 
             if (format.WarMaterialAndSpecialEquipmentAssignmentFormatWeapons != null)
+            {
                 format.Weapons = format.WarMaterialAndSpecialEquipmentAssignmentFormatWeapons.Select(x => x.Weapon)
                     .ToHashSet();
+            }
 
             return format;
         }

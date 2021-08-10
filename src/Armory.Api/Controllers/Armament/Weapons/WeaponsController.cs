@@ -41,7 +41,10 @@ namespace Armory.Api.Controllers.Armament.Weapons
             catch (DbUpdateException)
             {
                 var exists = await _mediator.Send(new CheckWeaponExistsQuery(request.Code));
-                if (!exists) throw;
+                if (!exists)
+                {
+                    throw;
+                }
 
                 ModelState.AddModelError("WeaponAlreadyRegistered",
                     $"Ya existe un arma con el código '{request.Code}'");
@@ -69,7 +72,10 @@ namespace Armory.Api.Controllers.Armament.Weapons
         public async Task<ActionResult<WeaponResponse>> GetWeapon(string code)
         {
             var weapon = await _mediator.Send(new FindWeaponQuery(code));
-            if (weapon != null) return Ok(weapon);
+            if (weapon != null)
+            {
+                return Ok(weapon);
+            }
 
             return WeaponNotFound(code);
         }

@@ -41,7 +41,10 @@ namespace Armory.Api.Controllers.Troopers
             catch (DbUpdateException)
             {
                 var exists = await _mediator.Send(new CheckTroopExistsQuery(request.Id));
-                if (!exists) throw;
+                if (!exists)
+                {
+                    throw;
+                }
 
                 ModelState.AddModelError("TroopAlreadyRegistered",
                     $"Ya existe una tropa con la identificación '{request.Id}'");
@@ -69,7 +72,10 @@ namespace Armory.Api.Controllers.Troopers
         public async Task<ActionResult<TroopResponse>> GetTroop(string id)
         {
             var troop = await _mediator.Send(new FindTroopQuery(id));
-            if (troop != null) return Ok(troop);
+            if (troop != null)
+            {
+                return Ok(troop);
+            }
 
             return TroopNotFound(id);
         }

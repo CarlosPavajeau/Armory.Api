@@ -25,9 +25,11 @@ namespace Armory.Degrees.Infrastructure.Persistence
         public async Task<Degree> Find(int id, bool noTracking = true)
         {
             if (noTracking)
+            {
                 return await _context.Degrees
                     .AsNoTracking()
                     .FirstOrDefaultAsync(d => d.Id == id);
+            }
 
             return await _context.Degrees.FindAsync(id);
         }
@@ -35,9 +37,11 @@ namespace Armory.Degrees.Infrastructure.Persistence
         public async Task<IEnumerable<Degree>> SearchAll(bool noTracking = true)
         {
             if (noTracking)
+            {
                 return await _context.Degrees
                     .AsNoTracking()
                     .ToListAsync();
+            }
 
             return await _context.Degrees.ToListAsync();
         }
@@ -45,10 +49,12 @@ namespace Armory.Degrees.Infrastructure.Persistence
         public async Task<IEnumerable<Degree>> SearchAllByRank(int rankId, bool noTracking = true)
         {
             if (noTracking)
+            {
                 return await _context.Degrees
                     .AsNoTracking()
                     .Where(d => d.RankId == rankId)
                     .ToListAsync();
+            }
 
             return await _context.Degrees.Where(d => d.RankId == rankId).ToListAsync();
         }

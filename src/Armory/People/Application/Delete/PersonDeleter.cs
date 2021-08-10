@@ -15,7 +15,10 @@ namespace Armory.People.Application.Delete
         public async Task Delete(string id)
         {
             var person = await _repository.Find(id);
-            if (person == null) throw new PersonNotFound();
+            if (person == null)
+            {
+                throw new PersonNotFound();
+            }
 
             await _repository.Delete(person);
         }

@@ -15,7 +15,10 @@ namespace Armory.Users.Application.GenerateEmailConfirmationToken
         public async Task<GenerateConfirmationTokenResponse> GenerateEmailConfirmationToken(string usernameOrEmail)
         {
             var user = await _repository.FindByUsernameOrEmail(usernameOrEmail);
-            if (user == null) return new GenerateConfirmationTokenResponse();
+            if (user == null)
+            {
+                return new GenerateConfirmationTokenResponse();
+            }
 
             var token = await _repository.GenerateEmailConfirmationToken(user);
             return new GenerateConfirmationTokenResponse(token);

@@ -88,21 +88,29 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
                 squadCode, troopId, warehouse, purpose, docMovement, physicalLocation, others);
 
             foreach (var weaponCode in weaponCodes)
+            {
                 format.WarMaterialAndSpecialEquipmentAssignmentFormatWeapons.Add(
                     WarMaterialAndSpecialEquipmentAssignmentFormatWeapon.Create(format, weaponCode));
+            }
 
             foreach (var (ammunitionCode, quantity) in ammunition)
+            {
                 format.WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition.Add(
                     Domain.WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition.Create(format, ammunitionCode,
                         quantity));
+            }
 
             foreach (var (equipmentCode, quantity) in equipments)
+            {
                 format.WarMaterialAndSpecialEquipmentAssignmentFormatEquipments.Add(
                     WarMaterialAndSpecialEquipmentAssignmentFormatEquipment.Create(format, equipmentCode, quantity));
+            }
 
             foreach (var (explosiveCode, quantity) in explosives)
+            {
                 format.WarMaterialAndSpecialEquipmentAssignmentFormatExplosives.Add(
                     WarMaterialAndSpecialEquipmentAssignmentFormatExplosive.Create(format, explosiveCode, quantity));
+            }
 
             return format;
         }

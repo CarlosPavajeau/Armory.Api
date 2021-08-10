@@ -20,7 +20,10 @@ namespace Armory.People.Application.Update
         protected override async Task Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
         {
             var person = await _finder.Find(request.Id);
-            if (person == null) throw new PersonNotFound();
+            if (person == null)
+            {
+                throw new PersonNotFound();
+            }
 
             await _updater.Update(person, request.FirstName, request.SecondName, request.LastName,
                 request.SecondLastName);

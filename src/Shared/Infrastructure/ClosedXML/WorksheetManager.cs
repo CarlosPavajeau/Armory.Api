@@ -79,8 +79,10 @@ namespace Armory.Shared.Infrastructure.ClosedXML
         public void SetRangeValues(IXLRange range, List<string> values)
         {
             if (range.Cells().Count() != values.Count)
+            {
                 throw new ArgumentException(
                     $"The size of the ranges and the values to be set do not match. Ranges: {range.Cells().Count()}, Values: {values.Count}");
+            }
 
             var index = 0;
             foreach (var cell in range.Cells())

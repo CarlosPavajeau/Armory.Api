@@ -34,7 +34,10 @@ namespace Armory.Api.Controllers.ArmoryUsers
 
         private IActionResult IdentityErrors(IEnumerable<IdentityError> errors)
         {
-            foreach (var error in errors) ModelState.AddModelError(error.Code, error.Description);
+            foreach (var error in errors)
+            {
+                ModelState.AddModelError(error.Code, error.Description);
+            }
 
             return BadRequest(new ValidationProblemDetails(ModelState));
         }

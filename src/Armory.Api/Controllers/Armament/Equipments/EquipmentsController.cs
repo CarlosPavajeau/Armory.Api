@@ -41,7 +41,10 @@ namespace Armory.Api.Controllers.Armament.Equipments
             catch (DbUpdateException)
             {
                 var exists = await _mediator.Send(new CheckEquipmentExistsQuery(request.Code));
-                if (!exists) throw;
+                if (!exists)
+                {
+                    throw;
+                }
 
                 ModelState.AddModelError("EquipmentAlreadyRegistered",
                     $"Ya existe un equipo especial o accesorio con el código '{request.Code}'");
@@ -69,7 +72,10 @@ namespace Armory.Api.Controllers.Armament.Equipments
         public async Task<ActionResult<EquipmentResponse>> GetEquipment(string code)
         {
             var equipment = await _mediator.Send(new FindEquipmentQuery(code));
-            if (equipment != null) return Ok(equipment);
+            if (equipment != null)
+            {
+                return Ok(equipment);
+            }
 
             return EquipmentNotFound(code);
         }

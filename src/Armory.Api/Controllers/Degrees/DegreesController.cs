@@ -69,7 +69,10 @@ namespace Armory.Api.Controllers.Degrees
         public async Task<ActionResult<DegreeResponse>> GetDegree(int id)
         {
             var degree = await _mediator.Send(new FindDegreeQuery(id));
-            if (degree != null) return Ok(degree);
+            if (degree != null)
+            {
+                return Ok(degree);
+            }
 
             return DegreeNotFound(id);
         }

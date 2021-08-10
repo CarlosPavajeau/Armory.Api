@@ -20,7 +20,10 @@ namespace Armory.Armament.Equipments.Application.Update
         protected override async Task Handle(UpdateEquipmentCommand request, CancellationToken cancellationToken)
         {
             var equipment = await _finder.Find(request.Code);
-            if (equipment == null) throw new EquipmentNotFound();
+            if (equipment == null)
+            {
+                throw new EquipmentNotFound();
+            }
 
             await _updater.Update(equipment, request.Type, request.Model, request.Series, request.QuantityAvailable);
         }

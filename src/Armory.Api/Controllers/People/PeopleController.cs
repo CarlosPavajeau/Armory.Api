@@ -37,7 +37,10 @@ namespace Armory.Api.Controllers.People
 
         private IActionResult IdentityErrors(IEnumerable<IdentityError> errors)
         {
-            foreach (var error in errors) ModelState.AddModelError(error.Code, error.Description);
+            foreach (var error in errors)
+            {
+                ModelState.AddModelError(error.Code, error.Description);
+            }
 
             return BadRequest(new ValidationProblemDetails(ModelState));
         }
@@ -53,7 +56,10 @@ namespace Armory.Api.Controllers.People
             catch (DbUpdateException)
             {
                 var personExists = await _mediator.Send(new CheckPersonExistsQuery(request.Id));
-                if (!personExists) throw;
+                if (!personExists)
+                {
+                    throw;
+                }
 
                 ModelState.AddModelError("PersonAlreadyRegistered",
                     $"Ya existe una persona con la identificación {request.Id}");
@@ -85,7 +91,10 @@ namespace Armory.Api.Controllers.People
         public async Task<ActionResult<PersonResponse>> GetPerson(string id)
         {
             var response = await _mediator.Send(new FindPersonQuery(id));
-            if (response != null) return Ok(response);
+            if (response != null)
+            {
+                return Ok(response);
+            }
 
             return PersonNotFound(id);
         }
@@ -101,7 +110,10 @@ namespace Armory.Api.Controllers.People
         public async Task<ActionResult<PersonResponse>> GetPersonByUserId(string userId)
         {
             var response = await _mediator.Send(new SearchPersonByArmoryUserIdQuery(userId));
-            if (response != null) return Ok(response);
+            if (response != null)
+            {
+                return Ok(response);
+            }
 
             ModelState.AddModelError("PersonNotFound",
                 $"No se encontró ninguna persona con el id de usuario '{userId}'.");

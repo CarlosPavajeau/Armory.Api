@@ -61,7 +61,10 @@ namespace Armory.Api.Controllers.Ranks
         public async Task<ActionResult<RankResponse>> GetRank(int id)
         {
             var rank = await _mediator.Send(new FindRankQuery(id));
-            if (rank != null) return Ok(rank);
+            if (rank != null)
+            {
+                return Ok(rank);
+            }
 
             return RankNotFound(id);
         }

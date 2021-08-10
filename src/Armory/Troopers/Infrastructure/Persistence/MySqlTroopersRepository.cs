@@ -26,9 +26,11 @@ namespace Armory.Troopers.Infrastructure.Persistence
         public async Task<Troop> Find(string id, bool noTracking = true)
         {
             if (noTracking)
+            {
                 return await _context.Troopers
                     .AsNoTracking()
                     .FirstOrDefaultAsync(t => t.Id == id);
+            }
 
             return await _context.Troopers.FindAsync(id);
         }
@@ -36,9 +38,11 @@ namespace Armory.Troopers.Infrastructure.Persistence
         public async Task<IEnumerable<Troop>> SearchAll(bool noTracking = true)
         {
             if (noTracking)
+            {
                 return await _context.Troopers
                     .AsNoTracking()
                     .ToListAsync();
+            }
 
             return await _context.Troopers.ToListAsync();
         }

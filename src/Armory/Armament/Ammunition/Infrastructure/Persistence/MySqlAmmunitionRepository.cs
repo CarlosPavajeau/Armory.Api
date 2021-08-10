@@ -26,9 +26,11 @@ namespace Armory.Armament.Ammunition.Infrastructure.Persistence
         public async Task<Domain.Ammunition> Find(string code, bool noTracking = true)
         {
             if (noTracking)
+            {
                 return await _context.Ammunition
                     .AsNoTracking()
                     .FirstOrDefaultAsync(c => c.Code == code);
+            }
 
             return await _context.Ammunition.FindAsync(code);
         }
@@ -36,9 +38,11 @@ namespace Armory.Armament.Ammunition.Infrastructure.Persistence
         public async Task<IEnumerable<Domain.Ammunition>> SearchAll(bool noTracking = true)
         {
             if (noTracking)
+            {
                 return await _context.Ammunition
                     .AsNoTracking()
                     .ToListAsync();
+            }
 
             return await _context.Ammunition.ToListAsync();
         }

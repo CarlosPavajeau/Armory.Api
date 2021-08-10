@@ -19,7 +19,10 @@ namespace Armory.Users.Application.GenerateJwt
         public async Task<string> Handle(GenerateJwtQuery request, CancellationToken cancellationToken)
         {
             var user = await _repository.FindByUsernameOrEmail(request.Username);
-            if (user == null) return string.Empty;
+            if (user == null)
+            {
+                return string.Empty;
+            }
 
             var token = _generator.Generate(user);
             return token;

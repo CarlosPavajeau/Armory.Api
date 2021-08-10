@@ -34,7 +34,10 @@ namespace Armory.Test.Users.Application.Create
             Repository.Setup(x => x.AddToRole(It.IsAny<ArmoryUser>(), It.IsAny<string>()))
                 .ReturnsAsync((ArmoryUser _, string roleName) =>
                 {
-                    if (string.IsNullOrEmpty(roleName)) throw new InvalidOperationException();
+                    if (string.IsNullOrEmpty(roleName))
+                    {
+                        throw new InvalidOperationException();
+                    }
 
                     return roleName == "nadmin"
                         ? IdentityResult.Failed(_describer.InvalidRoleName(roleName))
