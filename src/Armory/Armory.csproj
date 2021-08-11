@@ -9,7 +9,6 @@
     <Folder Include="Formats\AssignedWeaponMagazineFormats\Application"/>
     <Folder Include="Formats\AssignedWeaponMagazineFormats\Infrastructure"/>
     <Folder Include="Formats\WarMaterialDeliveryCertificateFormats\Application"/>
-    <Folder Include="Formats\WarMaterialDeliveryCertificateFormats\Infrastructure"/>
     <Folder Include="Squadrons"/>
     <Folder Include="Users"/>
   </ItemGroup>

@@ -13,6 +13,8 @@ using Armory.Degrees.Domain;
 using Armory.Degrees.Infrastructure.Persistence;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Infrastructure.Persistence;
+using Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain;
+using Armory.Formats.WarMaterialDeliveryCertificateFormats.Infrastructure.Persistence;
 using Armory.People.Domain;
 using Armory.People.Infrastructure.Persistence;
 using Armory.Ranks.Domain;
@@ -89,6 +91,9 @@ namespace Armory.Api.Extensions
             services
                 .AddScoped<IWarMaterialAndSpecialEquipmentAssignmentFormatsRepository,
                     MySqlWarMaterialAndSpecialEquipmentAssignmentFormatsRepository>();
+            services
+                .AddScoped<IWarMaterialDeliveryCertificateFormatsRepository,
+                    MySqlWarMaterialDeliveryCertificateFormatsRepository>();
 
             services.AddScoped<ITransactionInitializer, TransactionInitializer>();
             services.AddScoped<IWorksheetManager, WorksheetManager>();
