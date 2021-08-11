@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using Armory.Armament.Ammunition.Domain;
 using Armory.Armament.Equipments.Domain;
 using Armory.Armament.Explosives.Domain;
@@ -67,9 +68,39 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
         [NotMapped] public ICollection<Explosive> Explosives { get; set; } = new HashSet<Explosive>();
 
         public static WarMaterialDeliveryCertificateFormat Create(string code, DateTime validity, string place,
-            DateTime date, string squadronCode, string squadCode, string troopId)
+            DateTime date, string squadronCode, string squadCode, string troopId, IEnumerable<string> weaponCodes,
+            IDictionary<string, int> ammunition, IDictionary<string, int> equipments,
+            IDictionary<string, int> explosives)
         {
-            return new WarMaterialDeliveryCertificateFormat(code, validity, place, date, squadCode, squadCode, troopId);
+            var format = new WarMaterialDeliveryCertificateFormat(code, validity, place, date, squadronCode, squadCode,
+                troopId);
+
+            var weapons = weaponCodes.ToList();
+            foreach (var weaponCode in weapons)
+            {
+                format.WarMaterialDeliveryCertificateFormatWeapons.Add(
+                    WarMaterialDeliveryCertificateFormatWeapon.Create(format, weaponCode));
+            }
+
+            foreach (var (ammunitionCode, quantity) in ammunition)
+            {
+                format.WarMaterialDeliveryCertificateFormatAmmunition.Add(
+                    Domain.WarMaterialDeliveryCertificateFormatAmmunition.Create(format, ammunitionCode, quantity));
+            }
+
+            foreach (var (equipmentCode, quantity) in equipments)
+            {
+                format.WarMaterialDeliveryCertificateFormatEquipments.Add(
+                    WarMaterialDeliveryCertificateFormatEquipment.Create(format, equipmentCode, quantity));
+            }
+
+            foreach (var (explosiveCode, quantity) in explosives)
+            {
+                format.WarMaterialDeliveryCertificateFormatExplosives.Add(
+                    WarMaterialDeliveryCertificateFormatExplosive.Create(format, explosiveCode, quantity));
+            }
+
+            return format;
         }
     }
 }

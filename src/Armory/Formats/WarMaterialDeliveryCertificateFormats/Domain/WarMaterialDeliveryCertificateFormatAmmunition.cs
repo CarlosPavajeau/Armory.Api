@@ -5,12 +5,16 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
 {
     public class WarMaterialDeliveryCertificateFormatAmmunition
     {
-        public WarMaterialDeliveryCertificateFormatAmmunition(int warMaterialDeliveryCertificateFormatId,
+        public WarMaterialDeliveryCertificateFormatAmmunition(WarMaterialDeliveryCertificateFormat format,
             string ammunitionCode, int quantity)
         {
-            WarMaterialDeliveryCertificateFormatId = warMaterialDeliveryCertificateFormatId;
+            Format = format;
             AmmunitionCode = ammunitionCode;
             Quantity = quantity;
+        }
+
+        private WarMaterialDeliveryCertificateFormatAmmunition()
+        {
         }
 
         public int WarMaterialDeliveryCertificateFormatId { get; set; }
@@ -23,11 +27,10 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
 
         public int Quantity { get; set; }
 
-        public static WarMaterialDeliveryCertificateFormatAmmunition Create(int warMaterialDeliveryCertificateFormatId,
+        public static WarMaterialDeliveryCertificateFormatAmmunition Create(WarMaterialDeliveryCertificateFormat format,
             string ammunitionCode, int quantity)
         {
-            return new WarMaterialDeliveryCertificateFormatAmmunition(warMaterialDeliveryCertificateFormatId,
-                ammunitionCode, quantity);
+            return new WarMaterialDeliveryCertificateFormatAmmunition(format, ammunitionCode, quantity);
         }
     }
 }

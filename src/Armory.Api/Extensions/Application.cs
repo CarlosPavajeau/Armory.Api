@@ -29,6 +29,9 @@ using Armory.Degrees.Application.SearchAllByRank;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Application.Create;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Application.Find;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Application.Generate;
+using Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Create;
+using Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Find;
+using Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Generate;
 using Armory.People.Application.CheckExists;
 using Armory.People.Application.Create;
 using Armory.People.Application.Delete;
@@ -153,6 +156,14 @@ namespace Armory.Api.Extensions
             services
                 .AddScoped<WarMaterialAndSpecialEquipmentAssignmentFormatGenerator,
                     WarMaterialAndSpecialEquipmentAssignmentFormatGenerator>();
+
+            services
+                .AddScoped<WarMaterialDeliveryCertificateFormatCreator, WarMaterialDeliveryCertificateFormatCreator>();
+            services
+                .AddScoped<WarMaterialDeliveryCertificateFormatFinder, WarMaterialDeliveryCertificateFormatFinder>();
+            services
+                .AddScoped<WarMaterialDeliveryCertificateFormatGenerator,
+                    WarMaterialDeliveryCertificateFormatGenerator>();
 
             return services;
         }
