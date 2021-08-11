@@ -29,6 +29,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Infrast
                 ? _context.WarMaterialAndSpecialEquipmentAssignmentFormats.AsNoTracking()
                 : _context.WarMaterialAndSpecialEquipmentAssignmentFormats.AsTracking();
             var format = await query
+                .AsSplitQuery()
                 .Include(f => f.WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition)
                 .ThenInclude(x => x.Ammunition)
                 .Include(f => f.WarMaterialAndSpecialEquipmentAssignmentFormatEquipments)
