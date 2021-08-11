@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Armory.Formats.Shared.Constants;
 using Armory.Formats.Shared.Domain;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
 using Armory.Shared.Domain.ClosedXML;
@@ -12,26 +13,6 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
 {
     public class WarMaterialAndSpecialEquipmentAssignmentFormatGenerator
     {
-        private const string FormatName = "FORMATO ASIGNACIÓN MATERIAL DE GUERRA Y EQUIPO ESPECIAL";
-        private const string FormatTitle = "FUERZA AÉREA COLOMBIANA";
-        private static readonly XLColor HeaderColor = XLColor.FromHtml("#FFFF99");
-
-        private static readonly List<string> WeaponsAndAmmunitionHeader = new()
-        {
-            "TIPO ARMA", "MARCA", "MODELO", "CALIBRE", "No. ARMA", "CANT. PROVEEDORES", "CAPACIDAD PROVEEDOR",
-            "TIPO DE MUNICIÓN", "CALIBRE", "MARCA", "LOTE", "CANTIDAD DE MUNICIÓN"
-        };
-
-        private static readonly List<string> SpecialEquipmentsHeader = new()
-        {
-            "ÍTEM", "TIPO", "MODELO", "SERIE", "CANTIDAD"
-        };
-
-        private static readonly List<string> ExplosivesHeader = new()
-        {
-            "TIPO DE MUNICIÓN", "CALIBRE", "MARCA", "LOTE", "No. SERIE", "CANTIDAD"
-        };
-
         private readonly IHostingEnvironment _environment;
         private readonly IWorksheetManager _worksheetManager;
 
@@ -50,8 +31,9 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             _worksheetManager.SetCommonRangeStyles(worksheet.Range("A1:M3"));
 
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A1:B3"), "ArmoryImage");
-            _worksheetManager.MergeRangeAndSetValue(worksheet.Range("C1:K1"), FormatTitle);
-            _worksheetManager.MergeRangeAndSetValue(worksheet.Range("C2:K3"), FormatName);
+            _worksheetManager.MergeRangeAndSetValue(worksheet.Range("C1:K1"), FormatConstants.FormatTitle);
+            _worksheetManager.MergeRangeAndSetValue(worksheet.Range("C2:K3"),
+                FormatConstants.WarMaterialAndSpecialEquipmentAssignmentFormatName);
 
             worksheet.Cell("L1").Value = "Código";
             worksheet.Cell("L2").Value = "Versión";
@@ -103,7 +85,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
         private void MakeWeaponsAndAmmunitionHeader(IXLWorksheet worksheet)
         {
             _worksheetManager.SetCommonRangeStyles(worksheet.Range("A19:M20"));
-            _worksheetManager.SetRangeFillBackgroundColor(worksheet.Range("A19:M20"), HeaderColor);
+            _worksheetManager.SetRangeFillBackgroundColor(worksheet.Range("A19:M20"), FormatConstants.HeaderColor);
 
             worksheet.Row(20).Height = 25;
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A19:A20"), "ÍTEM");
@@ -114,7 +96,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("B19:H19"), "ARMAMENTO");
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("I19:M19"), "MUNICIÓN");
 
-            _worksheetManager.SetRangeValues(worksheet.Range("B20:M20"), WeaponsAndAmmunitionHeader);
+            _worksheetManager.SetRangeValues(worksheet.Range("B20:M20"), FormatConstants.WeaponsAndAmmunitionHeader);
             worksheet.Cell("M20").Style.Alignment.WrapText = true;
             worksheet.Cell("G20").Style.Alignment.WrapText = true;
             worksheet.Cell("H20").Style.Alignment.WrapText = true;
@@ -174,30 +156,30 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
         {
             var headerRange = worksheet.Range($"A{start}:E{start}");
             _worksheetManager.SetCommonRangeStyles(headerRange);
-            _worksheetManager.SetRangeFillBackgroundColor(headerRange, HeaderColor);
+            _worksheetManager.SetRangeFillBackgroundColor(headerRange, FormatConstants.HeaderColor);
             _worksheetManager.MergeRangeAndSetValue(headerRange, "EQUIPO ESPECIAL Y ACCESORIOS");
 
             headerRange = worksheet.Range($"A{start + 1}:E{start + 1}");
             worksheet.Row(start + 1).Height = 25;
             _worksheetManager.SetCommonRangeStyles(headerRange);
             _worksheetManager.SetRangeFontSize(headerRange, 9);
-            _worksheetManager.SetRangeFillBackgroundColor(headerRange, HeaderColor);
-            _worksheetManager.SetRangeValues(headerRange, SpecialEquipmentsHeader);
+            _worksheetManager.SetRangeFillBackgroundColor(headerRange, FormatConstants.HeaderColor);
+            _worksheetManager.SetRangeValues(headerRange, FormatConstants.SpecialEquipmentsHeader);
         }
 
         private void MakeExplosivesHeader(IXLWorksheet worksheet, int start)
         {
             var headerRange = worksheet.Range($"H{start}:M{start}");
             _worksheetManager.SetCommonRangeStyles(headerRange);
-            _worksheetManager.SetRangeFillBackgroundColor(headerRange, HeaderColor);
+            _worksheetManager.SetRangeFillBackgroundColor(headerRange, FormatConstants.HeaderColor);
             _worksheetManager.MergeRangeAndSetValue(headerRange, "GRANADAS Y EXPLOSIVOS");
 
             headerRange = worksheet.Range($"H{start + 1}:M{start + 1}");
             worksheet.Row(start + 1).Height = 25;
             _worksheetManager.SetCommonRangeStyles(headerRange);
             _worksheetManager.SetRangeFontSize(headerRange, 9);
-            _worksheetManager.SetRangeFillBackgroundColor(headerRange, HeaderColor);
-            _worksheetManager.SetRangeValues(headerRange, ExplosivesHeader);
+            _worksheetManager.SetRangeFillBackgroundColor(headerRange, FormatConstants.HeaderColor);
+            _worksheetManager.SetRangeValues(headerRange, FormatConstants.ExplosivesHeader);
         }
 
         private int MakeSpecialEquipmentAndExplosivesInfo(IXLWorksheet worksheet,
