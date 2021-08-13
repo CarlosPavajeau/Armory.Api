@@ -37,8 +37,5 @@ namespace Armory.Api.Controllers.Armament.Weapons.Requests
 
         [Required(ErrorMessage = "La capacidad de proveedor del arma es requerida.")]
         public int ProviderCapacity { get; set; }
-
-        [Required(ErrorMessage = "La cantidad disponible del arma es requerida.")]
-        public int QuantityAvailable { get; set; }
     }
 }
