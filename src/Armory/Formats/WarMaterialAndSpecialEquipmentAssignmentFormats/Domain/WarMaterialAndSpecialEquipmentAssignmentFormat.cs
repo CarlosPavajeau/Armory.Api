@@ -117,7 +117,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
 
             format.Record(
                 new WarMaterialAndSpecialEquipmentAssignmentFormatCreatedDomainEvent(weapons, ammunition,
-                    equipments, explosives));
+                    equipments, explosives, troopId));
 
             return format;
         }

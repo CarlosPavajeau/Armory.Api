@@ -5,7 +5,7 @@ namespace Armory.Armament.Weapons.Application.Create
     public class CreateWeaponCommand : Command
     {
         public CreateWeaponCommand(string code, string type, string mark, string model, string caliber, string series,
-            string lot, int numberOfProviders, int providerCapacity, int quantityAvailable)
+            string lot, int numberOfProviders, int providerCapacity)
         {
             Code = code;
             Type = type;
@@ -16,7 +16,6 @@ namespace Armory.Armament.Weapons.Application.Create
             Lot = lot;
             NumberOfProviders = numberOfProviders;
             ProviderCapacity = providerCapacity;
-            QuantityAvailable = quantityAvailable;
         }
 
         public string Code { get; }
@@ -28,6 +27,5 @@ namespace Armory.Armament.Weapons.Application.Create
         public string Lot { get; }
         public int NumberOfProviders { get; }
         public int ProviderCapacity { get; }
-        public int QuantityAvailable { get; }
     }
 }

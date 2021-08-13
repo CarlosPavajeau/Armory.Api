@@ -16,9 +16,9 @@ using Armory.Armament.Explosives.Application.Decrement;
 using Armory.Armament.Explosives.Application.Find;
 using Armory.Armament.Explosives.Application.SearchAll;
 using Armory.Armament.Explosives.Application.Update;
+using Armory.Armament.Weapons.Application.AssignOwner;
 using Armory.Armament.Weapons.Application.CheckExists;
 using Armory.Armament.Weapons.Application.Create;
-using Armory.Armament.Weapons.Application.Decrement;
 using Armory.Armament.Weapons.Application.Find;
 using Armory.Armament.Weapons.Application.SearchAll;
 using Armory.Armament.Weapons.Application.Update;
@@ -26,6 +26,9 @@ using Armory.Degrees.Application.Create;
 using Armory.Degrees.Application.Find;
 using Armory.Degrees.Application.SearchAll;
 using Armory.Degrees.Application.SearchAllByRank;
+using Armory.Formats.AssignedWeaponMagazineFormats.Application.Create;
+using Armory.Formats.AssignedWeaponMagazineFormats.Application.Find;
+using Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Application.Create;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Application.Find;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Application.Generate;
@@ -109,7 +112,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<WeaponFinder, WeaponFinder>();
             services.AddScoped<WeaponExistsChecker, WeaponExistsChecker>();
             services.AddScoped<WeaponUpdater, WeaponUpdater>();
-            services.AddScoped<WeaponDecrementer, WeaponDecrementer>();
+            services.AddScoped<WeaponOwnerAssigner, WeaponOwnerAssigner>();
 
             services.AddScoped<AmmunitionCreator, AmmunitionCreator>();
             services.AddScoped<AmmunitionSearcher, AmmunitionSearcher>();
@@ -164,6 +167,10 @@ namespace Armory.Api.Extensions
             services
                 .AddScoped<WarMaterialDeliveryCertificateFormatGenerator,
                     WarMaterialDeliveryCertificateFormatGenerator>();
+
+            services.AddScoped<AssignedWeaponMagazineFormatCreator, AssignedWeaponMagazineFormatCreator>();
+            services.AddScoped<AssignedWeaponMagazineFormatFinder, AssignedWeaponMagazineFormatFinder>();
+            services.AddScoped<AssignedWeaponMagazineFormatGenerator, AssignedWeaponMagazineFormatGenerator>();
 
             return services;
         }

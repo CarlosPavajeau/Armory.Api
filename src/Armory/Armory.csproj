@@ -6,8 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Armament\Weapons"/>
-    <Folder Include="Formats\AssignedWeaponMagazineFormats\Application"/>
-    <Folder Include="Formats\AssignedWeaponMagazineFormats\Infrastructure"/>
     <Folder Include="Squadrons"/>
     <Folder Include="Users"/>
   </ItemGroup>

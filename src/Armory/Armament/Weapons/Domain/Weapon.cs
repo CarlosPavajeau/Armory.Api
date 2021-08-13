@@ -1,14 +1,16 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
 using Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain;
+using Armory.Troopers.Domain;
 
 namespace Armory.Armament.Weapons.Domain
 {
     public class Weapon
     {
         public Weapon(string code, string type, string mark, string model, string caliber, string series, string lot,
-            int numberOfProviders, int providerCapacity, int quantityAvailable)
+            int numberOfProviders, int providerCapacity)
         {
             Code = code;
             Type = type;
@@ -19,7 +21,6 @@ namespace Armory.Armament.Weapons.Domain
             Lot = lot;
             NumberOfProviders = numberOfProviders;
             ProviderCapacity = providerCapacity;
-            QuantityAvailable = quantityAvailable;
         }
 
         internal Weapon()
@@ -35,7 +36,10 @@ namespace Armory.Armament.Weapons.Domain
         [Required] [MaxLength(256)] public string Lot { get; set; }
         [Required] public int NumberOfProviders { get; set; }
         [Required] public int ProviderCapacity { get; set; }
-        [Required] public int QuantityAvailable { get; set; }
+        [Required] public WeaponState State { get; set; }
+
+        public string TroopId { get; set; }
+        [ForeignKey("TroopId")] public Troop Owner { get; set; }
 
         public ICollection<WarMaterialAndSpecialEquipmentAssignmentFormatWeapon>
             WarMaterialAndSpecialEquipmentAssignmentFormatWeapons { get; set; } =
@@ -49,7 +53,7 @@ namespace Armory.Armament.Weapons.Domain
             new HashSet<WarMaterialDeliveryCertificateFormatWeapon>();
 
         public void Update(string type, string mark, string model, string caliber, string series,
-            string lot, int numberOfProviders, int providerCapacity, int quantityAvailable)
+            string lot, int numberOfProviders, int providerCapacity)
         {
             Type = type;
             Mark = mark;
@@ -59,14 +63,12 @@ namespace Armory.Armament.Weapons.Domain
             Lot = lot;
             NumberOfProviders = numberOfProviders;
             ProviderCapacity = providerCapacity;
-            QuantityAvailable = quantityAvailable;
         }
 
         public static Weapon Create(string code, string type, string mark, string model, string caliber, string series,
-            string lot, int numberOfProviders, int providerCapacity, int quantityAvailable)
+            string lot, int numberOfProviders, int providerCapacity)
         {
-            return new Weapon(code, type, mark, model, caliber, series, lot, numberOfProviders, providerCapacity,
-                quantityAvailable);
+            return new Weapon(code, type, mark, model, caliber, series, lot, numberOfProviders, providerCapacity);
         }
     }
 }

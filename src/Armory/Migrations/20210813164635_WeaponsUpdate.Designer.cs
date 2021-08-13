@@ -3,14 +3,16 @@ using System;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Armory.Migrations
 {
     [DbContext(typeof(ArmoryDbContext))]
-    partial class ArmoryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210813164635_WeaponsUpdate")]
+    partial class WeaponsUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -273,17 +275,11 @@ namespace Armory.Migrations
                     b.Property<bool>("VerifiedInPhysical")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("WeaponCode")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AssignedWeaponMagazineFormatId");
 
                     b.HasIndex("TroopId");
-
-                    b.HasIndex("WeaponCode");
 
                     b.ToTable("AssignedWeaponMagazineFormatItems");
                 });
@@ -937,17 +933,9 @@ namespace Armory.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Armory.Armament.Weapons.Domain.Weapon", "Weapon")
-                        .WithMany()
-                        .HasForeignKey("WeaponCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("AssignedWeaponMagazineFormat");
 
                     b.Navigation("Troop");
-
-                    b.Navigation("Weapon");
                 });
 
             modelBuilder.Entity("Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain.WarMaterialAndSpecialEquipmentAssignmentFormat", b =>

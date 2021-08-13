@@ -11,6 +11,8 @@ using Armory.Armament.Weapons.Domain;
 using Armory.Armament.Weapons.Infrastructure.Persistence;
 using Armory.Degrees.Domain;
 using Armory.Degrees.Infrastructure.Persistence;
+using Armory.Formats.AssignedWeaponMagazineFormats.Domain;
+using Armory.Formats.AssignedWeaponMagazineFormats.Infrastructure.Persistence;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Infrastructure.Persistence;
 using Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain;
@@ -21,10 +23,12 @@ using Armory.Ranks.Domain;
 using Armory.Ranks.Infrastructure.Persistence;
 using Armory.Shared.Domain.Bus.Event;
 using Armory.Shared.Domain.ClosedXML;
+using Armory.Shared.Domain.Persistence.EntityFramework;
 using Armory.Shared.Domain.Persistence.EntityFramework.Transactions;
 using Armory.Shared.Helpers;
 using Armory.Shared.Infrastructure.Bus.Event;
 using Armory.Shared.Infrastructure.ClosedXML;
+using Armory.Shared.Infrastructure.Persistence;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework.Transactions;
 using Armory.Squadrons.Domain;
@@ -94,7 +98,10 @@ namespace Armory.Api.Extensions
             services
                 .AddScoped<IWarMaterialDeliveryCertificateFormatsRepository,
                     MySqlWarMaterialDeliveryCertificateFormatsRepository>();
+            services
+                .AddScoped<IAssignedWeaponMagazineFormatsRepository, MySqlAssignedWeaponMagazineFormatsRepository>();
 
+            services.AddScoped<IUnitWork, UnitWork>();
             services.AddScoped<ITransactionInitializer, TransactionInitializer>();
             services.AddScoped<IWorksheetManager, WorksheetManager>();
             services.AddScoped<IEventBus, InMemoryEventBus>();

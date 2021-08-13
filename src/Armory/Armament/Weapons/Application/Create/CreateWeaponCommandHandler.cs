@@ -16,8 +16,7 @@ namespace Armory.Armament.Weapons.Application.Create
         protected override async Task Handle(CreateWeaponCommand request, CancellationToken cancellationToken)
         {
             await _creator.Create(request.Code, request.Type, request.Mark, request.Model, request.Caliber,
-                request.Series, request.Lot, request.NumberOfProviders, request.ProviderCapacity,
-                request.QuantityAvailable);
+                request.Series, request.Lot, request.NumberOfProviders, request.ProviderCapacity);
         }
     }
 }

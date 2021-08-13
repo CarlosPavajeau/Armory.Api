@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Armory.Armament.Weapons.Domain;
 using Armory.Degrees.Domain;
 using Armory.Squads.Domain;
 
@@ -30,6 +32,8 @@ namespace Armory.Troopers.Domain
 
         public int DegreeId { get; set; }
         [ForeignKey("DegreeId")] public Degree Degree { get; set; }
+
+        public ICollection<Weapon> Weapons { get; set; } = new HashSet<Weapon>();
 
         public void Update(string firstName, string secondName, string lastName, string secondLastName)
         {
