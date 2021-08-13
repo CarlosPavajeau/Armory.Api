@@ -92,7 +92,7 @@ namespace Armory.Api.Controllers.Armament.Weapons
         }
 
         [HttpGet("QR/{code}")]
-        public async Task<ActionResult<FileStream>> GenerateQr(string code)
+        public async Task<ActionResult<Stream>> GenerateQr(string code)
         {
             try
             {
