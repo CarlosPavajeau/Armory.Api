@@ -43,14 +43,5 @@ namespace Armory.Api.Controllers.Formats.AssignedWeaponMagazineFormats
                 return BadRequest();
             }
         }
-
-        [HttpGet]
-        public async Task<ActionResult<MemoryStream>> Get()
-        {
-            var stream = await _mediator.Send(new GenerateAssignedWeaponMagazineFormatQuery(1));
-
-            stream.Position = 0;
-            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "format.xlsx");
-        }
     }
 }
