@@ -1,8 +1,8 @@
-using Armory.Shared.Domain.Bus.Command;
+using Armory.Shared.Domain.Bus.Command.Generic;
 
 namespace Armory.Armament.Weapons.Application.Create
 {
-    public class CreateWeaponCommand : Command
+    public class CreateWeaponCommand : Command<string>
     {
         public CreateWeaponCommand(string code, string type, string mark, string model, string caliber, string series,
             string lot, int numberOfProviders, int providerCapacity)

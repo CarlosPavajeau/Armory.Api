@@ -20,6 +20,7 @@ using Armory.Armament.Weapons.Application.AssignOwner;
 using Armory.Armament.Weapons.Application.CheckExists;
 using Armory.Armament.Weapons.Application.Create;
 using Armory.Armament.Weapons.Application.Find;
+using Armory.Armament.Weapons.Application.GenerateQR;
 using Armory.Armament.Weapons.Application.SearchAll;
 using Armory.Armament.Weapons.Application.Update;
 using Armory.Degrees.Application.Create;
@@ -113,6 +114,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<WeaponExistsChecker, WeaponExistsChecker>();
             services.AddScoped<WeaponUpdater, WeaponUpdater>();
             services.AddScoped<WeaponOwnerAssigner, WeaponOwnerAssigner>();
+            services.AddScoped<WeaponQrGenerator, WeaponQrGenerator>();
 
             services.AddScoped<AmmunitionCreator, AmmunitionCreator>();
             services.AddScoped<AmmunitionSearcher, AmmunitionSearcher>();

@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Armory.Api.Controllers.Armament.Weapons.Requests;
 using Armory.Armament.Weapons.Application;
 using Armory.Armament.Weapons.Application.CheckExists;
 using Armory.Armament.Weapons.Application.Create;
 using Armory.Armament.Weapons.Application.Find;
+using Armory.Armament.Weapons.Application.GenerateQR;
 using Armory.Armament.Weapons.Application.SearchAll;
 using Armory.Armament.Weapons.Application.Update;
 using Armory.Armament.Weapons.Domain;
@@ -31,12 +33,14 @@ namespace Armory.Api.Controllers.Armament.Weapons
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterWeapon([FromBody] CreateWeaponRequest request)
+        public async Task<ActionResult<FileStream>> RegisterWeapon([FromBody] CreateWeaponRequest request)
         {
             try
             {
                 var command = _mapper.Map<CreateWeaponCommand>(request);
-                await _mediator.Send(command);
+                var weaponCode = await _mediator.Send(command);
+
+                return CreatedAtAction(nameof(GenerateQr), new { Code = weaponCode });
             }
             catch (DbUpdateException)
             {
@@ -85,6 +89,21 @@ namespace Armory.Api.Controllers.Armament.Weapons
         {
             var exists = await _mediator.Send(new CheckWeaponExistsQuery(code));
             return Ok(exists);
+        }
+
+        [HttpGet("QR/{code}")]
+        public async Task<ActionResult<FileStream>> GenerateQr(string code)
+        {
+            try
+            {
+                var stream = await _mediator.Send(new GenerateWeaponQrQuery(code));
+                stream.Position = 0;
+                return File(stream, "application/octet-stream", $"{code}.pdf");
+            }
+            catch (WeaponNotFound)
+            {
+                return WeaponNotFound(code);
+            }
         }
 
         [HttpPut("{code}")]
