@@ -27,6 +27,7 @@ using Armory.Degrees.Application.Create;
 using Armory.Degrees.Application.Find;
 using Armory.Degrees.Application.SearchAll;
 using Armory.Degrees.Application.SearchAllByRank;
+using Armory.Formats.AssignedWeaponMagazineFormats.Application.AddItem;
 using Armory.Formats.AssignedWeaponMagazineFormats.Application.Create;
 using Armory.Formats.AssignedWeaponMagazineFormats.Application.Find;
 using Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate;
@@ -173,6 +174,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<AssignedWeaponMagazineFormatCreator, AssignedWeaponMagazineFormatCreator>();
             services.AddScoped<AssignedWeaponMagazineFormatFinder, AssignedWeaponMagazineFormatFinder>();
             services.AddScoped<AssignedWeaponMagazineFormatGenerator, AssignedWeaponMagazineFormatGenerator>();
+            services.AddScoped<AssignedWeaponMagazineFormatItemAdder, AssignedWeaponMagazineFormatItemAdder>();
 
             return services;
         }

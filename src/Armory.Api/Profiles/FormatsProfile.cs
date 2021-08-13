@@ -1,6 +1,7 @@
 using Armory.Api.Controllers.Formats.AssignedWeaponMagazineFormats.Requests;
 using Armory.Api.Controllers.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Requests;
 using Armory.Api.Controllers.Formats.WarMaterialDeliveryCertificateFormats.Requests;
+using Armory.Formats.AssignedWeaponMagazineFormats.Application.AddItem;
 using Armory.Formats.AssignedWeaponMagazineFormats.Application.Create;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Application.Create;
 using Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Create;
@@ -19,6 +20,7 @@ namespace Armory.Api.Profiles
                 CreateWarMaterialDeliveryCertificateFormatCommand>();
 
             CreateMap<CreateAssignedWeaponMagazineFormatRequest, CreateAssignedWeaponMagazineFormatCommand>();
+            CreateMap<AddAssignedWeaponMagazineFormatItemRequest, AddAssignedWeaponMagazineFormatItemCommand>();
         }
     }
 }

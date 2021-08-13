@@ -1,8 +1,10 @@
 using System.IO;
 using System.Threading.Tasks;
 using Armory.Api.Controllers.Formats.AssignedWeaponMagazineFormats.Requests;
+using Armory.Formats.AssignedWeaponMagazineFormats.Application.AddItem;
 using Armory.Formats.AssignedWeaponMagazineFormats.Application.Create;
 using Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate;
+using Armory.Formats.AssignedWeaponMagazineFormats.Domain;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -26,21 +28,59 @@ namespace Armory.Api.Controllers.Formats.AssignedWeaponMagazineFormats
         }
 
         [HttpPost]
-        public async Task<ActionResult<MemoryStream>> RegisterAssignedWeaponMagazineFormat(
+        public async Task<ActionResult<int>> RegisterAssignedWeaponMagazineFormat(
             [FromBody] CreateAssignedWeaponMagazineFormatRequest request)
         {
             try
             {
                 var command = _mapper.Map<CreateAssignedWeaponMagazineFormatCommand>(request);
                 var formatId = await _mediator.Send(command);
-                var stream = await _mediator.Send(new GenerateAssignedWeaponMagazineFormatQuery(formatId));
 
-                stream.Position = 0;
-                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "format.xlsx");
+                return Ok(formatId);
             }
             catch (DbUpdateException)
             {
                 return BadRequest();
+            }
+        }
+
+        private NotFoundObjectResult AssignedWeaponMagazineFormatNotFound(int id)
+        {
+            ModelState.AddModelError("AssignedWeaponMagazineFormatNotFound",
+                $"No se encontró ningun formato con el código '{id}'.");
+            return NotFound(new ValidationProblemDetails(ModelState));
+        }
+
+        [HttpPost("AddItem/{id:int}")]
+        public async Task<IActionResult> AddAssignedWeaponMagazineFormatItem(int id,
+            [FromBody] AddAssignedWeaponMagazineFormatItemRequest request)
+        {
+            try
+            {
+                var command = _mapper.Map<AddAssignedWeaponMagazineFormatItemCommand>(request);
+                await _mediator.Send(command);
+            }
+            catch (AssignedWeaponMagazineFormatNotFound)
+            {
+                return AssignedWeaponMagazineFormatNotFound(id);
+            }
+
+            return Ok();
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Stream>> GenerateFormat(int id)
+        {
+            try
+            {
+                var stream = await _mediator.Send(new GenerateAssignedWeaponMagazineFormatQuery(id));
+
+                stream.Position = 0;
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "format.xlsx");
+            }
+            catch (AssignedWeaponMagazineFormatNotFound)
+            {
+                return AssignedWeaponMagazineFormatNotFound(id);
             }
         }
     }

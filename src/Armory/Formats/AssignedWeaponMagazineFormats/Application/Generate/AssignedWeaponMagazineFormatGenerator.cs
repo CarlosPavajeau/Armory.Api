@@ -111,8 +111,8 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate
                         record.Weapon.Type,
                         record.Weapon.Code,
                         record.Weapon.NumberOfProviders.ToString(),
-                        "1",
-                        "1",
+                        record.AmmunitionQuantity.ToString(),
+                        record.AmmunitionLot,
                         record.CartridgeOfLife ? "SI" : "NO",
                         record.VerifiedInPhysical ? "SI" : "NO",
                         record.Novelty ? "SI" : "NO"
