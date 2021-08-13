@@ -24,6 +24,8 @@ namespace Armory.Armament.Weapons.Application.AssignOwner
             }
 
             weapon.TroopId = troopId;
+            weapon.State = WeaponState.Assigned;
+
             await _unitWork.SaveChanges();
         }
     }

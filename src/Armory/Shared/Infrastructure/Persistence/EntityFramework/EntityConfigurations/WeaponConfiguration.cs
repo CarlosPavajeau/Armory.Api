@@ -10,6 +10,8 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework.EntityConfigu
         {
             builder.HasIndex(w => w.Series).IsUnique();
             builder.HasIndex(w => w.Lot).IsUnique();
+
+            builder.Property(w => w.State).HasDefaultValue(WeaponState.NotAssigned);
         }
     }
 }
