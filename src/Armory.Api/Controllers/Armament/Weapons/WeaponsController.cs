@@ -54,8 +54,6 @@ namespace Armory.Api.Controllers.Armament.Weapons
                     $"Ya existe un arma con el código '{request.Code}'");
                 return Conflict(new ValidationProblemDetails(ModelState));
             }
-
-            return Ok();
         }
 
         [HttpGet]
