@@ -27,7 +27,7 @@ namespace Armory.Armament.Weapons.Application.GenerateQR
             }
 
             var qrGenerator = new QRCodeGenerator();
-            var qrCodeData = qrGenerator.CreateQrCode(weapon.Series, QRCodeGenerator.ECCLevel.Q);
+            var qrCodeData = qrGenerator.CreateQrCode(weapon.Code, QRCodeGenerator.ECCLevel.Q);
             var qrCode = new PngByteQRCode(qrCodeData);
             var qrBytes = qrCode.GetGraphic(20);
 
