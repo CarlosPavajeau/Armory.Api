@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using Armory.Api.Controllers.Armament.Weapons.Requests;
 using Armory.Armament.Weapons.Application;
@@ -33,14 +32,16 @@ namespace Armory.Api.Controllers.Armament.Weapons
         }
 
         [HttpPost]
-        public async Task<ActionResult<FileStream>> RegisterWeapon([FromBody] CreateWeaponRequest request)
+        public async Task<ActionResult> RegisterWeapon([FromBody] CreateWeaponRequest request)
         {
             try
             {
                 var command = _mapper.Map<CreateWeaponCommand>(request);
                 var weaponCode = await _mediator.Send(command);
 
-                return CreatedAtAction(nameof(GenerateQr), new { Code = weaponCode });
+                var stream = await _mediator.Send(new GenerateWeaponQrQuery(weaponCode));
+                stream.Position = 0;
+                return File(stream, "application/octet-stream", $"{weaponCode}.pdf");
             }
             catch (DbUpdateException)
             {
@@ -89,8 +90,8 @@ namespace Armory.Api.Controllers.Armament.Weapons
             return Ok(exists);
         }
 
-        [HttpGet("QR/{code}")]
-        public async Task<ActionResult<Stream>> GenerateQr(string code)
+        [HttpGet("[action]/{code}")]
+        public async Task<ActionResult> GenerateQr(string code)
         {
             try
             {
