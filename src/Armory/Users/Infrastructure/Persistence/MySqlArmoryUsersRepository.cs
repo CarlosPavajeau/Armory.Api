@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
 using Armory.Users.Domain;
@@ -81,6 +83,11 @@ namespace Armory.Users.Infrastructure.Persistence
         public async Task<IdentityResult> AddToRole(ArmoryUser user, string roleName)
         {
             return await _userManager.AddToRoleAsync(user, roleName);
+        }
+
+        public async Task<bool> Any(Expression<Func<ArmoryUser, bool>> predicate)
+        {
+            return await _dbContext.Users.AnyAsync(predicate);
         }
     }
 }

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
@@ -20,5 +22,6 @@ namespace Armory.Users.Domain
         Task<IEnumerable<ArmoryRole>> SearchAllRoles();
 
         Task<IdentityResult> AddToRole(ArmoryUser user, string roleName);
+        Task<bool> Any(Expression<Func<ArmoryUser, bool>> predicate);
     }
 }

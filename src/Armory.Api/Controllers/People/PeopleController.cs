@@ -11,6 +11,7 @@ using Armory.People.Application.SearchAllByRole;
 using Armory.People.Application.SearchByArmoryUserId;
 using Armory.People.Application.Update;
 using Armory.People.Domain;
+using Armory.Users.Application.CheckExists;
 using Armory.Users.Domain;
 using AutoMapper;
 using MediatR;
@@ -58,11 +59,16 @@ namespace Armory.Api.Controllers.People
                 var personExists = await _mediator.Send(new CheckPersonExistsQuery(request.Id));
                 if (!personExists)
                 {
-                    throw;
+                    var userExists =
+                        await _mediator.Send(new CheckArmoryUserExistsQuery(request.Email, request.PhoneNumber));
+                    if (!userExists)
+                    {
+                        throw;
+                    }
                 }
 
                 ModelState.AddModelError("PersonAlreadyRegistered",
-                    $"Ya existe una persona con la identificación {request.Id}");
+                    "Ya existe una persona con los datos digitados. Verifique identificación, email y teléfono");
                 return Conflict(new ValidationProblemDetails(ModelState));
             }
             catch (ArmoryUserNotCreated e)

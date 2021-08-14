@@ -64,6 +64,7 @@ using Armory.Troopers.Application.Update;
 using Armory.Users.Application.AddToRole;
 using Armory.Users.Application.Authenticate;
 using Armory.Users.Application.ChangePassword;
+using Armory.Users.Application.CheckExists;
 using Armory.Users.Application.ConfirmEmail;
 using Armory.Users.Application.Create;
 using Armory.Users.Application.GenerateEmailConfirmationToken;
@@ -89,6 +90,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<EmailConfirmer, EmailConfirmer>();
             services.AddScoped<RoleAggregator, RoleAggregator>();
             services.AddScoped<RoleSearcher, RoleSearcher>();
+            services.AddScoped<ArmoryUserExistsChecker, ArmoryUserExistsChecker>();
 
             services.AddScoped<PersonCreator, PersonCreator>();
             services.AddScoped<PersonDeleter, PersonDeleter>();
