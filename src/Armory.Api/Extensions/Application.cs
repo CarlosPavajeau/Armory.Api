@@ -56,6 +56,7 @@ using Armory.Squads.Application.CheckExists;
 using Armory.Squads.Application.Create;
 using Armory.Squads.Application.Find;
 using Armory.Squads.Application.SearchAll;
+using Armory.Squads.Application.SearchAllBySquadron;
 using Armory.Troopers.Application.CheckExists;
 using Armory.Troopers.Application.Create;
 using Armory.Troopers.Application.Find;
@@ -110,6 +111,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<SquadFinder, SquadFinder>();
             services.AddScoped<SquadExistsChecker, SquadExistsChecker>();
             services.AddScoped<SquadsSearcher, SquadsSearcher>();
+            services.AddScoped<SquadsBySquadronSearcher, SquadsBySquadronSearcher>();
 
             services.AddScoped<WeaponCreator, WeaponCreator>();
             services.AddScoped<WeaponSearcher, WeaponSearcher>();

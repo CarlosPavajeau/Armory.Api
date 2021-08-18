@@ -6,6 +6,7 @@ using Armory.Squads.Application.CheckExists;
 using Armory.Squads.Application.Create;
 using Armory.Squads.Application.Find;
 using Armory.Squads.Application.SearchAll;
+using Armory.Squads.Application.SearchAllBySquadron;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -56,6 +57,13 @@ namespace Armory.Api.Controllers.Squads
         public async Task<ActionResult<IEnumerable<SquadResponse>>> GetSquads()
         {
             var response = await _mediator.Send(new SearchAllSquadsQuery());
+            return Ok(response);
+        }
+
+        [HttpGet("BySquadron/{squadronCode}")]
+        public async Task<ActionResult<IEnumerable<SquadResponse>>> GetSquadsBySquadron(string squadronCode)
+        {
+            var response = await _mediator.Send(new SearchAllSquadsBySquadronQuery(squadronCode));
             return Ok(response);
         }
 
