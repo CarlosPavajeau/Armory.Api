@@ -25,14 +25,11 @@ namespace Armory.Armament.Weapons.Infrastructure.Persistence
 
         public async Task<Weapon> Find(string code, bool noTracking = true)
         {
-            if (noTracking)
-            {
-                return await _context.Weapons
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(w => w.Code == code);
-            }
+            var query = noTracking ? _context.Weapons.AsNoTracking() : _context.Weapons.AsTracking();
 
-            return await _context.Weapons.FindAsync(code);
+            return await query
+                .Include(w => w.Owner)
+                .FirstOrDefaultAsync(w => w.Code == code);
         }
 
         public async Task<IEnumerable<Weapon>> SearchAll(bool noTracking = true)
