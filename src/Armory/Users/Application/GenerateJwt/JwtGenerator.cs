@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -19,7 +20,7 @@ namespace Armory.Users.Application.GenerateJwt
             _secretKey = secretKey.Value;
         }
 
-        public string Generate(ArmoryUser user)
+        public string Generate(ArmoryUser user, IEnumerable<string> roles)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(_secretKey.Key);
@@ -29,7 +30,8 @@ namespace Armory.Users.Application.GenerateJwt
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id),
-                    new Claim(ClaimTypes.Name, user.UserName)
+                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(ClaimTypes.Role, string.Join(',', roles))
                 }),
                 Expires = DateTime.Now.AddDays(TokenDurationDays),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),

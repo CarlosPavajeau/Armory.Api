@@ -20,6 +20,7 @@ namespace Armory.Users.Domain
 
         Task<IEnumerable<ArmoryUser>> SearchAllUsersInRole(string roleName);
         Task<IEnumerable<ArmoryRole>> SearchAllRoles();
+        Task<IEnumerable<string>> SearchAllUserRoles(ArmoryUser user);
 
         Task<IdentityResult> AddToRole(ArmoryUser user, string roleName);
         Task<bool> Any(Expression<Func<ArmoryUser, bool>> predicate);

@@ -80,6 +80,11 @@ namespace Armory.Users.Infrastructure.Persistence
             return await _dbContext.Roles.ToListAsync();
         }
 
+        public async Task<IEnumerable<string>> SearchAllUserRoles(ArmoryUser user)
+        {
+            return await _userManager.GetRolesAsync(user);
+        }
+
         public async Task<IdentityResult> AddToRole(ArmoryUser user, string roleName)
         {
             return await _userManager.AddToRoleAsync(user, roleName);

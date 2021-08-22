@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Threading;
 using System.Threading.Tasks;
 using Armory.Shared.Domain.Bus.Query;
@@ -24,7 +25,8 @@ namespace Armory.Users.Application.GenerateJwt
                 return string.Empty;
             }
 
-            var token = _generator.Generate(user);
+            var roles = await _repository.SearchAllUserRoles(user);
+            var token = _generator.Generate(user, roles);
             return token;
         }
     }
