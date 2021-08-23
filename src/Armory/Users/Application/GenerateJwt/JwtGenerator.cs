@@ -37,7 +37,10 @@ namespace Armory.Users.Application.GenerateJwt
                     SecurityAlgorithms.HmacSha256Signature)
             };
 
-            foreach (var role in roles) tokenDescriptor.Subject.AddClaim(new Claim(ClaimTypes.Role, role));
+            foreach (var role in roles)
+            {
+                tokenDescriptor.Subject.AddClaim(new Claim(ClaimTypes.Role, role));
+            }
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
