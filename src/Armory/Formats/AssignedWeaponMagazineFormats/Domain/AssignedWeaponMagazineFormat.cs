@@ -45,7 +45,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Domain
         public static AssignedWeaponMagazineFormat Create(string code, DateTime validity, string squadronCode,
             string squadCode, Warehouse warehouse, DateTime date, string comments)
         {
-            return new AssignedWeaponMagazineFormat(code, validity, squadCode, squadCode, warehouse, date, comments);
+            return new AssignedWeaponMagazineFormat(code, validity, squadronCode, squadCode, warehouse, date, comments);
         }
     }
 }
