@@ -30,13 +30,14 @@ namespace Armory.Users.Application.GenerateJwt
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id),
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.Role, string.Join(',', roles))
+                    new Claim(ClaimTypes.Name, user.UserName)
                 }),
                 Expires = DateTime.Now.AddDays(TokenDurationDays),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)
             };
+
+            foreach (var role in roles) tokenDescriptor.Subject.AddClaim(new Claim(ClaimTypes.Role, role));
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
