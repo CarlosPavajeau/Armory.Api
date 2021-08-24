@@ -74,10 +74,12 @@ namespace Armory.Api.Extensions
                         configuration.GetConnectionString("DefaultConnection"),
                         new MySqlServerVersion(new Version(8, 0, 26)),
                         builder => { builder.CommandTimeout((int)TimeSpan.FromMinutes(20).TotalSeconds); })
+                    .UseSnakeCaseNamingConvention()
                     .EnableDetailedErrors(),
                 ServiceLifetime.Transient);
 
             services.AddMediatR(AssemblyHelper.GetInstance(Assemblies.Armory));
+            services.AddAutoMapper(AssemblyHelper.GetInstance(Assemblies.Armory));
 
             services.Configure<SecretKey>(configuration.GetSection("SecretKey"));
 
