@@ -1,8 +1,8 @@
-using Armory.Shared.Domain.Bus.Command;
+using Armory.Shared.Domain.Bus.Command.Generic;
 
 namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.AddItem
 {
-    public class AddAssignedWeaponMagazineFormatItemCommand : Command
+    public class AddAssignedWeaponMagazineFormatItemCommand : Command<int>
     {
         public AddAssignedWeaponMagazineFormatItemCommand(int formatId, string troopId, string weaponCode,
             bool cartridgeOfLife, bool verifiedInPhysical, bool novelty, int ammunitionQuantity, string ammunitionLot,

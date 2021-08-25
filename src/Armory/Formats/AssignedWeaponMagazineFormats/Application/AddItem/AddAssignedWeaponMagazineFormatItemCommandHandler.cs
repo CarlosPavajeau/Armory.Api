@@ -5,7 +5,8 @@ using Armory.Shared.Domain.Bus.Command;
 namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.AddItem
 {
     public class
-        AddAssignedWeaponMagazineFormatItemCommandHandler : CommandHandler<AddAssignedWeaponMagazineFormatItemCommand>
+        AddAssignedWeaponMagazineFormatItemCommandHandler : ICommandHandler<AddAssignedWeaponMagazineFormatItemCommand,
+            int>
     {
         private readonly AssignedWeaponMagazineFormatItemAdder _adder;
 
@@ -14,10 +15,10 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.AddItem
             _adder = adder;
         }
 
-        protected override async Task Handle(AddAssignedWeaponMagazineFormatItemCommand request,
+        public async Task<int> Handle(AddAssignedWeaponMagazineFormatItemCommand request,
             CancellationToken cancellationToken)
         {
-            await _adder.AddItem(
+            var item = await _adder.AddItem(
                 request.FormatId,
                 request.TroopId,
                 request.WeaponCode,
@@ -27,6 +28,8 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.AddItem
                 request.AmmunitionQuantity,
                 request.AmmunitionLot,
                 request.Observations);
+
+            return item.Id;
         }
     }
 }

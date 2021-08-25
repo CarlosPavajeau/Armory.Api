@@ -52,20 +52,20 @@ namespace Armory.Api.Controllers.Formats.AssignedWeaponMagazineFormats
         }
 
         [HttpPost("AddItem/{id:int}")]
-        public async Task<IActionResult> AddAssignedWeaponMagazineFormatItem(int id,
+        public async Task<ActionResult<int>> AddAssignedWeaponMagazineFormatItem(int id,
             [FromBody] AddAssignedWeaponMagazineFormatItemRequest request)
         {
             try
             {
                 var command = _mapper.Map<AddAssignedWeaponMagazineFormatItemCommand>(request);
-                await _mediator.Send(command);
+                var itemId = await _mediator.Send(command);
+
+                return Ok(itemId);
             }
             catch (AssignedWeaponMagazineFormatNotFound)
             {
                 return AssignedWeaponMagazineFormatNotFound(id);
             }
-
-            return Ok();
         }
 
         [HttpGet("{id:int}")]
