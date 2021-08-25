@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Armory.Squads.Domain;
 
@@ -14,10 +13,9 @@ namespace Armory.Squads.Application.SearchAll
             _repository = repository;
         }
 
-        public async Task<IEnumerable<SquadResponse>> SearchAll()
+        public async Task<IEnumerable<Squad>> SearchAll()
         {
-            var squads = await _repository.SearchAll();
-            return squads.Select(SquadResponse.FromAggregate);
+            return await _repository.SearchAll();
         }
     }
 }

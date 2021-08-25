@@ -63,7 +63,7 @@ namespace Armory.Api.Test.Controllers.Ranks
             Mediator.Setup(x => x.Send(It.IsAny<SearchAllRanksQuery>(), CancellationToken.None)).ReturnsAsync(
                 new List<RankResponse>
                 {
-                    new(1, "Estudiante")
+                    new() { Id = 1, Name = "Estudiante" }
                 });
 
             var result = await _controller.GetRanks();
@@ -85,7 +85,7 @@ namespace Armory.Api.Test.Controllers.Ranks
         {
             Mediator.Setup(x => x.Send(It.IsAny<FindRankQuery>(), CancellationToken.None))
                 .ReturnsAsync((FindRankQuery query, CancellationToken _) =>
-                    query.Id == 2 ? null : new RankResponse(1, "Estudiante"));
+                    query.Id == 2 ? null : new RankResponse { Id = 1, Name = "Estudiante" });
 
             var result = await _controller.GetRank(1);
             Assert.IsNotNull(result);

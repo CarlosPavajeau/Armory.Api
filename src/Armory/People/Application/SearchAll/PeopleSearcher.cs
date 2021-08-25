@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Armory.People.Domain;
 
@@ -14,10 +13,9 @@ namespace Armory.People.Application.SearchAll
             _repository = repository;
         }
 
-        public async Task<IEnumerable<PersonResponse>> SearchAll()
+        public async Task<IEnumerable<Person>> SearchAll()
         {
-            var people = await _repository.SearchAll();
-            return people.Select(PersonResponse.FromAggregate);
+            return await _repository.SearchAll();
         }
     }
 }

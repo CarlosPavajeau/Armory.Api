@@ -12,10 +12,9 @@ namespace Armory.People.Application.SearchByArmoryUserId
             _repository = repository;
         }
 
-        public async Task<PersonResponse> SearchByArmoryUserId(string armoryUserId)
+        public async Task<Person> SearchByArmoryUserId(string armoryUserId)
         {
-            var person = await _repository.FindByArmoryUserId(armoryUserId);
-            return person == null ? null : PersonResponse.FromAggregate(person);
+            return await _repository.FindByArmoryUserId(armoryUserId);
         }
     }
 }

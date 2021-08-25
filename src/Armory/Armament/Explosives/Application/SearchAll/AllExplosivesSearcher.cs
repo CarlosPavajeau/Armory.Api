@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Armory.Armament.Explosives.Domain;
 
@@ -14,10 +13,9 @@ namespace Armory.Armament.Explosives.Application.SearchAll
             _repository = repository;
         }
 
-        public async Task<IEnumerable<ExplosiveResponse>> SearchAll()
+        public async Task<IEnumerable<Explosive>> SearchAll()
         {
-            var explosives = await _repository.SearchAll();
-            return explosives.Select(ExplosiveResponse.FromAggregate);
+            return await _repository.SearchAll();
         }
     }
 }
