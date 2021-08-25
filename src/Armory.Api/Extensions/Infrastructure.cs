@@ -224,20 +224,18 @@ namespace Armory.Api.Extensions
 
         public static IHost MigrateDatabase<T>(this IHost host) where T : DbContext
         {
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
+            using var scope = host.Services.CreateScope();
+            var services = scope.ServiceProvider;
 
-                try
-                {
-                    var context = services.GetRequiredService<T>();
-                    if (context.Database.GetPendingMigrations().Any()) context.Database.Migrate();
-                }
-                catch (Exception e)
-                {
-                    var logger = services.GetRequiredService<ILogger<Startup>>();
-                    logger.LogError(e, "An error occurred while migrating the database.");
-                }
+            try
+            {
+                var context = services.GetRequiredService<T>();
+                if (context.Database.GetPendingMigrations().Any()) context.Database.Migrate();
+            }
+            catch (Exception e)
+            {
+                var logger = services.GetRequiredService<ILogger<Startup>>();
+                logger.LogError(e, "An error occurred while migrating the database.");
             }
 
             return host;
