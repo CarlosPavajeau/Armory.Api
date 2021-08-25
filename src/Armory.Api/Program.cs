@@ -1,3 +1,5 @@
+using Armory.Api.Extensions;
+using Armory.Shared.Infrastructure.Persistence.EntityFramework;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -7,7 +9,7 @@ namespace Armory.Api
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder(args).Build().MigrateDatabase<ArmoryDbContext>().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args)

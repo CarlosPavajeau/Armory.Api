@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Armory.Armament.Ammunition.Domain;
 using Armory.Armament.Ammunition.Infrastructure.Persistence;
@@ -47,6 +48,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -217,6 +220,27 @@ namespace Armory.Api.Extensions
             }
 
             return app;
+        }
+
+        public static IHost MigrateDatabase<T>(this IHost host) where T : DbContext
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                try
+                {
+                    var context = services.GetRequiredService<T>();
+                    if (context.Database.GetPendingMigrations().Any()) context.Database.Migrate();
+                }
+                catch (Exception e)
+                {
+                    var logger = services.GetRequiredService<ILogger<Startup>>();
+                    logger.LogError(e, "An error occurred while migrating the database.");
+                }
+            }
+
+            return host;
         }
     }
 }
