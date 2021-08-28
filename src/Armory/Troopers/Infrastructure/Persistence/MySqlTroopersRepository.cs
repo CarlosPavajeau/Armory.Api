@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
@@ -45,6 +46,13 @@ namespace Armory.Troopers.Infrastructure.Persistence
             }
 
             return await _context.Troopers.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Troop>> SearchAllBySquad(string squadCode, bool noTracking = true)
+        {
+            var query = noTracking ? _context.Troopers.AsNoTracking() : _context.Troopers.AsTracking();
+
+            return await query.Where(t => t.SquadCode == squadCode).ToListAsync();
         }
 
         public async Task<bool> Any(Expression<Func<Troop, bool>> predicate)

@@ -6,6 +6,7 @@ using Armory.Troopers.Application.CheckExists;
 using Armory.Troopers.Application.Create;
 using Armory.Troopers.Application.Find;
 using Armory.Troopers.Application.SearchAll;
+using Armory.Troopers.Application.SearchAllBySquad;
 using Armory.Troopers.Application.Update;
 using Armory.Troopers.Domain;
 using AutoMapper;
@@ -58,6 +59,13 @@ namespace Armory.Api.Controllers.Troopers
         public async Task<ActionResult<IEnumerable<TroopResponse>>> GetTroopers()
         {
             var troopers = await _mediator.Send(new SearchAllTroopersQuery());
+            return Ok(troopers);
+        }
+
+        [HttpGet("BySquad/{squadCode}")]
+        public async Task<ActionResult<IEnumerable<TroopResponse>>> GetTroopersBySquad(string squadCode)
+        {
+            var troopers = await _mediator.Send(new SearchAllTroopersBySquadQuery(squadCode));
             return Ok(troopers);
         }
 
