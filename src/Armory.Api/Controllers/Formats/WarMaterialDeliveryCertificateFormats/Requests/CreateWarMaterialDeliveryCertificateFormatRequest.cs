@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Armory.Formats.Shared.Application;
 
 namespace Armory.Api.Controllers.Formats.WarMaterialDeliveryCertificateFormats.Requests
 {
@@ -14,9 +15,9 @@ namespace Armory.Api.Controllers.Formats.WarMaterialDeliveryCertificateFormats.R
         public string SquadCode { get; set; }
         public string TroopId { get; set; }
 
-        public ICollection<string> Weapons { get; set; } = new HashSet<string>();
-        public IDictionary<string, int> Ammunition { get; set; } = new Dictionary<string, int>();
-        public IDictionary<string, int> Equipments { get; set; } = new Dictionary<string, int>();
-        public IDictionary<string, int> Explosives { get; set; } = new Dictionary<string, int>();
+        public ICollection<string> Weapons { get; set; }
+        public ICollection<AmmunitionAndQuantity> Ammunition { get; set; }
+        public ICollection<EquipmentAndQuantity> Equipments { get; set; }
+        public ICollection<ExplosiveAndQuantity> Explosives { get; set; }
     }
 }

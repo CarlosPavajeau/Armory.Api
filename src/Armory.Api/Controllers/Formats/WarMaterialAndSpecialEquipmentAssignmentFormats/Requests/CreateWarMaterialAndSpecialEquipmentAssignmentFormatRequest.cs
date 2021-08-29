@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Armory.Formats.Shared.Application;
 using Armory.Formats.Shared.Domain;
 
 namespace Armory.Api.Controllers.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Requests
@@ -23,8 +24,8 @@ namespace Armory.Api.Controllers.Formats.WarMaterialAndSpecialEquipmentAssignmen
         public string Others { get; set; }
 
         public ICollection<string> Weapons { get; set; }
-        public IDictionary<string, int> Ammunition { get; set; }
-        public IDictionary<string, int> Equipments { get; set; }
-        public IDictionary<string, int> Explosives { get; set; }
+        public ICollection<AmmunitionAndQuantity> Ammunition { get; set; }
+        public ICollection<EquipmentAndQuantity> Equipments { get; set; }
+        public ICollection<ExplosiveAndQuantity> Explosives { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Armory.Formats.Shared.Application;
 using Armory.Formats.Shared.Domain;
 using Armory.Shared.Domain.Bus.Command.Generic;
 
@@ -41,9 +42,9 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
         public string PhysicalLocation { get; }
         public string Others { get; }
 
-        public ICollection<string> Weapons { get; } = new HashSet<string>();
-        public IDictionary<string, int> Ammunition { get; } = new Dictionary<string, int>();
-        public IDictionary<string, int> Equipments { get; } = new Dictionary<string, int>();
-        public IDictionary<string, int> Explosives { get; } = new Dictionary<string, int>();
+        public IEnumerable<string> Weapons { get; } = new HashSet<string>();
+        public IEnumerable<AmmunitionAndQuantity> Ammunition { get; } = new HashSet<AmmunitionAndQuantity>();
+        public IEnumerable<EquipmentAndQuantity> Equipments { get; } = new HashSet<EquipmentAndQuantity>();
+        public IEnumerable<ExplosiveAndQuantity> Explosives { get; } = new HashSet<ExplosiveAndQuantity>();
     }
 }

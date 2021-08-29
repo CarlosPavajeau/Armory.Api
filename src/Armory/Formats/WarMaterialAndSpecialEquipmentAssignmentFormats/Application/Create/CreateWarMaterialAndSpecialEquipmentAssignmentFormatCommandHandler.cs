@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Application.Generate;
@@ -36,9 +37,9 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
                 request.PhysicalLocation,
                 request.Others,
                 request.Weapons,
-                request.Ammunition,
-                request.Equipments,
-                request.Explosives);
+                request.Ammunition.ToDictionary(c => c.AmmunitionCode, c => c.Quantity),
+                request.Equipments.ToDictionary(c => c.EquipmentCode, c => c.Quantity),
+                request.Explosives.ToDictionary(c => c.ExplosiveCode, c => c.Quantity));
 
             return format.Id;
         }

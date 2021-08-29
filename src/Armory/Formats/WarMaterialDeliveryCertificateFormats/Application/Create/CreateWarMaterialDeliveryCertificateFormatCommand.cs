@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Armory.Formats.Shared.Application;
 using Armory.Shared.Domain.Bus.Command.Generic;
 
 namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Create
@@ -27,9 +28,9 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Creat
         public string SquadCode { get; }
         public string TroopId { get; }
 
-        public ICollection<string> Weapons { get; } = new HashSet<string>();
-        public IDictionary<string, int> Ammunition { get; } = new Dictionary<string, int>();
-        public IDictionary<string, int> Equipments { get; } = new Dictionary<string, int>();
-        public IDictionary<string, int> Explosives { get; } = new Dictionary<string, int>();
+        public IEnumerable<string> Weapons { get; } = new HashSet<string>();
+        public IEnumerable<AmmunitionAndQuantity> Ammunition { get; } = new HashSet<AmmunitionAndQuantity>();
+        public IEnumerable<EquipmentAndQuantity> Equipments { get; } = new HashSet<EquipmentAndQuantity>();
+        public IEnumerable<ExplosiveAndQuantity> Explosives { get; } = new HashSet<ExplosiveAndQuantity>();
     }
 }
