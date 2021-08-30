@@ -126,7 +126,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
 
             for (var i = 0; i < format.Ammunition.Count; i++)
             {
-                var ammunition = format.Weapons.ElementAt(i);
+                var ammunition = format.Ammunition.ElementAt(i);
                 var formatAmmunition =
                     format.WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition.First(x =>
                         x.AmmunitionCode == ammunition.Code);
