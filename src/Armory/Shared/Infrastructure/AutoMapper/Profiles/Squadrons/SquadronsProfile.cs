@@ -8,7 +8,9 @@ namespace Armory.Shared.Infrastructure.AutoMapper.Profiles.Squadrons
     {
         public SquadronsProfile()
         {
-            CreateMap<Squadron, SquadronResponse>();
+            CreateMap<Squadron, SquadronResponse>()
+                .ForMember(s => s.OwnerName,
+                    ownerName => ownerName.MapFrom(src => src.Owner == null ? string.Empty : src.Owner.FullName));
         }
     }
 }

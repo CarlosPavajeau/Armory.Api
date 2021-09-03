@@ -4,7 +4,7 @@ namespace Armory.Squads.Application
     {
         public string Code { get; init; }
         public string Name { get; init; }
-        public string PersonId { get; init; }
-        public string SquadronCode { get; init; }
+        public string OwnerName { get; init; }
+        public string SquadronName { get; init; }
     }
 }

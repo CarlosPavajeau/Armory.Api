@@ -25,14 +25,11 @@ namespace Armory.Squadrons.Infrastructure.Persistence
 
         public async Task<Squadron> Find(string code, bool noTracking = true)
         {
-            if (noTracking)
-            {
-                return await _context.Squadrons
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(s => s.Code == code);
-            }
+            var query = noTracking ? _context.Squadrons.AsNoTracking() : _context.Squadrons.AsTracking();
 
-            return await _context.Squadrons.FindAsync(code);
+            return await query
+                .Include(s => s.Owner)
+                .FirstOrDefaultAsync(s => s.Code == code);
         }
 
         public async Task<bool> Any(Expression<Func<Squadron, bool>> predicate)
@@ -42,14 +39,11 @@ namespace Armory.Squadrons.Infrastructure.Persistence
 
         public async Task<IEnumerable<Squadron>> SearchAll(bool noTracking = true)
         {
-            if (noTracking)
-            {
-                return await _context.Squadrons
-                    .AsNoTracking()
-                    .ToListAsync();
-            }
+            var query = noTracking ? _context.Squadrons.AsNoTracking() : _context.Squadrons.AsTracking();
 
-            return await _context.Squadrons.ToListAsync();
+            return await query
+                .Include(s => s.Owner)
+                .ToListAsync();
         }
     }
 }

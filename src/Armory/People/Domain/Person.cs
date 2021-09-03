@@ -31,6 +31,8 @@ namespace Armory.People.Domain
         [MaxLength(50)] public string LastName { get; set; }
         [MaxLength(50)] public string SecondLastName { get; set; }
 
+        [NotMapped] public string FullName => $"{FirstName} {SecondName} {LastName} {SecondLastName}";
+
         public string ArmoryUserId { get; set; }
 
         [ForeignKey("ArmoryUserId")] public ArmoryUser ArmoryUser { get; set; }
