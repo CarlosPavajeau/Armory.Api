@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Armory.Degrees.Domain;
 
@@ -14,10 +13,9 @@ namespace Armory.Degrees.Application.SearchAllByRank
             _repository = repository;
         }
 
-        public async Task<IEnumerable<DegreeResponse>> SearchByRank(int rankId)
+        public async Task<IEnumerable<Degree>> SearchByRank(int rankId)
         {
-            var degrees = await _repository.SearchAllByRank(rankId);
-            return degrees.Select(DegreeResponse.FromAggregate);
+            return await _repository.SearchAllByRank(rankId);
         }
     }
 }

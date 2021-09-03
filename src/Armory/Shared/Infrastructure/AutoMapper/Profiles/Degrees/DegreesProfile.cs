@@ -8,7 +8,9 @@ namespace Armory.Shared.Infrastructure.AutoMapper.Profiles.Degrees
     {
         public DegreesProfile()
         {
-            CreateMap<Degree, DegreeResponse>();
+            CreateMap<Degree, DegreeResponse>()
+                .ForMember(d => d.RankName,
+                    rankName => rankName.MapFrom(src => src.Rank == null ? string.Empty : src.Rank.Name));
         }
     }
 }

@@ -57,7 +57,7 @@ namespace Armory.Api.Test.Controllers.Degrees
             Mediator.Setup(x => x.Send(It.IsAny<SearchAllDegreesQuery>(), CancellationToken.None)).ReturnsAsync(
                 new List<DegreeResponse>
                 {
-                    new(1, "Estudiante 1", 1)
+                    new() { Id = 1, Name = "Estudiante 1", RankName = "Estudiante" }
                 });
 
             var result = await _controller.GetDegrees();
@@ -78,7 +78,7 @@ namespace Armory.Api.Test.Controllers.Degrees
             Mediator.Setup(x => x.Send(It.IsAny<SearchAllDegreesByRankQuery>(), CancellationToken.None)).ReturnsAsync(
                 new List<DegreeResponse>
                 {
-                    new(1, "Estudiante 1", 1)
+                    new() { Id = 1, Name = "Estudiante 1", RankName = "Estudiante" }
                 });
 
             var result = await _controller.GetDegreesByRank(1);
@@ -98,7 +98,9 @@ namespace Armory.Api.Test.Controllers.Degrees
         {
             Mediator.Setup(x => x.Send(It.IsAny<FindDegreeQuery>(), CancellationToken.None))
                 .ReturnsAsync((FindDegreeQuery query, CancellationToken _) =>
-                    query.Id != 1 ? null : new DegreeResponse(1, "Estudiante", 1));
+                    query.Id != 1
+                        ? null
+                        : new DegreeResponse { Id = 1, Name = "Estudiante 1", RankName = "Estudiante" });
 
             var result = await _controller.GetDegree(1);
             Assert.IsNotNull(result);

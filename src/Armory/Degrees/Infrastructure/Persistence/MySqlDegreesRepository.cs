@@ -24,39 +24,29 @@ namespace Armory.Degrees.Infrastructure.Persistence
 
         public async Task<Degree> Find(int id, bool noTracking = true)
         {
-            if (noTracking)
-            {
-                return await _context.Degrees
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(d => d.Id == id);
-            }
+            var query = noTracking ? _context.Degrees.AsNoTracking() : _context.Degrees.AsTracking();
 
-            return await _context.Degrees.FindAsync(id);
+            return await query
+                .Include(d => d.Rank)
+                .FirstOrDefaultAsync(d => d.Id == id);
         }
 
         public async Task<IEnumerable<Degree>> SearchAll(bool noTracking = true)
         {
-            if (noTracking)
-            {
-                return await _context.Degrees
-                    .AsNoTracking()
-                    .ToListAsync();
-            }
+            var query = noTracking ? _context.Degrees.AsNoTracking() : _context.Degrees.AsTracking();
 
-            return await _context.Degrees.ToListAsync();
+            return await query
+                .Include(d => d.Rank)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Degree>> SearchAllByRank(int rankId, bool noTracking = true)
         {
-            if (noTracking)
-            {
-                return await _context.Degrees
-                    .AsNoTracking()
-                    .Where(d => d.RankId == rankId)
-                    .ToListAsync();
-            }
+            var query = noTracking ? _context.Degrees.AsNoTracking() : _context.Degrees.AsTracking();
 
-            return await _context.Degrees.Where(d => d.RankId == rankId).ToListAsync();
+            return await query
+                .Where(d => d.RankId == rankId)
+                .ToListAsync();
         }
     }
 }
