@@ -235,7 +235,7 @@ namespace Armory.Api.Extensions
             catch (Exception e)
             {
                 var logger = services.GetRequiredService<ILogger<Startup>>();
-                logger.LogError(e, "An error occurred while migrating the database.");
+                logger.LogError(e, "An error occurred while migrating the database");
             }
 
             return host;
