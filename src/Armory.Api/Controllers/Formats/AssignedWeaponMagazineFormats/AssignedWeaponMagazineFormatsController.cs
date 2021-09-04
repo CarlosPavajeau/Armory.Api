@@ -1,8 +1,10 @@
 using System.IO;
 using System.Threading.Tasks;
 using Armory.Api.Controllers.Formats.AssignedWeaponMagazineFormats.Requests;
+using Armory.Formats.AssignedWeaponMagazineFormats.Application;
 using Armory.Formats.AssignedWeaponMagazineFormats.Application.AddItem;
 using Armory.Formats.AssignedWeaponMagazineFormats.Application.Create;
+using Armory.Formats.AssignedWeaponMagazineFormats.Application.Find;
 using Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate;
 using Armory.Formats.AssignedWeaponMagazineFormats.Domain;
 using AutoMapper;
@@ -69,6 +71,15 @@ namespace Armory.Api.Controllers.Formats.AssignedWeaponMagazineFormats
         }
 
         [HttpGet("{id:int}")]
+        public async Task<ActionResult<AssignedWeaponMagazineFormatResponse>> GetAssignedWeaponMagazineFormat(int id)
+        {
+            var format = await _mediator.Send(new FindAssignedWeaponMagazineFormatQuery(id));
+            if (format != null) return Ok(format);
+
+            return AssignedWeaponMagazineFormatNotFound(id);
+        }
+
+        [HttpGet("Generate/{id:int}")]
         public async Task<ActionResult<Stream>> GenerateFormat(int id)
         {
             try
