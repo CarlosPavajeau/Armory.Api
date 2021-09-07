@@ -7,7 +7,8 @@ namespace Armory.Troopers.Application
         public string SecondName { get; init; }
         public string LastName { get; init; }
         public string SecondLastName { get; init; }
-        public string SquadCode { get; init; }
-        public int DegreeId { get; init; }
+        public string SquadName { get; init; }
+        public string DegreeName { get; init; }
+        public string RankName { get; init; }
     }
 }

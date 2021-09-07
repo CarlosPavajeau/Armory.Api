@@ -26,26 +26,24 @@ namespace Armory.Troopers.Infrastructure.Persistence
 
         public async Task<Troop> Find(string id, bool noTracking = true)
         {
-            if (noTracking)
-            {
-                return await _context.Troopers
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(t => t.Id == id);
-            }
+            var query = noTracking ? _context.Troopers.AsNoTracking() : _context.Troopers.AsTracking();
 
-            return await _context.Troopers.FindAsync(id);
+            return await query
+                .Include(t => t.Squad)
+                .Include(t => t.Degree)
+                .ThenInclude(d => d.Rank)
+                .FirstOrDefaultAsync(t => t.Id == id);
         }
 
         public async Task<IEnumerable<Troop>> SearchAll(bool noTracking = true)
         {
-            if (noTracking)
-            {
-                return await _context.Troopers
-                    .AsNoTracking()
-                    .ToListAsync();
-            }
+            var query = noTracking ? _context.Troopers.AsNoTracking() : _context.Troopers.AsTracking();
 
-            return await _context.Troopers.ToListAsync();
+            return await query
+                .Include(t => t.Squad)
+                .Include(t => t.Degree)
+                .ThenInclude(d => d.Rank)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Troop>> SearchAllBySquad(string squadCode, bool noTracking = true)
