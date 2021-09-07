@@ -5,7 +5,7 @@ namespace Armory.Api.Controllers.Formats.AssignedWeaponMagazineFormats.Requests
         public int FormatId { get; set; }
         public string TroopId { get; set; }
         public string WeaponCode { get; set; }
-        public bool CartridgeOfLife { get; set; }
+        public bool SafetyCartridge { get; set; }
         public bool VerifiedInPhysical { get; set; }
         public bool Novelty { get; set; }
         public int AmmunitionQuantity { get; set; }

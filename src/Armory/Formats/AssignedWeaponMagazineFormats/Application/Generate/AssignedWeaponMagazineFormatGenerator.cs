@@ -113,7 +113,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate
                         record.Weapon.NumberOfProviders.ToString(),
                         record.AmmunitionQuantity.ToString(),
                         record.AmmunitionLot,
-                        record.CartridgeOfLife ? "SI" : "NO",
+                        record.SafetyCartridge ? "SI" : "NO",
                         record.VerifiedInPhysical ? "SI" : "NO",
                         record.Novelty ? "SI" : "NO"
                     });

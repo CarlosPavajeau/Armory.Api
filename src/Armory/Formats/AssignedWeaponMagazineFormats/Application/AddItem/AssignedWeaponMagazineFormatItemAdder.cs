@@ -18,7 +18,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.AddItem
         }
 
         public async Task<AssignedWeaponMagazineFormatItem> AddItem(int formatId, string troopId, string weaponCode,
-            bool cartridgeOfLife,
+            bool safetyCartridge,
             bool verifiedInPhysical, bool novelty, int ammunitionQuantity, string ammunitionLot, string observations)
         {
             var format = await _repository.Find(formatId, false);
@@ -27,7 +27,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.AddItem
                 throw new AssignedWeaponMagazineFormatNotFound();
             }
 
-            format.Records.Add(AssignedWeaponMagazineFormatItem.Create(troopId, weaponCode, cartridgeOfLife,
+            format.Records.Add(AssignedWeaponMagazineFormatItem.Create(troopId, weaponCode, safetyCartridge,
                 verifiedInPhysical, novelty, ammunitionQuantity, ammunitionLot, observations, format));
 
             await _unitWork.SaveChanges();

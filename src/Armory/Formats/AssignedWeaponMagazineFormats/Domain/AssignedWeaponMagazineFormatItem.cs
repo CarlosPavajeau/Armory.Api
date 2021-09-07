@@ -7,13 +7,13 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Domain
 {
     public class AssignedWeaponMagazineFormatItem
     {
-        public AssignedWeaponMagazineFormatItem(string troopId, string weaponCode, bool cartridgeOfLife,
+        public AssignedWeaponMagazineFormatItem(string troopId, string weaponCode, bool safetyCartridge,
             bool verifiedInPhysical, bool novelty, int ammunitionQuantity, string ammunitionLot, string observations,
             AssignedWeaponMagazineFormat format)
         {
             TroopId = troopId;
             WeaponCode = weaponCode;
-            CartridgeOfLife = cartridgeOfLife;
+            SafetyCartridge = safetyCartridge;
             VerifiedInPhysical = verifiedInPhysical;
             Novelty = novelty;
             AmmunitionQuantity = ammunitionQuantity;
@@ -34,7 +34,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Domain
         [Required] public string WeaponCode { get; set; }
         [ForeignKey("WeaponCode")] public Weapon Weapon { get; set; }
 
-        public bool CartridgeOfLife { get; set; }
+        public bool SafetyCartridge { get; set; }
         public bool VerifiedInPhysical { get; set; }
         public bool Novelty { get; set; }
         [Required] public int AmmunitionQuantity { get; set; }
@@ -46,11 +46,11 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Domain
         [ForeignKey("AssignedWeaponMagazineFormatId")]
         public AssignedWeaponMagazineFormat Format { get; set; }
 
-        public static AssignedWeaponMagazineFormatItem Create(string troopId, string weaponCode, bool cartridgeOfLife,
+        public static AssignedWeaponMagazineFormatItem Create(string troopId, string weaponCode, bool safetyCartridge,
             bool verifiedInPhysical, bool novelty, int ammunitionQuantity, string ammunitionLot, string observations,
             AssignedWeaponMagazineFormat format)
         {
-            return new AssignedWeaponMagazineFormatItem(troopId, weaponCode, cartridgeOfLife, verifiedInPhysical,
+            return new AssignedWeaponMagazineFormatItem(troopId, weaponCode, safetyCartridge, verifiedInPhysical,
                 novelty, ammunitionQuantity, ammunitionLot, observations, format);
         }
     }

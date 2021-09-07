@@ -27,7 +27,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.AddItem
                 request.FormatId,
                 request.TroopId,
                 request.WeaponCode,
-                request.CartridgeOfLife,
+                request.SafetyCartridge,
                 request.VerifiedInPhysical,
                 request.Novelty,
                 request.AmmunitionQuantity,
