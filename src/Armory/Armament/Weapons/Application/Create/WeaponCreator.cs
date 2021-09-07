@@ -13,11 +13,9 @@ namespace Armory.Armament.Weapons.Application.Create
         }
 
         public async Task<Weapon> Create(string code, string type, string mark, string model, string caliber,
-            string series,
-            string lot, int numberOfProviders, int providerCapacity)
+            string series, int numberOfProviders, int providerCapacity)
         {
-            var weapon = Weapon.Create(code, type, mark, model, caliber, series, lot, numberOfProviders,
-                providerCapacity);
+            var weapon = Weapon.Create(code, type, mark, model, caliber, series, numberOfProviders, providerCapacity);
             await _repository.Save(weapon);
 
             return weapon;

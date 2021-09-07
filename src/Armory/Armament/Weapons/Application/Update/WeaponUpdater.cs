@@ -13,9 +13,9 @@ namespace Armory.Armament.Weapons.Application.Update
         }
 
         public async Task Update(Weapon weapon, string type, string mark, string model, string caliber, string series,
-            string lot, int numberOfProviders, int providerCapacity)
+            int numberOfProviders, int providerCapacity)
         {
-            weapon.Update(type, mark, model, caliber, series, lot, numberOfProviders, providerCapacity);
+            weapon.Update(type, mark, model, caliber, series, numberOfProviders, providerCapacity);
             await _repository.Update(weapon);
         }
     }

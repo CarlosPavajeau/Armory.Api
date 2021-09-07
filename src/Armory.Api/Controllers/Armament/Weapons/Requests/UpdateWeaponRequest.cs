@@ -28,10 +28,6 @@ namespace Armory.Api.Controllers.Armament.Weapons.Requests
         [MaxLength(256, ErrorMessage = "El número de serie del arma no debe tener más de 256 caracteres.")]
         public string Series { get; set; }
 
-        [Required(ErrorMessage = "El lote del arma es requerido.")]
-        [MaxLength(256, ErrorMessage = "El lote del arma no debe tener más de 256 caracteres.")]
-        public string Lot { get; set; }
-
         [Required(ErrorMessage = "El número de proveedores del arma es requerido.")]
         public int NumberOfProviders { get; set; }
 

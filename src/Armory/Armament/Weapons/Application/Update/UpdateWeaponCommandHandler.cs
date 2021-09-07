@@ -26,7 +26,7 @@ namespace Armory.Armament.Weapons.Application.Update
             }
 
             await _updater.Update(weapon, request.Type, request.Mark, request.Model, request.Caliber,
-                request.Series, request.Lot, request.NumberOfProviders, request.ProviderCapacity);
+                request.Series, request.NumberOfProviders, request.ProviderCapacity);
         }
     }
 }

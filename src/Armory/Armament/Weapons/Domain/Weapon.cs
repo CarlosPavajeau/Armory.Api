@@ -9,7 +9,7 @@ namespace Armory.Armament.Weapons.Domain
 {
     public class Weapon
     {
-        public Weapon(string code, string type, string mark, string model, string caliber, string series, string lot,
+        public Weapon(string code, string type, string mark, string model, string caliber, string series,
             int numberOfProviders, int providerCapacity)
         {
             Code = code;
@@ -18,7 +18,6 @@ namespace Armory.Armament.Weapons.Domain
             Model = model;
             Caliber = caliber;
             Series = series;
-            Lot = lot;
             NumberOfProviders = numberOfProviders;
             ProviderCapacity = providerCapacity;
         }
@@ -33,7 +32,6 @@ namespace Armory.Armament.Weapons.Domain
         [Required] [MaxLength(256)] public string Model { get; set; }
         [Required] [MaxLength(256)] public string Caliber { get; set; }
         [Required] [MaxLength(256)] public string Series { get; set; }
-        [Required] [MaxLength(256)] public string Lot { get; set; }
         [Required] public int NumberOfProviders { get; set; }
         [Required] public int ProviderCapacity { get; set; }
         [Required] public WeaponState State { get; set; }
@@ -52,23 +50,22 @@ namespace Armory.Armament.Weapons.Domain
         } =
             new HashSet<WarMaterialDeliveryCertificateFormatWeapon>();
 
-        public void Update(string type, string mark, string model, string caliber, string series,
-            string lot, int numberOfProviders, int providerCapacity)
+        public void Update(string type, string mark, string model, string caliber, string series, int numberOfProviders,
+            int providerCapacity)
         {
             Type = type;
             Mark = mark;
             Model = model;
             Caliber = caliber;
             Series = series;
-            Lot = lot;
             NumberOfProviders = numberOfProviders;
             ProviderCapacity = providerCapacity;
         }
 
         public static Weapon Create(string code, string type, string mark, string model, string caliber, string series,
-            string lot, int numberOfProviders, int providerCapacity)
+            int numberOfProviders, int providerCapacity)
         {
-            return new Weapon(code, type, mark, model, caliber, series, lot, numberOfProviders, providerCapacity);
+            return new Weapon(code, type, mark, model, caliber, series, numberOfProviders, providerCapacity);
         }
     }
 }
