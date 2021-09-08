@@ -9,7 +9,6 @@ namespace Armory.Formats.Shared.Constants
             "MARCA", "MODELO", "CALIBRE", "No. ARMA", "CANT. PROVEEDORES", "CAPACIDAD PROVEEDOR", "TIPO DE MUNICIÓN",
             "CALIBRE", "MARCA", "LOTE", "CANTIDAD DE MUNICIÓN");
 
-
         public static readonly IImmutableList<string> SpecialEquipmentsHeader =
             ImmutableList.Create("ÍTEM", "TIPO", "MODELO", "SERIE", "CANTIDAD");
 
