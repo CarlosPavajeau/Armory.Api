@@ -2,6 +2,6 @@ namespace Armory.Shared.Helpers
 {
     public static class Assemblies
     {
-        public const string Armory = "Armory";
+        public static string Armory => "Armory";
     }
 }

@@ -21,6 +21,6 @@ namespace Armory.Shared.Domain.ClosedXML
         void SetRangeFontSize(IXLRange range, double fontSize);
         void SetRangeFontName(IXLRange range, string fontName);
         void SetRangeFillBackgroundColor(IXLRange range, XLColor color);
-        void SetRangeValues(IXLRange range, List<string> values);
+        void SetRangeValues(IXLRange range, IReadOnlyCollection<string> values);
     }
 }

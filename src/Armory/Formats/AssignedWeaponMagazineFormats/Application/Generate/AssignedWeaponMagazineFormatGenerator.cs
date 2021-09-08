@@ -74,7 +74,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate
             worksheet.Range("D11:F11").Value = FormatConstants.AssignedWeaponMagazineFormatItemsHeader[3];
 
             _worksheetManager.SetRangeValues(worksheet.Range("G11:N11"),
-                FormatConstants.AssignedWeaponMagazineFormatItemsHeader.GetRange(4, 8));
+                FormatConstants.AssignedWeaponMagazineFormatItemsHeader.ToList().GetRange(4, 8));
 
             worksheet.Range("O11:P11").Value = FormatConstants.AssignedWeaponMagazineFormatItemsHeader.Last();
 

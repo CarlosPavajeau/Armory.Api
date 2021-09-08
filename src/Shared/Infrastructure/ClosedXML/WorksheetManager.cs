@@ -76,7 +76,7 @@ namespace Armory.Shared.Infrastructure.ClosedXML
             range.Style.Fill.BackgroundColor = color;
         }
 
-        public void SetRangeValues(IXLRange range, List<string> values)
+        public void SetRangeValues(IXLRange range, IReadOnlyCollection<string> values)
         {
             if (range.Cells().Count() != values.Count)
             {
@@ -87,7 +87,7 @@ namespace Armory.Shared.Infrastructure.ClosedXML
             var index = 0;
             foreach (var cell in range.Cells())
             {
-                cell.Value = values[index];
+                cell.Value = values.ElementAt(index);
                 ++index;
             }
         }
