@@ -118,7 +118,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
                         weapon.Mark,
                         weapon.Model,
                         weapon.Caliber,
-                        weapon.Code,
+                        weapon.Series,
                         weapon.NumberOfProviders.ToString(),
                         weapon.ProviderCapacity.ToString()
                     });
