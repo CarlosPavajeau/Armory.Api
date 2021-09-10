@@ -94,7 +94,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Gener
                         weapon.Mark,
                         weapon.Model,
                         weapon.Caliber,
-                        weapon.Code,
+                        weapon.Series,
                         weapon.NumberOfProviders.ToString(),
                         weapon.ProviderCapacity.ToString()
                     });
