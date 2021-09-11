@@ -27,6 +27,8 @@ namespace Armory.Troopers.Domain
         [MaxLength(50)] public string LastName { get; set; }
         [MaxLength(50)] public string SecondLastName { get; set; }
 
+        [NotMapped] public string FullName => $"{FirstName} {SecondName} {LastName} {SecondLastName}";
+
         public string SquadCode { get; set; }
         [ForeignKey("SquadCode")] public Squad Squad { get; set; }
 

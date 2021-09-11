@@ -55,7 +55,8 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Gener
                 $"Lugar y fecha: {format.Place}, {format.Date:d}");
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A7:F7"), $"Unidad: {format.SquadronCode}");
 
-            _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A9:F9"), $"ENTREGA A: {format.TroopId}");
+            _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A9:F9"),
+                $"ENTREGA A: {format.Applicant.FullName}");
         }
 
         private void MakeWeaponsAndAmmunitionHeader(IXLWorksheet worksheet)

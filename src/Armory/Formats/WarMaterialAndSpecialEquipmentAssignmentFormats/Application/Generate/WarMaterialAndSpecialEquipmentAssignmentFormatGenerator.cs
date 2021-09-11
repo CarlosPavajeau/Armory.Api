@@ -60,7 +60,8 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             var warehouse = format.Warehouse == Warehouse.Air ? "AÉREO" : "TERRESTRE";
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("H7:M7"),
                 $"ALMACÉN DE ARMAMENTO: {warehouse}");
-            _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A8:F8"), $"Solicitante: {format.TroopId}");
+            _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A8:F8"),
+                $"Solicitante: {format.Applicant.FullName}");
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A9:F9"), $"Dependencia: {format.SquadCode}");
 
             var purpose = format.Purpose switch
