@@ -8,9 +8,8 @@ namespace Armory.Shared.Domain.Formats.WarMaterialAndSpecialEquipmentAssignmentF
     {
         public WarMaterialAndSpecialEquipmentAssignmentFormatCreatedDomainEvent(IEnumerable<string> weaponCodes,
             IDictionary<string, int> ammunition, IDictionary<string, int> equipments,
-            IDictionary<string, int> explosives, string troopId, string eventId = null,
-            string occurredOn = null) : base(
-            Guid.NewGuid().ToString(), eventId, occurredOn)
+            IDictionary<string, int> explosives, string troopId) : base(Guid.NewGuid().ToString(),
+            Guid.NewGuid().ToString(), DateTime.Now.ToString("d"))
         {
             WeaponCodes = weaponCodes;
             Ammunition = ammunition;
