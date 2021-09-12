@@ -23,7 +23,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Infrast
             await _context.SaveChangesAsync();
         }
 
-        public async Task<WarMaterialAndSpecialEquipmentAssignmentFormat> Find(int id, bool noTracking = true)
+        public async Task<WarMaterialAndSpecialEquipmentAssignmentFormat> Find(int id, bool noTracking)
         {
             var query = noTracking
                 ? _context.WarMaterialAndSpecialEquipmentAssignmentFormats.AsNoTracking()
