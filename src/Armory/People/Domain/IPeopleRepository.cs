@@ -9,11 +9,15 @@ namespace Armory.People.Domain
     {
         Task Save(Person person);
 
-        Task<Person> Find(string personId, bool noTracking = true);
-        Task<Person> FindByArmoryUserId(string armoryUserId, bool noTracking = true);
+        Task<Person> Find(string personId, bool noTracking);
+        Task<Person> Find(string personId);
+        Task<Person> FindByArmoryUserId(string armoryUserId, bool noTracking);
+        Task<Person> FindByArmoryUserId(string armoryUserId);
 
-        Task<IEnumerable<Person>> SearchAll(bool noTracking = true);
-        Task<IEnumerable<Person>> SearchAllByRole(string roleName, bool noTracking = true);
+        Task<IEnumerable<Person>> SearchAll(bool noTracking);
+        Task<IEnumerable<Person>> SearchAll();
+        Task<IEnumerable<Person>> SearchAllByRole(string roleName, bool noTracking);
+        Task<IEnumerable<Person>> SearchAllByRole(string roleName);
         Task<bool> Any(Expression<Func<Person, bool>> predicate);
 
         Task Update(Person newPerson);

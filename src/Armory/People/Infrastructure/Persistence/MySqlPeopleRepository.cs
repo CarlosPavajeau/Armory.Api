@@ -27,58 +27,57 @@ namespace Armory.People.Infrastructure.Persistence
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Person> Find(string personId, bool noTracking = true)
+        public async Task<Person> Find(string personId, bool noTracking)
         {
-            if (noTracking)
-            {
-                return await _context.People
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(p => p.Id == personId);
-            }
+            var query = noTracking ? _context.People.AsNoTracking() : _context.People.AsTracking();
 
-            return await _context.People.FindAsync(personId);
+            return await query.FirstOrDefaultAsync(p => p.Id == personId);
         }
 
-        public async Task<Person> FindByArmoryUserId(string armoryUserId, bool noTracking = true)
+        public async Task<Person> Find(string personId)
         {
-            if (noTracking)
-            {
-                return await _context.People
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(p => p.ArmoryUserId == armoryUserId);
-            }
-
-            return await _context.People.FirstOrDefaultAsync(p => p.ArmoryUserId == armoryUserId);
+            return await Find(personId, true);
         }
 
-        public async Task<IEnumerable<Person>> SearchAll(bool noTracking = true)
+        public async Task<Person> FindByArmoryUserId(string armoryUserId, bool noTracking)
         {
-            if (noTracking)
-            {
-                return await _context.People
-                    .AsNoTracking()
-                    .ToListAsync();
-            }
+            var query = noTracking ? _context.People.AsNoTracking() : _context.People.AsTracking();
 
-            return await _context.People.ToListAsync();
+            return await query.FirstOrDefaultAsync(p => p.ArmoryUserId == armoryUserId);
         }
 
-        public async Task<IEnumerable<Person>> SearchAllByRole(string roleName, bool noTracking = true)
+        public async Task<Person> FindByArmoryUserId(string armoryUserId)
+        {
+            return await FindByArmoryUserId(armoryUserId, true);
+        }
+
+        public async Task<IEnumerable<Person>> SearchAll(bool noTracking)
+        {
+            var query = noTracking ? _context.People.AsNoTracking() : _context.People.AsTracking();
+
+            return await query.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Person>> SearchAll()
+        {
+            return await SearchAll(true);
+        }
+
+        public async Task<IEnumerable<Person>> SearchAllByRole(string roleName, bool noTracking)
         {
             var usersInRole = await _armoryUsersRepository.SearchAllUsersInRole(roleName);
             var userIds = usersInRole.Select(u => u.Id);
 
-            if (noTracking)
-            {
-                return await _context.People
-                    .AsNoTracking()
-                    .Where(p => userIds.Contains(p.ArmoryUserId))
-                    .ToListAsync();
-            }
+            var query = noTracking ? _context.People.AsNoTracking() : _context.People.AsTracking();
 
-            return await _context.People
+            return await query
                 .Where(p => userIds.Contains(p.ArmoryUserId))
                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Person>> SearchAllByRole(string roleName)
+        {
+            return await SearchAllByRole(roleName, true);
         }
 
         public async Task<bool> Any(Expression<Func<Person, bool>> predicate)

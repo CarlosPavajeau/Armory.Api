@@ -22,7 +22,7 @@ namespace Armory.Degrees.Infrastructure.Persistence
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Degree> Find(int id, bool noTracking = true)
+        public async Task<Degree> Find(int id, bool noTracking)
         {
             var query = noTracking ? _context.Degrees.AsNoTracking() : _context.Degrees.AsTracking();
 
@@ -31,7 +31,12 @@ namespace Armory.Degrees.Infrastructure.Persistence
                 .FirstOrDefaultAsync(d => d.Id == id);
         }
 
-        public async Task<IEnumerable<Degree>> SearchAll(bool noTracking = true)
+        public async Task<Degree> Find(int id)
+        {
+            return await Find(id, true);
+        }
+
+        public async Task<IEnumerable<Degree>> SearchAll(bool noTracking)
         {
             var query = noTracking ? _context.Degrees.AsNoTracking() : _context.Degrees.AsTracking();
 
@@ -40,13 +45,23 @@ namespace Armory.Degrees.Infrastructure.Persistence
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Degree>> SearchAllByRank(int rankId, bool noTracking = true)
+        public async Task<IEnumerable<Degree>> SearchAll()
+        {
+            return await SearchAll(true);
+        }
+
+        public async Task<IEnumerable<Degree>> SearchAllByRank(int rankId, bool noTracking)
         {
             var query = noTracking ? _context.Degrees.AsNoTracking() : _context.Degrees.AsTracking();
 
             return await query
                 .Where(d => d.RankId == rankId)
                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Degree>> SearchAllByRank(int rankId)
+        {
+            return await SearchAllByRank(rankId, true);
         }
     }
 }

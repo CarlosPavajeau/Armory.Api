@@ -75,5 +75,10 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Infrast
 
             return format;
         }
+
+        public async Task<WarMaterialAndSpecialEquipmentAssignmentFormat> Find(int id)
+        {
+            return await Find(id, true);
+        }
     }
 }

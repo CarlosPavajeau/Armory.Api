@@ -21,7 +21,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Infrastructure.Pe
             await _context.SaveChangesAsync();
         }
 
-        public async Task<WarMaterialDeliveryCertificateFormat> Find(int id, bool noTracking = true)
+        public async Task<WarMaterialDeliveryCertificateFormat> Find(int id, bool noTracking)
         {
             var query = noTracking
                 ? _context.WarMaterialDeliveryCertificateFormats.AsNoTracking()
@@ -76,6 +76,11 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Infrastructure.Pe
             }
 
             return format;
+        }
+
+        public async Task<WarMaterialDeliveryCertificateFormat> Find(int id)
+        {
+            return await Find(id, true);
         }
     }
 }

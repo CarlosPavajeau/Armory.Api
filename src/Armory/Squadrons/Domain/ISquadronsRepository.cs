@@ -8,8 +8,10 @@ namespace Armory.Squadrons.Domain
     public interface ISquadronsRepository
     {
         Task Save(Squadron squadron);
-        Task<Squadron> Find(string code, bool noTracking = true);
+        Task<Squadron> Find(string code, bool noTracking);
+        Task<Squadron> Find(string code);
         Task<bool> Any(Expression<Func<Squadron, bool>> predicate);
-        Task<IEnumerable<Squadron>> SearchAll(bool noTracking = true);
+        Task<IEnumerable<Squadron>> SearchAll(bool noTracking);
+        Task<IEnumerable<Squadron>> SearchAll();
     }
 }

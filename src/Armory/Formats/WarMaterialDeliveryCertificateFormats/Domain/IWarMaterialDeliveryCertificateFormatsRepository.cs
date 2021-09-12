@@ -5,6 +5,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
     public interface IWarMaterialDeliveryCertificateFormatsRepository
     {
         Task Save(WarMaterialDeliveryCertificateFormat format);
-        Task<WarMaterialDeliveryCertificateFormat> Find(int id, bool noTracking = true);
+        Task<WarMaterialDeliveryCertificateFormat> Find(int id, bool noTracking);
+        Task<WarMaterialDeliveryCertificateFormat> Find(int id);
     }
 }

@@ -23,28 +23,28 @@ namespace Armory.Armament.Ammunition.Infrastructure.Persistence
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Domain.Ammunition> Find(string code, bool noTracking = true)
+        public async Task<Domain.Ammunition> Find(string code, bool noTracking)
         {
-            if (noTracking)
-            {
-                return await _context.Ammunition
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(c => c.Code == code);
-            }
+            var query = noTracking ? _context.Ammunition.AsNoTracking() : _context.Ammunition.AsTracking();
 
-            return await _context.Ammunition.FindAsync(code);
+            return await query.FirstOrDefaultAsync(c => c.Code == code);
         }
 
-        public async Task<IEnumerable<Domain.Ammunition>> SearchAll(bool noTracking = true)
+        public async Task<Domain.Ammunition> Find(string code)
         {
-            if (noTracking)
-            {
-                return await _context.Ammunition
-                    .AsNoTracking()
-                    .ToListAsync();
-            }
+            return await Find(code, true);
+        }
 
-            return await _context.Ammunition.ToListAsync();
+        public async Task<IEnumerable<Domain.Ammunition>> SearchAll(bool noTracking)
+        {
+            var query = noTracking ? _context.Ammunition.AsNoTracking() : _context.Ammunition.AsTracking();
+
+            return await query.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Domain.Ammunition>> SearchAll()
+        {
+            return await SearchAll(true);
         }
 
         public async Task<bool> Any(Expression<Func<Domain.Ammunition, bool>> predicate)
