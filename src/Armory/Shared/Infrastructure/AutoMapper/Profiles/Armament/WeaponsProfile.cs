@@ -1,4 +1,5 @@
 ﻿using Armory.Armament.Weapons.Application;
+using Armory.Armament.Weapons.Application.Create;
 using Armory.Armament.Weapons.Domain;
 using AutoMapper;
 
@@ -15,6 +16,7 @@ namespace Armory.Shared.Infrastructure.AutoMapper.Profiles.Armament
                         src.Owner == null
                             ? string.Empty
                             : $"{src.Owner.FirstName} {src.Owner.SecondName} {src.Owner.LastName} {src.Owner.SecondLastName}"));
+            CreateMap<CreateWeaponCommand, Weapon>();
         }
     }
 }

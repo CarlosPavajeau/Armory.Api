@@ -15,8 +15,7 @@ namespace Armory.Troopers.Application.Create
 
         protected override async Task Handle(CreateTroopCommand request, CancellationToken cancellationToken)
         {
-            await _creator.Create(request.Id, request.FirstName, request.SecondName, request.LastName,
-                request.SecondLastName, request.SquadCode, request.DegreeId);
+            await _creator.Create(request);
         }
     }
 }

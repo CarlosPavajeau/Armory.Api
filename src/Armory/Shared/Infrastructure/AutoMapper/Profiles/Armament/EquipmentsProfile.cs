@@ -1,4 +1,5 @@
 ﻿using Armory.Armament.Equipments.Application;
+using Armory.Armament.Equipments.Application.Create;
 using Armory.Armament.Equipments.Domain;
 using AutoMapper;
 
@@ -9,6 +10,7 @@ namespace Armory.Shared.Infrastructure.AutoMapper.Profiles.Armament
         public EquipmentsProfile()
         {
             CreateMap<Equipment, EquipmentResponse>();
+            CreateMap<CreateEquipmentCommand, Equipment>();
         }
     }
 }

@@ -45,11 +45,5 @@ namespace Armory.Armament.Ammunition.Domain
             Lot = lot;
             QuantityAvailable = quantityAvailable;
         }
-
-        public static Ammunition Create(string code, string type, string mark, string caliber, string series,
-            string lot, int quantityAvailable)
-        {
-            return new Ammunition(code, type, mark, caliber, series, lot, quantityAvailable);
-        }
     }
 }

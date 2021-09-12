@@ -15,8 +15,7 @@ namespace Armory.Armament.Weapons.Application.Create
 
         public async Task<string> Handle(CreateWeaponCommand request, CancellationToken cancellationToken)
         {
-            var weapon = await _creator.Create(request.Code, request.Type, request.Mark, request.Model, request.Caliber,
-                request.Series, request.NumberOfProviders, request.ProviderCapacity);
+            var weapon = await _creator.Create(request);
 
             return weapon.Code;
         }

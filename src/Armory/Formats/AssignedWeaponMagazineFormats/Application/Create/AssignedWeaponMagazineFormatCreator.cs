@@ -1,25 +1,23 @@
-using System;
 using System.Threading.Tasks;
 using Armory.Formats.AssignedWeaponMagazineFormats.Domain;
-using Armory.Formats.Shared.Domain;
+using AutoMapper;
 
 namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Create
 {
     public class AssignedWeaponMagazineFormatCreator
     {
+        private readonly IMapper _mapper;
         private readonly IAssignedWeaponMagazineFormatsRepository _repository;
 
-        public AssignedWeaponMagazineFormatCreator(IAssignedWeaponMagazineFormatsRepository repository)
+        public AssignedWeaponMagazineFormatCreator(IAssignedWeaponMagazineFormatsRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
-        public async Task<AssignedWeaponMagazineFormat> Create(string code, DateTime validity, string squadronCode,
-            string squadCode, Warehouse warehouse, DateTime date, string comments)
+        public async Task<AssignedWeaponMagazineFormat> Create(CreateAssignedWeaponMagazineFormatCommand command)
         {
-            var format =
-                AssignedWeaponMagazineFormat.Create(code, validity, squadronCode, squadCode, warehouse, date, comments);
-
+            var format = _mapper.Map<AssignedWeaponMagazineFormat>(command);
             await _repository.Save(format);
 
             return format;

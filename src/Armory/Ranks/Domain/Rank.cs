@@ -15,10 +15,5 @@ namespace Armory.Ranks.Domain
         [Required] [MaxLength(256)] public string Name { get; set; }
 
         public ICollection<Degree> Degrees { get; set; } = new HashSet<Degree>();
-
-        public static Rank Create(string name)
-        {
-            return new Rank(name);
-        }
     }
 }

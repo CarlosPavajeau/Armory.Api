@@ -1,4 +1,5 @@
 ﻿using Armory.People.Application;
+using Armory.People.Application.Create;
 using Armory.People.Domain;
 using AutoMapper;
 
@@ -9,6 +10,7 @@ namespace Armory.Shared.Infrastructure.AutoMapper.Profiles.People
         public PeopleProfile()
         {
             CreateMap<Person, PersonResponse>();
+            CreateMap<CreatePersonCommand, Person>();
         }
     }
 }

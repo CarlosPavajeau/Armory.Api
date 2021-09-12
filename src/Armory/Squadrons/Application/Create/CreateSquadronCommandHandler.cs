@@ -15,7 +15,7 @@ namespace Armory.Squadrons.Application.Create
 
         protected override async Task Handle(CreateSquadronCommand request, CancellationToken cancellationToken)
         {
-            await _creator.Create(request.Code, request.Name, request.PersonId);
+            await _creator.Create(request);
         }
     }
 }

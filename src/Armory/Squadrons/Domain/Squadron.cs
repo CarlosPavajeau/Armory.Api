@@ -26,11 +26,5 @@ namespace Armory.Squadrons.Domain
         [ForeignKey("PersonId")] public Person Owner { get; set; }
 
         public ICollection<Squad> Squads { get; set; } = new HashSet<Squad>();
-
-        public static Squadron Create(string code, string name, string armoryUserId)
-        {
-            var squadron = new Squadron(code, name, armoryUserId);
-            return squadron;
-        }
     }
 }

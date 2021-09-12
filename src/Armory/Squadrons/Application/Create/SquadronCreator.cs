@@ -1,20 +1,23 @@
 using System.Threading.Tasks;
 using Armory.Squadrons.Domain;
+using AutoMapper;
 
 namespace Armory.Squadrons.Application.Create
 {
     public class SquadronCreator
     {
+        private readonly IMapper _mapper;
         private readonly ISquadronsRepository _repository;
 
-        public SquadronCreator(ISquadronsRepository repository)
+        public SquadronCreator(ISquadronsRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
-        public async Task Create(string code, string name, string armoryUserId)
+        public async Task Create(CreateSquadronCommand command)
         {
-            var squadron = Squadron.Create(code, name, armoryUserId);
+            var squadron = _mapper.Map<Squadron>(command);
 
             await _repository.Save(squadron);
         }

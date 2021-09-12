@@ -15,8 +15,7 @@ namespace Armory.Armament.Explosives.Application.Create
 
         protected override async Task Handle(CreateExplosiveCommand request, CancellationToken cancellationToken)
         {
-            await _creator.Create(request.Code, request.Type, request.Caliber, request.Mark, request.Lot,
-                request.Series, request.QuantityAvailable);
+            await _creator.Create(request);
         }
     }
 }

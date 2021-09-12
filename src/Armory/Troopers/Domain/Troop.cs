@@ -44,11 +44,5 @@ namespace Armory.Troopers.Domain
             LastName = lastName;
             SecondLastName = secondLastName;
         }
-
-        public static Troop Create(string id, string firstName, string secondName, string lastName,
-            string secondLastName, string squadCode, int degreeId)
-        {
-            return new Troop(id, firstName, secondName, lastName, secondLastName, squadCode, degreeId);
-        }
     }
 }

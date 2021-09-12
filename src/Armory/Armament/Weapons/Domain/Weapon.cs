@@ -61,11 +61,5 @@ namespace Armory.Armament.Weapons.Domain
             NumberOfProviders = numberOfProviders;
             ProviderCapacity = providerCapacity;
         }
-
-        public static Weapon Create(string code, string type, string mark, string model, string caliber, string series,
-            int numberOfProviders, int providerCapacity)
-        {
-            return new Weapon(code, type, mark, model, caliber, series, numberOfProviders, providerCapacity);
-        }
     }
 }

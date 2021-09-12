@@ -15,7 +15,7 @@ namespace Armory.Armament.Equipments.Application.Create
 
         protected override async Task Handle(CreateEquipmentCommand request, CancellationToken cancellationToken)
         {
-            await _creator.Create(request.Code, request.Type, request.Model, request.Series, request.QuantityAvailable);
+            await _creator.Create(request);
         }
     }
 }

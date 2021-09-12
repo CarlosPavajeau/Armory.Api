@@ -15,7 +15,7 @@ namespace Armory.Degrees.Application.Create
 
         protected override async Task Handle(CreateDegreeCommand request, CancellationToken cancellationToken)
         {
-            await _creator.Create(request.Name, request.RankId);
+            await _creator.Create(request);
         }
     }
 }

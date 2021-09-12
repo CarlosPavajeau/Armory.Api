@@ -37,10 +37,5 @@ namespace Armory.Armament.Equipments.Domain
             Series = series;
             QuantityAvailable = quantityAvailable;
         }
-
-        public static Equipment Create(string code, string type, string model, string series, int quantityAvailable)
-        {
-            return new Equipment(code, type, model, series, quantityAvailable);
-        }
     }
 }

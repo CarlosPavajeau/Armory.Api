@@ -31,10 +31,5 @@ namespace Armory.Squads.Domain
         [ForeignKey("SquadronCode")] public Squadron Squadron { get; set; }
 
         public ICollection<Troop> Troopers { get; set; } = new HashSet<Troop>();
-
-        public static Squad Create(string code, string name, string personId, string squadronCode)
-        {
-            return new Squad(code, name, personId, squadronCode);
-        }
     }
 }

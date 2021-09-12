@@ -22,10 +22,5 @@ namespace Armory.Degrees.Domain
         [ForeignKey("RankId")] public Rank Rank { get; set; }
 
         public ICollection<Troop> Troopers { get; set; }
-
-        public static Degree Create(string name, int rankId)
-        {
-            return new Degree(name, rankId);
-        }
     }
 }

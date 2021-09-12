@@ -1,4 +1,5 @@
 ﻿using Armory.Degrees.Application;
+using Armory.Degrees.Application.Create;
 using Armory.Degrees.Domain;
 using AutoMapper;
 
@@ -11,6 +12,7 @@ namespace Armory.Shared.Infrastructure.AutoMapper.Profiles.Degrees
             CreateMap<Degree, DegreeResponse>()
                 .ForMember(d => d.RankName,
                     rankName => rankName.MapFrom(src => src.Rank == null ? string.Empty : src.Rank.Name));
+            CreateMap<CreateDegreeCommand, Degree>();
         }
     }
 }

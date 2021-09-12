@@ -18,14 +18,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Create
         public async Task<int> Handle(CreateAssignedWeaponMagazineFormatCommand request,
             CancellationToken cancellationToken)
         {
-            var format = await _creator.Create(
-                request.Code,
-                request.Validity,
-                request.SquadronCode,
-                request.SquadCode,
-                request.Warehouse,
-                request.Date,
-                request.Comments);
+            var format = await _creator.Create(request);
 
             return format.Id;
         }

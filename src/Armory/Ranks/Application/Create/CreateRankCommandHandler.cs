@@ -15,7 +15,7 @@ namespace Armory.Ranks.Application.Create
 
         protected override async Task Handle(CreateRankCommand request, CancellationToken cancellationToken)
         {
-            await _creator.Create(request.Name);
+            await _creator.Create(request);
         }
     }
 }

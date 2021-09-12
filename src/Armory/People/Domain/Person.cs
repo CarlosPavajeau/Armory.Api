@@ -47,11 +47,5 @@ namespace Armory.People.Domain
             LastName = lastName;
             SecondLastName = secondLastName;
         }
-
-        public static Person Create(string id, string firstName, string secondName, string lastName,
-            string secondLastName, string armoryUserId)
-        {
-            return new Person(id, firstName, secondName, lastName, secondLastName, armoryUserId);
-        }
     }
 }

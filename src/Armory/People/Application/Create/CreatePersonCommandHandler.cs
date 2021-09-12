@@ -15,8 +15,7 @@ namespace Armory.People.Application.Create
 
         protected override async Task Handle(CreatePersonCommand request, CancellationToken cancellationToken)
         {
-            await _creator.Create(request.Id, request.FirstName, request.SecondName, request.LastName,
-                request.SecondLastName, request.Email, request.PhoneNumber, request.RoleName);
+            await _creator.Create(request);
         }
     }
 }

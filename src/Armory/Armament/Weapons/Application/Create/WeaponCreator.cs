@@ -1,21 +1,23 @@
 using System.Threading.Tasks;
 using Armory.Armament.Weapons.Domain;
+using AutoMapper;
 
 namespace Armory.Armament.Weapons.Application.Create
 {
     public class WeaponCreator
     {
+        private readonly IMapper _mapper;
         private readonly IWeaponsRepository _repository;
 
-        public WeaponCreator(IWeaponsRepository repository)
+        public WeaponCreator(IWeaponsRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
-        public async Task<Weapon> Create(string code, string type, string mark, string model, string caliber,
-            string series, int numberOfProviders, int providerCapacity)
+        public async Task<Weapon> Create(CreateWeaponCommand command)
         {
-            var weapon = Weapon.Create(code, type, mark, model, caliber, series, numberOfProviders, providerCapacity);
+            var weapon = _mapper.Map<Weapon>(command);
             await _repository.Save(weapon);
 
             return weapon;

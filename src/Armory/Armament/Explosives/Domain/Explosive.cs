@@ -44,11 +44,5 @@ namespace Armory.Armament.Explosives.Domain
             Series = series;
             QuantityAvailable = quantityAvailable;
         }
-
-        public static Explosive Create(string code, string type, string caliber, string mark, string lot, string series,
-            int quantityAvailable)
-        {
-            return new Explosive(code, type, caliber, mark, lot, series, quantityAvailable);
-        }
     }
 }
