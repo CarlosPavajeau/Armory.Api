@@ -5,7 +5,7 @@ namespace Armory.People.Application.Create
     public class CreatePersonCommand : Command
     {
         public CreatePersonCommand(string id, string firstName, string secondName, string lastName,
-            string secondLastName, string email, string phoneNumber, string roleName)
+            string secondLastName, string email, string phoneNumber, string roleName, int degreeId)
         {
             Id = id;
             FirstName = firstName;
@@ -15,6 +15,7 @@ namespace Armory.People.Application.Create
             Email = email;
             PhoneNumber = phoneNumber;
             RoleName = roleName;
+            DegreeId = degreeId;
         }
 
         public string Id { get; }
@@ -27,5 +28,6 @@ namespace Armory.People.Application.Create
         public string PhoneNumber { get; }
 
         public string RoleName { get; }
+        public int DegreeId { get; }
     }
 }

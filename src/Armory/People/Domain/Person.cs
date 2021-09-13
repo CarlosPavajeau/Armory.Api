@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Armory.Degrees.Domain;
 using Armory.Squadrons.Domain;
 using Armory.Squads.Domain;
 using Armory.Users.Domain;
@@ -36,6 +37,9 @@ namespace Armory.People.Domain
         public string ArmoryUserId { get; set; }
 
         [ForeignKey("ArmoryUserId")] public ArmoryUser ArmoryUser { get; set; }
+
+        public int DegreeId { get; set; }
+        [ForeignKey("DegreeId")] public Degree Degree { get; set; }
 
         public ICollection<Squadron> Squadrons { get; set; } = new HashSet<Squadron>();
         public ICollection<Squad> Squads { get; set; } = new HashSet<Squad>();

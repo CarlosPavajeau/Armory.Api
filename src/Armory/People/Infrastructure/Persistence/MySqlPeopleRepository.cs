@@ -31,7 +31,10 @@ namespace Armory.People.Infrastructure.Persistence
         {
             var query = noTracking ? _context.People.AsNoTracking() : _context.People.AsTracking();
 
-            return await query.FirstOrDefaultAsync(p => p.Id == personId);
+            return await query
+                .Include(p => p.Degree)
+                .ThenInclude(d => d.Rank)
+                .FirstOrDefaultAsync(p => p.Id == personId);
         }
 
         public async Task<Person> Find(string personId)
@@ -55,7 +58,10 @@ namespace Armory.People.Infrastructure.Persistence
         {
             var query = noTracking ? _context.People.AsNoTracking() : _context.People.AsTracking();
 
-            return await query.ToListAsync();
+            return await query
+                .Include(p => p.Degree)
+                .ThenInclude(d => d.Rank)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Person>> SearchAll()

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Armory.People.Domain;
 using Armory.Ranks.Domain;
 using Armory.Troopers.Domain;
 
@@ -22,5 +23,6 @@ namespace Armory.Degrees.Domain
         [ForeignKey("RankId")] public Rank Rank { get; set; }
 
         public ICollection<Troop> Troopers { get; set; }
+        public ICollection<Person> People { get; set; }
     }
 }

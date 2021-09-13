@@ -32,5 +32,8 @@ namespace Armory.Api.Controllers.People.Requests
 
         [Required(ErrorMessage = "El rol de la persona es requerido.")]
         public string RoleName { get; set; }
+
+        [Required(ErrorMessage = "El grado de la persona es requerido.")]
+        public int DegreeId { get; set; }
     }
 }

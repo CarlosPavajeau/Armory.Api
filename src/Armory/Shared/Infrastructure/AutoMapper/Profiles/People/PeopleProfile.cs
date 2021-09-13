@@ -9,7 +9,12 @@ namespace Armory.Shared.Infrastructure.AutoMapper.Profiles.People
     {
         public PeopleProfile()
         {
-            CreateMap<Person, PersonResponse>();
+            CreateMap<Person, PersonResponse>()
+                .ForMember(p => p.RankName,
+                    rankName => rankName.MapFrom(src =>
+                        src.Degree == null || src.Degree.Rank == null ? string.Empty : src.Degree.Rank.Name))
+                .ForMember(p => p.DegreeName,
+                    degreeName => degreeName.MapFrom(src => src.Degree == null ? string.Empty : src.Degree.Name));
             CreateMap<CreatePersonCommand, Person>();
         }
     }
