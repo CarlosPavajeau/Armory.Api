@@ -27,11 +27,8 @@ namespace Armory.Api.Controllers.People.Requests
         public string Email { get; set; }
 
         [Required(ErrorMessage = "El número de teléfono de la persona es requerido.")]
-        [MaxLength(127, ErrorMessage = "El número de teléfono de la persona no debe tener más de 10 caracteres.")]
+        [MaxLength(10, ErrorMessage = "El número de teléfono de la persona no debe tener más de 10 caracteres.")]
         public string PhoneNumber { get; set; }
-
-        [Required(ErrorMessage = "El rol de la persona es requerido.")]
-        public string RoleName { get; set; }
 
         [Required(ErrorMessage = "El grado de la persona es requerido.")]
         public int DegreeId { get; set; }

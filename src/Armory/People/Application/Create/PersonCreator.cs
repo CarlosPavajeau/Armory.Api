@@ -26,7 +26,7 @@ namespace Armory.People.Application.Create
         {
             var transaction = await _initializer.Begin();
             var user = await _userCreator.Create(command.Id, command.Email, command.PhoneNumber,
-                $"{command.Id.Trim()}{command.FirstName.Trim()}", command.RoleName);
+                $"{command.Id.Trim()}{command.FirstName.Trim()}");
 
             var person = _mapper.Map<Person>(command);
             person.ArmoryUserId = user.Id;
