@@ -12,9 +12,14 @@ namespace Armory.People.Application.Find
             _peopleRepository = peopleRepository;
         }
 
+        public async Task<Person> Find(string id, bool noTracking)
+        {
+            return await _peopleRepository.Find(id, noTracking);
+        }
+
         public async Task<Person> Find(string id)
         {
-            return await _peopleRepository.Find(id);
+            return await Find(id, true);
         }
     }
 }

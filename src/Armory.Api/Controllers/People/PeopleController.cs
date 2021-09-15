@@ -10,6 +10,7 @@ using Armory.People.Application.SearchAll;
 using Armory.People.Application.SearchAllByRole;
 using Armory.People.Application.SearchByArmoryUserId;
 using Armory.People.Application.Update;
+using Armory.People.Application.UpdateDegree;
 using Armory.People.Domain;
 using Armory.Users.Application.CheckExists;
 using Armory.Users.Domain;
@@ -132,6 +133,22 @@ namespace Armory.Api.Controllers.People
             try
             {
                 var command = _mapper.Map<UpdatePersonCommand>(request);
+                await _mediator.Send(command);
+            }
+            catch (PersonNotFound)
+            {
+                return PersonNotFound(id);
+            }
+
+            return Ok();
+        }
+
+        [HttpPut("ChangeDegree/{id}")]
+        public async Task<IActionResult> UpdatePersonDegree(string id, [FromBody] UpdatePersonDegreeRequest request)
+        {
+            try
+            {
+                var command = _mapper.Map<UpdatePersonDegreeCommand>(request);
                 await _mediator.Send(command);
             }
             catch (PersonNotFound)

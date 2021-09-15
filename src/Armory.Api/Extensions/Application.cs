@@ -45,6 +45,7 @@ using Armory.People.Application.SearchAll;
 using Armory.People.Application.SearchAllByRole;
 using Armory.People.Application.SearchByArmoryUserId;
 using Armory.People.Application.Update;
+using Armory.People.Application.UpdateDegree;
 using Armory.Ranks.Application.Create;
 using Armory.Ranks.Application.Find;
 using Armory.Ranks.Application.SearchAll;
@@ -102,6 +103,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<PersonFinder, PersonFinder>();
             services.AddScoped<PersonUpdater, PersonUpdater>();
             services.AddScoped<PersonExistsChecker, PersonExistsChecker>();
+            services.AddScoped<PersonDegreeUpdater, PersonDegreeUpdater>();
 
             services.AddScoped<SquadronCreator, SquadronCreator>();
             services.AddScoped<SquadronFinder, SquadronFinder>();
