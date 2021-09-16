@@ -18,6 +18,7 @@ namespace Armory.People.Domain
         Task<IEnumerable<Person>> SearchAll();
         Task<IEnumerable<Person>> SearchAllByRole(string roleName, bool noTracking);
         Task<IEnumerable<Person>> SearchAllByRole(string roleName);
+        Task<IEnumerable<Person>> SearchAllByRank(string rankName);
         Task<bool> Any(Expression<Func<Person, bool>> predicate);
 
         Task Update(Person newPerson);

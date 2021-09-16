@@ -7,6 +7,7 @@ using Armory.People.Application.Create;
 using Armory.People.Application.Delete;
 using Armory.People.Application.Find;
 using Armory.People.Application.SearchAll;
+using Armory.People.Application.SearchAllByRank;
 using Armory.People.Application.SearchAllByRole;
 using Armory.People.Application.SearchByArmoryUserId;
 using Armory.People.Application.Update;
@@ -110,6 +111,13 @@ namespace Armory.Api.Controllers.People
         public async Task<ActionResult<IEnumerable<PersonResponse>>> GetPeopleByRole(string role)
         {
             var response = await _mediator.Send(new SearchAllPeopleByRoleQuery(role));
+            return Ok(response);
+        }
+
+        [HttpGet("ByRank/{rankName}")]
+        public async Task<ActionResult<IEnumerable<PersonResponse>>> GetPeopleByRank(string rankName)
+        {
+            var response = await _mediator.Send(new SearchAllPeopleByRankQuery { RankName = rankName });
             return Ok(response);
         }
 

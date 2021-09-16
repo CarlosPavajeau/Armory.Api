@@ -86,6 +86,16 @@ namespace Armory.People.Infrastructure.Persistence
             return await SearchAllByRole(roleName, true);
         }
 
+        public async Task<IEnumerable<Person>> SearchAllByRank(string rankName)
+        {
+            return await _context.People
+                .AsNoTracking()
+                .Include(p => p.Degree)
+                .ThenInclude(d => d.Rank)
+                .Where(p => p.Degree.Rank.Name == rankName)
+                .ToListAsync();
+        }
+
         public async Task<bool> Any(Expression<Func<Person, bool>> predicate)
         {
             return await _context.People.AnyAsync(predicate);
