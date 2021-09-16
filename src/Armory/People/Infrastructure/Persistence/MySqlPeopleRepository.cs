@@ -61,6 +61,7 @@ namespace Armory.People.Infrastructure.Persistence
             return await query
                 .Include(p => p.Degree)
                 .ThenInclude(d => d.Rank)
+                .OrderBy(p => p.LastName)
                 .ToListAsync();
         }
 

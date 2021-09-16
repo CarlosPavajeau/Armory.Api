@@ -48,6 +48,7 @@ namespace Armory.Troopers.Infrastructure.Persistence
                 .Include(t => t.Squad)
                 .Include(t => t.Degree)
                 .ThenInclude(d => d.Rank)
+                .OrderBy(t => t.LastName)
                 .ToListAsync();
         }
 
@@ -59,7 +60,6 @@ namespace Armory.Troopers.Infrastructure.Persistence
         public async Task<IEnumerable<Troop>> SearchAllBySquad(string squadCode, bool noTracking)
         {
             var query = noTracking ? _context.Troopers.AsNoTracking() : _context.Troopers.AsTracking();
-
             return await query.Where(t => t.SquadCode == squadCode).ToListAsync();
         }
 
