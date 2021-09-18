@@ -38,11 +38,11 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Infrast
                 .ThenInclude(x => x.Explosive)
                 .Include(f => f.WarMaterialAndSpecialEquipmentAssignmentFormatWeapons)
                 .ThenInclude(x => x.Weapon)
-                .Include(f => f.Unit)
+                .Include(f => f.Squadron)
                 .ThenInclude(x => x.Owner)
-                .Include(f => f.Dependency)
+                .Include(f => f.Squad)
                 .ThenInclude(x => x.Owner)
-                .Include(f => f.Applicant)
+                .Include(f => f.Receiver)
                 .FirstOrDefaultAsync(f => f.Id == id);
 
             if (format == null)

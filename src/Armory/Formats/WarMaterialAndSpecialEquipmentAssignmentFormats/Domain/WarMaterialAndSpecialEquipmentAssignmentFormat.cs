@@ -44,12 +44,12 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
         [DataType(DataType.Date)] public DateTime Date { get; set; }
 
         [Required] public string SquadronCode { get; set; }
-        [ForeignKey("SquadronCode")] public Squadron Unit { get; set; }
+        [ForeignKey("SquadronCode")] public Squadron Squadron { get; set; }
         [Required] public string SquadCode { get; set; }
-        [ForeignKey("SquadCode")] public Squad Dependency { get; set; }
+        [ForeignKey("SquadCode")] public Squad Squad { get; set; }
 
         public string TroopId { get; set; }
-        [ForeignKey("TroopId")] public Troop Applicant { get; set; }
+        [ForeignKey("TroopId")] public Troop Receiver { get; set; }
 
         public Warehouse Warehouse { get; set; }
         public Purpose Purpose { get; set; }

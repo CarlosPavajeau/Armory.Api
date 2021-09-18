@@ -124,7 +124,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate
             }
 
             var workedRange = worksheet.Range($"A{start}:P{start + format.Records.Count - 1}");
-            _worksheetManager.SetRangeBorders(workedRange, XLBorderStyleValues.Hair);
+            _worksheetManager.SetRangeBorders(workedRange, XLBorderStyleValues.Thin);
             _worksheetManager.SetRangeFontName(workedRange, "Arial");
             _worksheetManager.SetRangeAlignment(workedRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
@@ -154,13 +154,13 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate
             _worksheetManager.MergeRangeAndSetValue(workRange, "Grado - Nombres y  Apellidos");
             _worksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
-            workRange.Style.Border.TopBorder = XLBorderStyleValues.Hair;
+            workRange.Style.Border.TopBorder = XLBorderStyleValues.Thin;
 
             workRange = worksheet.Range($"M{currentRow}:P{currentRow}");
             _worksheetManager.MergeRangeAndSetValue(workRange, "Grado - Nombres y  Apellidos");
             _worksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
-            workRange.Style.Border.TopBorder = XLBorderStyleValues.Hair;
+            workRange.Style.Border.TopBorder = XLBorderStyleValues.Thin;
             ++currentRow;
 
             workRange = worksheet.Range($"A{currentRow}:E{currentRow}");
@@ -184,7 +184,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate
             _worksheetManager.MergeRangeAndSetValue(workRange, "Grado - Nombre y Apellidos");
             _worksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
-            workRange.Style.Border.TopBorder = XLBorderStyleValues.Hair;
+            workRange.Style.Border.TopBorder = XLBorderStyleValues.Thin;
             currentRow += 2;
 
             workRange = worksheet.Range($"F{currentRow}:K{currentRow}");

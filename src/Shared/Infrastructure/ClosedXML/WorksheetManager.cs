@@ -20,7 +20,7 @@ namespace Armory.Shared.Infrastructure.ClosedXML
 
         public void SetCommonRangeStyles(IXLRange range)
         {
-            SetRangeBorders(range, XLBorderStyleValues.Hair);
+            SetRangeBorders(range, XLBorderStyleValues.Thin);
             SetRangeFontSize(range, 12);
             SetRangeFontName(range, "Arial");
             SetRangeFontBold(range, true);

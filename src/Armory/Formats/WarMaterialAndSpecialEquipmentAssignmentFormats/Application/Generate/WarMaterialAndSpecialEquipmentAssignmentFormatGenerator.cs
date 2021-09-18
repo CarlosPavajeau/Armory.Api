@@ -63,7 +63,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("H7:M7"),
                 $"ALMACÉN DE ARMAMENTO: {warehouse}");
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A8:F8"),
-                $"Solicitante: {format.Unit.Owner.Id} - {format.Unit.Owner.FullName}");
+                $"Solicitante: {format.Squadron.Owner.Id} - {format.Squadron.Owner.FullName}");
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A9:F9"),
                 "Dependencia: Escuadrón de Seguridad y Defensa");
 
@@ -149,7 +149,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             var maxNumOfElements = Math.Max(format.Ammunition.Count, format.Weapons.Count);
             if (maxNumOfElements == 0) maxNumOfElements = 1;
             var workedRange = worksheet.Range($"A21:M{start + maxNumOfElements - 1}");
-            _worksheetManager.SetRangeBorders(workedRange, XLBorderStyleValues.Hair);
+            _worksheetManager.SetRangeBorders(workedRange, XLBorderStyleValues.Thin);
             _worksheetManager.SetRangeFontName(workedRange, "Arial");
             _worksheetManager.SetRangeAlignment(workedRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
@@ -230,13 +230,13 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             var maxNumOfElements = Math.Max(format.Explosives.Count, format.Equipments.Count);
             if (maxNumOfElements == 0) maxNumOfElements = 1;
             var workedRange = worksheet.Range($"A{previousEnd}:E{previousEnd + maxNumOfElements - 1}");
-            _worksheetManager.SetRangeBorders(workedRange, XLBorderStyleValues.Hair);
+            _worksheetManager.SetRangeBorders(workedRange, XLBorderStyleValues.Thin);
             _worksheetManager.SetRangeFontName(workedRange, "Arial");
             _worksheetManager.SetRangeAlignment(workedRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
 
             workedRange = worksheet.Range($"H{previousEnd}:M{previousEnd + maxNumOfElements - 1}");
-            _worksheetManager.SetRangeBorders(workedRange, XLBorderStyleValues.Hair);
+            _worksheetManager.SetRangeBorders(workedRange, XLBorderStyleValues.Thin);
             _worksheetManager.SetRangeFontName(workedRange, "Arial");
             _worksheetManager.SetRangeAlignment(workedRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
@@ -244,12 +244,13 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             return previousEnd + maxNumOfElements;
         }
 
-        private int MakeWorksheetFooterInfo(IXLWorksheet worksheet, int previousEnd)
+        private int MakeWorksheetFooterInfo(IXLWorksheet worksheet,
+            WarMaterialAndSpecialEquipmentAssignmentFormat format, int previousEnd)
         {
             var currentRow = previousEnd + 3;
 
             var workRange = worksheet.Range($"A{currentRow}:C{currentRow}");
-            workRange.Style.Border.TopBorder = XLBorderStyleValues.Hair;
+            workRange.Style.Border.TopBorder = XLBorderStyleValues.Thin;
             _worksheetManager.MergeRangeAndSetValue(workRange,
                 "Grado - Nombres y Apellidos");
             _worksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
@@ -258,7 +259,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             _worksheetManager.SetRangeFontName(workRange, "Arial");
 
             workRange = worksheet.Range($"F{currentRow}:H{currentRow}");
-            workRange.Style.Border.TopBorder = XLBorderStyleValues.Hair;
+            workRange.Style.Border.TopBorder = XLBorderStyleValues.Thin;
             _worksheetManager.MergeRangeAndSetValue(workRange, "Grado - Nombres y Apellidos");
             _worksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
@@ -266,7 +267,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             _worksheetManager.SetRangeFontName(workRange, "Arial");
 
             workRange = worksheet.Range($"K{currentRow}:M{currentRow}");
-            workRange.Style.Border.TopBorder = XLBorderStyleValues.Hair;
+            workRange.Style.Border.TopBorder = XLBorderStyleValues.Thin;
             _worksheetManager.MergeRangeAndSetValue(workRange, "Grado - Nombres y Apellidos");
             _worksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
@@ -307,7 +308,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
 
             currentRow += 5;
             workRange = worksheet.Range($"F{currentRow}:H{currentRow}");
-            workRange.Style.Border.TopBorder = XLBorderStyleValues.Hair;
+            workRange.Style.Border.TopBorder = XLBorderStyleValues.Thin;
             _worksheetManager.MergeRangeAndSetValue(workRange, "Grado - Nombres y Apellidos");
             _worksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
@@ -340,7 +341,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             var equipmentAndExplosivesEnd =
                 MakeSpecialEquipmentAndExplosivesInfo(workSheet, format, weaponAndAmmunitionEnd + 3);
 
-            var worksheetFooterInfoEnd = MakeWorksheetFooterInfo(workSheet, equipmentAndExplosivesEnd + 1);
+            var worksheetFooterInfoEnd = MakeWorksheetFooterInfo(workSheet, format, equipmentAndExplosivesEnd + 1);
 
             _worksheetManager.SetRangeOutsideBorder(workSheet.Range($"A1:M{worksheetFooterInfoEnd + 2}"),
                 XLBorderStyleValues.Medium);

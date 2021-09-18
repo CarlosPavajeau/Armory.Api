@@ -36,10 +36,10 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
         [DataType(DataType.Date)] public DateTime Date { get; set; }
 
         [Required] public string SquadronCode { get; set; }
-        [ForeignKey("SquadronCode")] public Squadron Unit { get; set; }
+        [ForeignKey("SquadronCode")] public Squadron Squadron { get; set; }
 
         [Required] public string SquadCode { get; set; }
-        [ForeignKey("SquadCode")] public Squad Dependency { get; set; }
+        [ForeignKey("SquadCode")] public Squad Squad { get; set; }
 
         [Required] public string TroopId { get; set; }
         [ForeignKey("TroopId")] public Troop Receiver { get; set; }
