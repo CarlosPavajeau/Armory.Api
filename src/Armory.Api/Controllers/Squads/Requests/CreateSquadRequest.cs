@@ -18,6 +18,6 @@ namespace Armory.Api.Controllers.Squads.Requests
 
         [Required(ErrorMessage = "El código de la escuadrilla es requerido.")]
         [MaxLength(50, ErrorMessage = "El código de la escuadrilla no debe tener más de 50 caracteres.")]
-        public string SquadronCode { get; set; }
+        public string FlightCode { get; set; }
     }
 }

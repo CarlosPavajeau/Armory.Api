@@ -7,7 +7,7 @@ namespace Armory.Api.Controllers.Formats.AssignedWeaponMagazineFormats.Requests
     {
         public string Code { get; set; }
         public DateTime Validity { get; set; }
-        public string SquadronCode { get; set; }
+        public string FlightCode { get; set; }
         public string SquadCode { get; set; }
         public Warehouse Warehouse { get; set; }
         public DateTime Date { get; set; }

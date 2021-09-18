@@ -13,7 +13,7 @@ namespace Armory.Squads.Domain
         Task<bool> Any(Expression<Func<Squad, bool>> predicate);
         Task<IEnumerable<Squad>> SearchAll(bool noTracking);
         Task<IEnumerable<Squad>> SearchAll();
-        Task<IEnumerable<Squad>> SearchAllBySquadron(string squadronCode, bool noTracking);
-        Task<IEnumerable<Squad>> SearchAllBySquadron(string squadronCode);
+        Task<IEnumerable<Squad>> SearchAllByFlight(string flightCode, bool noTracking);
+        Task<IEnumerable<Squad>> SearchAllByFlight(string flightCode);
     }
 }

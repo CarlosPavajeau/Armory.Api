@@ -30,7 +30,7 @@ namespace Armory.Squads.Infrastructure.Persistence
 
             return await query
                 .Include(s => s.Owner)
-                .Include(s => s.Squadron)
+                .Include(s => s.Flight)
                 .FirstOrDefaultAsync(s => s.Code == code);
         }
 
@@ -50,7 +50,7 @@ namespace Armory.Squads.Infrastructure.Persistence
 
             return await query
                 .Include(s => s.Owner)
-                .Include(s => s.Squadron)
+                .Include(s => s.Flight)
                 .ToListAsync();
         }
 
@@ -59,16 +59,16 @@ namespace Armory.Squads.Infrastructure.Persistence
             return await SearchAll(true);
         }
 
-        public async Task<IEnumerable<Squad>> SearchAllBySquadron(string squadronCode, bool noTracking)
+        public async Task<IEnumerable<Squad>> SearchAllByFlight(string flightCode, bool noTracking)
         {
             var query = noTracking ? _context.Squads.AsNoTracking() : _context.Squads.AsTracking();
 
-            return await query.Where(s => s.SquadronCode == squadronCode).ToListAsync();
+            return await query.Where(s => s.FlightCode == flightCode).ToListAsync();
         }
 
-        public async Task<IEnumerable<Squad>> SearchAllBySquadron(string squadronCode)
+        public async Task<IEnumerable<Squad>> SearchAllByFlight(string flightCode)
         {
-            return await SearchAllBySquadron(squadronCode, true);
+            return await SearchAllByFlight(flightCode, true);
         }
     }
 }

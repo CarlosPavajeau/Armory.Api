@@ -12,6 +12,8 @@ using Armory.Armament.Weapons.Domain;
 using Armory.Armament.Weapons.Infrastructure.Persistence;
 using Armory.Degrees.Domain;
 using Armory.Degrees.Infrastructure.Persistence;
+using Armory.Flights.Domain;
+using Armory.Flights.Infrastructure.Persistence;
 using Armory.Formats.AssignedWeaponMagazineFormats.Domain;
 using Armory.Formats.AssignedWeaponMagazineFormats.Infrastructure.Persistence;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
@@ -32,8 +34,6 @@ using Armory.Shared.Infrastructure.ClosedXML;
 using Armory.Shared.Infrastructure.Persistence;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework.Transactions;
-using Armory.Squadrons.Domain;
-using Armory.Squadrons.Infrastructure.Persistence;
 using Armory.Squads.Domain;
 using Armory.Squads.Infrastructure.Persistence;
 using Armory.Troopers.Domain;
@@ -87,7 +87,7 @@ namespace Armory.Api.Extensions
             services.Configure<SecretKey>(configuration.GetSection("SecretKey"));
 
             services.AddScoped<IArmoryUsersRepository, MySqlArmoryUsersRepository>();
-            services.AddScoped<ISquadronsRepository, MySqlSquadronsRepository>();
+            services.AddScoped<IFlightsRepository, MySqlFlightsRepository>();
             services.AddScoped<IPeopleRepository, MySqlPeopleRepository>();
             services.AddScoped<ISquadsRepository, MySqlSquadsRepository>();
             services.AddScoped<IWeaponsRepository, MySqlWeaponsRepository>();

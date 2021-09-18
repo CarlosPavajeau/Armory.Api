@@ -2,21 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Armory.Flights.Domain;
 using Armory.Formats.Shared.Domain;
 using Armory.Shared.Domain.Aggregate;
-using Armory.Squadrons.Domain;
 using Armory.Squads.Domain;
 
 namespace Armory.Formats.AssignedWeaponMagazineFormats.Domain
 {
     public class AssignedWeaponMagazineFormat : AggregateRoot
     {
-        public AssignedWeaponMagazineFormat(string code, DateTime validity, string squadronCode,
+        public AssignedWeaponMagazineFormat(string code, DateTime validity, string flightCode,
             string squadCode, Warehouse warehouse, DateTime date, string comments)
         {
             Code = code;
             Validity = validity;
-            SquadronCode = squadronCode;
+            FlightCode = flightCode;
             SquadCode = squadCode;
             Warehouse = warehouse;
             Date = date;
@@ -28,8 +28,8 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Domain
         [Required] [MaxLength(50)] public string Code { get; set; }
         [DataType(DataType.Date)] public DateTime Validity { get; set; }
 
-        [Required] public string SquadronCode { get; set; }
-        [ForeignKey("SquadronCode")] public Squadron Unit { get; set; }
+        [Required] public string FlightCode { get; set; }
+        [ForeignKey("FlightCode")] public Flight Flight { get; set; }
 
         [Required] public string SquadCode { get; set; }
         [ForeignKey("SquadCode")] public Squad Dependency { get; set; }
@@ -41,11 +41,5 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Domain
 
         public ICollection<AssignedWeaponMagazineFormatItem> Records { get; set; } =
             new HashSet<AssignedWeaponMagazineFormatItem>();
-
-        public static AssignedWeaponMagazineFormat Create(string code, DateTime validity, string squadronCode,
-            string squadCode, Warehouse warehouse, DateTime date, string comments)
-        {
-            return new AssignedWeaponMagazineFormat(code, validity, squadronCode, squadCode, warehouse, date, comments);
-        }
     }
 }

@@ -9,7 +9,7 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework.EntityConfigu
         public void Configure(EntityTypeBuilder<Squad> builder)
         {
             builder.Property(p => p.PersonId).HasMaxLength(10);
-            builder.Property(p => p.SquadronCode).HasMaxLength(50);
+            builder.Property(p => p.FlightCode).HasMaxLength(50);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Infrastructure.Persistenc
                 .ThenInclude(x => x.Degree)
                 .Include(f => f.Records)
                 .ThenInclude(x => x.Weapon)
-                .Include(f => f.Unit)
+                .Include(f => f.Flight)
                 .Include(f => f.Dependency)
                 .FirstOrDefaultAsync(f => f.Id == id);
         }

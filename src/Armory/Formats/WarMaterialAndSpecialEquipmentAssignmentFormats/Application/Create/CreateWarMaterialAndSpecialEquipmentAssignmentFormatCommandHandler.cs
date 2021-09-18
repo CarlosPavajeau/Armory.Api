@@ -28,7 +28,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
                 request.Validity,
                 request.Place,
                 request.Date,
-                request.SquadronCode,
+                request.FlightCode,
                 request.SquadCode,
                 request.TroopId,
                 request.Warehouse,

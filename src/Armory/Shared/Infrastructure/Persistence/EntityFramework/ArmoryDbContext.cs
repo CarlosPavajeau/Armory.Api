@@ -3,12 +3,12 @@ using Armory.Armament.Equipments.Domain;
 using Armory.Armament.Explosives.Domain;
 using Armory.Armament.Weapons.Domain;
 using Armory.Degrees.Domain;
+using Armory.Flights.Domain;
 using Armory.Formats.AssignedWeaponMagazineFormats.Domain;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
 using Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain;
 using Armory.People.Domain;
 using Armory.Ranks.Domain;
-using Armory.Squadrons.Domain;
 using Armory.Squads.Domain;
 using Armory.Troopers.Domain;
 using Armory.Users.Domain;
@@ -23,7 +23,7 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework
         {
         }
 
-        public DbSet<Squadron> Squadrons { get; set; }
+        public DbSet<Flight> Flights { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<Squad> Squads { get; set; }
         public DbSet<Weapon> Weapons { get; set; }

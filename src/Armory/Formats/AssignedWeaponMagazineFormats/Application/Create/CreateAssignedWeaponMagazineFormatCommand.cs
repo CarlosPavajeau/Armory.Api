@@ -6,12 +6,12 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Create
 {
     public class CreateAssignedWeaponMagazineFormatCommand : Command<int>
     {
-        public CreateAssignedWeaponMagazineFormatCommand(string code, DateTime validity, string squadronCode,
+        public CreateAssignedWeaponMagazineFormatCommand(string code, DateTime validity, string flightCode,
             string squadCode, Warehouse warehouse, DateTime date, string comments)
         {
             Code = code;
             Validity = validity;
-            SquadronCode = squadronCode;
+            FlightCode = flightCode;
             SquadCode = squadCode;
             Warehouse = warehouse;
             Date = date;
@@ -20,7 +20,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Create
 
         public string Code { get; }
         public DateTime Validity { get; }
-        public string SquadronCode { get; }
+        public string FlightCode { get; }
         public string SquadCode { get; }
         public Warehouse Warehouse { get; }
         public DateTime Date { get; }
