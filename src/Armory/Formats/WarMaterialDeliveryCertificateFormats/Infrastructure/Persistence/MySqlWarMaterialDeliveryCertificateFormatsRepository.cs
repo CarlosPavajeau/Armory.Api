@@ -39,7 +39,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Infrastructure.Pe
                 .ThenInclude(x => x.Weapon)
                 .Include(f => f.Unit)
                 .Include(f => f.Dependency)
-                .Include(f => f.Applicant)
+                .Include(f => f.Receiver)
                 .FirstOrDefaultAsync(f => f.Id == id);
 
             if (format == null)

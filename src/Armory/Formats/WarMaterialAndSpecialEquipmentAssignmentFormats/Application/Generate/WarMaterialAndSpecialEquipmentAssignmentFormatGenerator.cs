@@ -39,7 +39,8 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             worksheet.Cell("L2").Value = "Versión";
             worksheet.Cell("L3").Value = "Vigencia";
 
-            worksheet.Cell("M1").Value = format.Code;
+            worksheet.Cell("M1").Value = "GA-JELOG-FR-199";
+            worksheet.Cell("M1").Style.Font.FontSize = 10;
             worksheet.Cell("M2").Value = 4;
             worksheet.Cell("M3").Value = format.Validity.ToString("d");
         }
@@ -47,7 +48,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
         private void MakeWorksheetMainInfo(IXLWorksheet worksheet,
             WarMaterialAndSpecialEquipmentAssignmentFormat format)
         {
-            _worksheetManager.MergeRangeAndSetValue(worksheet.Range("K5:M5"), $"FORMATO ACTA No. {format.Id}");
+            _worksheetManager.MergeRangeAndSetValue(worksheet.Range("K5:M5"), $"FORMATO ACTA No. {format.Code}");
 
             _worksheetManager.SetRangeFontBold(worksheet.Range("K5:M5"), true);
             _worksheetManager.SetRangeFontBold(worksheet.Range("A6:M17"), true);
@@ -56,15 +57,15 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A6:F6"),
                 $"Lugar y fecha: {format.Place}, {format.Date:d}");
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A7:F7"),
-                $"Unidad: {format.Unit.Code} - {format.Unit.Name}");
+                "Unidad: GRUPO AÉREO DEL CARIBE");
 
             var warehouse = format.Warehouse == Warehouse.Air ? "AÉREO" : "TERRESTRE";
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("H7:M7"),
                 $"ALMACÉN DE ARMAMENTO: {warehouse}");
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A8:F8"),
-                $"Solicitante: {format.Applicant.Id} - {format.Applicant.FullName}");
+                $"Solicitante: {format.Unit.Owner.Id} - {format.Unit.Owner.FullName}");
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A9:F9"),
-                $"Dependencia: {format.Dependency.Code} - {format.Dependency.Name}");
+                "Dependencia: Escuadrón de Seguridad y Defensa");
 
             var purpose = format.Purpose switch
             {

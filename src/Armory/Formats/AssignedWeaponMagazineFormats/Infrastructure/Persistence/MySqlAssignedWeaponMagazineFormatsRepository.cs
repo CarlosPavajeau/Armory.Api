@@ -29,6 +29,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Infrastructure.Persistenc
             return await query
                 .Include(f => f.Records)
                 .ThenInclude(x => x.Troop)
+                .ThenInclude(x => x.Degree)
                 .Include(f => f.Records)
                 .ThenInclude(x => x.Weapon)
                 .Include(f => f.Unit)

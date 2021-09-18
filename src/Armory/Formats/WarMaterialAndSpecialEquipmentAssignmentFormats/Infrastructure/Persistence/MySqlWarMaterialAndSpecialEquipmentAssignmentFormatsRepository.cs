@@ -39,7 +39,9 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Infrast
                 .Include(f => f.WarMaterialAndSpecialEquipmentAssignmentFormatWeapons)
                 .ThenInclude(x => x.Weapon)
                 .Include(f => f.Unit)
+                .ThenInclude(x => x.Owner)
                 .Include(f => f.Dependency)
+                .ThenInclude(x => x.Owner)
                 .Include(f => f.Applicant)
                 .FirstOrDefaultAsync(f => f.Id == id);
 

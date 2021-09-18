@@ -38,7 +38,8 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate
             worksheet.Cell("O2").Value = "Versión";
             worksheet.Cell("O3").Value = "Vigencia";
 
-            worksheet.Cell("P1").Value = format.Code;
+            worksheet.Cell("P1").Value = "GA-JELOG-FR-198";
+            worksheet.Cell("P1").Style.Font.FontSize = 10;
             worksheet.Cell("P2").Value = 3;
             worksheet.Cell("P3").Value = format.Validity.ToString("d");
         }
@@ -48,13 +49,13 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate
             _worksheetManager.SetRangeFontBold(worksheet.Range("A5:P9"), true);
             _worksheetManager.SetRangeFontSize(worksheet.Range("A5:P9"), 12);
 
-            _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A5:D5"), $"UNIDAD: {format.SquadronCode}");
-            _worksheetManager.MergeRangeAndSetValue(worksheet.Range("N5:P5"), $"Formato No. {format.Id}");
+            _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A5:D5"), "UNIDAD: GRUPO AÉREO DEL CARIBE");
+            _worksheetManager.MergeRangeAndSetValue(worksheet.Range("N5:P5"), $"Formato No. {format.Code}");
 
             var warehouse = format.Warehouse == Warehouse.Air ? "AÉREO" : "TERRESTRE";
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A7:F7"), $"ALMACÉN DE ARMAMENTO: {warehouse}");
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("J7:O7"),
-                $"DEPENDENCIA O ESCUADRON: {format.SquadCode}");
+                "DEPENDENCIA O ESCUADRON: Escuadrón de Seguridad y Defensa");
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A9:D9"), $"FECHA: {format.Date:d}");
         }
 
@@ -97,8 +98,8 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate
                 _worksheetManager.SetRangeValues(worksheet.Range($"A{start + i}:C{start + i}"), new List<string>
                 {
                     (i + 1).ToString(),
-                    format.SquadCode,
-                    record.Troop.DegreeId.ToString()
+                    "GACAR",
+                    record.Troop.Degree.Name
                 });
 
                 worksheet.Range($"D{start + i}:F{start + i}").Merge();

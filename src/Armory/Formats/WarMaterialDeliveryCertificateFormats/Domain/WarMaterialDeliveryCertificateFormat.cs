@@ -42,7 +42,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
         [ForeignKey("SquadCode")] public Squad Dependency { get; set; }
 
         [Required] public string TroopId { get; set; }
-        [ForeignKey("TroopId")] public Troop Applicant { get; set; }
+        [ForeignKey("TroopId")] public Troop Receiver { get; set; }
 
         public ICollection<WarMaterialDeliveryCertificateFormatWeapon> WarMaterialDeliveryCertificateFormatWeapons
         {

@@ -38,14 +38,14 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Gener
             worksheet.Cell("L2").Value = "Versión";
             worksheet.Cell("L3").Value = "Vigencia";
 
-            worksheet.Cell("M1").Value = format.Code;
+            worksheet.Cell("M1").Value = "GA-JES-FR-052";
             worksheet.Cell("M2").Value = 1;
             worksheet.Cell("M3").Value = format.Validity.ToString("d");
         }
 
         private void MakeWorksheetMainInfo(IXLWorksheet worksheet, WarMaterialDeliveryCertificateFormat format)
         {
-            _worksheetManager.MergeRangeAndSetValue(worksheet.Range("K5:M5"), $"FORMATO ACTA No. {format.Id}");
+            _worksheetManager.MergeRangeAndSetValue(worksheet.Range("K5:M5"), $"FORMATO ACTA No. {format.Code}");
 
             _worksheetManager.SetRangeFontBold(worksheet.Range("K5:M5"), true);
             _worksheetManager.SetRangeFontBold(worksheet.Range("A6:M9"), true);
@@ -54,10 +54,10 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Gener
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A6:F6"),
                 $"Lugar y fecha: {format.Place}, {format.Date:d}");
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A7:F7"),
-                $"Unidad: {format.Unit.Code} - {format.Unit.Name}");
+                "UNIDAD: GRUPO AÉREO DEL CARIBE");
 
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A9:F9"),
-                $"ENTREGA A: {format.Applicant.Id} - {format.Applicant.FullName}");
+                $"ENTREGA A: {format.Receiver.Id} - {format.Receiver.FullName}");
         }
 
         private void MakeWeaponsAndAmmunitionHeader(IXLWorksheet worksheet)
