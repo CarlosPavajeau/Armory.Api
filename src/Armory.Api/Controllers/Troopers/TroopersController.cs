@@ -62,8 +62,8 @@ namespace Armory.Api.Controllers.Troopers
             return Ok(troopers);
         }
 
-        [HttpGet("ByFireteamCode/{fireteamCode}")]
-        public async Task<ActionResult<IEnumerable<TroopResponse>>> GetTroopersByFireteamCode(string fireteamCode)
+        [HttpGet("ByFireteam/{fireteamCode}")]
+        public async Task<ActionResult<IEnumerable<TroopResponse>>> GetTroopersByFireteam(string fireteamCode)
         {
             var troopers = await _mediator.Send(new SearchAllTroopersByFireteamQuery(fireteamCode));
             return Ok(troopers);
