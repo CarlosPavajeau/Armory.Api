@@ -55,7 +55,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate
             var warehouse = format.Warehouse == Warehouse.Air ? "AÉREO" : "TERRESTRE";
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A7:F7"), $"ALMACÉN DE ARMAMENTO: {warehouse}");
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("J7:O7"),
-                "DEPENDENCIA O ESCUADRON: Escuadrón de Seguridad y Defensa");
+                $"DEPENDENCIA O ESCUADRON: {format.Squad.Name}");
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A9:D9"), $"FECHA: {format.Date:d}");
         }
 

@@ -65,7 +65,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A8:F8"),
                 $"Solicitante: {format.Flight.Owner.Id} - {format.Flight.Owner.FullName}");
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A9:F9"),
-                "Dependencia: Escuadrón de Seguridad y Defensa");
+                $"Dependencia: {format.Squad.Name}");
 
             var purpose = format.Purpose switch
             {

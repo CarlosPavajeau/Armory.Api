@@ -32,8 +32,12 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Infrastructure.Persistenc
                 .ThenInclude(x => x.Degree)
                 .Include(f => f.Records)
                 .ThenInclude(x => x.Weapon)
+                .Include(f => f.Squad)
+                .ThenInclude(s => s.Owner)
                 .Include(f => f.Flight)
+                .ThenInclude(f => f.Owner)
                 .Include(f => f.Fireteam)
+                .ThenInclude(f => f.Owner)
                 .FirstOrDefaultAsync(f => f.Id == id);
         }
 

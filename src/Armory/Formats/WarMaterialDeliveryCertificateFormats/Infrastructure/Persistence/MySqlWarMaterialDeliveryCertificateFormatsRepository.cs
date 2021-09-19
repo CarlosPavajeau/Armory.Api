@@ -37,6 +37,8 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Infrastructure.Pe
                 .ThenInclude(x => x.Explosive)
                 .Include(x => x.WarMaterialDeliveryCertificateFormatWeapons)
                 .ThenInclude(x => x.Weapon)
+                .Include(f => f.Squad)
+                .ThenInclude(s => s.Owner)
                 .Include(f => f.Flight)
                 .ThenInclude(x => x.Owner)
                 .Include(f => f.Fireteam)
