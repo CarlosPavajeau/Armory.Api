@@ -10,7 +10,9 @@ namespace Armory.Shared.Infrastructure.AutoMapper.Profiles.Squads
         public SquadsProfile()
         {
             CreateMap<CreateSquadCommand, Squad>();
-            CreateMap<Squad, SquadResponse>();
+            CreateMap<Squad, SquadResponse>()
+                .ForMember(s => s.OwnerName,
+                    ownerName => ownerName.MapFrom(src => src.Owner == null ? string.Empty : src.Owner.FullName));
         }
     }
 }
