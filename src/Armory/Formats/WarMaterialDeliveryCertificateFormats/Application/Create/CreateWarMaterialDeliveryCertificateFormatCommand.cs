@@ -8,12 +8,13 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Creat
     public class CreateWarMaterialDeliveryCertificateFormatCommand : Command<int>
     {
         public CreateWarMaterialDeliveryCertificateFormatCommand(string code, DateTime validity, string place,
-            DateTime date, string flightCode, string fireteamCode, string troopId)
+            DateTime date, string squadCode, string flightCode, string fireteamCode, string troopId)
         {
             Code = code;
             Validity = validity;
             Place = place;
             Date = date;
+            SquadCode = squadCode;
             FlightCode = flightCode;
             FireteamCode = fireteamCode;
             TroopId = troopId;
@@ -24,6 +25,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Creat
         public string Place { get; }
         public DateTime Date { get; }
 
+        public string SquadCode { get; }
         public string FlightCode { get; }
         public string FireteamCode { get; }
         public string TroopId { get; }

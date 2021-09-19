@@ -25,6 +25,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Creat
                 request.Validity,
                 request.Place,
                 request.Date,
+                request.SquadCode,
                 request.FlightCode,
                 request.FireteamCode,
                 request.TroopId,

@@ -12,6 +12,7 @@ namespace Armory.Api.Controllers.Formats.WarMaterialAndSpecialEquipmentAssignmen
         public string Place { get; set; }
         public DateTime Date { get; set; }
 
+        public string SquadCode { get; set; }
         public string FlightCode { get; set; }
         public string FireteamCode { get; set; }
         public string TroopId { get; set; }
