@@ -193,35 +193,6 @@ namespace Armory.Api.Extensions
             return app;
         }
 
-        public static IApplicationBuilder SeedRoles(this IApplicationBuilder app, RoleManager<ArmoryRole> roleManager)
-        {
-            if (!roleManager.RoleExistsAsync("Developer").Result)
-            {
-                var developerRole = new ArmoryRole { Name = "Developer" };
-                _ = roleManager.CreateAsync(developerRole).Result;
-            }
-
-            if (!roleManager.RoleExistsAsync("SquadronLeader").Result)
-            {
-                var squadronLeader = new ArmoryRole { Name = "SquadronLeader" };
-                _ = roleManager.CreateAsync(squadronLeader).Result;
-            }
-
-            if (!roleManager.RoleExistsAsync("SquadLeader").Result)
-            {
-                var squadLeader = new ArmoryRole { Name = "SquadLeader" };
-                _ = roleManager.CreateAsync(squadLeader).Result;
-            }
-
-            if (!roleManager.RoleExistsAsync("StoreLeader").Result)
-            {
-                var inventoryLeader = new ArmoryRole { Name = "StoreLeader" };
-                _ = roleManager.CreateAsync(inventoryLeader).Result;
-            }
-
-            return app;
-        }
-
         public static IHost MigrateDatabase<T>(this IHost host) where T : DbContext
         {
             using var scope = host.Services.CreateScope();

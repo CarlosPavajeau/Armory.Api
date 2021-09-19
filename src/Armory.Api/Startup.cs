@@ -1,9 +1,7 @@
 using Armory.Api.Extensions;
-using Armory.Users.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,7 +30,7 @@ namespace Armory.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, RoleManager<ArmoryRole> roleManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -47,8 +45,6 @@ namespace Armory.Api
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.SeedRoles(roleManager);
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
