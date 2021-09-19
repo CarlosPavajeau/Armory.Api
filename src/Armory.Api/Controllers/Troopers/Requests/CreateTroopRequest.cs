@@ -22,9 +22,10 @@ namespace Armory.Api.Controllers.Troopers.Requests
         [MaxLength(50, ErrorMessage = "El segundo apellido de la tropa no debe tener más de 50 caracteres.")]
         public string SecondLastName { get; set; }
 
-        [Required(ErrorMessage = "El código del escruadron al que pertenece la tropa es requerido.")]
-        [MaxLength(50, ErrorMessage = "El código del escuadron no debe tener más de 50 caracteres.")]
-        public string SquadCode { get; set; }
+        [Required(ErrorMessage = "El código de la escuadra a la que pertenece la tropa es requerido.")]
+        [MaxLength(50,
+            ErrorMessage = "El código de la escuadra a la que pertenece la tropa no debe tener más de 50 caracteres.")]
+        public string FireteamCode { get; set; }
 
         [Required(ErrorMessage = "El código del grado de la tropa es requerido.")]
         public int DegreeId { get; set; }

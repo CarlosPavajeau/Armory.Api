@@ -29,7 +29,7 @@ namespace Armory.Troopers.Infrastructure.Persistence
             var query = noTracking ? _context.Troopers.AsNoTracking() : _context.Troopers.AsTracking();
 
             return await query
-                .Include(t => t.Squad)
+                .Include(t => t.Fireteam)
                 .Include(t => t.Degree)
                 .ThenInclude(d => d.Rank)
                 .FirstOrDefaultAsync(t => t.Id == id);
@@ -45,7 +45,7 @@ namespace Armory.Troopers.Infrastructure.Persistence
             var query = noTracking ? _context.Troopers.AsNoTracking() : _context.Troopers.AsTracking();
 
             return await query
-                .Include(t => t.Squad)
+                .Include(t => t.Fireteam)
                 .Include(t => t.Degree)
                 .ThenInclude(d => d.Rank)
                 .OrderBy(t => t.LastName)
@@ -57,15 +57,15 @@ namespace Armory.Troopers.Infrastructure.Persistence
             return await SearchAll(true);
         }
 
-        public async Task<IEnumerable<Troop>> SearchAllBySquad(string squadCode, bool noTracking)
+        public async Task<IEnumerable<Troop>> SearchAllByFireteam(string fireteamCode, bool noTracking)
         {
             var query = noTracking ? _context.Troopers.AsNoTracking() : _context.Troopers.AsTracking();
-            return await query.Where(t => t.SquadCode == squadCode).ToListAsync();
+            return await query.Where(t => t.FireteamCode == fireteamCode).ToListAsync();
         }
 
-        public async Task<IEnumerable<Troop>> SearchAllBySquad(string squadCode)
+        public async Task<IEnumerable<Troop>> SearchAllByFireteam(string fireteamCode)
         {
-            return await SearchAllBySquad(squadCode, true);
+            return await SearchAllByFireteam(fireteamCode, true);
         }
 
         public async Task<bool> Any(Expression<Func<Troop, bool>> predicate)

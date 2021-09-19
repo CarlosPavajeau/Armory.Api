@@ -27,6 +27,11 @@ using Armory.Degrees.Application.Create;
 using Armory.Degrees.Application.Find;
 using Armory.Degrees.Application.SearchAll;
 using Armory.Degrees.Application.SearchAllByRank;
+using Armory.Fireteams.Application.CheckExists;
+using Armory.Fireteams.Application.Create;
+using Armory.Fireteams.Application.Find;
+using Armory.Fireteams.Application.SearchAll;
+using Armory.Fireteams.Application.SearchAllByFlight;
 using Armory.Flights.Application.CheckExists;
 using Armory.Flights.Application.Create;
 using Armory.Flights.Application.Find;
@@ -54,16 +59,11 @@ using Armory.People.Application.UpdateDegree;
 using Armory.Ranks.Application.Create;
 using Armory.Ranks.Application.Find;
 using Armory.Ranks.Application.SearchAll;
-using Armory.Squads.Application.CheckExists;
-using Armory.Squads.Application.Create;
-using Armory.Squads.Application.Find;
-using Armory.Squads.Application.SearchAll;
-using Armory.Squads.Application.SearchAllByFlight;
 using Armory.Troopers.Application.CheckExists;
 using Armory.Troopers.Application.Create;
 using Armory.Troopers.Application.Find;
 using Armory.Troopers.Application.SearchAll;
-using Armory.Troopers.Application.SearchAllBySquad;
+using Armory.Troopers.Application.SearchAllByFireteam;
 using Armory.Troopers.Application.Update;
 using Armory.Users.Application.AddToRole;
 using Armory.Users.Application.Authenticate;
@@ -112,11 +112,11 @@ namespace Armory.Api.Extensions
             services.AddScoped<FlightExistsChecker, FlightExistsChecker>();
             services.AddScoped<FlightsSearcher, FlightsSearcher>();
 
-            services.AddScoped<SquadCreator, SquadCreator>();
-            services.AddScoped<SquadFinder, SquadFinder>();
-            services.AddScoped<SquadExistsChecker, SquadExistsChecker>();
-            services.AddScoped<SquadsSearcher, SquadsSearcher>();
-            services.AddScoped<SquadsByFlightSearcher, SquadsByFlightSearcher>();
+            services.AddScoped<FireteamCreator, FireteamCreator>();
+            services.AddScoped<FireteamFinder, FireteamFinder>();
+            services.AddScoped<FireteamExistsChecker, FireteamExistsChecker>();
+            services.AddScoped<FireteamsSearcher, FireteamsSearcher>();
+            services.AddScoped<FireteamsByFlightSearcher, FireteamsByFlightSearcher>();
 
             services.AddScoped<WeaponCreator, WeaponCreator>();
             services.AddScoped<WeaponSearcher, WeaponSearcher>();
@@ -160,7 +160,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<TroopFinder, TroopFinder>();
             services.AddScoped<TroopExistsChecker, TroopExistsChecker>();
             services.AddScoped<AllTroopsSearcher, AllTroopsSearcher>();
-            services.AddScoped<TroopersBySquadSearcher, TroopersBySquadSearcher>();
+            services.AddScoped<TroopersByFireteamSearcher, TroopersByFireteamSearcher>();
             services.AddScoped<TroopUpdater, TroopUpdater>();
 
             services

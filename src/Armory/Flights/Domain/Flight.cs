@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Armory.Fireteams.Domain;
 using Armory.People.Domain;
-using Armory.Squads.Domain;
 
 namespace Armory.Flights.Domain
 {
@@ -25,6 +25,6 @@ namespace Armory.Flights.Domain
 
         [ForeignKey("PersonId")] public Person Owner { get; set; }
 
-        public ICollection<Squad> Squads { get; set; } = new HashSet<Squad>();
+        public ICollection<Fireteam> Fireteams { get; set; } = new HashSet<Fireteam>();
     }
 }

@@ -5,14 +5,14 @@ namespace Armory.Troopers.Application.Create
     public class CreateTroopCommand : Command
     {
         public CreateTroopCommand(string id, string firstName, string secondName, string lastName,
-            string secondLastName, string squadCode, int degreeId)
+            string secondLastName, string fireteamCode, int degreeId)
         {
             Id = id;
             FirstName = firstName;
             SecondName = secondName;
             LastName = lastName;
             SecondLastName = secondLastName;
-            SquadCode = squadCode;
+            FireteamCode = fireteamCode;
             DegreeId = degreeId;
         }
 
@@ -21,7 +21,7 @@ namespace Armory.Troopers.Application.Create
         public string SecondName { get; }
         public string LastName { get; }
         public string SecondLastName { get; }
-        public string SquadCode { get; }
+        public string FireteamCode { get; }
         public int DegreeId { get; }
     }
 }

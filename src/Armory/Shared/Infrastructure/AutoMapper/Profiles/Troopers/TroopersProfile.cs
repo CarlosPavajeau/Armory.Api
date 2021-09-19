@@ -10,8 +10,9 @@ namespace Armory.Shared.Infrastructure.AutoMapper.Profiles.Troopers
         public TroopersProfile()
         {
             CreateMap<Troop, TroopResponse>()
-                .ForMember(t => t.SquadName,
-                    squadName => squadName.MapFrom(src => src.Squad == null ? string.Empty : src.Squad.Name))
+                .ForMember(t => t.FireteamName,
+                    fireteamName =>
+                        fireteamName.MapFrom(src => src.Fireteam == null ? string.Empty : src.Fireteam.Name))
                 .ForMember(t => t.RankName,
                     rankName => rankName.MapFrom(src =>
                         src.Degree == null ? string.Empty :

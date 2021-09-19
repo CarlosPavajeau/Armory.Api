@@ -12,8 +12,8 @@ namespace Armory.Troopers.Domain
         Task<Troop> Find(string id);
         Task<IEnumerable<Troop>> SearchAll(bool noTracking);
         Task<IEnumerable<Troop>> SearchAll();
-        Task<IEnumerable<Troop>> SearchAllBySquad(string squadCode, bool noTracking);
-        Task<IEnumerable<Troop>> SearchAllBySquad(string squadCode);
+        Task<IEnumerable<Troop>> SearchAllByFireteam(string fireteamCode, bool noTracking);
+        Task<IEnumerable<Troop>> SearchAllByFireteam(string fireteamCode);
         Task<bool> Any(Expression<Func<Troop, bool>> predicate);
         Task Update(Troop newTroop);
     }

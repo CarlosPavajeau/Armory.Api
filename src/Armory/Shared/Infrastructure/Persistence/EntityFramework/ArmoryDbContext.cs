@@ -3,13 +3,13 @@ using Armory.Armament.Equipments.Domain;
 using Armory.Armament.Explosives.Domain;
 using Armory.Armament.Weapons.Domain;
 using Armory.Degrees.Domain;
+using Armory.Fireteams.Domain;
 using Armory.Flights.Domain;
 using Armory.Formats.AssignedWeaponMagazineFormats.Domain;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
 using Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain;
 using Armory.People.Domain;
 using Armory.Ranks.Domain;
-using Armory.Squads.Domain;
 using Armory.Troopers.Domain;
 using Armory.Users.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -25,7 +25,7 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework
 
         public DbSet<Flight> Flights { get; set; }
         public DbSet<Person> People { get; set; }
-        public DbSet<Squad> Squads { get; set; }
+        public DbSet<Fireteam> Fireteams { get; set; }
         public DbSet<Weapon> Weapons { get; set; }
         public DbSet<Ammunition> Ammunition { get; set; }
         public DbSet<Equipment> Equipments { get; set; }

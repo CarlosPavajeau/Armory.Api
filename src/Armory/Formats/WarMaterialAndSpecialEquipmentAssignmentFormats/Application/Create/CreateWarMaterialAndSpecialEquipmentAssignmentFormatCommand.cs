@@ -9,7 +9,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
     public class CreateWarMaterialAndSpecialEquipmentAssignmentFormatCommand : Command<int>
     {
         public CreateWarMaterialAndSpecialEquipmentAssignmentFormatCommand(string code, DateTime validity, string place,
-            DateTime date, string flightCode, string squadCode, string troopId, Warehouse warehouse, Purpose purpose,
+            DateTime date, string flightCode, string fireteamCode, string troopId, Warehouse warehouse, Purpose purpose,
             DocMovement docMovement, string physicalLocation, string others)
         {
             Code = code;
@@ -17,7 +17,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             Place = place;
             Date = date;
             FlightCode = flightCode;
-            SquadCode = squadCode;
+            FireteamCode = fireteamCode;
             TroopId = troopId;
             Warehouse = warehouse;
             Purpose = purpose;
@@ -32,7 +32,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
         public DateTime Date { get; }
 
         public string FlightCode { get; }
-        public string SquadCode { get; }
+        public string FireteamCode { get; }
         public string TroopId { get; }
 
         public Warehouse Warehouse { get; }

@@ -26,7 +26,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Creat
                 request.Place,
                 request.Date,
                 request.FlightCode,
-                request.SquadCode,
+                request.FireteamCode,
                 request.TroopId,
                 request.Weapons,
                 request.Ammunition.ToDictionary(c => c.AmmunitionCode, c => c.Quantity),

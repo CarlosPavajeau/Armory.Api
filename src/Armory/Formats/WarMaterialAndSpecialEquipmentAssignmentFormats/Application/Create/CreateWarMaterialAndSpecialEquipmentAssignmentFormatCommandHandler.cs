@@ -29,7 +29,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
                 request.Place,
                 request.Date,
                 request.FlightCode,
-                request.SquadCode,
+                request.FireteamCode,
                 request.TroopId,
                 request.Warehouse,
                 request.Purpose,

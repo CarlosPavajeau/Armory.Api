@@ -3,21 +3,21 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Armory.Armament.Weapons.Domain;
 using Armory.Degrees.Domain;
-using Armory.Squads.Domain;
+using Armory.Fireteams.Domain;
 
 namespace Armory.Troopers.Domain
 {
     public class Troop
     {
         public Troop(string id, string firstName, string secondName, string lastName, string secondLastName,
-            string squadCode, int degreeId)
+            string fireteamCode, int degreeId)
         {
             Id = id;
             FirstName = firstName;
             SecondName = secondName;
             LastName = lastName;
             SecondLastName = secondLastName;
-            SquadCode = squadCode;
+            FireteamCode = fireteamCode;
             DegreeId = degreeId;
         }
 
@@ -29,8 +29,8 @@ namespace Armory.Troopers.Domain
 
         [NotMapped] public string FullName => $"{FirstName} {SecondName} {LastName} {SecondLastName}";
 
-        public string SquadCode { get; set; }
-        [ForeignKey("SquadCode")] public Squad Squad { get; set; }
+        public string FireteamCode { get; set; }
+        [ForeignKey("FireteamCode")] public Fireteam Fireteam { get; set; }
 
         public int DegreeId { get; set; }
         [ForeignKey("DegreeId")] public Degree Degree { get; set; }

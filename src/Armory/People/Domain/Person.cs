@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Armory.Degrees.Domain;
+using Armory.Fireteams.Domain;
 using Armory.Flights.Domain;
-using Armory.Squads.Domain;
 using Armory.Users.Domain;
 
 namespace Armory.People.Domain
@@ -42,7 +42,7 @@ namespace Armory.People.Domain
         [ForeignKey("DegreeId")] public Degree Degree { get; set; }
 
         public ICollection<Flight> Flights { get; set; } = new HashSet<Flight>();
-        public ICollection<Squad> Squads { get; set; } = new HashSet<Squad>();
+        public ICollection<Fireteam> Fireteams { get; set; } = new HashSet<Fireteam>();
 
         public void Update(string firstName, string secondName, string lastName, string secondLastName)
         {

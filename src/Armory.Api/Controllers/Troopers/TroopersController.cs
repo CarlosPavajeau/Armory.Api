@@ -6,7 +6,7 @@ using Armory.Troopers.Application.CheckExists;
 using Armory.Troopers.Application.Create;
 using Armory.Troopers.Application.Find;
 using Armory.Troopers.Application.SearchAll;
-using Armory.Troopers.Application.SearchAllBySquad;
+using Armory.Troopers.Application.SearchAllByFireteam;
 using Armory.Troopers.Application.Update;
 using Armory.Troopers.Domain;
 using AutoMapper;
@@ -62,10 +62,10 @@ namespace Armory.Api.Controllers.Troopers
             return Ok(troopers);
         }
 
-        [HttpGet("BySquad/{squadCode}")]
-        public async Task<ActionResult<IEnumerable<TroopResponse>>> GetTroopersBySquad(string squadCode)
+        [HttpGet("ByFireteamCode/{fireteamCode}")]
+        public async Task<ActionResult<IEnumerable<TroopResponse>>> GetTroopersByFireteamCode(string fireteamCode)
         {
-            var troopers = await _mediator.Send(new SearchAllTroopersBySquadQuery(squadCode));
+            var troopers = await _mediator.Send(new SearchAllTroopersByFireteamQuery(fireteamCode));
             return Ok(troopers);
         }
 

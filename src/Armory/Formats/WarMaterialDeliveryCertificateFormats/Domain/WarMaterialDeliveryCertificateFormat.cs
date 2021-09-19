@@ -7,9 +7,9 @@ using Armory.Armament.Ammunition.Domain;
 using Armory.Armament.Equipments.Domain;
 using Armory.Armament.Explosives.Domain;
 using Armory.Armament.Weapons.Domain;
+using Armory.Fireteams.Domain;
 using Armory.Flights.Domain;
 using Armory.Shared.Domain.Aggregate;
-using Armory.Squads.Domain;
 using Armory.Troopers.Domain;
 
 namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
@@ -17,14 +17,14 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
     public class WarMaterialDeliveryCertificateFormat : AggregateRoot
     {
         public WarMaterialDeliveryCertificateFormat(string code, DateTime validity, string place, DateTime date,
-            string flightCode, string squadCode, string troopId)
+            string flightCode, string fireteamCode, string troopId)
         {
             Code = code;
             Validity = validity;
             Place = place;
             Date = date;
             FlightCode = flightCode;
-            SquadCode = squadCode;
+            FireteamCode = fireteamCode;
             TroopId = troopId;
         }
 
@@ -38,8 +38,8 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
         [Required] public string FlightCode { get; set; }
         [ForeignKey("FlightCode")] public Flight Flight { get; set; }
 
-        [Required] public string SquadCode { get; set; }
-        [ForeignKey("SquadCode")] public Squad Squad { get; set; }
+        [Required] public string FireteamCode { get; set; }
+        [ForeignKey("FireteamCode")] public Fireteam Fireteam { get; set; }
 
         [Required] public string TroopId { get; set; }
         [ForeignKey("TroopId")] public Troop Receiver { get; set; }
@@ -68,11 +68,11 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
         [NotMapped] public ICollection<Explosive> Explosives { get; set; } = new HashSet<Explosive>();
 
         public static WarMaterialDeliveryCertificateFormat Create(string code, DateTime validity, string place,
-            DateTime date, string flightCode, string squadCode, string troopId, IEnumerable<string> weaponCodes,
+            DateTime date, string flightCode, string fireteamCode, string troopId, IEnumerable<string> weaponCodes,
             IDictionary<string, int> ammunition, IDictionary<string, int> equipments,
             IDictionary<string, int> explosives)
         {
-            var format = new WarMaterialDeliveryCertificateFormat(code, validity, place, date, flightCode, squadCode,
+            var format = new WarMaterialDeliveryCertificateFormat(code, validity, place, date, flightCode, fireteamCode,
                 troopId);
 
             var weapons = weaponCodes.ToList();

@@ -2,22 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Armory.Fireteams.Domain;
 using Armory.Flights.Domain;
 using Armory.Formats.Shared.Domain;
 using Armory.Shared.Domain.Aggregate;
-using Armory.Squads.Domain;
 
 namespace Armory.Formats.AssignedWeaponMagazineFormats.Domain
 {
     public class AssignedWeaponMagazineFormat : AggregateRoot
     {
         public AssignedWeaponMagazineFormat(string code, DateTime validity, string flightCode,
-            string squadCode, Warehouse warehouse, DateTime date, string comments)
+            string fireteamCode, Warehouse warehouse, DateTime date, string comments)
         {
             Code = code;
             Validity = validity;
             FlightCode = flightCode;
-            SquadCode = squadCode;
+            FireteamCode = fireteamCode;
             Warehouse = warehouse;
             Date = date;
             Comments = comments;
@@ -31,8 +31,8 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Domain
         [Required] public string FlightCode { get; set; }
         [ForeignKey("FlightCode")] public Flight Flight { get; set; }
 
-        [Required] public string SquadCode { get; set; }
-        [ForeignKey("SquadCode")] public Squad Dependency { get; set; }
+        [Required] public string FireteamCode { get; set; }
+        [ForeignKey("FireteamCode")] public Fireteam Fireteam { get; set; }
 
         public Warehouse Warehouse { get; set; }
         [DataType(DataType.Date)] public DateTime Date { get; set; }
