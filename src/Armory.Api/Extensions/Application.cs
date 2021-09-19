@@ -59,6 +59,10 @@ using Armory.People.Application.UpdateDegree;
 using Armory.Ranks.Application.Create;
 using Armory.Ranks.Application.Find;
 using Armory.Ranks.Application.SearchAll;
+using Armory.Squads.Application.CheckExists;
+using Armory.Squads.Application.Create;
+using Armory.Squads.Application.Find;
+using Armory.Squads.Application.SearchAll;
 using Armory.Troopers.Application.CheckExists;
 using Armory.Troopers.Application.Create;
 using Armory.Troopers.Application.Find;
@@ -106,6 +110,11 @@ namespace Armory.Api.Extensions
             services.AddScoped<PersonUpdater, PersonUpdater>();
             services.AddScoped<PersonExistsChecker, PersonExistsChecker>();
             services.AddScoped<PersonDegreeUpdater, PersonDegreeUpdater>();
+
+            services.AddScoped<SquadCreator, SquadCreator>();
+            services.AddScoped<SquadExistsChecker, SquadExistsChecker>();
+            services.AddScoped<SquadFinder, SquadFinder>();
+            services.AddScoped<SquadsSearcher, SquadsSearcher>();
 
             services.AddScoped<FlightCreator, FlightCreator>();
             services.AddScoped<FlightFinder, FlightFinder>();

@@ -10,6 +10,7 @@ using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
 using Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain;
 using Armory.People.Domain;
 using Armory.Ranks.Domain;
+using Armory.Squads.Domain;
 using Armory.Troopers.Domain;
 using Armory.Users.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -23,6 +24,7 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework
         {
         }
 
+        public DbSet<Squad> Squads { get; set; }
         public DbSet<Flight> Flights { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<Fireteam> Fireteams { get; set; }

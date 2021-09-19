@@ -1,23 +1,23 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Armory.Fireteams.Domain;
+using Armory.Flights.Domain;
 using Armory.People.Domain;
-using Armory.Squads.Domain;
 
-namespace Armory.Flights.Domain
+namespace Armory.Squads.Domain
 {
-    public class Flight
+    public class Squad
     {
-        public Flight(string code, string name, string personId)
+        public Squad(string code, string name, string personId)
         {
             Code = code;
             Name = name;
             PersonId = personId;
         }
 
-        private Flight()
+        private Squad()
         {
+            // For EF
         }
 
         [Key] [MaxLength(50)] public string Code { get; set; }
@@ -26,9 +26,6 @@ namespace Armory.Flights.Domain
 
         [ForeignKey("PersonId")] public Person Owner { get; set; }
 
-        [Required] public string SquadCode { get; set; }
-        [ForeignKey("SquadCode")] public Squad Squad { get; set; }
-
-        public ICollection<Fireteam> Fireteams { get; set; } = new HashSet<Fireteam>();
+        public ICollection<Flight> Flights { get; set; } = new HashSet<Flight>();
     }
 }
