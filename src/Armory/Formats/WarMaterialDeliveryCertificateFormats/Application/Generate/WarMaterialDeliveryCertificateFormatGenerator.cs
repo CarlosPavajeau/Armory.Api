@@ -218,7 +218,8 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Gener
             return previousEnd + maxNumOfElements;
         }
 
-        private int MakeWorksheetFooterInfo(IXLWorksheet worksheet, int previousEnd)
+        private int MakeWorksheetFooterInfo(IXLWorksheet worksheet, WarMaterialDeliveryCertificateFormat format,
+            int previousEnd)
         {
             var currentRow = previousEnd + 3;
 
@@ -251,7 +252,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Gener
             workRange = worksheet.Range($"F{currentRow}:H{currentRow}");
             _worksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
-            _worksheetManager.MergeRangeAndSetValue(workRange, "Dependencia");
+            _worksheetManager.MergeRangeAndSetValue(workRange, $"{format.Squad.Name}");
 
             workRange = worksheet.Range($"J{currentRow}:L{currentRow}");
             workRange.Style.Border.TopBorder = XLBorderStyleValues.Medium;
@@ -268,13 +269,14 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Gener
             _worksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
             workRange.Style.Border.TopBorder = XLBorderStyleValues.Thin;
-            _worksheetManager.MergeRangeAndSetValue(workRange, "Grado - Nombres y  Apellidos");
+            _worksheetManager.MergeRangeAndSetValue(workRange,
+                $"{format.Receiver.Degree.Name} - {format.Receiver.FullName}");
             ++currentRow;
 
             workRange = worksheet.Range($"F{currentRow}:H{currentRow}");
             _worksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
-            _worksheetManager.MergeRangeAndSetValue(workRange, "Cargo");
+            _worksheetManager.MergeRangeAndSetValue(workRange, $"{format.Receiver.Degree.Rank.Name}");
 
             workRange = worksheet.Range($"J{currentRow}:L{currentRow}");
             _worksheetManager.MergeRangeAndSetValue(workRange, "IMPRONTA DEL ARMA");
@@ -304,7 +306,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Gener
             MakeExplosivesHeader(workSheet, weaponAndAmmunitionEnd + 1);
             var equipmentAndExplosivesEnd =
                 MakeSpecialEquipmentAndExplosivesInfo(workSheet, format, weaponAndAmmunitionEnd + 3);
-            var worksheetFooterInfoEnd = MakeWorksheetFooterInfo(workSheet, equipmentAndExplosivesEnd + 1);
+            var worksheetFooterInfoEnd = MakeWorksheetFooterInfo(workSheet, format, equipmentAndExplosivesEnd + 1);
 
             _worksheetManager.SetRangeOutsideBorder(workSheet.Range($"A1:M{worksheetFooterInfoEnd + 2}"),
                 XLBorderStyleValues.Medium);

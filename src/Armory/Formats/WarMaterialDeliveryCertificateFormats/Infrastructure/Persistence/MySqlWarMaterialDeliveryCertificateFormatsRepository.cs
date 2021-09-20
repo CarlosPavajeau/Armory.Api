@@ -44,6 +44,8 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Infrastructure.Pe
                 .Include(f => f.Fireteam)
                 .ThenInclude(x => x.Owner)
                 .Include(f => f.Receiver)
+                .ThenInclude(r => r.Degree)
+                .ThenInclude(d => d.Rank)
                 .FirstOrDefaultAsync(f => f.Id == id);
 
             if (format == null)
