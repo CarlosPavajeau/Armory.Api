@@ -46,7 +46,10 @@ namespace Armory.People.Infrastructure.Persistence
         {
             var query = noTracking ? _context.People.AsNoTracking() : _context.People.AsTracking();
 
-            return await query.FirstOrDefaultAsync(p => p.ArmoryUserId == armoryUserId);
+            return await query
+                .Include(p => p.Degree)
+                .ThenInclude(d => d.Rank)
+                .FirstOrDefaultAsync(p => p.ArmoryUserId == armoryUserId);
         }
 
         public async Task<Person> FindByArmoryUserId(string armoryUserId)
