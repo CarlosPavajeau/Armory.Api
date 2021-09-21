@@ -30,6 +30,8 @@ namespace Armory.Fireteams.Infrastructure.Persistence
 
             return await query
                 .Include(s => s.Owner)
+                .ThenInclude(o => o.Degree)
+                .ThenInclude(d => d.Rank)
                 .Include(s => s.Flight)
                 .FirstOrDefaultAsync(s => s.Code == code);
         }
@@ -50,6 +52,7 @@ namespace Armory.Fireteams.Infrastructure.Persistence
 
             return await query
                 .Include(s => s.Owner)
+                .ThenInclude(o => o.Degree)
                 .Include(s => s.Flight)
                 .ToListAsync();
         }

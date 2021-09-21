@@ -29,6 +29,7 @@ namespace Armory.Flights.Infrastructure.Persistence
 
             return await query
                 .Include(s => s.Owner)
+                .ThenInclude(o => o.Degree)
                 .FirstOrDefaultAsync(s => s.Code == code);
         }
 
@@ -48,6 +49,7 @@ namespace Armory.Flights.Infrastructure.Persistence
 
             return await query
                 .Include(s => s.Owner)
+                .ThenInclude(o => o.Degree)
                 .ToListAsync();
         }
 
