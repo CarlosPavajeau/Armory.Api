@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using Armory.Formats.Shared.Constants;
@@ -30,7 +31,21 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             worksheet.Column("A").Width = 4;
             _worksheetManager.SetCommonRangeStyles(worksheet.Range("A1:M3"));
 
-            _worksheetManager.MergeRangeAndSetValue(worksheet.Range("A1:B3"), "ArmoryImage");
+            var imagePath = Path.Combine(_environment.ContentRootPath, "wwwroot/shield.png");
+            if (File.Exists(imagePath))
+            {
+                worksheet.Range("A1:B3").Merge();
+                const int columnWidth = 25 * 7 + 12; /*To convert colum width in pixel unit*/
+                var columnHeight = (int)XLHelper.GetPxFromPt(99);
+                const int imageWidth = 20 * 7 + 12;
+                var imageHeight = (int)XLHelper.GetPxFromPt(90);
+
+                worksheet.AddPicture(imagePath)
+                    .MoveTo(worksheet.Cell("A1"),
+                        new Point((columnWidth - imageWidth) / 2, (columnHeight - imageHeight) / 2))
+                    .WithSize(imageWidth, imageHeight);
+            }
+
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("C1:K1"), FormatConstants.FormatTitle);
             _worksheetManager.MergeRangeAndSetValue(worksheet.Range("C2:K3"),
                 FormatConstants.WarMaterialAndSpecialEquipmentAssignmentFormatName);

@@ -21,4 +21,10 @@
     <ProjectReference Include="..\Armory\Armory.csproj"/>
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\shield.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
