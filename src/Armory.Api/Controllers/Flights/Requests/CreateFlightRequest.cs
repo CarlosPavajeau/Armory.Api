@@ -15,5 +15,8 @@ namespace Armory.Api.Controllers.Flights.Requests
         [Required(ErrorMessage = "La identificación de la persona a cargo es requerida.")]
         [MaxLength(10, ErrorMessage = "La identificación de la persona a cargo no debe tener más de 10 caracteres.")]
         public string PersonId { get; set; }
+
+        [Required(ErrorMessage = "El código del escuadrón es requerido.")]
+        public string SquadCode { get; set; }
     }
 }
