@@ -9,15 +9,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Armory.Migrations
 {
     [DbContext(typeof(ArmoryDbContext))]
-    [Migration("20210907205616_RemoveWeaponLot")]
-    partial class RemoveWeaponLot
+    [Migration("20210927163304_ResetMigrations")]
+    partial class ResetMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.9");
+                .HasAnnotation("ProductVersion", "5.0.10");
 
             modelBuilder.Entity("Armory.Armament.Ammunition.Domain.Ammunition", b =>
                 {
@@ -150,16 +150,22 @@ namespace Armory.Migrations
 
             modelBuilder.Entity("Armory.Armament.Weapons.Domain.Weapon", b =>
                 {
-                    b.Property<string>("Code")
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("code");
+                    b.Property<string>("Series")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)")
+                        .HasColumnName("series");
 
                     b.Property<string>("Caliber")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)")
                         .HasColumnName("caliber");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("code");
 
                     b.Property<string>("Mark")
                         .IsRequired()
@@ -181,12 +187,6 @@ namespace Armory.Migrations
                         .HasColumnType("int")
                         .HasColumnName("provider_capacity");
 
-                    b.Property<string>("Series")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)")
-                        .HasColumnName("series");
-
                     b.Property<int>("State")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
@@ -203,12 +203,8 @@ namespace Armory.Migrations
                         .HasColumnType("varchar(128)")
                         .HasColumnName("type");
 
-                    b.HasKey("Code")
+                    b.HasKey("Series")
                         .HasName("pk_weapons");
-
-                    b.HasIndex("Series")
-                        .IsUnique()
-                        .HasDatabaseName("ix_weapons_series");
 
                     b.HasIndex("TroopId")
                         .HasDatabaseName("ix_weapons_troop_id");
@@ -242,6 +238,79 @@ namespace Armory.Migrations
                     b.ToTable("degrees");
                 });
 
+            modelBuilder.Entity("Armory.Fireteams.Domain.Fireteam", b =>
+                {
+                    b.Property<string>("Code")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("code");
+
+                    b.Property<string>("FlightCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("flight_code");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("PersonId")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)")
+                        .HasColumnName("person_id");
+
+                    b.HasKey("Code")
+                        .HasName("pk_fireteams");
+
+                    b.HasIndex("FlightCode")
+                        .HasDatabaseName("ix_fireteams_flight_code");
+
+                    b.HasIndex("PersonId")
+                        .HasDatabaseName("ix_fireteams_person_id");
+
+                    b.ToTable("fireteams");
+                });
+
+            modelBuilder.Entity("Armory.Flights.Domain.Flight", b =>
+                {
+                    b.Property<string>("Code")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("code");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("PersonId")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)")
+                        .HasColumnName("person_id");
+
+                    b.Property<string>("SquadCode")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("squad_code");
+
+                    b.HasKey("Code")
+                        .HasName("pk_flights");
+
+                    b.HasIndex("PersonId")
+                        .HasDatabaseName("ix_flights_person_id");
+
+                    b.HasIndex("SquadCode")
+                        .HasDatabaseName("ix_flights_squad_code");
+
+                    b.ToTable("flights");
+                });
+
             modelBuilder.Entity("Armory.Formats.AssignedWeaponMagazineFormats.Domain.AssignedWeaponMagazineFormat", b =>
                 {
                     b.Property<int>("Id")
@@ -264,15 +333,20 @@ namespace Armory.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("date");
 
+                    b.Property<string>("FireteamCode")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("fireteam_code");
+
+                    b.Property<string>("FlightCode")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("flight_code");
+
                     b.Property<string>("SquadCode")
                         .IsRequired()
                         .HasColumnType("varchar(50)")
                         .HasColumnName("squad_code");
-
-                    b.Property<string>("SquadronCode")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("squadron_code");
 
                     b.Property<DateTime>("Validity")
                         .HasColumnType("datetime(6)")
@@ -285,11 +359,14 @@ namespace Armory.Migrations
                     b.HasKey("Id")
                         .HasName("pk_assigned_weapon_magazine_formats");
 
+                    b.HasIndex("FireteamCode")
+                        .HasDatabaseName("ix_assigned_weapon_magazine_formats_fireteam_code");
+
+                    b.HasIndex("FlightCode")
+                        .HasDatabaseName("ix_assigned_weapon_magazine_formats_flight_code");
+
                     b.HasIndex("SquadCode")
                         .HasDatabaseName("ix_assigned_weapon_magazine_formats_squad_code");
-
-                    b.HasIndex("SquadronCode")
-                        .HasDatabaseName("ix_assigned_weapon_magazine_formats_squadron_code");
 
                     b.ToTable("assigned_weapon_magazine_formats");
                 });
@@ -314,10 +391,6 @@ namespace Armory.Migrations
                         .HasColumnType("int")
                         .HasColumnName("assigned_weapon_magazine_format_id");
 
-                    b.Property<bool>("CartridgeOfLife")
-                        .HasColumnType("tinyint(1)")
-                        .HasColumnName("cartridge_of_life");
-
                     b.Property<bool>("Novelty")
                         .HasColumnType("tinyint(1)")
                         .HasColumnName("novelty");
@@ -326,6 +399,10 @@ namespace Armory.Migrations
                         .HasMaxLength(512)
                         .HasColumnType("varchar(512)")
                         .HasColumnName("observations");
+
+                    b.Property<bool>("SafetyCartridge")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("safety_cartridge");
 
                     b.Property<string>("TroopId")
                         .IsRequired()
@@ -336,10 +413,10 @@ namespace Armory.Migrations
                         .HasColumnType("tinyint(1)")
                         .HasColumnName("verified_in_physical");
 
-                    b.Property<string>("WeaponCode")
+                    b.Property<string>("WeaponSeries")
                         .IsRequired()
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("weapon_code");
+                        .HasColumnType("varchar(256)")
+                        .HasColumnName("weapon_series");
 
                     b.HasKey("Id")
                         .HasName("pk_assigned_weapon_magazine_format_items");
@@ -350,8 +427,8 @@ namespace Armory.Migrations
                     b.HasIndex("TroopId")
                         .HasDatabaseName("ix_assigned_weapon_magazine_format_items_troop_id");
 
-                    b.HasIndex("WeaponCode")
-                        .HasDatabaseName("ix_assigned_weapon_magazine_format_items_weapon_code");
+                    b.HasIndex("WeaponSeries")
+                        .HasDatabaseName("ix_assigned_weapon_magazine_format_items_weapon_series");
 
                     b.ToTable("assigned_weapon_magazine_format_items");
                 });
@@ -377,6 +454,18 @@ namespace Armory.Migrations
                         .HasColumnType("int")
                         .HasColumnName("doc_movement");
 
+                    b.Property<string>("FireteamCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("fireteam_code");
+
+                    b.Property<string>("FlightCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("flight_code");
+
                     b.Property<string>("Others")
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)")
@@ -400,15 +489,8 @@ namespace Armory.Migrations
 
                     b.Property<string>("SquadCode")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("varchar(50)")
                         .HasColumnName("squad_code");
-
-                    b.Property<string>("SquadronCode")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("squadron_code");
 
                     b.Property<string>("TroopId")
                         .HasMaxLength(10)
@@ -426,11 +508,14 @@ namespace Armory.Migrations
                     b.HasKey("Id")
                         .HasName("pk_war_material_and_special_equipment_assignment_formats");
 
+                    b.HasIndex("FireteamCode")
+                        .HasDatabaseName("ix_war_material_and_special_equipment_assignment_formats_firete");
+
+                    b.HasIndex("FlightCode")
+                        .HasDatabaseName("ix_war_material_and_special_equipment_assignment_formats_flight");
+
                     b.HasIndex("SquadCode")
                         .HasDatabaseName("ix_war_material_and_special_equipment_assignment_formats_squad_");
-
-                    b.HasIndex("SquadronCode")
-                        .HasDatabaseName("ix_war_material_and_special_equipment_assignment_formats_squadr");
 
                     b.HasIndex("TroopId")
                         .HasDatabaseName("ix_war_material_and_special_equipment_assignment_formats_troop_");
@@ -509,19 +594,28 @@ namespace Armory.Migrations
 
             modelBuilder.Entity("Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain.WarMaterialAndSpecialEquipmentAssignmentFormatWeapon", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
                     b.Property<int>("WarMaterialAndSpecialEquipmentAssignmentFormatId")
                         .HasColumnType("int")
                         .HasColumnName("war_material_and_special_equipment_assignment_format_id");
 
-                    b.Property<string>("WeaponCode")
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("weapon_code");
+                    b.Property<string>("WeaponSeries")
+                        .HasColumnType("varchar(256)")
+                        .HasColumnName("weapon_series");
 
-                    b.HasKey("WarMaterialAndSpecialEquipmentAssignmentFormatId", "WeaponCode")
+                    b.HasKey("Id")
                         .HasName("pk_war_material_and_special_equipment_assignment_format_weapons");
 
-                    b.HasIndex("WeaponCode")
+                    b.HasIndex("WeaponSeries")
                         .HasDatabaseName("ix_war_material_and_special_equipment_assignment_format_weapons");
+
+                    b.HasIndex("WarMaterialAndSpecialEquipmentAssignmentFormatId", "WeaponSeries")
+                        .IsUnique()
+                        .HasDatabaseName("ix_war_material_and_special_equipment_assignment_format_weapons1");
 
                     b.ToTable("war_material_and_special_equipment_assignment_format_weapons");
                 });
@@ -543,6 +637,16 @@ namespace Armory.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("date");
 
+                    b.Property<string>("FireteamCode")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("fireteam_code");
+
+                    b.Property<string>("FlightCode")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("flight_code");
+
                     b.Property<string>("Place")
                         .IsRequired()
                         .HasMaxLength(256)
@@ -553,11 +657,6 @@ namespace Armory.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)")
                         .HasColumnName("squad_code");
-
-                    b.Property<string>("SquadronCode")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("squadron_code");
 
                     b.Property<string>("TroopId")
                         .IsRequired()
@@ -571,11 +670,14 @@ namespace Armory.Migrations
                     b.HasKey("Id")
                         .HasName("pk_war_material_delivery_certificate_formats");
 
+                    b.HasIndex("FireteamCode")
+                        .HasDatabaseName("ix_war_material_delivery_certificate_formats_fireteam_code");
+
+                    b.HasIndex("FlightCode")
+                        .HasDatabaseName("ix_war_material_delivery_certificate_formats_flight_code");
+
                     b.HasIndex("SquadCode")
                         .HasDatabaseName("ix_war_material_delivery_certificate_formats_squad_code");
-
-                    b.HasIndex("SquadronCode")
-                        .HasDatabaseName("ix_war_material_delivery_certificate_formats_squadron_code");
 
                     b.HasIndex("TroopId")
                         .HasDatabaseName("ix_war_material_delivery_certificate_formats_troop_id");
@@ -654,19 +756,28 @@ namespace Armory.Migrations
 
             modelBuilder.Entity("Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain.WarMaterialDeliveryCertificateFormatWeapon", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
                     b.Property<int>("WarMaterialDeliveryCertificateFormatId")
                         .HasColumnType("int")
                         .HasColumnName("war_material_delivery_certificate_format_id");
 
-                    b.Property<string>("WeaponCode")
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("weapon_code");
+                    b.Property<string>("WeaponSeries")
+                        .HasColumnType("varchar(256)")
+                        .HasColumnName("weapon_series");
 
-                    b.HasKey("WarMaterialDeliveryCertificateFormatId", "WeaponCode")
+                    b.HasKey("Id")
                         .HasName("pk_war_material_delivery_certificate_format_weapons");
 
-                    b.HasIndex("WeaponCode")
-                        .HasDatabaseName("ix_war_material_delivery_certificate_format_weapons_weapon_code");
+                    b.HasIndex("WeaponSeries")
+                        .HasDatabaseName("ix_war_material_delivery_certificate_format_weapons_weapon_seri");
+
+                    b.HasIndex("WarMaterialDeliveryCertificateFormatId", "WeaponSeries")
+                        .IsUnique()
+                        .HasDatabaseName("ix_war_material_delivery_certificate_format_weapons_war_materia");
 
                     b.ToTable("war_material_delivery_certificate_format_weapons");
                 });
@@ -682,6 +793,10 @@ namespace Armory.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("armory_user_id");
+
+                    b.Property<int>("DegreeId")
+                        .HasColumnType("int")
+                        .HasColumnName("degree_id");
 
                     b.Property<string>("FirstName")
                         .HasMaxLength(50)
@@ -710,6 +825,9 @@ namespace Armory.Migrations
                         .IsUnique()
                         .HasDatabaseName("ix_people_armory_user_id");
 
+                    b.HasIndex("DegreeId")
+                        .HasDatabaseName("ix_people_degree_id");
+
                     b.ToTable("people");
                 });
 
@@ -732,34 +850,6 @@ namespace Armory.Migrations
                     b.ToTable("ranks");
                 });
 
-            modelBuilder.Entity("Armory.Squadrons.Domain.Squadron", b =>
-                {
-                    b.Property<string>("Code")
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("code");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)")
-                        .HasColumnName("name");
-
-                    b.Property<string>("PersonId")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("varchar(10)")
-                        .HasColumnName("person_id");
-
-                    b.HasKey("Code")
-                        .HasName("pk_squadrons");
-
-                    b.HasIndex("PersonId")
-                        .HasDatabaseName("ix_squadrons_person_id");
-
-                    b.ToTable("squadrons");
-                });
-
             modelBuilder.Entity("Armory.Squads.Domain.Squad", b =>
                 {
                     b.Property<string>("Code")
@@ -775,24 +865,14 @@ namespace Armory.Migrations
 
                     b.Property<string>("PersonId")
                         .IsRequired()
-                        .HasMaxLength(10)
                         .HasColumnType("varchar(10)")
                         .HasColumnName("person_id");
-
-                    b.Property<string>("SquadronCode")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("squadron_code");
 
                     b.HasKey("Code")
                         .HasName("pk_squads");
 
                     b.HasIndex("PersonId")
                         .HasDatabaseName("ix_squads_person_id");
-
-                    b.HasIndex("SquadronCode")
-                        .HasDatabaseName("ix_squads_squadron_code");
 
                     b.ToTable("squads");
                 });
@@ -807,6 +887,12 @@ namespace Armory.Migrations
                     b.Property<int>("DegreeId")
                         .HasColumnType("int")
                         .HasColumnName("degree_id");
+
+                    b.Property<string>("FireteamCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("fireteam_code");
 
                     b.Property<string>("FirstName")
                         .HasMaxLength(50)
@@ -828,20 +914,14 @@ namespace Armory.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("second_name");
 
-                    b.Property<string>("SquadCode")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("squad_code");
-
                     b.HasKey("Id")
                         .HasName("pk_troopers");
 
                     b.HasIndex("DegreeId")
                         .HasDatabaseName("ix_troopers_degree_id");
 
-                    b.HasIndex("SquadCode")
-                        .HasDatabaseName("ix_troopers_squad_code");
+                    b.HasIndex("FireteamCode")
+                        .HasDatabaseName("ix_troopers_fireteam_code");
 
                     b.ToTable("troopers");
                 });
@@ -1124,25 +1204,76 @@ namespace Armory.Migrations
                     b.Navigation("Rank");
                 });
 
+            modelBuilder.Entity("Armory.Fireteams.Domain.Fireteam", b =>
+                {
+                    b.HasOne("Armory.Flights.Domain.Flight", "Flight")
+                        .WithMany("Fireteams")
+                        .HasForeignKey("FlightCode")
+                        .HasConstraintName("fk_fireteams_flights_flight_code")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Armory.People.Domain.Person", "Owner")
+                        .WithMany("Fireteams")
+                        .HasForeignKey("PersonId")
+                        .HasConstraintName("fk_fireteams_people_person_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Flight");
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("Armory.Flights.Domain.Flight", b =>
+                {
+                    b.HasOne("Armory.People.Domain.Person", "Owner")
+                        .WithMany("Flights")
+                        .HasForeignKey("PersonId")
+                        .HasConstraintName("fk_flights_people_person_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Armory.Squads.Domain.Squad", "Squad")
+                        .WithMany("Flights")
+                        .HasForeignKey("SquadCode")
+                        .HasConstraintName("fk_flights_squads_squad_code")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
+
+                    b.Navigation("Squad");
+                });
+
             modelBuilder.Entity("Armory.Formats.AssignedWeaponMagazineFormats.Domain.AssignedWeaponMagazineFormat", b =>
                 {
-                    b.HasOne("Armory.Squads.Domain.Squad", "Dependency")
+                    b.HasOne("Armory.Fireteams.Domain.Fireteam", "Fireteam")
+                        .WithMany()
+                        .HasForeignKey("FireteamCode")
+                        .HasConstraintName("fk_assigned_weapon_magazine_formats_fireteams_fireteam_code")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Armory.Flights.Domain.Flight", "Flight")
+                        .WithMany()
+                        .HasForeignKey("FlightCode")
+                        .HasConstraintName("fk_assigned_weapon_magazine_formats_flights_flight_code")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Armory.Squads.Domain.Squad", "Squad")
                         .WithMany()
                         .HasForeignKey("SquadCode")
                         .HasConstraintName("fk_assigned_weapon_magazine_formats_squads_squad_code")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Armory.Squadrons.Domain.Squadron", "Unit")
-                        .WithMany()
-                        .HasForeignKey("SquadronCode")
-                        .HasConstraintName("fk_assigned_weapon_magazine_formats_squadrons_squadron_code")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Fireteam");
 
-                    b.Navigation("Dependency");
+                    b.Navigation("Flight");
 
-                    b.Navigation("Unit");
+                    b.Navigation("Squad");
                 });
 
             modelBuilder.Entity("Armory.Formats.AssignedWeaponMagazineFormats.Domain.AssignedWeaponMagazineFormatItem", b =>
@@ -1163,8 +1294,8 @@ namespace Armory.Migrations
 
                     b.HasOne("Armory.Armament.Weapons.Domain.Weapon", "Weapon")
                         .WithMany()
-                        .HasForeignKey("WeaponCode")
-                        .HasConstraintName("fk_assigned_weapon_magazine_format_items_weapons_weapon_code")
+                        .HasForeignKey("WeaponSeries")
+                        .HasConstraintName("fk_assigned_weapon_magazine_format_items_weapons_weapon_series")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1177,30 +1308,39 @@ namespace Armory.Migrations
 
             modelBuilder.Entity("Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain.WarMaterialAndSpecialEquipmentAssignmentFormat", b =>
                 {
-                    b.HasOne("Armory.Squads.Domain.Squad", "Dependency")
+                    b.HasOne("Armory.Fireteams.Domain.Fireteam", "Fireteam")
+                        .WithMany()
+                        .HasForeignKey("FireteamCode")
+                        .HasConstraintName("fk_war_material_and_special_equipment_assignment_formats_firete")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Armory.Flights.Domain.Flight", "Flight")
+                        .WithMany()
+                        .HasForeignKey("FlightCode")
+                        .HasConstraintName("fk_war_material_and_special_equipment_assignment_formats_flight")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Armory.Squads.Domain.Squad", "Squad")
                         .WithMany()
                         .HasForeignKey("SquadCode")
                         .HasConstraintName("fk_war_material_and_special_equipment_assignment_formats_squads")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Armory.Squadrons.Domain.Squadron", "Unit")
-                        .WithMany()
-                        .HasForeignKey("SquadronCode")
-                        .HasConstraintName("fk_war_material_and_special_equipment_assignment_formats_squadr")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Armory.Troopers.Domain.Troop", "Applicant")
+                    b.HasOne("Armory.Troopers.Domain.Troop", "Receiver")
                         .WithMany()
                         .HasForeignKey("TroopId")
                         .HasConstraintName("fk_war_material_and_special_equipment_assignment_formats_troope");
 
-                    b.Navigation("Applicant");
+                    b.Navigation("Fireteam");
 
-                    b.Navigation("Dependency");
+                    b.Navigation("Flight");
 
-                    b.Navigation("Unit");
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Squad");
                 });
 
             modelBuilder.Entity("Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain.WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition", b =>
@@ -1277,10 +1417,8 @@ namespace Armory.Migrations
 
                     b.HasOne("Armory.Armament.Weapons.Domain.Weapon", "Weapon")
                         .WithMany("WarMaterialAndSpecialEquipmentAssignmentFormatWeapons")
-                        .HasForeignKey("WeaponCode")
-                        .HasConstraintName("fk_war_material_and_special_equipment_assignment_format_weapons1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WeaponSeries")
+                        .HasConstraintName("fk_war_material_and_special_equipment_assignment_format_weapons1");
 
                     b.Navigation("Format");
 
@@ -1289,32 +1427,41 @@ namespace Armory.Migrations
 
             modelBuilder.Entity("Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain.WarMaterialDeliveryCertificateFormat", b =>
                 {
-                    b.HasOne("Armory.Squads.Domain.Squad", "Dependency")
+                    b.HasOne("Armory.Fireteams.Domain.Fireteam", "Fireteam")
+                        .WithMany()
+                        .HasForeignKey("FireteamCode")
+                        .HasConstraintName("fk_war_material_delivery_certificate_formats_fireteams_fireteam")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Armory.Flights.Domain.Flight", "Flight")
+                        .WithMany()
+                        .HasForeignKey("FlightCode")
+                        .HasConstraintName("fk_war_material_delivery_certificate_formats_flights_flight_code")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Armory.Squads.Domain.Squad", "Squad")
                         .WithMany()
                         .HasForeignKey("SquadCode")
                         .HasConstraintName("fk_war_material_delivery_certificate_formats_squads_squad_code")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Armory.Squadrons.Domain.Squadron", "Unit")
-                        .WithMany()
-                        .HasForeignKey("SquadronCode")
-                        .HasConstraintName("fk_war_material_delivery_certificate_formats_squadrons_squadron")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Armory.Troopers.Domain.Troop", "Applicant")
+                    b.HasOne("Armory.Troopers.Domain.Troop", "Receiver")
                         .WithMany()
                         .HasForeignKey("TroopId")
                         .HasConstraintName("fk_war_material_delivery_certificate_formats_troopers_troop_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Applicant");
+                    b.Navigation("Fireteam");
 
-                    b.Navigation("Dependency");
+                    b.Navigation("Flight");
 
-                    b.Navigation("Unit");
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Squad");
                 });
 
             modelBuilder.Entity("Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain.WarMaterialDeliveryCertificateFormatAmmunition", b =>
@@ -1391,10 +1538,8 @@ namespace Armory.Migrations
 
                     b.HasOne("Armory.Armament.Weapons.Domain.Weapon", "Weapon")
                         .WithMany("WarMaterialDeliveryCertificateFormatWeapons")
-                        .HasForeignKey("WeaponCode")
-                        .HasConstraintName("fk_war_material_delivery_certificate_format_weapons_weapons_wea")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WeaponSeries")
+                        .HasConstraintName("fk_war_material_delivery_certificate_format_weapons_weapons_wea");
 
                     b.Navigation("Format");
 
@@ -1409,40 +1554,28 @@ namespace Armory.Migrations
                         .HasConstraintName("fk_people_users_armory_user_id")
                         .OnDelete(DeleteBehavior.ClientCascade);
 
-                    b.Navigation("ArmoryUser");
-                });
-
-            modelBuilder.Entity("Armory.Squadrons.Domain.Squadron", b =>
-                {
-                    b.HasOne("Armory.People.Domain.Person", "Owner")
-                        .WithMany("Squadrons")
-                        .HasForeignKey("PersonId")
-                        .HasConstraintName("fk_squadrons_people_person_id")
+                    b.HasOne("Armory.Degrees.Domain.Degree", "Degree")
+                        .WithMany("People")
+                        .HasForeignKey("DegreeId")
+                        .HasConstraintName("fk_people_degrees_degree_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Owner");
+                    b.Navigation("ArmoryUser");
+
+                    b.Navigation("Degree");
                 });
 
             modelBuilder.Entity("Armory.Squads.Domain.Squad", b =>
                 {
                     b.HasOne("Armory.People.Domain.Person", "Owner")
-                        .WithMany("Squads")
+                        .WithMany()
                         .HasForeignKey("PersonId")
                         .HasConstraintName("fk_squads_people_person_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Armory.Squadrons.Domain.Squadron", "Squadron")
-                        .WithMany("Squads")
-                        .HasForeignKey("SquadronCode")
-                        .HasConstraintName("fk_squads_squadrons_squadron_code")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Owner");
-
-                    b.Navigation("Squadron");
                 });
 
             modelBuilder.Entity("Armory.Troopers.Domain.Troop", b =>
@@ -1454,16 +1587,16 @@ namespace Armory.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Armory.Squads.Domain.Squad", "Squad")
+                    b.HasOne("Armory.Fireteams.Domain.Fireteam", "Fireteam")
                         .WithMany("Troopers")
-                        .HasForeignKey("SquadCode")
-                        .HasConstraintName("fk_troopers_squads_squad_code")
+                        .HasForeignKey("FireteamCode")
+                        .HasConstraintName("fk_troopers_fireteams_fireteam_code")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Degree");
 
-                    b.Navigation("Squad");
+                    b.Navigation("Fireteam");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1553,7 +1686,19 @@ namespace Armory.Migrations
 
             modelBuilder.Entity("Armory.Degrees.Domain.Degree", b =>
                 {
+                    b.Navigation("People");
+
                     b.Navigation("Troopers");
+                });
+
+            modelBuilder.Entity("Armory.Fireteams.Domain.Fireteam", b =>
+                {
+                    b.Navigation("Troopers");
+                });
+
+            modelBuilder.Entity("Armory.Flights.Domain.Flight", b =>
+                {
+                    b.Navigation("Fireteams");
                 });
 
             modelBuilder.Entity("Armory.Formats.AssignedWeaponMagazineFormats.Domain.AssignedWeaponMagazineFormat", b =>
@@ -1585,9 +1730,9 @@ namespace Armory.Migrations
 
             modelBuilder.Entity("Armory.People.Domain.Person", b =>
                 {
-                    b.Navigation("Squadrons");
+                    b.Navigation("Fireteams");
 
-                    b.Navigation("Squads");
+                    b.Navigation("Flights");
                 });
 
             modelBuilder.Entity("Armory.Ranks.Domain.Rank", b =>
@@ -1595,14 +1740,9 @@ namespace Armory.Migrations
                     b.Navigation("Degrees");
                 });
 
-            modelBuilder.Entity("Armory.Squadrons.Domain.Squadron", b =>
-                {
-                    b.Navigation("Squads");
-                });
-
             modelBuilder.Entity("Armory.Squads.Domain.Squad", b =>
                 {
-                    b.Navigation("Troopers");
+                    b.Navigation("Flights");
                 });
 
             modelBuilder.Entity("Armory.Troopers.Domain.Troop", b =>

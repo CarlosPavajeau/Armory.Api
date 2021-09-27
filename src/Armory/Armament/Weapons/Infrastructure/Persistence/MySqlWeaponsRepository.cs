@@ -23,18 +23,18 @@ namespace Armory.Armament.Weapons.Infrastructure.Persistence
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Weapon> Find(string code, bool noTracking)
+        public async Task<Weapon> Find(string series, bool noTracking)
         {
             var query = noTracking ? _context.Weapons.AsNoTracking() : _context.Weapons.AsTracking();
 
             return await query
                 .Include(w => w.Owner)
-                .FirstOrDefaultAsync(w => w.Code == code);
+                .FirstOrDefaultAsync(w => w.Series == series);
         }
 
-        public async Task<Weapon> Find(string code)
+        public async Task<Weapon> Find(string series)
         {
-            return await Find(code, true);
+            return await Find(series, true).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<Weapon>> SearchAll(bool noTracking)
@@ -46,7 +46,7 @@ namespace Armory.Armament.Weapons.Infrastructure.Persistence
 
         public async Task<IEnumerable<Weapon>> SearchAll()
         {
-            return await SearchAll(true);
+            return await SearchAll(true).ConfigureAwait(false);
         }
 
         public async Task<bool> Any(Expression<Func<Weapon, bool>> predicate)

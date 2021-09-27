@@ -15,7 +15,7 @@ namespace Armory.Armament.Weapons.Application.CheckExists
 
         public async Task<bool> Handle(CheckWeaponExistsQuery request, CancellationToken cancellationToken)
         {
-            return await _checker.Exists(request.Code);
+            return await _checker.Exists(request.Series);
         }
     }
 }

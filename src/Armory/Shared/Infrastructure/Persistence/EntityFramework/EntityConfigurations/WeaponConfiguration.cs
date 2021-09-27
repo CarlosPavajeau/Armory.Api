@@ -8,8 +8,6 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework.EntityConfigu
     {
         public void Configure(EntityTypeBuilder<Weapon> builder)
         {
-            builder.HasIndex(w => w.Series).IsUnique();
-
             builder.Property(w => w.State).HasDefaultValue(WeaponState.NotAssigned);
         }
     }

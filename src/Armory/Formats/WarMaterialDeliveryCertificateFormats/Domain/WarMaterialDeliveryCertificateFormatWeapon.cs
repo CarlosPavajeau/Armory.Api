@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Armory.Armament.Weapons.Domain;
 
@@ -6,23 +7,25 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
     public class WarMaterialDeliveryCertificateFormatWeapon
     {
         public WarMaterialDeliveryCertificateFormatWeapon(WarMaterialDeliveryCertificateFormat format,
-            string weaponCode)
+            string weaponSeries)
         {
             Format = format;
-            WeaponCode = weaponCode;
+            WeaponSeries = weaponSeries;
         }
 
         private WarMaterialDeliveryCertificateFormatWeapon()
         {
         }
 
+        [Key] public int Id { get; set; }
+
         public int WarMaterialDeliveryCertificateFormatId { get; set; }
 
         [ForeignKey("WarMaterialDeliveryCertificateFormatId")]
         public WarMaterialDeliveryCertificateFormat Format { get; set; }
 
-        public string WeaponCode { get; set; }
-        [ForeignKey("WeaponCode")] public Weapon Weapon { get; set; }
+        public string WeaponSeries { get; set; }
+        [ForeignKey("WeaponSeries")] public Weapon Weapon { get; set; }
 
         public static WarMaterialDeliveryCertificateFormatWeapon Create(WarMaterialDeliveryCertificateFormat format,
             string weaponCode)

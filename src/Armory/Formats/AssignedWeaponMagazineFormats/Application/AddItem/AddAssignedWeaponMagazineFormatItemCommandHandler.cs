@@ -26,7 +26,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.AddItem
             var item = await _adder.AddItem(
                 request.FormatId,
                 request.TroopId,
-                request.WeaponCode,
+                request.WeaponSeries,
                 request.SafetyCartridge,
                 request.VerifiedInPhysical,
                 request.Novelty,

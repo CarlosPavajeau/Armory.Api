@@ -4,13 +4,13 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.AddItem
 {
     public class AddAssignedWeaponMagazineFormatItemCommand : Command<AssignedWeaponMagazineFormatItemResponse>
     {
-        public AddAssignedWeaponMagazineFormatItemCommand(int formatId, string troopId, string weaponCode,
+        public AddAssignedWeaponMagazineFormatItemCommand(int formatId, string troopId, string weaponSeries,
             bool safetyCartridge, bool verifiedInPhysical, bool novelty, int ammunitionQuantity, string ammunitionLot,
             string observations)
         {
             FormatId = formatId;
             TroopId = troopId;
-            WeaponCode = weaponCode;
+            WeaponSeries = weaponSeries;
             SafetyCartridge = safetyCartridge;
             VerifiedInPhysical = verifiedInPhysical;
             Novelty = novelty;
@@ -21,7 +21,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.AddItem
 
         public int FormatId { get; }
         public string TroopId { get; }
-        public string WeaponCode { get; }
+        public string WeaponSeries { get; }
         public bool SafetyCartridge { get; }
         public bool VerifiedInPhysical { get; }
         public bool Novelty { get; }

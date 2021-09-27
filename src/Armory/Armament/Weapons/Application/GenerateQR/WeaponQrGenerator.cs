@@ -18,16 +18,16 @@ namespace Armory.Armament.Weapons.Application.GenerateQR
             _repository = repository;
         }
 
-        public async Task<MemoryStream> Generate(string weaponCode)
+        public async Task<MemoryStream> Generate(string weaponSeries)
         {
-            var weapon = await _repository.Find(weaponCode);
+            var weapon = await _repository.Find(weaponSeries);
             if (weapon == null)
             {
                 throw new WeaponNotFound();
             }
 
             var qrGenerator = new QRCodeGenerator();
-            var qrCodeData = qrGenerator.CreateQrCode(weapon.Code, QRCodeGenerator.ECCLevel.Q);
+            var qrCodeData = qrGenerator.CreateQrCode(weapon.Series, QRCodeGenerator.ECCLevel.Q);
             var qrCode = new PngByteQRCode(qrCodeData);
             var qrBytes = qrCode.GetGraphic(20);
 

@@ -10,7 +10,8 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework.EntityConfigu
     {
         public void Configure(EntityTypeBuilder<WarMaterialAndSpecialEquipmentAssignmentFormatWeapon> builder)
         {
-            builder.HasKey(x => new { x.WarMaterialAndSpecialEquipmentAssignmentFormatId, x.WeaponCode });
+            builder.HasIndex(x => new { x.WarMaterialAndSpecialEquipmentAssignmentFormatId, x.WeaponSeries })
+                .IsUnique();
         }
     }
 }

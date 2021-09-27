@@ -26,12 +26,12 @@ namespace Armory.Armament.Weapons.Domain
         {
         }
 
-        [Key] [MaxLength(50)] public string Code { get; set; }
+        [Key] [MaxLength(256)] public string Series { get; set; }
+        [Required] [MaxLength(50)] public string Code { get; set; }
         [Required] [MaxLength(128)] public string Type { get; set; }
         [Required] [MaxLength(256)] public string Mark { get; set; }
         [Required] [MaxLength(256)] public string Model { get; set; }
         [Required] [MaxLength(256)] public string Caliber { get; set; }
-        [Required] [MaxLength(256)] public string Series { get; set; }
         [Required] public int NumberOfProviders { get; set; }
         [Required] public int ProviderCapacity { get; set; }
         [Required] public WeaponState State { get; set; }

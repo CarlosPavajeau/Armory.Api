@@ -37,22 +37,22 @@ namespace Armory.Api.Controllers.Armament.Weapons
             try
             {
                 var command = _mapper.Map<CreateWeaponCommand>(request);
-                var weaponCode = await _mediator.Send(command);
+                var weaponSeries = await _mediator.Send(command);
 
-                var stream = await _mediator.Send(new GenerateWeaponQrQuery(weaponCode));
+                var stream = await _mediator.Send(new GenerateWeaponQrQuery(weaponSeries));
                 stream.Position = 0;
-                return File(stream, "application/octet-stream", $"{weaponCode}.pdf");
+                return File(stream, "application/octet-stream", $"{weaponSeries}.pdf");
             }
             catch (DbUpdateException)
             {
-                var exists = await _mediator.Send(new CheckWeaponExistsQuery(request.Code));
+                var exists = await _mediator.Send(new CheckWeaponExistsQuery(request.Series));
                 if (!exists)
                 {
                     throw;
                 }
 
                 ModelState.AddModelError("WeaponAlreadyRegistered",
-                    $"Ya existe un arma con el código '{request.Code}'");
+                    $"Ya existe un arma con el número de serie '{request.Series}'");
                 return Conflict(new ValidationProblemDetails(ModelState));
             }
         }
@@ -64,10 +64,10 @@ namespace Armory.Api.Controllers.Armament.Weapons
             return Ok(weapons);
         }
 
-        private NotFoundObjectResult WeaponNotFound(string code)
+        private NotFoundObjectResult WeaponNotFound(string series)
         {
             ModelState.AddModelError("WeaponNotFound",
-                $"No se encontró ningun arma con el código '{code}'.");
+                $"No se encontró ningun arma con el número de serie '{series}'.");
             return NotFound(new ValidationProblemDetails(ModelState));
         }
 
@@ -83,25 +83,25 @@ namespace Armory.Api.Controllers.Armament.Weapons
             return WeaponNotFound(code);
         }
 
-        [HttpGet("Exists/{code}")]
-        public async Task<ActionResult<bool>> CheckExists(string code)
+        [HttpGet("Exists/{series}")]
+        public async Task<ActionResult<bool>> CheckExists(string series)
         {
-            var exists = await _mediator.Send(new CheckWeaponExistsQuery(code));
+            var exists = await _mediator.Send(new CheckWeaponExistsQuery(series));
             return Ok(exists);
         }
 
-        [HttpGet("[action]/{code}")]
-        public async Task<ActionResult> GenerateQr(string code)
+        [HttpGet("[action]/{series}")]
+        public async Task<ActionResult> GenerateQr(string series)
         {
             try
             {
-                var stream = await _mediator.Send(new GenerateWeaponQrQuery(code));
+                var stream = await _mediator.Send(new GenerateWeaponQrQuery(series));
                 stream.Position = 0;
-                return File(stream, "application/octet-stream", $"{code}.pdf");
+                return File(stream, "application/octet-stream", $"{series}.pdf");
             }
             catch (WeaponNotFound)
             {
-                return WeaponNotFound(code);
+                return WeaponNotFound(series);
             }
         }
 
