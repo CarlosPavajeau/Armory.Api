@@ -138,7 +138,8 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate
                 worksheet.Range($"O{start + i}:P{start + i}").Value = record.Observations;
             }
 
-            var workedRange = worksheet.Range($"A{start}:P{start + format.Records.Count - 1}");
+            var endRange = format.Records.Count == 0 ? 1 : format.Records.Count;
+            var workedRange = worksheet.Range($"A{start}:P{start + endRange - 1}");
             _worksheetManager.SetRangeBorders(workedRange, XLBorderStyleValues.Thin);
             _worksheetManager.SetRangeFontName(workedRange, "Arial");
             _worksheetManager.SetRangeAlignment(workedRange, XLAlignmentHorizontalValues.Center,
