@@ -12,9 +12,9 @@ namespace Armory.Armament.Ammunition.Application.CheckExists
             _repository = repository;
         }
 
-        public async Task<bool> Exists(string code)
+        public async Task<bool> Exists(string lot)
         {
-            return await _repository.Any(a => a.Code == code);
+            return await _repository.Any(a => a.Lot == lot);
         }
     }
 }

@@ -122,7 +122,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Gener
                 var ammunition = format.Ammunition.ElementAt(i);
                 var formatAmmunition =
                     format.WarMaterialDeliveryCertificateFormatAmmunition.First(x =>
-                        x.AmmunitionCode == ammunition.Code);
+                        x.AmmunitionLot == ammunition.Lot);
 
                 _worksheetManager.SetRangeValues(worksheet.Range($"I{start + i}:M{start + i}"),
                     new List<string>

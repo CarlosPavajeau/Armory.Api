@@ -41,11 +41,10 @@ namespace Armory.Api.Test.Controllers.Armament.Ammunition
 
             var result = await _controller.RegisterAmmunition(new CreateAmmunitionRequest
             {
-                Code = "ESCOM105",
+                Lot = "L2015",
                 Type = "Guerra",
                 Mark = "Indumil",
                 Caliber = "5.56MM",
-                Series = "NA",
                 QuantityAvailable = 10
             });
 
@@ -61,7 +60,10 @@ namespace Armory.Api.Test.Controllers.Armament.Ammunition
             Mediator.Setup(x => x.Send(It.IsAny<SearchAllAmmunitionQuery>(), CancellationToken.None)).ReturnsAsync(
                 new List<AmmunitionResponse>
                 {
-                    new("ESCOM105", "Guerra", "Indumil", "5.56MM", "NA", "NA", 10)
+                    new()
+                    {
+                        Lot = "L2015", Type = "Guerra", Mark = "Indumil", Caliber = "5.56MM", QuantityAvailable = 10
+                    }
                 });
 
             var result = (await _controller.GetAmmunition()).Result as OkObjectResult;
@@ -70,7 +72,7 @@ namespace Armory.Api.Test.Controllers.Armament.Ammunition
             var value = result.Value as IEnumerable<AmmunitionResponse>;
             Assert.IsNotNull(value);
             Assert.AreEqual(1, value.Count());
-            Assert.AreEqual("NA", value.ElementAt(0).Series);
+            Assert.AreEqual("Guerra", value.ElementAt(0).Type);
         }
 
         [Test]
@@ -79,17 +81,20 @@ namespace Armory.Api.Test.Controllers.Armament.Ammunition
         {
             Mediator.Setup(x => x.Send(It.IsAny<FindAmmunitionQuery>(), CancellationToken.None))
                 .ReturnsAsync((FindAmmunitionQuery query, CancellationToken _) =>
-                    query.Code != "ESCOM105"
+                    query.Lot != "L2015"
                         ? null
-                        : new AmmunitionResponse("ESCOM105", "Guerra", "Indumil", "5.56MM", "NA", "NA", 10)
+                        : new AmmunitionResponse
+                        {
+                            Lot = "L2015", Type = "Guerra", Mark = "Indumil", Caliber = "5.56MM", QuantityAvailable = 10
+                        }
                 );
 
-            var result = (await _controller.GetAmmunition("ESCOM105")).Result as OkObjectResult;
+            var result = (await _controller.GetAmmunition("L2015")).Result as OkObjectResult;
             Assert.IsNotNull(result);
 
             var value = result.Value as AmmunitionResponse;
             Assert.IsNotNull(value);
-            Assert.AreEqual("ESCOM105", value.Code);
+            Assert.AreEqual("L2015", value.Lot);
         }
 
         [Test]

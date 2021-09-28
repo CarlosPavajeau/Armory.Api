@@ -4,11 +4,11 @@ namespace Armory.Armament.Ammunition.Application.Find
 {
     public class FindAmmunitionQuery : Query<AmmunitionResponse>
     {
-        public FindAmmunitionQuery(string code)
+        public FindAmmunitionQuery(string lot)
         {
-            Code = code;
+            Lot = lot;
         }
 
-        public string Code { get; }
+        public string Lot { get; }
     }
 }

@@ -148,7 +148,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
                 var ammunition = format.Ammunition.ElementAt(i);
                 var formatAmmunition =
                     format.WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition.First(x =>
-                        x.AmmunitionCode == ammunition.Code);
+                        x.AmmunitionLot == ammunition.Lot);
 
                 _worksheetManager.SetRangeValues(worksheet.Range($"I{start + i}:M{start + i}"),
                     new List<string>

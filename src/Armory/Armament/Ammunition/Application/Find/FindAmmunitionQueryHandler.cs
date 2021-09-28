@@ -18,7 +18,7 @@ namespace Armory.Armament.Ammunition.Application.Find
 
         public async Task<AmmunitionResponse> Handle(FindAmmunitionQuery request, CancellationToken cancellationToken)
         {
-            var ammunition = await _searcher.Find(request.Code);
+            var ammunition = await _searcher.Find(request.Lot);
             return ammunition == null ? null : _mapper.Map<AmmunitionResponse>(ammunition);
         }
     }

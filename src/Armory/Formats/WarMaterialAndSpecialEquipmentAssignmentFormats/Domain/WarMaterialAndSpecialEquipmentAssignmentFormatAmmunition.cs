@@ -6,10 +6,10 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
     public class WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition
     {
         public WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition(
-            WarMaterialAndSpecialEquipmentAssignmentFormat format, string ammunitionCode, int quantity)
+            WarMaterialAndSpecialEquipmentAssignmentFormat format, string ammunitionLot, int quantity)
         {
             Format = format;
-            AmmunitionCode = ammunitionCode;
+            AmmunitionLot = ammunitionLot;
             Quantity = quantity;
         }
 
@@ -22,15 +22,15 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
         [ForeignKey("WarMaterialAndSpecialEquipmentAssignmentFormatId")]
         public WarMaterialAndSpecialEquipmentAssignmentFormat Format { get; set; }
 
-        public string AmmunitionCode { get; set; }
-        [ForeignKey("AmmunitionCode")] public Ammunition Ammunition { get; set; }
+        public string AmmunitionLot { get; set; }
+        [ForeignKey("AmmunitionLot")] public Ammunition Ammunition { get; set; }
 
         public int Quantity { get; set; }
 
         public static WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition Create(
-            WarMaterialAndSpecialEquipmentAssignmentFormat format, string ammunitionCode, int quantity)
+            WarMaterialAndSpecialEquipmentAssignmentFormat format, string ammunitionLot, int quantity)
         {
-            return new WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition(format, ammunitionCode, quantity);
+            return new WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition(format, ammunitionLot, quantity);
         }
     }
 }

@@ -6,10 +6,10 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
     public class WarMaterialDeliveryCertificateFormatAmmunition
     {
         public WarMaterialDeliveryCertificateFormatAmmunition(WarMaterialDeliveryCertificateFormat format,
-            string ammunitionCode, int quantity)
+            string ammunitionLot, int quantity)
         {
             Format = format;
-            AmmunitionCode = ammunitionCode;
+            AmmunitionLot = ammunitionLot;
             Quantity = quantity;
         }
 
@@ -22,15 +22,15 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
         [ForeignKey("WarMaterialDeliveryCertificateFormatId")]
         public WarMaterialDeliveryCertificateFormat Format { get; set; }
 
-        public string AmmunitionCode { get; set; }
-        [ForeignKey("AmmunitionCode")] public Ammunition Ammunition { get; set; }
+        public string AmmunitionLot { get; set; }
+        [ForeignKey("AmmunitionLot")] public Ammunition Ammunition { get; set; }
 
         public int Quantity { get; set; }
 
         public static WarMaterialDeliveryCertificateFormatAmmunition Create(WarMaterialDeliveryCertificateFormat format,
-            string ammunitionCode, int quantity)
+            string ammunitionLot, int quantity)
         {
-            return new WarMaterialDeliveryCertificateFormatAmmunition(format, ammunitionCode, quantity);
+            return new WarMaterialDeliveryCertificateFormatAmmunition(format, ammunitionLot, quantity);
         }
     }
 }

@@ -6,8 +6,6 @@ using Armory.Armament.Ammunition.Application.CheckExists;
 using Armory.Armament.Ammunition.Application.Create;
 using Armory.Armament.Ammunition.Application.Find;
 using Armory.Armament.Ammunition.Application.SearchAll;
-using Armory.Armament.Ammunition.Application.Update;
-using Armory.Armament.Ammunition.Domain;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -40,14 +38,14 @@ namespace Armory.Api.Controllers.Armament.Ammunition
             }
             catch (DbUpdateException)
             {
-                var exists = await _mediator.Send(new CheckAmmunitionExistsQuery(request.Code));
+                var exists = await _mediator.Send(new CheckAmmunitionExistsQuery(request.Lot));
                 if (!exists)
                 {
                     throw;
                 }
 
                 ModelState.AddModelError("AmmunitionAlreadyRegistered",
-                    $"Ya existe una munición con el código '{request.Code}'");
+                    $"Ya existe una munición con el lote '{request.Lot}'");
                 return Conflict(new ValidationProblemDetails(ModelState));
             }
 
@@ -85,26 +83,6 @@ namespace Armory.Api.Controllers.Armament.Ammunition
         {
             var exists = await _mediator.Send(new CheckAmmunitionExistsQuery(code));
             return Ok(exists);
-        }
-
-        [HttpPut("{code}")]
-        public async Task<IActionResult> UpdateAmmunition(string code, [FromBody] UpdateAmmunitionRequest request)
-        {
-            try
-            {
-                var command = _mapper.Map<UpdateAmmunitionCommand>(request);
-                await _mediator.Send(command);
-            }
-            catch (DbUpdateException)
-            {
-                return BadRequest();
-            }
-            catch (AmmunitionNotFound)
-            {
-                return AmmunitionNotFound(code);
-            }
-
-            return Ok();
         }
     }
 }
