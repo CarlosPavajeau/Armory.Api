@@ -11,6 +11,7 @@ using Armory.Armament.Explosives.Application.CheckExists;
 using Armory.Armament.Explosives.Application.Create;
 using Armory.Armament.Explosives.Application.Find;
 using Armory.Armament.Explosives.Application.SearchAll;
+using Armory.Armament.Explosives.Application.SearchAllByFlight;
 using Armory.Armament.Explosives.Application.Update;
 using Armory.Armament.Weapons.Application.AssignHolder;
 using Armory.Armament.Weapons.Application.CheckExists;
@@ -149,6 +150,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<ExplosiveFinder, ExplosiveFinder>();
             services.AddScoped<ExplosiveExistsChecker, ExplosiveExistsChecker>();
             services.AddScoped<ExplosiveUpdater, ExplosiveUpdater>();
+            services.AddScoped<ExplosivesByFlightSearcher, ExplosivesByFlightSearcher>();
 
             services.AddScoped<RankCreator, RankCreator>();
             services.AddScoped<RankFinder, RankFinder>();

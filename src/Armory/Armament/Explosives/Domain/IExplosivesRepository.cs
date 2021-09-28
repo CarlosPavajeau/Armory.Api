@@ -12,6 +12,7 @@ namespace Armory.Armament.Explosives.Domain
         Task<Explosive> Find(string serial);
         Task<IEnumerable<Explosive>> SearchAll(bool noTracking);
         Task<IEnumerable<Explosive>> SearchAll();
+        Task<IEnumerable<Explosive>> SearchAllByFlight(string flightCode);
         Task<bool> Any(Expression<Func<Explosive, bool>> predicate);
         Task Update(Explosive newExplosive);
     }

@@ -6,6 +6,7 @@ using Armory.Armament.Explosives.Application.CheckExists;
 using Armory.Armament.Explosives.Application.Create;
 using Armory.Armament.Explosives.Application.Find;
 using Armory.Armament.Explosives.Application.SearchAll;
+using Armory.Armament.Explosives.Application.SearchAllByFlight;
 using Armory.Armament.Explosives.Application.Update;
 using Armory.Armament.Explosives.Domain;
 using AutoMapper;
@@ -58,6 +59,13 @@ namespace Armory.Api.Controllers.Armament.Explosives
         public async Task<ActionResult<IEnumerable<ExplosiveResponse>>> GetExplosives()
         {
             var explosives = await _mediator.Send(new SearchAllExplosivesQuery());
+            return Ok(explosives);
+        }
+
+        [HttpGet("ByFlight/{flightCode}")]
+        public async Task<ActionResult<IEnumerable<ExplosiveResponse>>> GetExplosivesByFlight(string flightCode)
+        {
+            var explosives = await _mediator.Send(new SearchAllExplosivesByFlightQuery { FlightCode = flightCode });
             return Ok(explosives);
         }
 
