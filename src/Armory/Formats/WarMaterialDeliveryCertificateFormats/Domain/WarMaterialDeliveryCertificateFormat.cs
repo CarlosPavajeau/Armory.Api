@@ -74,7 +74,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
 
         public static WarMaterialDeliveryCertificateFormat Create(string code, DateTime validity, string place,
             DateTime date, string squadCode, string flightCode, string fireteamCode, string troopId,
-            IEnumerable<string> weaponCodes,
+            IEnumerable<string> weaponSeries,
             IDictionary<string, int> ammunition, IDictionary<string, int> equipments,
             IDictionary<string, int> explosives)
         {
@@ -82,11 +82,11 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
                 fireteamCode,
                 troopId);
 
-            var weapons = weaponCodes.ToList();
-            foreach (var weaponCode in weapons)
+            var weapons = weaponSeries.ToList();
+            foreach (var seriesCode in weapons)
             {
                 format.WarMaterialDeliveryCertificateFormatWeapons.Add(
-                    WarMaterialDeliveryCertificateFormatWeapon.Create(format, weaponCode));
+                    WarMaterialDeliveryCertificateFormatWeapon.Create(format, seriesCode));
             }
 
             foreach (var (ammunitionCode, quantity) in ammunition)

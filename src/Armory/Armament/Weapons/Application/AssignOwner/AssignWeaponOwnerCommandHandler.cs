@@ -15,7 +15,7 @@ namespace Armory.Armament.Weapons.Application.AssignOwner
 
         protected override async Task Handle(AssignWeaponOwnerCommand request, CancellationToken cancellationToken)
         {
-            await _assigner.AssignOwner(request.WeaponCode, request.TroopId);
+            await _assigner.AssignOwner(request.WeaponSeries, request.TroopId);
         }
     }
 }

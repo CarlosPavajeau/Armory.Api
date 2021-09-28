@@ -9,10 +9,9 @@ namespace Armory.Armament.Weapons.Domain
 {
     public class Weapon
     {
-        public Weapon(string code, string type, string mark, string model, string caliber, string series,
+        public Weapon(string type, string mark, string model, string caliber, string series,
             int numberOfProviders, int providerCapacity)
         {
-            Code = code;
             Type = type;
             Mark = mark;
             Model = model;
@@ -27,7 +26,6 @@ namespace Armory.Armament.Weapons.Domain
         }
 
         [Key] [MaxLength(256)] public string Series { get; set; }
-        [Required] [MaxLength(50)] public string Code { get; set; }
         [Required] [MaxLength(128)] public string Type { get; set; }
         [Required] [MaxLength(256)] public string Mark { get; set; }
         [Required] [MaxLength(256)] public string Model { get; set; }

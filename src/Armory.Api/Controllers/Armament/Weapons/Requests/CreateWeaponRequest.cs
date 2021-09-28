@@ -4,10 +4,6 @@ namespace Armory.Api.Controllers.Armament.Weapons.Requests
 {
     public class CreateWeaponRequest
     {
-        [Required(ErrorMessage = "El código del arma es requerido")]
-        [MaxLength(50, ErrorMessage = "El código del arma no debe tener más de 50 caracteres.")]
-        public string Code { get; set; }
-
         [Required(ErrorMessage = "El tipo de arma es requerido.")]
         [MaxLength(128, ErrorMessage = "El tipo de arma no debe tener más de 128 caracteres.")]
         public string Type { get; set; }

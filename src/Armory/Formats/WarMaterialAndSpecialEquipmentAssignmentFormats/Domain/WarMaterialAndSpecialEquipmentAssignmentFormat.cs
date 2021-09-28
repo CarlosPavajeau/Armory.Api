@@ -89,18 +89,18 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
             string place, DateTime date, string squadCode, string flightCode, string fireteamCode, string troopId,
             Warehouse warehouse,
             Purpose purpose, DocMovement docMovement, string physicalLocation, string others,
-            IEnumerable<string> weaponCodes, IDictionary<string, int> ammunition,
+            IEnumerable<string> weaponSeries, IDictionary<string, int> ammunition,
             IDictionary<string, int> equipments,
             IDictionary<string, int> explosives)
         {
             var format = new WarMaterialAndSpecialEquipmentAssignmentFormat(code, validity, place, date, squadCode,
                 flightCode, fireteamCode, troopId, warehouse, purpose, docMovement, physicalLocation, others);
 
-            var weapons = weaponCodes.ToList();
-            foreach (var weaponCode in weapons)
+            var weapons = weaponSeries.ToList();
+            foreach (var seriesCode in weapons)
             {
                 format.WarMaterialAndSpecialEquipmentAssignmentFormatWeapons.Add(
-                    WarMaterialAndSpecialEquipmentAssignmentFormatWeapon.Create(format, weaponCode));
+                    WarMaterialAndSpecialEquipmentAssignmentFormatWeapon.Create(format, seriesCode));
             }
 
             foreach (var (ammunitionCode, quantity) in ammunition)

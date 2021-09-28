@@ -28,9 +28,9 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
         [ForeignKey("WeaponSeries")] public Weapon Weapon { get; set; }
 
         public static WarMaterialAndSpecialEquipmentAssignmentFormatWeapon Create(
-            WarMaterialAndSpecialEquipmentAssignmentFormat format, string weaponCode)
+            WarMaterialAndSpecialEquipmentAssignmentFormat format, string weaponSeries)
         {
-            return new WarMaterialAndSpecialEquipmentAssignmentFormatWeapon(format, weaponCode);
+            return new WarMaterialAndSpecialEquipmentAssignmentFormatWeapon(format, weaponSeries);
         }
     }
 }

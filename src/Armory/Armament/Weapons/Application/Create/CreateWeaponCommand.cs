@@ -4,26 +4,12 @@ namespace Armory.Armament.Weapons.Application.Create
 {
     public class CreateWeaponCommand : Command<string>
     {
-        public CreateWeaponCommand(string code, string type, string mark, string model, string caliber, string series,
-            int numberOfProviders, int providerCapacity)
-        {
-            Code = code;
-            Type = type;
-            Mark = mark;
-            Model = model;
-            Caliber = caliber;
-            Series = series;
-            NumberOfProviders = numberOfProviders;
-            ProviderCapacity = providerCapacity;
-        }
-
-        public string Code { get; }
-        public string Type { get; }
-        public string Mark { get; }
-        public string Model { get; }
-        public string Caliber { get; }
-        public string Series { get; }
-        public int NumberOfProviders { get; }
-        public int ProviderCapacity { get; }
+        public string Type { get; init; }
+        public string Mark { get; init; }
+        public string Model { get; init; }
+        public string Caliber { get; init; }
+        public string Series { get; init; }
+        public int NumberOfProviders { get; init; }
+        public int ProviderCapacity { get; init; }
     }
 }

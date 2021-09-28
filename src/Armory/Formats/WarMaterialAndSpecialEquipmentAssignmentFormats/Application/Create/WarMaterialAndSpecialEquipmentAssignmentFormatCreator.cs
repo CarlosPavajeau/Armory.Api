@@ -37,7 +37,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             DocMovement docMovement,
             string physicalLocation,
             string others,
-            IEnumerable<string> weaponCodes,
+            IEnumerable<string> weaponSeries,
             IDictionary<string, int> ammunition,
             IDictionary<string, int> equipments,
             IDictionary<string, int> explosives)
@@ -56,7 +56,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
                 docMovement,
                 physicalLocation,
                 others,
-                weaponCodes,
+                weaponSeries,
                 ammunition,
                 equipments,
                 explosives);

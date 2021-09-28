@@ -4,7 +4,7 @@
     {
         public int Id { get; init; }
         public string TroopId { get; init; }
-        public string WeaponCode { get; init; }
+        public string WeaponSeries { get; init; }
         public bool SafetyCartridge { get; init; }
         public bool VerifiedInPhysical { get; init; }
         public bool Novelty { get; init; }
