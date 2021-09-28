@@ -11,5 +11,6 @@ namespace Armory.Armament.Weapons.Application.Create
         public string Series { get; init; }
         public int NumberOfProviders { get; init; }
         public int ProviderCapacity { get; init; }
+        public string FlightCode { get; init; }
     }
 }

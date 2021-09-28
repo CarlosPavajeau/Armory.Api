@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Armory.Armament.Weapons.Domain;
 using Armory.Fireteams.Domain;
 using Armory.People.Domain;
 using Armory.Squads.Domain;
@@ -30,5 +31,6 @@ namespace Armory.Flights.Domain
         [ForeignKey("SquadCode")] public Squad Squad { get; set; }
 
         public ICollection<Fireteam> Fireteams { get; set; } = new HashSet<Fireteam>();
+        public ICollection<Weapon> Weapons { get; set; } = new HashSet<Weapon>();
     }
 }

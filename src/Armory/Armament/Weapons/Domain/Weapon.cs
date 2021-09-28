@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Armory.Flights.Domain;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
 using Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain;
 using Armory.Troopers.Domain;
@@ -10,7 +11,7 @@ namespace Armory.Armament.Weapons.Domain
     public class Weapon
     {
         public Weapon(string type, string mark, string model, string caliber, string series,
-            int numberOfProviders, int providerCapacity)
+            int numberOfProviders, int providerCapacity, string flightCode)
         {
             Type = type;
             Mark = mark;
@@ -19,6 +20,7 @@ namespace Armory.Armament.Weapons.Domain
             Series = series;
             NumberOfProviders = numberOfProviders;
             ProviderCapacity = providerCapacity;
+            FlightCode = flightCode;
         }
 
         internal Weapon()
@@ -36,6 +38,10 @@ namespace Armory.Armament.Weapons.Domain
 
         public string TroopId { get; set; }
         [ForeignKey("TroopId")] public Troop Owner { get; set; }
+
+        public string FlightCode { get; set; }
+        [ForeignKey("FlightCode")] public Flight Flight { get; set; }
+
 
         public ICollection<WarMaterialAndSpecialEquipmentAssignmentFormatWeapon>
             WarMaterialAndSpecialEquipmentAssignmentFormatWeapons { get; set; } =

@@ -29,5 +29,9 @@ namespace Armory.Api.Controllers.Armament.Weapons.Requests
 
         [Required(ErrorMessage = "La capacidad de proveedor del arma es requerida.")]
         public int ProviderCapacity { get; set; }
+
+        [Required(ErrorMessage = "El código de la escuadrilla del arma es requerida.")]
+        [MaxLength(50, ErrorMessage = "El código de la escuadrilla no debe tener más de 50 caracteres.")]
+        public string FlightCode { get; set; }
     }
 }
