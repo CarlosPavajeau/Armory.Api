@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Armory.Armament.Weapons.Domain;
@@ -47,6 +48,13 @@ namespace Armory.Armament.Weapons.Infrastructure.Persistence
         public async Task<IEnumerable<Weapon>> SearchAll()
         {
             return await SearchAll(true).ConfigureAwait(false);
+        }
+
+        public async Task<IEnumerable<Weapon>> SearchAllByFlight(string flightCode)
+        {
+            return await _context.Weapons.AsNoTracking()
+                .Where(w => w.FlightCode == flightCode)
+                .ToListAsync();
         }
 
         public async Task<bool> Any(Expression<Func<Weapon, bool>> predicate)

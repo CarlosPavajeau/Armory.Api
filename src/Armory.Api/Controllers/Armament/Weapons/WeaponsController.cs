@@ -7,6 +7,7 @@ using Armory.Armament.Weapons.Application.Create;
 using Armory.Armament.Weapons.Application.Find;
 using Armory.Armament.Weapons.Application.GenerateQR;
 using Armory.Armament.Weapons.Application.SearchAll;
+using Armory.Armament.Weapons.Application.SearchAllByFlight;
 using Armory.Armament.Weapons.Application.Update;
 using Armory.Armament.Weapons.Domain;
 using AutoMapper;
@@ -61,6 +62,13 @@ namespace Armory.Api.Controllers.Armament.Weapons
         public async Task<ActionResult<IEnumerable<WeaponResponse>>> GetWeapons()
         {
             var weapons = await _mediator.Send(new SearchAllWeaponsQuery());
+            return Ok(weapons);
+        }
+
+        [HttpGet("ByFlight/{flightCode}")]
+        public async Task<ActionResult<IEnumerable<WeaponResponse>>> GetWeaponsByFlight(string flightCode)
+        {
+            var weapons = await _mediator.Send(new SearchAllWeaponsByFlightQuery { FlightCode = flightCode });
             return Ok(weapons);
         }
 

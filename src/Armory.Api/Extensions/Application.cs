@@ -18,6 +18,7 @@ using Armory.Armament.Weapons.Application.Create;
 using Armory.Armament.Weapons.Application.Find;
 using Armory.Armament.Weapons.Application.GenerateQR;
 using Armory.Armament.Weapons.Application.SearchAll;
+using Armory.Armament.Weapons.Application.SearchAllByFlight;
 using Armory.Armament.Weapons.Application.Update;
 using Armory.Degrees.Application.Create;
 using Armory.Degrees.Application.Find;
@@ -130,6 +131,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<WeaponUpdater, WeaponUpdater>();
             services.AddScoped<WeaponHolderAssigner, WeaponHolderAssigner>();
             services.AddScoped<WeaponQrGenerator, WeaponQrGenerator>();
+            services.AddScoped<WeaponsByFlightSearcher, WeaponsByFlightSearcher>();
 
             services.AddScoped<AmmunitionCreator, AmmunitionCreator>();
             services.AddScoped<AmmunitionSearcher, AmmunitionSearcher>();
