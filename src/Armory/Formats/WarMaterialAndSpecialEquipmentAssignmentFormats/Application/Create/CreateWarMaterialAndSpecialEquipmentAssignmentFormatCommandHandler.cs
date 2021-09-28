@@ -39,7 +39,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
                 request.Others,
                 request.Weapons,
                 request.Ammunition.ToDictionary(c => c.AmmunitionCode, c => c.Quantity),
-                request.Equipments.ToDictionary(c => c.EquipmentCode, c => c.Quantity),
+                request.Equipments.ToDictionary(c => c.EquipmentSeries, c => c.Quantity),
                 request.Explosives.ToDictionary(c => c.ExplosiveCode, c => c.Quantity));
 
             return format.Id;

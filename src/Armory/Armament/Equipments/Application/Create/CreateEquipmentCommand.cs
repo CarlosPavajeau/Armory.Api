@@ -4,19 +4,10 @@ namespace Armory.Armament.Equipments.Application.Create
 {
     public class CreateEquipmentCommand : Command
     {
-        public CreateEquipmentCommand(string code, string type, string model, string series, int quantityAvailable)
-        {
-            Code = code;
-            Type = type;
-            Model = model;
-            Series = series;
-            QuantityAvailable = quantityAvailable;
-        }
-
-        public string Code { get; }
-        public string Type { get; }
-        public string Model { get; }
-        public string Series { get; }
-        public int QuantityAvailable { get; }
+        public string Series { get; init; }
+        public string Type { get; init; }
+        public string Model { get; init; }
+        public int QuantityAvailable { get; init; }
+        public string FlightCode { get; set; }
     }
 }

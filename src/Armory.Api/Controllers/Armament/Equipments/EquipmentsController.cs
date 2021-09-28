@@ -40,14 +40,14 @@ namespace Armory.Api.Controllers.Armament.Equipments
             }
             catch (DbUpdateException)
             {
-                var exists = await _mediator.Send(new CheckEquipmentExistsQuery(request.Code));
+                var exists = await _mediator.Send(new CheckEquipmentExistsQuery(request.Series));
                 if (!exists)
                 {
                     throw;
                 }
 
                 ModelState.AddModelError("EquipmentAlreadyRegistered",
-                    $"Ya existe un equipo especial o accesorio con el código '{request.Code}'");
+                    $"Ya existe un equipo especial o accesorio con el número de serie '{request.Series}'");
                 return Conflict(new ValidationProblemDetails(ModelState));
             }
 

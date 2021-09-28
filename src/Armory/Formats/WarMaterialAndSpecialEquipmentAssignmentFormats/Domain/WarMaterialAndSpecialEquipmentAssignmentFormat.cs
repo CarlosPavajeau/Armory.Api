@@ -110,10 +110,10 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
                         quantity));
             }
 
-            foreach (var (equipmentCode, quantity) in equipments)
+            foreach (var (equipmentSeries, quantity) in equipments)
             {
                 format.WarMaterialAndSpecialEquipmentAssignmentFormatEquipments.Add(
-                    WarMaterialAndSpecialEquipmentAssignmentFormatEquipment.Create(format, equipmentCode, quantity));
+                    WarMaterialAndSpecialEquipmentAssignmentFormatEquipment.Create(format, equipmentSeries, quantity));
             }
 
             foreach (var (explosiveCode, quantity) in explosives)

@@ -184,7 +184,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Gener
                 var equipment = format.Equipments.ElementAt(i);
                 var equipmentFormat =
                     format.WarMaterialDeliveryCertificateFormatEquipments.First(x =>
-                        x.EquipmentCode == equipment.Code);
+                        x.EquipmentSeries == equipment.Series);
 
                 _worksheetManager.SetRangeValues(worksheet.Range($"A{previousEnd + i}:E{previousEnd + i}"),
                     new List<string>

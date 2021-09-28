@@ -2,7 +2,7 @@
 {
     public class EquipmentAndQuantity
     {
-        public string EquipmentCode { get; init; }
+        public string EquipmentSeries { get; init; }
         public int Quantity { get; init; }
     }
 }
