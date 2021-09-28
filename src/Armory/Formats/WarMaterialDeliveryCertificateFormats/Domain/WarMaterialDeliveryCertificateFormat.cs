@@ -101,10 +101,10 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
                     WarMaterialDeliveryCertificateFormatEquipment.Create(format, equipmentSeries, quantity));
             }
 
-            foreach (var (explosiveCode, quantity) in explosives)
+            foreach (var (explosiveSerial, quantity) in explosives)
             {
                 format.WarMaterialDeliveryCertificateFormatExplosives.Add(
-                    WarMaterialDeliveryCertificateFormatExplosive.Create(format, explosiveCode, quantity));
+                    WarMaterialDeliveryCertificateFormatExplosive.Create(format, explosiveSerial, quantity));
             }
 
             return format;

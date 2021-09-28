@@ -4,9 +4,9 @@ namespace Armory.Api.Controllers.Armament.Explosives.Requests
 {
     public class CreateExplosiveRequest
     {
-        [Required(ErrorMessage = "El código del explosivo es requerido.")]
-        [MaxLength(50, ErrorMessage = "El código del referido no debe tener más de 50 caracteres.")]
-        public string Code { get; set; }
+        [Required(ErrorMessage = "El número de serie del explosivo es requerido.")]
+        [MaxLength(256, ErrorMessage = "El número de serie del explosivo no debe tener más de 256 caracteres.")]
+        public string Serial { get; set; }
 
         [Required(ErrorMessage = "El tipo de explosivo es requerido.")]
         [MaxLength(128, ErrorMessage = "El tipo de explosivo no debe tener más de 128 caracteres.")]
@@ -24,11 +24,11 @@ namespace Armory.Api.Controllers.Armament.Explosives.Requests
         [MaxLength(256, ErrorMessage = "El lote del explosivo no debe tener más de 256 caracteres.")]
         public string Lot { get; set; }
 
-        [Required(ErrorMessage = "El número de serie del explosivo es requerido.")]
-        [MaxLength(256, ErrorMessage = "El número de serie del explosivo no debe tener más de 256 caracteres.")]
-        public string Series { get; set; }
-
         [Required(ErrorMessage = "La cantidad disponible del explosivo es requerida.")]
         public int QuantityAvailable { get; set; }
+
+        [Required(ErrorMessage = "El código de la escuadrilla del arma es requerida.")]
+        [MaxLength(50, ErrorMessage = "El código de la escuadrilla no debe tener más de 50 caracteres.")]
+        public string FlightCode { get; set; }
     }
 }

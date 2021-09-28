@@ -202,7 +202,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Gener
                 var explosive = format.Explosives.ElementAt(i);
                 var explosiveFormat =
                     format.WarMaterialDeliveryCertificateFormatExplosives.First(x =>
-                        x.ExplosiveCode == explosive.Code);
+                        x.ExplosiveSerial == explosive.Serial);
 
                 _worksheetManager.SetRangeValues(worksheet.Range($"H{previousEnd + i}:M{previousEnd + i}"),
                     new List<string>
@@ -211,7 +211,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Gener
                         explosive.Caliber,
                         explosive.Mark,
                         explosive.Lot,
-                        explosive.Series,
+                        explosive.Serial,
                         explosiveFormat.Quantity.ToString()
                     });
             }

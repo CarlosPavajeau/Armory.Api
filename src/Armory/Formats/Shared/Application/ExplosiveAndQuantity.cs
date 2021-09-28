@@ -2,7 +2,7 @@
 {
     public class ExplosiveAndQuantity
     {
-        public string ExplosiveCode { get; init; }
+        public string ExplosiveSerial { get; init; }
         public int Quantity { get; init; }
     }
 }

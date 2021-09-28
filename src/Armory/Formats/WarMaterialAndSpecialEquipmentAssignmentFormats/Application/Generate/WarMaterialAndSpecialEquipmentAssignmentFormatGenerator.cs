@@ -228,7 +228,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
                 var explosive = format.Explosives.ElementAt(i);
                 var explosiveFormat =
                     format.WarMaterialAndSpecialEquipmentAssignmentFormatExplosives.First(x =>
-                        x.ExplosiveCode == explosive.Code);
+                        x.ExplosiveSerial == explosive.Serial);
 
                 _worksheetManager.SetRangeValues(worksheet.Range($"H{previousEnd + i}:M{previousEnd + i}"),
                     new List<string>
@@ -237,7 +237,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
                         explosive.Caliber,
                         explosive.Mark,
                         explosive.Lot,
-                        explosive.Series,
+                        explosive.Serial,
                         explosiveFormat.Quantity.ToString()
                     });
             }

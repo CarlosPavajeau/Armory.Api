@@ -6,10 +6,10 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
     public class WarMaterialDeliveryCertificateFormatExplosive
     {
         public WarMaterialDeliveryCertificateFormatExplosive(WarMaterialDeliveryCertificateFormat format,
-            string explosiveCode, int quantity)
+            string explosiveSerial, int quantity)
         {
             Format = format;
-            ExplosiveCode = explosiveCode;
+            ExplosiveSerial = explosiveSerial;
             Quantity = quantity;
         }
 
@@ -22,15 +22,15 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
         [ForeignKey("WarMaterialDeliveryCertificateFormatId")]
         public WarMaterialDeliveryCertificateFormat Format { get; set; }
 
-        public string ExplosiveCode { get; set; }
-        [ForeignKey("ExplosiveCode")] public Explosive Explosive { get; set; }
+        public string ExplosiveSerial { get; set; }
+        [ForeignKey("ExplosiveSerial")] public Explosive Explosive { get; set; }
 
         public int Quantity { get; set; }
 
         public static WarMaterialDeliveryCertificateFormatExplosive Create(WarMaterialDeliveryCertificateFormat format,
-            string explosiveCode, int quantity)
+            string explosiveSerial, int quantity)
         {
-            return new WarMaterialDeliveryCertificateFormatExplosive(format, explosiveCode, quantity);
+            return new WarMaterialDeliveryCertificateFormatExplosive(format, explosiveSerial, quantity);
         }
     }
 }

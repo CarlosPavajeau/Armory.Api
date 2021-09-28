@@ -23,16 +23,16 @@ namespace Armory.Armament.Explosives.Infrastructure.Persistence
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Explosive> Find(string code, bool noTracking)
+        public async Task<Explosive> Find(string serial, bool noTracking)
         {
             var query = noTracking ? _context.Explosives.AsNoTracking() : _context.Explosives.AsTracking();
 
-            return await query.FirstOrDefaultAsync(e => e.Code == code);
+            return await query.FirstOrDefaultAsync(e => e.Serial == serial);
         }
 
-        public async Task<Explosive> Find(string code)
+        public async Task<Explosive> Find(string serial)
         {
-            return await Find(code, true);
+            return await Find(serial, true);
         }
 
         public async Task<IEnumerable<Explosive>> SearchAll(bool noTracking)
