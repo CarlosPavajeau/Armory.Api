@@ -4,35 +4,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Armory.Migrations
 {
-    public partial class ResetMigrations : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "ammunition",
-                columns: table => new
-                {
-                    code = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    type = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    mark = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    caliber = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    series = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    lot = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    quantity_available = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_ammunition", x => x.code);
-                })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
@@ -86,50 +62,6 @@ namespace Armory.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_asp_net_users", x => x.id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "equipments",
-                columns: table => new
-                {
-                    code = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    type = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    model = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    series = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    quantity_available = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_equipments", x => x.code);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "explosives",
-                columns: table => new
-                {
-                    code = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    type = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    caliber = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    mark = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    lot = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    series = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    quantity_available = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_explosives", x => x.code);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -388,6 +320,64 @@ namespace Armory.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "ammunition",
+                columns: table => new
+                {
+                    lot = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    type = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    mark = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    caliber = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    quantity_available = table.Column<int>(type: "int", nullable: false),
+                    flight_code = table.Column<string>(type: "varchar(50)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_ammunition", x => x.lot);
+                    table.ForeignKey(
+                        name: "fk_ammunition_flights_flight_code",
+                        column: x => x.flight_code,
+                        principalTable: "flights",
+                        principalColumn: "code",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "explosives",
+                columns: table => new
+                {
+                    serial = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    type = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    caliber = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    mark = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    lot = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    quantity_available = table.Column<int>(type: "int", nullable: false),
+                    flight_code = table.Column<string>(type: "varchar(50)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_explosives", x => x.serial);
+                    table.ForeignKey(
+                        name: "fk_explosives_flights_flight_code",
+                        column: x => x.flight_code,
+                        principalTable: "flights",
+                        principalColumn: "code",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "fireteams",
                 columns: table => new
                 {
@@ -495,6 +485,40 @@ namespace Armory.Migrations
                         principalTable: "fireteams",
                         principalColumn: "code",
                         onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "equipments",
+                columns: table => new
+                {
+                    series = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    type = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    model = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    quantity_available = table.Column<int>(type: "int", nullable: false),
+                    troop_id = table.Column<string>(type: "varchar(10)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    flight_code = table.Column<string>(type: "varchar(50)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_equipments", x => x.series);
+                    table.ForeignKey(
+                        name: "fk_equipments_flights_flight_code",
+                        column: x => x.flight_code,
+                        principalTable: "flights",
+                        principalColumn: "code",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "fk_equipments_troopers_troop_id",
+                        column: x => x.troop_id,
+                        principalTable: "troopers",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -613,8 +637,6 @@ namespace Armory.Migrations
                 {
                     series = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    code = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     type = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     mark = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
@@ -627,11 +649,19 @@ namespace Armory.Migrations
                     provider_capacity = table.Column<int>(type: "int", nullable: false),
                     state = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
                     troop_id = table.Column<string>(type: "varchar(10)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    flight_code = table.Column<string>(type: "varchar(50)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_weapons", x => x.series);
+                    table.ForeignKey(
+                        name: "fk_weapons_flights_flight_code",
+                        column: x => x.flight_code,
+                        principalTable: "flights",
+                        principalColumn: "code",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "fk_weapons_troopers_troop_id",
                         column: x => x.troop_id,
@@ -646,18 +676,18 @@ namespace Armory.Migrations
                 columns: table => new
                 {
                     war_material_and_special_equipment_assignment_format_id = table.Column<int>(type: "int", nullable: false),
-                    ammunition_code = table.Column<string>(type: "varchar(50)", nullable: false)
+                    ammunition_lot = table.Column<string>(type: "varchar(256)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_war_material_and_special_equipment_assignment_format_ammunit", x => new { x.ammunition_code, x.war_material_and_special_equipment_assignment_format_id });
+                    table.PrimaryKey("pk_war_material_and_special_equipment_assignment_format_ammunit", x => new { x.war_material_and_special_equipment_assignment_format_id, x.ammunition_lot });
                     table.ForeignKey(
                         name: "fk_war_material_and_special_equipment_assignment_format_ammunit",
-                        column: x => x.ammunition_code,
+                        column: x => x.ammunition_lot,
                         principalTable: "ammunition",
-                        principalColumn: "code",
+                        principalColumn: "lot",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_war_material_and_special_equipment_assignment_format_ammunit1",
@@ -673,18 +703,18 @@ namespace Armory.Migrations
                 columns: table => new
                 {
                     war_material_and_special_equipment_assignment_format_id = table.Column<int>(type: "int", nullable: false),
-                    equipment_code = table.Column<string>(type: "varchar(50)", nullable: false)
+                    equipment_series = table.Column<string>(type: "varchar(256)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_war_material_and_special_equipment_assignment_format_equipme", x => new { x.war_material_and_special_equipment_assignment_format_id, x.equipment_code });
+                    table.PrimaryKey("pk_war_material_and_special_equipment_assignment_format_equipme", x => new { x.war_material_and_special_equipment_assignment_format_id, x.equipment_series });
                     table.ForeignKey(
                         name: "fk_war_material_and_special_equipment_assignment_format_equipme",
-                        column: x => x.equipment_code,
+                        column: x => x.equipment_series,
                         principalTable: "equipments",
-                        principalColumn: "code",
+                        principalColumn: "series",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_war_material_and_special_equipment_assignment_format_equipme1",
@@ -700,18 +730,18 @@ namespace Armory.Migrations
                 columns: table => new
                 {
                     war_material_and_special_equipment_assignment_format_id = table.Column<int>(type: "int", nullable: false),
-                    explosive_code = table.Column<string>(type: "varchar(50)", nullable: false)
+                    explosive_serial = table.Column<string>(type: "varchar(256)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_war_material_and_special_equipment_assignment_format_explosi", x => new { x.war_material_and_special_equipment_assignment_format_id, x.explosive_code });
+                    table.PrimaryKey("pk_war_material_and_special_equipment_assignment_format_explosi", x => new { x.war_material_and_special_equipment_assignment_format_id, x.explosive_serial });
                     table.ForeignKey(
                         name: "fk_war_material_and_special_equipment_assignment_format_explosi",
-                        column: x => x.explosive_code,
+                        column: x => x.explosive_serial,
                         principalTable: "explosives",
-                        principalColumn: "code",
+                        principalColumn: "serial",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_war_material_and_special_equipment_assignment_format_explosi1",
@@ -727,18 +757,18 @@ namespace Armory.Migrations
                 columns: table => new
                 {
                     war_material_delivery_certificate_format_id = table.Column<int>(type: "int", nullable: false),
-                    ammunition_code = table.Column<string>(type: "varchar(50)", nullable: false)
+                    ammunition_lot = table.Column<string>(type: "varchar(256)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_war_material_delivery_certificate_format_ammunition", x => new { x.war_material_delivery_certificate_format_id, x.ammunition_code });
+                    table.PrimaryKey("pk_war_material_delivery_certificate_format_ammunition", x => new { x.war_material_delivery_certificate_format_id, x.ammunition_lot });
                     table.ForeignKey(
                         name: "fk_war_material_delivery_certificate_format_ammunition_ammuniti",
-                        column: x => x.ammunition_code,
+                        column: x => x.ammunition_lot,
                         principalTable: "ammunition",
-                        principalColumn: "code",
+                        principalColumn: "lot",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_war_material_delivery_certificate_format_ammunition_war_mate",
@@ -754,18 +784,18 @@ namespace Armory.Migrations
                 columns: table => new
                 {
                     war_material_delivery_certificate_format_id = table.Column<int>(type: "int", nullable: false),
-                    equipment_code = table.Column<string>(type: "varchar(50)", nullable: false)
+                    equipment_series = table.Column<string>(type: "varchar(256)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_war_material_delivery_certificate_format_equipments", x => new { x.war_material_delivery_certificate_format_id, x.equipment_code });
+                    table.PrimaryKey("pk_war_material_delivery_certificate_format_equipments", x => new { x.war_material_delivery_certificate_format_id, x.equipment_series });
                     table.ForeignKey(
                         name: "fk_war_material_delivery_certificate_format_equipments_equipmen",
-                        column: x => x.equipment_code,
+                        column: x => x.equipment_series,
                         principalTable: "equipments",
-                        principalColumn: "code",
+                        principalColumn: "series",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_war_material_delivery_certificate_format_equipments_war_mate",
@@ -781,18 +811,18 @@ namespace Armory.Migrations
                 columns: table => new
                 {
                     war_material_delivery_certificate_format_id = table.Column<int>(type: "int", nullable: false),
-                    explosive_code = table.Column<string>(type: "varchar(50)", nullable: false)
+                    explosive_serial = table.Column<string>(type: "varchar(256)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_war_material_delivery_certificate_format_explosives", x => new { x.war_material_delivery_certificate_format_id, x.explosive_code });
+                    table.PrimaryKey("pk_war_material_delivery_certificate_format_explosives", x => new { x.war_material_delivery_certificate_format_id, x.explosive_serial });
                     table.ForeignKey(
                         name: "fk_war_material_delivery_certificate_format_explosives_explosiv",
-                        column: x => x.explosive_code,
+                        column: x => x.explosive_serial,
                         principalTable: "explosives",
-                        principalColumn: "code",
+                        principalColumn: "serial",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_war_material_delivery_certificate_format_explosives_war_mate",
@@ -904,6 +934,11 @@ namespace Armory.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
+                name: "ix_ammunition_flight_code",
+                table: "ammunition",
+                column: "flight_code");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_asp_net_role_claims_role_id",
                 table: "AspNetRoleClaims",
                 column: "role_id");
@@ -988,6 +1023,21 @@ namespace Armory.Migrations
                 column: "rank_id");
 
             migrationBuilder.CreateIndex(
+                name: "ix_equipments_flight_code",
+                table: "equipments",
+                column: "flight_code");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_equipments_troop_id",
+                table: "equipments",
+                column: "troop_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_explosives_flight_code",
+                table: "explosives",
+                column: "flight_code");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_fireteams_flight_code",
                 table: "fireteams",
                 column: "flight_code");
@@ -1036,17 +1086,17 @@ namespace Armory.Migrations
             migrationBuilder.CreateIndex(
                 name: "ix_war_material_and_special_equipment_assignment_format_ammunit",
                 table: "war_material_and_special_equipment_assignment_format_ammunition",
-                column: "war_material_and_special_equipment_assignment_format_id");
+                column: "ammunition_lot");
 
             migrationBuilder.CreateIndex(
                 name: "ix_war_material_and_special_equipment_assignment_format_equipme",
                 table: "war_material_and_special_equipment_assignment_format_equipments",
-                column: "equipment_code");
+                column: "equipment_series");
 
             migrationBuilder.CreateIndex(
                 name: "ix_war_material_and_special_equipment_assignment_format_explosi",
                 table: "war_material_and_special_equipment_assignment_format_explosives",
-                column: "explosive_code");
+                column: "explosive_serial");
 
             migrationBuilder.CreateIndex(
                 name: "ix_war_material_and_special_equipment_assignment_format_weapons",
@@ -1082,17 +1132,17 @@ namespace Armory.Migrations
             migrationBuilder.CreateIndex(
                 name: "ix_war_material_delivery_certificate_format_ammunition_ammuniti",
                 table: "war_material_delivery_certificate_format_ammunition",
-                column: "ammunition_code");
+                column: "ammunition_lot");
 
             migrationBuilder.CreateIndex(
                 name: "ix_war_material_delivery_certificate_format_equipments_equipmen",
                 table: "war_material_delivery_certificate_format_equipments",
-                column: "equipment_code");
+                column: "equipment_series");
 
             migrationBuilder.CreateIndex(
                 name: "ix_war_material_delivery_certificate_format_explosives_explosiv",
                 table: "war_material_delivery_certificate_format_explosives",
-                column: "explosive_code");
+                column: "explosive_serial");
 
             migrationBuilder.CreateIndex(
                 name: "ix_war_material_delivery_certificate_format_weapons_war_materia",
@@ -1124,6 +1174,11 @@ namespace Armory.Migrations
                 name: "ix_war_material_delivery_certificate_formats_troop_id",
                 table: "war_material_delivery_certificate_formats",
                 column: "troop_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_weapons_flight_code",
+                table: "weapons",
+                column: "flight_code");
 
             migrationBuilder.CreateIndex(
                 name: "ix_weapons_troop_id",
