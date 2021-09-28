@@ -1,18 +1,15 @@
 using Armory.Armament.Ammunition.Application.CheckExists;
 using Armory.Armament.Ammunition.Application.Create;
-using Armory.Armament.Ammunition.Application.Decrement;
 using Armory.Armament.Ammunition.Application.Find;
 using Armory.Armament.Ammunition.Application.SearchAll;
 using Armory.Armament.Ammunition.Application.Update;
 using Armory.Armament.Equipments.Application.CheckExists;
 using Armory.Armament.Equipments.Application.Create;
-using Armory.Armament.Equipments.Application.Decrement;
 using Armory.Armament.Equipments.Application.Find;
 using Armory.Armament.Equipments.Application.SearchAll;
 using Armory.Armament.Equipments.Application.Update;
 using Armory.Armament.Explosives.Application.CheckExists;
 using Armory.Armament.Explosives.Application.Create;
-using Armory.Armament.Explosives.Application.Decrement;
 using Armory.Armament.Explosives.Application.Find;
 using Armory.Armament.Explosives.Application.SearchAll;
 using Armory.Armament.Explosives.Application.Update;
@@ -140,21 +137,18 @@ namespace Armory.Api.Extensions
             services.AddScoped<AmmunitionFinder, AmmunitionFinder>();
             services.AddScoped<AmmunitionExistsChecker, AmmunitionExistsChecker>();
             services.AddScoped<AmmunitionUpdater, AmmunitionUpdater>();
-            services.AddScoped<AmmunitionDecrementer, AmmunitionDecrementer>();
 
             services.AddScoped<EquipmentCreator, EquipmentCreator>();
             services.AddScoped<AllEquipmentsSearcher, AllEquipmentsSearcher>();
             services.AddScoped<EquipmentFinder, EquipmentFinder>();
             services.AddScoped<EquipmentExistsChecker, EquipmentExistsChecker>();
             services.AddScoped<EquipmentUpdater, EquipmentUpdater>();
-            services.AddScoped<EquipmentDecrementer, EquipmentDecrementer>();
 
             services.AddScoped<ExplosiveCreator, ExplosiveCreator>();
             services.AddScoped<AllExplosivesSearcher, AllExplosivesSearcher>();
             services.AddScoped<ExplosiveFinder, ExplosiveFinder>();
             services.AddScoped<ExplosiveExistsChecker, ExplosiveExistsChecker>();
             services.AddScoped<ExplosiveUpdater, ExplosiveUpdater>();
-            services.AddScoped<ExplosiveDecrementer, ExplosiveDecrementer>();
 
             services.AddScoped<RankCreator, RankCreator>();
             services.AddScoped<RankFinder, RankFinder>();

@@ -11,7 +11,6 @@ using Armory.Fireteams.Domain;
 using Armory.Flights.Domain;
 using Armory.Formats.Shared.Domain;
 using Armory.Shared.Domain.Aggregate;
-using Armory.Shared.Domain.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
 using Armory.Squads.Domain;
 using Armory.Troopers.Domain;
 
@@ -121,10 +120,6 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
                 format.WarMaterialAndSpecialEquipmentAssignmentFormatExplosives.Add(
                     WarMaterialAndSpecialEquipmentAssignmentFormatExplosive.Create(format, explosiveSerial, quantity));
             }
-
-            format.Record(
-                new WarMaterialAndSpecialEquipmentAssignmentFormatCreatedDomainEvent(weapons, ammunition,
-                    equipments, explosives, troopId));
 
             return format;
         }
