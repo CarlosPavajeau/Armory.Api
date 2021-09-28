@@ -12,7 +12,7 @@ using Armory.Armament.Explosives.Application.Create;
 using Armory.Armament.Explosives.Application.Find;
 using Armory.Armament.Explosives.Application.SearchAll;
 using Armory.Armament.Explosives.Application.Update;
-using Armory.Armament.Weapons.Application.AssignOwner;
+using Armory.Armament.Weapons.Application.AssignHolder;
 using Armory.Armament.Weapons.Application.CheckExists;
 using Armory.Armament.Weapons.Application.Create;
 using Armory.Armament.Weapons.Application.Find;
@@ -128,7 +128,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<WeaponFinder, WeaponFinder>();
             services.AddScoped<WeaponExistsChecker, WeaponExistsChecker>();
             services.AddScoped<WeaponUpdater, WeaponUpdater>();
-            services.AddScoped<WeaponOwnerAssigner, WeaponOwnerAssigner>();
+            services.AddScoped<WeaponHolderAssigner, WeaponHolderAssigner>();
             services.AddScoped<WeaponQrGenerator, WeaponQrGenerator>();
 
             services.AddScoped<AmmunitionCreator, AmmunitionCreator>();
