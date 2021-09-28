@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Armory.Flights.Domain;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
 using Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain;
+using Armory.Troopers.Domain;
 
 namespace Armory.Armament.Equipments.Domain
 {
@@ -21,6 +22,9 @@ namespace Armory.Armament.Equipments.Domain
         [Required] [MaxLength(128)] public string Type { get; set; }
         [Required] [MaxLength(256)] public string Model { get; set; }
         [Required] public int QuantityAvailable { get; set; }
+
+        public string TroopId { get; set; }
+        [ForeignKey("TroopId")] public Troop Holder { get; set; }
 
         public string FlightCode { get; set; }
         [ForeignKey("FlightCode")] public Flight Flight { get; set; }
