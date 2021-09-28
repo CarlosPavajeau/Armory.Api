@@ -102,10 +102,10 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
                     WarMaterialAndSpecialEquipmentAssignmentFormatWeapon.Create(format, seriesCode));
             }
 
-            foreach (var (ammunitionCode, quantity) in ammunition)
+            foreach (var (ammunitionLot, quantity) in ammunition)
             {
                 format.WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition.Add(
-                    Domain.WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition.Create(format, ammunitionCode,
+                    Domain.WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition.Create(format, ammunitionLot,
                         quantity));
             }
 

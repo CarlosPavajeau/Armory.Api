@@ -10,7 +10,7 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework.EntityConfigu
         public void Configure(EntityTypeBuilder<WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition> builder)
         {
             builder.HasKey(f => new
-                { AmmunitionCode = f.AmmunitionLot, f.WarMaterialAndSpecialEquipmentAssignmentFormatId });
+                { f.WarMaterialAndSpecialEquipmentAssignmentFormatId, f.AmmunitionLot });
         }
     }
 }

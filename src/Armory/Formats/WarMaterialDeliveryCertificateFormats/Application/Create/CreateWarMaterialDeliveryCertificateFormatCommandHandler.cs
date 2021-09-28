@@ -30,7 +30,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Creat
                 request.FireteamCode,
                 request.TroopId,
                 request.Weapons,
-                request.Ammunition.ToDictionary(c => c.AmmunitionCode, c => c.Quantity),
+                request.Ammunition.ToDictionary(c => c.AmmunitionLot, c => c.Quantity),
                 request.Equipments.ToDictionary(c => c.EquipmentSeries, c => c.Quantity),
                 request.Explosives.ToDictionary(c => c.ExplosiveSerial, c => c.Quantity));
 
