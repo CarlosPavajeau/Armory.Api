@@ -113,7 +113,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate
                 _worksheetManager.SetRangeValues(worksheet.Range($"A{start + i}:C{start + i}"), new List<string>
                 {
                     (i + 1).ToString(),
-                    "GACAR",
+                    format.SquadCode,
                     record.Troop.Degree.Name
                 });
 
