@@ -6,6 +6,7 @@ using Armory.Armament.Ammunition.Application.CheckExists;
 using Armory.Armament.Ammunition.Application.Create;
 using Armory.Armament.Ammunition.Application.Find;
 using Armory.Armament.Ammunition.Application.SearchAll;
+using Armory.Armament.Ammunition.Application.SearchAllByFlight;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -56,6 +57,13 @@ namespace Armory.Api.Controllers.Armament.Ammunition
         public async Task<ActionResult<IEnumerable<AmmunitionResponse>>> GetAmmunition()
         {
             var ammunition = await _mediator.Send(new SearchAllAmmunitionQuery());
+            return Ok(ammunition);
+        }
+
+        [HttpGet("ByFlight/{flightCode}")]
+        public async Task<ActionResult<IEnumerable<AmmunitionResponse>>> GetAmmunitionByFlight(string flightCode)
+        {
+            var ammunition = await _mediator.Send(new SearchAllAmmunitionByFlightQuery { FlightCode = flightCode });
             return Ok(ammunition);
         }
 

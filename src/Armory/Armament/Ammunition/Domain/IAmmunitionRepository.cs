@@ -12,6 +12,7 @@ namespace Armory.Armament.Ammunition.Domain
         Task<Ammunition> Find(string lot);
         Task<IEnumerable<Ammunition>> SearchAll(bool noTracking);
         Task<IEnumerable<Ammunition>> SearchAll();
+        Task<IEnumerable<Ammunition>> SearchAllByFlight(string flightCode);
         Task<bool> Any(Expression<Func<Ammunition, bool>> predicate);
         Task Update(Ammunition newAmmunition);
     }

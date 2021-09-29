@@ -2,6 +2,7 @@ using Armory.Armament.Ammunition.Application.CheckExists;
 using Armory.Armament.Ammunition.Application.Create;
 using Armory.Armament.Ammunition.Application.Find;
 using Armory.Armament.Ammunition.Application.SearchAll;
+using Armory.Armament.Ammunition.Application.SearchAllByFlight;
 using Armory.Armament.Equipments.Application.CheckExists;
 using Armory.Armament.Equipments.Application.Create;
 using Armory.Armament.Equipments.Application.Find;
@@ -139,6 +140,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<AmmunitionSearcher, AmmunitionSearcher>();
             services.AddScoped<AmmunitionFinder, AmmunitionFinder>();
             services.AddScoped<AmmunitionExistsChecker, AmmunitionExistsChecker>();
+            services.AddScoped<AmmunitionByFlightSearcher, AmmunitionByFlightSearcher>();
 
             services.AddScoped<EquipmentCreator, EquipmentCreator>();
             services.AddScoped<AllEquipmentsSearcher, AllEquipmentsSearcher>();
