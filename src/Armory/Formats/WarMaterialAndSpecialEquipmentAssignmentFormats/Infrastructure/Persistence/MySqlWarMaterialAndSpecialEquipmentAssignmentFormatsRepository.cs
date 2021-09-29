@@ -42,6 +42,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Infrast
                 .ThenInclude(x => x.Owner)
                 .Include(f => f.Flight)
                 .ThenInclude(x => x.Owner)
+                .ThenInclude(x => x.Degree)
                 .FirstOrDefaultAsync(f => f.Id == id);
 
             if (format == null)
