@@ -8,42 +8,20 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
 {
     public class CreateWarMaterialAndSpecialEquipmentAssignmentFormatCommand : Command<int>
     {
-        public CreateWarMaterialAndSpecialEquipmentAssignmentFormatCommand(string code, DateTime validity, string place,
-            DateTime date, string squadCode, string flightCode, string fireteamCode, string troopId,
-            Warehouse warehouse, Purpose purpose,
-            DocMovement docMovement, string physicalLocation, string others)
-        {
-            Code = code;
-            Validity = validity;
-            Place = place;
-            Date = date;
-            SquadCode = squadCode;
-            FlightCode = flightCode;
-            FireteamCode = fireteamCode;
-            TroopId = troopId;
-            Warehouse = warehouse;
-            Purpose = purpose;
-            DocMovement = docMovement;
-            PhysicalLocation = physicalLocation;
-            Others = others;
-        }
+        public string Code { get; init; }
+        public DateTime Validity { get; init; }
+        public string Place { get; init; }
+        public DateTime Date { get; init; }
 
-        public string Code { get; }
-        public DateTime Validity { get; }
-        public string Place { get; }
-        public DateTime Date { get; }
+        public string SquadCode { get; init; }
+        public string FlightCode { get; init; }
 
-        public string SquadCode { get; }
-        public string FlightCode { get; }
-        public string FireteamCode { get; }
-        public string TroopId { get; }
+        public Warehouse Warehouse { get; init; }
+        public Purpose Purpose { get; init; }
+        public DocMovement DocMovement { get; init; }
 
-        public Warehouse Warehouse { get; }
-        public Purpose Purpose { get; }
-        public DocMovement DocMovement { get; }
-
-        public string PhysicalLocation { get; }
-        public string Others { get; }
+        public string PhysicalLocation { get; init; }
+        public string Others { get; init; }
 
         public IEnumerable<string> Weapons { get; } = new HashSet<string>();
         public IEnumerable<AmmunitionAndQuantity> Ammunition { get; } = new HashSet<AmmunitionAndQuantity>();

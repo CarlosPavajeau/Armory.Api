@@ -7,21 +7,18 @@ using Armory.Armament.Ammunition.Domain;
 using Armory.Armament.Equipments.Domain;
 using Armory.Armament.Explosives.Domain;
 using Armory.Armament.Weapons.Domain;
-using Armory.Fireteams.Domain;
 using Armory.Flights.Domain;
 using Armory.Formats.Shared.Domain;
 using Armory.Shared.Domain.Aggregate;
 using Armory.Squads.Domain;
-using Armory.Troopers.Domain;
 
 namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
 {
     public class WarMaterialAndSpecialEquipmentAssignmentFormat : AggregateRoot
     {
         public WarMaterialAndSpecialEquipmentAssignmentFormat(string code, DateTime validity, string place,
-            DateTime date, string squadCode, string flightCode, string fireteamCode, string troopId,
-            Warehouse warehouse,
-            Purpose purpose, DocMovement docMovement, string physicalLocation, string others)
+            DateTime date, string squadCode, string flightCode, Warehouse warehouse, Purpose purpose,
+            DocMovement docMovement, string physicalLocation, string others)
         {
             Code = code;
             Validity = validity;
@@ -29,8 +26,6 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
             Date = date;
             SquadCode = squadCode;
             FlightCode = flightCode;
-            FireteamCode = fireteamCode;
-            TroopId = troopId;
             Warehouse = warehouse;
             Purpose = purpose;
             DocMovement = docMovement;
@@ -50,11 +45,6 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
 
         [Required] public string FlightCode { get; set; }
         [ForeignKey("FlightCode")] public Flight Flight { get; set; }
-        [Required] public string FireteamCode { get; set; }
-        [ForeignKey("FireteamCode")] public Fireteam Fireteam { get; set; }
-
-        public string TroopId { get; set; }
-        [ForeignKey("TroopId")] public Troop Receiver { get; set; }
 
         public Warehouse Warehouse { get; set; }
         public Purpose Purpose { get; set; }
@@ -85,15 +75,14 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
         [NotMapped] public ICollection<Explosive> Explosives { get; set; } = new HashSet<Explosive>();
 
         public static WarMaterialAndSpecialEquipmentAssignmentFormat Create(string code, DateTime validity,
-            string place, DateTime date, string squadCode, string flightCode, string fireteamCode, string troopId,
-            Warehouse warehouse,
+            string place, DateTime date, string squadCode, string flightCode, Warehouse warehouse,
             Purpose purpose, DocMovement docMovement, string physicalLocation, string others,
             IEnumerable<string> weaponSeries, IDictionary<string, int> ammunition,
             IDictionary<string, int> equipments,
             IDictionary<string, int> explosives)
         {
             var format = new WarMaterialAndSpecialEquipmentAssignmentFormat(code, validity, place, date, squadCode,
-                flightCode, fireteamCode, troopId, warehouse, purpose, docMovement, physicalLocation, others);
+                flightCode, warehouse, purpose, docMovement, physicalLocation, others);
 
             var weapons = weaponSeries.ToList();
             foreach (var seriesCode in weapons)

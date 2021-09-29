@@ -30,8 +30,6 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
                 request.Date,
                 request.SquadCode,
                 request.FlightCode,
-                request.FireteamCode,
-                request.TroopId,
                 request.Warehouse,
                 request.Purpose,
                 request.DocMovement,
