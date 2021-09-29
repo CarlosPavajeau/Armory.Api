@@ -16,7 +16,7 @@ namespace Armory.Armament.Weapons.Application.GenerateQR
 
         public async Task<MemoryStream> Handle(GenerateWeaponQrQuery request, CancellationToken cancellationToken)
         {
-            return await _generator.Generate(request.Series);
+            return await _generator.Generate(request.Serial);
         }
     }
 }

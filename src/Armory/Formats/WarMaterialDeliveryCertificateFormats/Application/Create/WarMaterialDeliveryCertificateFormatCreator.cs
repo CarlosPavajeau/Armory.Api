@@ -23,7 +23,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Creat
             string flightCode,
             string fireteamCode,
             string troopId,
-            IEnumerable<string> weaponSeries,
+            IEnumerable<string> weaponSerials,
             IDictionary<string, int> ammunition,
             IDictionary<string, int> equipments,
             IDictionary<string, int> explosives)
@@ -37,7 +37,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Creat
                 flightCode,
                 fireteamCode,
                 troopId,
-                weaponSeries,
+                weaponSerials,
                 ammunition,
                 equipments,
                 explosives);

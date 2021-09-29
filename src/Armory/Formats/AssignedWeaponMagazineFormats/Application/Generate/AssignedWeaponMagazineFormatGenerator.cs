@@ -125,7 +125,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate
                     new List<string>
                     {
                         record.Weapon.Type,
-                        record.Weapon.Series,
+                        record.Weapon.Serial,
                         record.Weapon.NumberOfProviders.ToString(),
                         record.AmmunitionQuantity.ToString(),
                         record.AmmunitionLot,

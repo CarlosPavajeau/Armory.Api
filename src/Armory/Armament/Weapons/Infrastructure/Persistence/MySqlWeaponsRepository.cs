@@ -24,18 +24,18 @@ namespace Armory.Armament.Weapons.Infrastructure.Persistence
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Weapon> Find(string series, bool noTracking)
+        public async Task<Weapon> Find(string serial, bool noTracking)
         {
             var query = noTracking ? _context.Weapons.AsNoTracking() : _context.Weapons.AsTracking();
 
             return await query
                 .Include(w => w.Owner)
-                .FirstOrDefaultAsync(w => w.Series == series);
+                .FirstOrDefaultAsync(w => w.Serial == serial);
         }
 
-        public async Task<Weapon> Find(string series)
+        public async Task<Weapon> Find(string serial)
         {
-            return await Find(series, true).ConfigureAwait(false);
+            return await Find(serial, true).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<Weapon>> SearchAll(bool noTracking)

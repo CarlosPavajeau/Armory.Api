@@ -7,10 +7,10 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
     public class WarMaterialDeliveryCertificateFormatWeapon
     {
         public WarMaterialDeliveryCertificateFormatWeapon(WarMaterialDeliveryCertificateFormat format,
-            string weaponSeries)
+            string weaponSerial)
         {
             Format = format;
-            WeaponSeries = weaponSeries;
+            WeaponSerial = weaponSerial;
         }
 
         private WarMaterialDeliveryCertificateFormatWeapon()
@@ -24,13 +24,13 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
         [ForeignKey("WarMaterialDeliveryCertificateFormatId")]
         public WarMaterialDeliveryCertificateFormat Format { get; set; }
 
-        public string WeaponSeries { get; set; }
-        [ForeignKey("WeaponSeries")] public Weapon Weapon { get; set; }
+        public string WeaponSerial { get; set; }
+        [ForeignKey("WeaponSerial")] public Weapon Weapon { get; set; }
 
         public static WarMaterialDeliveryCertificateFormatWeapon Create(WarMaterialDeliveryCertificateFormat format,
-            string weaponCode)
+            string weaponSerial)
         {
-            return new WarMaterialDeliveryCertificateFormatWeapon(format, weaponCode);
+            return new WarMaterialDeliveryCertificateFormatWeapon(format, weaponSerial);
         }
     }
 }

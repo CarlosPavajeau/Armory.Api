@@ -137,7 +137,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
                         weapon.Mark,
                         weapon.Model,
                         weapon.Caliber,
-                        weapon.Series,
+                        weapon.Serial,
                         weapon.NumberOfProviders.ToString(),
                         weapon.ProviderCapacity.ToString()
                     });
@@ -210,7 +210,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
                 var equipment = format.Equipments.ElementAt(i);
                 var equipmentFormat =
                     format.WarMaterialAndSpecialEquipmentAssignmentFormatEquipments.First(x =>
-                        x.EquipmentSeries == equipment.Series);
+                        x.EquipmentSerial == equipment.Serial);
 
                 _worksheetManager.SetRangeValues(worksheet.Range($"A{previousEnd + i}:E{previousEnd + i}"),
                     new List<string>
@@ -218,7 +218,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
                         (i + 1).ToString(),
                         equipment.Type,
                         equipment.Model,
-                        equipment.Series,
+                        equipment.Serial,
                         equipmentFormat.Quantity.ToString()
                     });
             }

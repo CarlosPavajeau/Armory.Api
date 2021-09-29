@@ -4,11 +4,11 @@ namespace Armory.Armament.Weapons.Application.CheckExists
 {
     public class CheckWeaponExistsQuery : Query<bool>
     {
-        public CheckWeaponExistsQuery(string series)
+        public CheckWeaponExistsQuery(string serial)
         {
-            Series = series;
+            Serial = serial;
         }
 
-        public string Series { get; }
+        public string Serial { get; }
     }
 }

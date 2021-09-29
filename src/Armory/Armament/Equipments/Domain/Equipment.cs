@@ -10,15 +10,15 @@ namespace Armory.Armament.Equipments.Domain
 {
     public class Equipment
     {
-        public Equipment(string type, string model, string series, int quantityAvailable)
+        public Equipment(string type, string model, string serial, int quantityAvailable)
         {
             Type = type;
             Model = model;
-            Series = series;
+            Serial = serial;
             QuantityAvailable = quantityAvailable;
         }
 
-        [Key] [MaxLength(256)] public string Series { get; set; }
+        [Key] [MaxLength(256)] public string Serial { get; set; }
         [Required] [MaxLength(128)] public string Type { get; set; }
         [Required] [MaxLength(256)] public string Model { get; set; }
         [Required] public int QuantityAvailable { get; set; }
@@ -41,7 +41,7 @@ namespace Armory.Armament.Equipments.Domain
         {
             Type = type;
             Model = model;
-            Series = series;
+            Serial = series;
             QuantityAvailable = quantityAvailable;
         }
     }

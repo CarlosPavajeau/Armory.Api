@@ -7,10 +7,10 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
     public class WarMaterialAndSpecialEquipmentAssignmentFormatWeapon
     {
         public WarMaterialAndSpecialEquipmentAssignmentFormatWeapon(
-            WarMaterialAndSpecialEquipmentAssignmentFormat format, string weaponSeries)
+            WarMaterialAndSpecialEquipmentAssignmentFormat format, string weaponSerial)
         {
             Format = format;
-            WeaponSeries = weaponSeries;
+            WeaponSerial = weaponSerial;
         }
 
         private WarMaterialAndSpecialEquipmentAssignmentFormatWeapon()
@@ -24,13 +24,13 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
         [ForeignKey("WarMaterialAndSpecialEquipmentAssignmentFormatId")]
         public WarMaterialAndSpecialEquipmentAssignmentFormat Format { get; set; }
 
-        public string WeaponSeries { get; set; }
-        [ForeignKey("WeaponSeries")] public Weapon Weapon { get; set; }
+        public string WeaponSerial { get; set; }
+        [ForeignKey("WeaponSerial")] public Weapon Weapon { get; set; }
 
         public static WarMaterialAndSpecialEquipmentAssignmentFormatWeapon Create(
-            WarMaterialAndSpecialEquipmentAssignmentFormat format, string weaponSeries)
+            WarMaterialAndSpecialEquipmentAssignmentFormat format, string weaponSerial)
         {
-            return new WarMaterialAndSpecialEquipmentAssignmentFormatWeapon(format, weaponSeries);
+            return new WarMaterialAndSpecialEquipmentAssignmentFormatWeapon(format, weaponSerial);
         }
     }
 }

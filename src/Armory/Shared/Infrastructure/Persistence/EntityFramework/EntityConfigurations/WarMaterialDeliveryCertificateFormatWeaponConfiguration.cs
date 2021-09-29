@@ -10,7 +10,7 @@ namespace Armory.Shared.Infrastructure.Persistence.EntityFramework.EntityConfigu
     {
         public void Configure(EntityTypeBuilder<WarMaterialDeliveryCertificateFormatWeapon> builder)
         {
-            builder.HasIndex(x => new { x.WarMaterialDeliveryCertificateFormatId, x.WeaponSeries }).IsUnique();
+            builder.HasIndex(x => new { x.WarMaterialDeliveryCertificateFormatId, x.WeaponSerial }).IsUnique();
         }
     }
 }

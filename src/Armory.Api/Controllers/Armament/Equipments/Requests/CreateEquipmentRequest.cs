@@ -7,7 +7,7 @@ namespace Armory.Api.Controllers.Armament.Equipments.Requests
         [Required(ErrorMessage = "El número de serie del equipo especial o accesorio es requerido.")]
         [MaxLength(256,
             ErrorMessage = "El número de serie del equipo especial o accesorio no debe tener más de 256 caracteres.")]
-        public string Series { get; set; }
+        public string Serial { get; set; }
 
         [Required(ErrorMessage = "El tipo de equipo especial o accesorio es requerido.")]
         [MaxLength(128, ErrorMessage = "El tipo del equipo especial o accesorio no debe tener más de 128 caracteres.")]

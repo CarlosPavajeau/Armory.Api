@@ -77,18 +77,18 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
         public static WarMaterialAndSpecialEquipmentAssignmentFormat Create(string code, DateTime validity,
             string place, DateTime date, string squadCode, string flightCode, Warehouse warehouse,
             Purpose purpose, DocMovement docMovement, string physicalLocation, string others,
-            IEnumerable<string> weaponSeries, IDictionary<string, int> ammunition,
+            IEnumerable<string> weaponSerials, IDictionary<string, int> ammunition,
             IDictionary<string, int> equipments,
             IDictionary<string, int> explosives)
         {
             var format = new WarMaterialAndSpecialEquipmentAssignmentFormat(code, validity, place, date, squadCode,
                 flightCode, warehouse, purpose, docMovement, physicalLocation, others);
 
-            var weapons = weaponSeries.ToList();
-            foreach (var seriesCode in weapons)
+            var weapons = weaponSerials.ToList();
+            foreach (var weaponSerial in weapons)
             {
                 format.WarMaterialAndSpecialEquipmentAssignmentFormatWeapons.Add(
-                    WarMaterialAndSpecialEquipmentAssignmentFormatWeapon.Create(format, seriesCode));
+                    WarMaterialAndSpecialEquipmentAssignmentFormatWeapon.Create(format, weaponSerial));
             }
 
             foreach (var (ammunitionLot, quantity) in ammunition)
@@ -98,10 +98,10 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
                         quantity));
             }
 
-            foreach (var (equipmentSeries, quantity) in equipments)
+            foreach (var (equipmentSerial, quantity) in equipments)
             {
                 format.WarMaterialAndSpecialEquipmentAssignmentFormatEquipments.Add(
-                    WarMaterialAndSpecialEquipmentAssignmentFormatEquipment.Create(format, equipmentSeries, quantity));
+                    WarMaterialAndSpecialEquipmentAssignmentFormatEquipment.Create(format, equipmentSerial, quantity));
             }
 
             foreach (var (explosiveSerial, quantity) in explosives)

@@ -5,11 +5,11 @@ namespace Armory.Armament.Weapons.Application.GenerateQR
 {
     public class GenerateWeaponQrQuery : Query<MemoryStream>
     {
-        public GenerateWeaponQrQuery(string series)
+        public GenerateWeaponQrQuery(string serial)
         {
-            Series = series;
+            Serial = serial;
         }
 
-        public string Series { get; }
+        public string Serial { get; }
     }
 }

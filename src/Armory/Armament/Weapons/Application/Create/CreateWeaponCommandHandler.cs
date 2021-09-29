@@ -17,7 +17,7 @@ namespace Armory.Armament.Weapons.Application.Create
         {
             var weapon = await _creator.Create(request);
 
-            return weapon.Series;
+            return weapon.Serial;
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Armory.Armament.Equipments.Application.Create
 {
     public class CreateEquipmentCommand : Command
     {
-        public string Series { get; init; }
+        public string Serial { get; init; }
         public string Type { get; init; }
         public string Model { get; init; }
         public int QuantityAvailable { get; init; }

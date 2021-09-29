@@ -10,14 +10,14 @@ namespace Armory.Armament.Weapons.Domain
 {
     public class Weapon
     {
-        public Weapon(string type, string mark, string model, string caliber, string series,
+        public Weapon(string type, string mark, string model, string caliber, string serial,
             int numberOfProviders, int providerCapacity, string flightCode)
         {
             Type = type;
             Mark = mark;
             Model = model;
             Caliber = caliber;
-            Series = series;
+            Serial = serial;
             NumberOfProviders = numberOfProviders;
             ProviderCapacity = providerCapacity;
             FlightCode = flightCode;
@@ -27,7 +27,7 @@ namespace Armory.Armament.Weapons.Domain
         {
         }
 
-        [Key] [MaxLength(256)] public string Series { get; set; }
+        [Key] [MaxLength(256)] public string Serial { get; set; }
         [Required] [MaxLength(128)] public string Type { get; set; }
         [Required] [MaxLength(256)] public string Mark { get; set; }
         [Required] [MaxLength(256)] public string Model { get; set; }
@@ -61,7 +61,7 @@ namespace Armory.Armament.Weapons.Domain
             Mark = mark;
             Model = model;
             Caliber = caliber;
-            Series = series;
+            Serial = series;
             NumberOfProviders = numberOfProviders;
             ProviderCapacity = providerCapacity;
         }

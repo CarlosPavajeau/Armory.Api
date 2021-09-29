@@ -8,8 +8,8 @@ namespace Armory.Armament.Weapons.Domain
     public interface IWeaponsRepository
     {
         Task Save(Weapon weapon);
-        Task<Weapon> Find(string series, bool noTracking);
-        Task<Weapon> Find(string series);
+        Task<Weapon> Find(string serial, bool noTracking);
+        Task<Weapon> Find(string serial);
         Task<IEnumerable<Weapon>> SearchAll(bool noTracking);
         Task<IEnumerable<Weapon>> SearchAll();
         Task<IEnumerable<Weapon>> SearchAllByFlight(string flightCode);

@@ -4,13 +4,13 @@ namespace Armory.Armament.Weapons.Application.AssignHolder
 {
     public class AssignWeaponHolderCommand : Command
     {
-        public AssignWeaponHolderCommand(string weaponSeries, string troopId)
+        public AssignWeaponHolderCommand(string weaponSerial, string troopId)
         {
-            WeaponSeries = weaponSeries;
+            WeaponSerial = weaponSerial;
             TroopId = troopId;
         }
 
-        public string WeaponSeries { get; }
+        public string WeaponSerial { get; }
         public string TroopId { get; }
     }
 }

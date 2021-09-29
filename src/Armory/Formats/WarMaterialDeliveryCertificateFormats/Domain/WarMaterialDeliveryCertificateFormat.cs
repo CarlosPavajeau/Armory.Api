@@ -74,7 +74,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
 
         public static WarMaterialDeliveryCertificateFormat Create(string code, DateTime validity, string place,
             DateTime date, string squadCode, string flightCode, string fireteamCode, string troopId,
-            IEnumerable<string> weaponSeries,
+            IEnumerable<string> weaponSerials,
             IDictionary<string, int> ammunition, IDictionary<string, int> equipments,
             IDictionary<string, int> explosives)
         {
@@ -82,11 +82,11 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
                 fireteamCode,
                 troopId);
 
-            var weapons = weaponSeries.ToList();
-            foreach (var seriesCode in weapons)
+            var weapons = weaponSerials.ToList();
+            foreach (var weaponSerial in weapons)
             {
                 format.WarMaterialDeliveryCertificateFormatWeapons.Add(
-                    WarMaterialDeliveryCertificateFormatWeapon.Create(format, seriesCode));
+                    WarMaterialDeliveryCertificateFormatWeapon.Create(format, weaponSerial));
             }
 
             foreach (var (ammunitionLot, quantity) in ammunition)
@@ -95,10 +95,10 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
                     Domain.WarMaterialDeliveryCertificateFormatAmmunition.Create(format, ammunitionLot, quantity));
             }
 
-            foreach (var (equipmentSeries, quantity) in equipments)
+            foreach (var (equipmentSerial, quantity) in equipments)
             {
                 format.WarMaterialDeliveryCertificateFormatEquipments.Add(
-                    WarMaterialDeliveryCertificateFormatEquipment.Create(format, equipmentSeries, quantity));
+                    WarMaterialDeliveryCertificateFormatEquipment.Create(format, equipmentSerial, quantity));
             }
 
             foreach (var (explosiveSerial, quantity) in explosives)
