@@ -60,7 +60,10 @@ namespace Armory.Troopers.Infrastructure.Persistence
         public async Task<IEnumerable<Troop>> SearchAllByFireteam(string fireteamCode, bool noTracking)
         {
             var query = noTracking ? _context.Troopers.AsNoTracking() : _context.Troopers.AsTracking();
-            return await query.Where(t => t.FireteamCode == fireteamCode).ToListAsync();
+            return await query
+                .Include(t => t.Degree)
+                .Where(t => t.FireteamCode == fireteamCode)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Troop>> SearchAllByFireteam(string fireteamCode)
