@@ -10,8 +10,8 @@ namespace Armory.Shared.Infrastructure.AutoMapper.Profiles.Armament
         public WeaponsProfile()
         {
             CreateMap<Weapon, WeaponResponse>()
-                .ForMember(r => r.OwnerId, ownerId => ownerId.MapFrom(src => src.TroopId))
-                .ForMember(r => r.OwnerName,
+                .ForMember(r => r.HolderId, ownerId => ownerId.MapFrom(src => src.TroopId))
+                .ForMember(r => r.HolderName,
                     ownerName => ownerName.MapFrom(src =>
                         src.Holder == null
                             ? string.Empty
