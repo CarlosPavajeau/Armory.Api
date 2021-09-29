@@ -37,7 +37,7 @@ namespace Armory.Armament.Weapons.Domain
         [Required] public WeaponState State { get; set; }
 
         public string TroopId { get; set; }
-        [ForeignKey("TroopId")] public Troop Owner { get; set; }
+        [ForeignKey("TroopId")] public Troop Holder { get; set; }
 
         public string FlightCode { get; set; }
         [ForeignKey("FlightCode")] public Flight Flight { get; set; }

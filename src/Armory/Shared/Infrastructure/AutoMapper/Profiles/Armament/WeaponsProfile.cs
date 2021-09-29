@@ -13,9 +13,9 @@ namespace Armory.Shared.Infrastructure.AutoMapper.Profiles.Armament
                 .ForMember(r => r.OwnerId, ownerId => ownerId.MapFrom(src => src.TroopId))
                 .ForMember(r => r.OwnerName,
                     ownerName => ownerName.MapFrom(src =>
-                        src.Owner == null
+                        src.Holder == null
                             ? string.Empty
-                            : $"{src.Owner.FirstName} {src.Owner.SecondName} {src.Owner.LastName} {src.Owner.SecondLastName}"));
+                            : $"{src.Holder.Degree.Name}, {src.Holder.FirstName} {src.Holder.SecondName} {src.Holder.LastName} {src.Holder.SecondLastName}"));
             CreateMap<CreateWeaponCommand, Weapon>();
         }
     }

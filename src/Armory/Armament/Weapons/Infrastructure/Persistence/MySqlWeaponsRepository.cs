@@ -29,7 +29,7 @@ namespace Armory.Armament.Weapons.Infrastructure.Persistence
             var query = noTracking ? _context.Weapons.AsNoTracking() : _context.Weapons.AsTracking();
 
             return await query
-                .Include(w => w.Owner)
+                .Include(w => w.Holder)
                 .FirstOrDefaultAsync(w => w.Serial == serial);
         }
 
@@ -42,7 +42,10 @@ namespace Armory.Armament.Weapons.Infrastructure.Persistence
         {
             var query = noTracking ? _context.Weapons.AsNoTracking() : _context.Weapons.AsTracking();
 
-            return await query.ToListAsync();
+            return await query
+                .Include(w => w.Holder)
+                .ThenInclude(h => h.Degree)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Weapon>> SearchAll()
