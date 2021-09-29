@@ -12,6 +12,7 @@ namespace Armory.Armament.Equipments.Domain
         Task<Equipment> Find(string series);
         Task<IEnumerable<Equipment>> SearchAll(bool noTracking);
         Task<IEnumerable<Equipment>> SearchAll();
+        Task<IEnumerable<Equipment>> SearchAllByFlight(string flightCode);
         Task<bool> Any(Expression<Func<Equipment, bool>> predicate);
         Task Update(Equipment newEquipment);
     }

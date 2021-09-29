@@ -6,6 +6,7 @@ using Armory.Armament.Equipments.Application.CheckExists;
 using Armory.Armament.Equipments.Application.Create;
 using Armory.Armament.Equipments.Application.Find;
 using Armory.Armament.Equipments.Application.SearchAll;
+using Armory.Armament.Equipments.Application.SearchAllByFlight;
 using Armory.Armament.Equipments.Application.Update;
 using Armory.Armament.Explosives.Application.CheckExists;
 using Armory.Armament.Explosives.Application.Create;
@@ -144,6 +145,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<EquipmentFinder, EquipmentFinder>();
             services.AddScoped<EquipmentExistsChecker, EquipmentExistsChecker>();
             services.AddScoped<EquipmentUpdater, EquipmentUpdater>();
+            services.AddScoped<EquipmentsByFlightSearcher, EquipmentsByFlightSearcher>();
 
             services.AddScoped<ExplosiveCreator, ExplosiveCreator>();
             services.AddScoped<AllExplosivesSearcher, AllExplosivesSearcher>();

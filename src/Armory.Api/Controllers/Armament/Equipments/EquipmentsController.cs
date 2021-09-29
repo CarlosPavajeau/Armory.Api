@@ -6,6 +6,7 @@ using Armory.Armament.Equipments.Application.CheckExists;
 using Armory.Armament.Equipments.Application.Create;
 using Armory.Armament.Equipments.Application.Find;
 using Armory.Armament.Equipments.Application.SearchAll;
+using Armory.Armament.Equipments.Application.SearchAllByFlight;
 using Armory.Armament.Equipments.Application.Update;
 using Armory.Armament.Equipments.Domain;
 using AutoMapper;
@@ -58,6 +59,13 @@ namespace Armory.Api.Controllers.Armament.Equipments
         public async Task<ActionResult<IEnumerable<EquipmentResponse>>> GetEquipments()
         {
             var equipments = await _mediator.Send(new SearchAllEquipmentsQuery());
+            return Ok(equipments);
+        }
+
+        [HttpGet("ByFlight/{flightCode}")]
+        public async Task<ActionResult<IEnumerable<EquipmentResponse>>> GetEquipmentsByFlight(string flightCode)
+        {
+            var equipments = await _mediator.Send(new SearchAllEquipmentsByFlightQuery { FlightCode = flightCode });
             return Ok(equipments);
         }
 
