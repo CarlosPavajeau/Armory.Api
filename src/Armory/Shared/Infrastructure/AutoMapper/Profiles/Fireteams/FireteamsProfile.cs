@@ -17,7 +17,7 @@ namespace Armory.Shared.Infrastructure.AutoMapper.Profiles.Fireteams
                     ownerName => ownerName.MapFrom(src =>
                         src.Owner == null
                             ? string.Empty
-                            : $"{src.Owner.FullName} - {src.Owner.Degree.Name}"));
+                            : $"{src.Owner.Degree.Name} - {src.Owner.FullName}"));
             CreateMap<CreateFireteamCommand, Fireteam>();
         }
     }

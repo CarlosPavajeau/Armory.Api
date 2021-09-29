@@ -13,7 +13,7 @@ namespace Armory.Shared.Infrastructure.AutoMapper.Profiles.Squads
             CreateMap<Squad, SquadResponse>()
                 .ForMember(s => s.OwnerName,
                     ownerName => ownerName.MapFrom(src =>
-                        src.Owner == null ? string.Empty : $"{src.Owner.FullName} - {src.Owner.Degree.Name}"));
+                        src.Owner == null ? string.Empty : $"{src.Owner.Degree.Name} - {src.Owner.FullName}"));
         }
     }
 }
