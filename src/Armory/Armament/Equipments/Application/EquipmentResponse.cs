@@ -6,5 +6,6 @@ namespace Armory.Armament.Equipments.Application
         public string Type { get; init; }
         public string Model { get; init; }
         public int QuantityAvailable { get; init; }
+        public string FlightCode { get; init; }
     }
 }

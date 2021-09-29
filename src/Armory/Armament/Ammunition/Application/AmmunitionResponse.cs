@@ -7,5 +7,6 @@ namespace Armory.Armament.Ammunition.Application
         public string Mark { get; init; }
         public string Caliber { get; init; }
         public int QuantityAvailable { get; init; }
+        public string FlightCode { get; init; }
     }
 }

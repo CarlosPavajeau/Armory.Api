@@ -9,6 +9,7 @@ namespace Armory.Armament.Weapons.Application
         public string Caliber { get; init; }
         public int NumberOfProviders { get; init; }
         public int ProviderCapacity { get; init; }
+        public string FlightCode { get; init; }
         public string OwnerId { get; init; }
         public string OwnerName { get; init; }
     }

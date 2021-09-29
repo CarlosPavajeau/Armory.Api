@@ -8,5 +8,6 @@ namespace Armory.Armament.Explosives.Application
         public string Mark { get; init; }
         public string Lot { get; init; }
         public int QuantityAvailable { get; init; }
+        public string FlightCode { get; init; }
     }
 }
