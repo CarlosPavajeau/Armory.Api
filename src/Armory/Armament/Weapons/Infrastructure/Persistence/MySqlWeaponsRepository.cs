@@ -30,6 +30,7 @@ namespace Armory.Armament.Weapons.Infrastructure.Persistence
 
             return await query
                 .Include(w => w.Holder)
+                .ThenInclude(h => h.Degree)
                 .FirstOrDefaultAsync(w => w.Serial == serial);
         }
 
