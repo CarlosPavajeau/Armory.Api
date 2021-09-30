@@ -79,16 +79,16 @@ namespace Armory.Api.Controllers.Armament.Weapons
             return NotFound(new ValidationProblemDetails(ModelState));
         }
 
-        [HttpGet("{code}")]
-        public async Task<ActionResult<WeaponResponse>> GetWeapon(string code)
+        [HttpGet("{serial}")]
+        public async Task<ActionResult<WeaponResponse>> GetWeapon(string serial)
         {
-            var weapon = await _mediator.Send(new FindWeaponQuery(code));
+            var weapon = await _mediator.Send(new FindWeaponQuery(serial));
             if (weapon != null)
             {
                 return Ok(weapon);
             }
 
-            return WeaponNotFound(code);
+            return WeaponNotFound(serial);
         }
 
         [HttpGet("Exists/{serial}")]

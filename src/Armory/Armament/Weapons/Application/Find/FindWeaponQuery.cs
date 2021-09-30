@@ -4,11 +4,11 @@ namespace Armory.Armament.Weapons.Application.Find
 {
     public class FindWeaponQuery : Query<WeaponResponse>
     {
-        public FindWeaponQuery(string code)
+        public FindWeaponQuery(string serial)
         {
-            Code = code;
+            Serial = serial;
         }
 
-        public string Code { get; }
+        public string Serial { get; }
     }
 }
