@@ -1,3 +1,4 @@
+using System;
 using MediatR;
 
 namespace Armory.Shared.Domain.Bus.Event
@@ -11,7 +12,7 @@ namespace Armory.Shared.Domain.Bus.Event
             OccurredOn = occurredOn;
         }
 
-        protected DomainEvent()
+        protected DomainEvent() : this(Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), DateTime.Now.ToString("d"))
         {
         }
 

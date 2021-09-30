@@ -15,7 +15,7 @@ namespace Armory.Armament.Weapons.Application.AssignHolder
             _unitWork = unitWork;
         }
 
-        public async Task AssignOwner(string weaponSerial, string troopId)
+        public async Task AssignHolder(string weaponSerial, string troopId)
         {
             var weapon = await _repository.Find(weaponSerial, false);
             if (weapon == null) throw new WeaponNotFound();

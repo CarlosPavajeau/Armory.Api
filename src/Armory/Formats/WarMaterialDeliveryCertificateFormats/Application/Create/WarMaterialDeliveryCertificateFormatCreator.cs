@@ -2,16 +2,23 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain;
+using Armory.Shared.Domain.Bus.Event;
+using Armory.Shared.Domain.Persistence.EntityFramework.Transactions;
 
 namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Create
 {
     public class WarMaterialDeliveryCertificateFormatCreator
     {
+        private readonly IEventBus _eventBus;
+        private readonly ITransactionInitializer _initializer;
         private readonly IWarMaterialDeliveryCertificateFormatsRepository _repository;
 
-        public WarMaterialDeliveryCertificateFormatCreator(IWarMaterialDeliveryCertificateFormatsRepository repository)
+        public WarMaterialDeliveryCertificateFormatCreator(IWarMaterialDeliveryCertificateFormatsRepository repository,
+            IEventBus eventBus, ITransactionInitializer initializer)
         {
             _repository = repository;
+            _eventBus = eventBus;
+            _initializer = initializer;
         }
 
         public async Task<WarMaterialDeliveryCertificateFormat> Create(
@@ -42,7 +49,12 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Creat
                 equipments,
                 explosives);
 
+            var transaction = await _initializer.Begin();
+
             await _repository.Save(format);
+            await _eventBus.Publish(format.PullDomainEvents());
+
+            await transaction.CommitAsync();
 
             return format;
         }

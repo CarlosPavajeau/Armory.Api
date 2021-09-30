@@ -10,6 +10,7 @@ using Armory.Armament.Weapons.Domain;
 using Armory.Fireteams.Domain;
 using Armory.Flights.Domain;
 using Armory.Shared.Domain.Aggregate;
+using Armory.Shared.Domain.Formats.WarMaterialDeliveryCertificateFormats;
 using Armory.Squads.Domain;
 using Armory.Troopers.Domain;
 
@@ -106,6 +107,15 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
                 format.WarMaterialDeliveryCertificateFormatExplosives.Add(
                     WarMaterialDeliveryCertificateFormatExplosive.Create(format, explosiveSerial, quantity));
             }
+
+            format.Record(new WarMaterialDeliveryCertificateFormatCreatedDomainEvent
+            {
+                Weapons = weapons,
+                Ammunition = ammunition,
+                Equipments = equipments,
+                Explosives = explosives,
+                TroopId = troopId
+            });
 
             return format;
         }
