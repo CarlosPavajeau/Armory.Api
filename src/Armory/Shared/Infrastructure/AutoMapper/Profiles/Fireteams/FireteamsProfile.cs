@@ -12,7 +12,8 @@ namespace Armory.Shared.Infrastructure.AutoMapper.Profiles.Fireteams
             CreateMap<Fireteam, FireteamResponse>()
                 .ForMember(s => s.FlightName,
                     flightName =>
-                        flightName.MapFrom(src => src.Flight == null ? string.Empty : src.Flight.Name))
+                        flightName.MapFrom(src =>
+                            src.Flight == null ? string.Empty : $"{src.FlightCode} - {src.Flight.Name}"))
                 .ForMember(s => s.OwnerName,
                     ownerName => ownerName.MapFrom(src =>
                         src.Owner == null
