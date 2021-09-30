@@ -40,7 +40,7 @@ namespace Armory.Armament.Weapons.Application.GenerateQR
             var imageData = ImageDataFactory.Create(qrBytes);
             var image = new Image(imageData);
             document.Add(image);
-            document.Add(new Paragraph(weapon.Serial));
+            document.Add(new Paragraph($"{weapon.Model}{weapon.Serial}"));
 
             document.Close();
 
