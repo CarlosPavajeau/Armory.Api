@@ -209,6 +209,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Gener
                 XLAlignmentVerticalValues.Center);
             WorksheetManager.MergeRangeAndSetValue(workRange,
                 "Firma y Postfirma Comandante del Cadete, Alumno y/o Soldado");
+            workRange.Style.Font.FontColor = XLColor.Gray;
             ++currentRow;
 
             workRange = worksheet.Range($"F{currentRow}:H{currentRow}");
@@ -227,7 +228,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Gener
             workRange = worksheet.Range($"F{currentRow}:H{currentRow}");
             WorksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
-            WorksheetManager.MergeRangeAndSetValue(workRange, $"{format.Squad.Name}");
+            WorksheetManager.MergeRangeAndSetValue(workRange, "Dependencia");
 
             workRange = worksheet.Range($"J{currentRow}:L{currentRow}");
             workRange.Style.Border.TopBorder = XLBorderStyleValues.Medium;
@@ -238,20 +239,20 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Gener
                 XLAlignmentVerticalValues.Center);
             WorksheetManager.MergeRangeAndSetValue(workRange,
                 "Firma y Postfirma Cadete, Alumno y/o Soldado");
+            workRange.Style.Font.FontColor = XLColor.Gray;
             ++currentRow;
 
             workRange = worksheet.Range($"F{currentRow}:H{currentRow}");
             WorksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
             workRange.Style.Border.TopBorder = XLBorderStyleValues.Thin;
-            WorksheetManager.MergeRangeAndSetValue(workRange,
-                $"{format.Receiver.Degree.Name} - {format.Receiver.FullName}");
+            WorksheetManager.MergeRangeAndSetValue(workRange, "Grado - Nombres y Apellidos");
             ++currentRow;
 
             workRange = worksheet.Range($"F{currentRow}:H{currentRow}");
             WorksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
-            WorksheetManager.MergeRangeAndSetValue(workRange, $"{format.Receiver.Degree.Rank.Name}");
+            WorksheetManager.MergeRangeAndSetValue(workRange, "Cargo");
 
             workRange = worksheet.Range($"J{currentRow}:L{currentRow}");
             WorksheetManager.MergeRangeAndSetValue(workRange, "IMPRONTA DEL ARMA");

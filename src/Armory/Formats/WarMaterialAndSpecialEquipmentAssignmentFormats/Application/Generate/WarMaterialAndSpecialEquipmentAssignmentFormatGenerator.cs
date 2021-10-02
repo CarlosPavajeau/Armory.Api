@@ -218,8 +218,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             return previousEnd + maxNumOfElements;
         }
 
-        private int MakeWorksheetFooterInfo(IXLWorksheet worksheet,
-            WarMaterialAndSpecialEquipmentAssignmentFormat format, int previousEnd)
+        private int MakeWorksheetFooterInfo(IXLWorksheet worksheet, int previousEnd)
         {
             var currentRow = previousEnd + 3;
 
@@ -255,6 +254,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             WorksheetManager.MergeRangeAndSetValue(workRange, "Firma y Postfirma Jefe de Almacén (Unidad)");
             WorksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
+            workRange.Style.Font.FontColor = XLColor.Gray;
             WorksheetManager.SetRangeFontSize(workRange, 8);
             WorksheetManager.SetRangeFontName(workRange, "Arial");
 
@@ -264,6 +264,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
                 "Firma y Postfirma Cdte. Esc. Armamento o Cdte. Grupo/Escuadron de Seguridad (Unidad)");
             WorksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
+            workRange.Style.Font.FontColor = XLColor.Gray;
             WorksheetManager.SetRangeFontSize(workRange, 8);
             WorksheetManager.SetRangeFontName(workRange, "Arial");
 
@@ -294,6 +295,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             WorksheetManager.MergeRangeAndSetValue(workRange, "Firma y Postfirma Segundo Comandante de (Unidad)");
             WorksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
+            workRange.Style.Font.FontColor = XLColor.Gray;
             WorksheetManager.SetRangeFontSize(workRange, 8);
             WorksheetManager.SetRangeFontName(workRange, "Arial");
 
@@ -318,7 +320,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             var equipmentAndExplosivesEnd =
                 MakeSpecialEquipmentAndExplosivesInfo(workSheet, format, weaponAndAmmunitionEnd + 3);
 
-            var worksheetFooterInfoEnd = MakeWorksheetFooterInfo(workSheet, format, equipmentAndExplosivesEnd + 1);
+            var worksheetFooterInfoEnd = MakeWorksheetFooterInfo(workSheet, equipmentAndExplosivesEnd + 1);
 
             WorksheetManager.SetRangeOutsideBorder(workSheet.Range($"A1:M{worksheetFooterInfoEnd + 2}"),
                 XLBorderStyleValues.Medium);
