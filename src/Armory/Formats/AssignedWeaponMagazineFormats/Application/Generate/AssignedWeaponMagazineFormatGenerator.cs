@@ -142,13 +142,11 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate
             WorksheetManager.MergeRangeAndSetValue(workRange, "Firma y Postfirma Jefe de  Almacén y/o Bodega");
             WorksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
-            workRange.Style.Font.FontColor = XLColor.Gray;
 
             workRange = worksheet.Range($"M{currentRow}:P{currentRow}");
             WorksheetManager.MergeRangeAndSetValue(workRange, "Firma y Postfirma de quien elabora la Revista");
             WorksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
-            workRange.Style.Font.FontColor = XLColor.Gray;
             ++currentRow;
 
             workRange = worksheet.Range($"M{currentRow}:P{currentRow}");
@@ -167,7 +165,6 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.Generate
             workRange = worksheet.Range($"F{currentRow}:K{currentRow}");
             WorksheetManager.MergeRangeAndSetValue(workRange,
                 "Firma y Postfirma Cdte. Grupo / Escuadrón o quien haga sus veces.");
-            workRange.Style.Font.FontColor = XLColor.Gray;
             WorksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
             ++currentRow;

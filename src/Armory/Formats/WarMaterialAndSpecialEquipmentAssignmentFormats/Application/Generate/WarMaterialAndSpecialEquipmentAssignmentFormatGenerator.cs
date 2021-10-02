@@ -254,7 +254,6 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             WorksheetManager.MergeRangeAndSetValue(workRange, "Firma y Postfirma Jefe de Almacén (Unidad)");
             WorksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
-            workRange.Style.Font.FontColor = XLColor.Gray;
             WorksheetManager.SetRangeFontSize(workRange, 8);
             WorksheetManager.SetRangeFontName(workRange, "Arial");
 
@@ -264,7 +263,6 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
                 "Firma y Postfirma Cdte. Esc. Armamento o Cdte. Grupo/Escuadron de Seguridad (Unidad)");
             WorksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
-            workRange.Style.Font.FontColor = XLColor.Gray;
             WorksheetManager.SetRangeFontSize(workRange, 8);
             WorksheetManager.SetRangeFontName(workRange, "Arial");
 
@@ -295,7 +293,6 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             WorksheetManager.MergeRangeAndSetValue(workRange, "Firma y Postfirma Segundo Comandante de (Unidad)");
             WorksheetManager.SetRangeAlignment(workRange, XLAlignmentHorizontalValues.Center,
                 XLAlignmentVerticalValues.Center);
-            workRange.Style.Font.FontColor = XLColor.Gray;
             WorksheetManager.SetRangeFontSize(workRange, 8);
             WorksheetManager.SetRangeFontName(workRange, "Arial");
 
