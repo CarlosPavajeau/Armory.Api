@@ -108,7 +108,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
                     WarMaterialDeliveryCertificateFormatExplosive.Create(format, explosiveSerial, quantity));
             }
 
-            format.Record(new WarMaterialDeliveryCertificateFormatCreatedDomainEvent
+            format.Record(new WarMaterialDeliveryCertificateFormatCreatedDomainEvent(format.Code)
             {
                 Weapons = weapons,
                 Ammunition = ammunition,

@@ -5,6 +5,10 @@ namespace Armory.Shared.Domain.Formats.WarMaterialDeliveryCertificateFormats
 {
     public class WarMaterialDeliveryCertificateFormatCreatedDomainEvent : DomainEvent
     {
+        public WarMaterialDeliveryCertificateFormatCreatedDomainEvent(string aggregateId) : base(aggregateId)
+        {
+        }
+
         public IEnumerable<string> Weapons { get; init; }
         public IDictionary<string, int> Ammunition { get; init; }
         public IDictionary<string, int> Equipments { get; init; }

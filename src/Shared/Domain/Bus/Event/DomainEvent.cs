@@ -12,13 +12,18 @@ namespace Armory.Shared.Domain.Bus.Event
             OccurredOn = occurredOn;
         }
 
+        protected DomainEvent(string aggregateId) : this(aggregateId, Guid.NewGuid().ToString(),
+            DateTime.Now.ToString("g"))
+        {
+        }
+
         protected DomainEvent() : this(Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), DateTime.Now.ToString("d"))
         {
         }
 
-        public string AggregateId { get; set; }
-        public string EventId { get; set; }
-        public string OccurredOn { get; set; }
+        public string AggregateId { get; }
+        public string EventId { get; }
+        public string OccurredOn { get; }
 
         public abstract string EventName();
     }
