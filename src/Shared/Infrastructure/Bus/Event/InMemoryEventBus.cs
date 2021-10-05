@@ -8,10 +8,10 @@ namespace Armory.Shared.Infrastructure.Bus.Event
 {
     public class InMemoryEventBus : IEventBus
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<InMemoryEventBus> _logger;
         private readonly IMediator _mediator;
 
-        public InMemoryEventBus(IMediator mediator, ILogger logger)
+        public InMemoryEventBus(IMediator mediator, ILogger<InMemoryEventBus> logger)
         {
             _mediator = mediator;
             _logger = logger;
