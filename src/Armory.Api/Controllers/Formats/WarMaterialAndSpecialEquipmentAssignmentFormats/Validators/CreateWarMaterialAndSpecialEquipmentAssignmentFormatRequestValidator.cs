@@ -1,10 +1,11 @@
-using System.Data;
 using Armory.Api.Controllers.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Requests;
 using FluentValidation;
 
 namespace Armory.Api.Controllers.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Validators
 {
-    public class CreateWarMaterialAndSpecialEquipmentAssignmentFormatRequestValidator : AbstractValidator<CreateWarMaterialAndSpecialEquipmentAssignmentFormatRequest>
+    public class
+        CreateWarMaterialAndSpecialEquipmentAssignmentFormatRequestValidator : AbstractValidator<
+            CreateWarMaterialAndSpecialEquipmentAssignmentFormatRequest>
     {
         public CreateWarMaterialAndSpecialEquipmentAssignmentFormatRequestValidator()
         {
