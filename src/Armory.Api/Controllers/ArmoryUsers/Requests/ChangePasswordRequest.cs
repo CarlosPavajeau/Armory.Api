@@ -4,6 +4,8 @@ namespace Armory.Api.Controllers.ArmoryUsers.Requests
 {
     public class ChangePasswordRequest
     {
+        public string UsernameOrEmail { get; set; }
+
         [Required(ErrorMessage = "La contraseña antigua es requerida.")]
         public string OldPassword { get; set; }
 
