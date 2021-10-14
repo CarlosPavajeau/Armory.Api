@@ -87,6 +87,7 @@ namespace Armory.Api.Extensions
             services.AddAutoMapper(AssemblyHelper.GetInstance(Assemblies.Armory));
 
             services.Configure<SecretKey>(configuration.GetSection("SecretKey"));
+            services.AddRouting(options => { options.LowercaseUrls = true; });
 
             services.AddScoped<IArmoryUsersRepository, MySqlArmoryUsersRepository>();
             services.AddScoped<ISquadsRepository, MySqlSquadsRepository>();
