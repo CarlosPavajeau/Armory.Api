@@ -69,34 +69,34 @@ namespace Armory.Api.Controllers.Armament.Equipments
             return Ok(equipments);
         }
 
-        private NotFoundObjectResult EquipmentNotFound(string code)
+        private NotFoundObjectResult EquipmentNotFound(string serial)
         {
             ModelState.AddModelError("EquipmentNotFound",
-                $"No se encontró ningun equipo especial o accesorio con el código '{code}'.");
+                $"No se encontró ningun equipo especial o accesorio con el serial '{serial}'.");
             return NotFound(new ValidationProblemDetails(ModelState));
         }
 
-        [HttpGet("{code}")]
-        public async Task<ActionResult<EquipmentResponse>> GetEquipment(string code)
+        [HttpGet("{serial}")]
+        public async Task<ActionResult<EquipmentResponse>> GetEquipment(string serial)
         {
-            var equipment = await _mediator.Send(new FindEquipmentQuery(code));
+            var equipment = await _mediator.Send(new FindEquipmentQuery(serial));
             if (equipment != null)
             {
                 return Ok(equipment);
             }
 
-            return EquipmentNotFound(code);
+            return EquipmentNotFound(serial);
         }
 
-        [HttpGet("Exists/{code}")]
-        public async Task<ActionResult<bool>> CheckExists(string code)
+        [HttpGet("Exists/{serial}")]
+        public async Task<ActionResult<bool>> CheckExists(string serial)
         {
-            var exists = await _mediator.Send(new CheckEquipmentExistsQuery(code));
+            var exists = await _mediator.Send(new CheckEquipmentExistsQuery(serial));
             return Ok(exists);
         }
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> UpdateEquipment(string code, [FromBody] UpdateEquipmentRequest request)
+        [HttpPut("{serial}")]
+        public async Task<IActionResult> UpdateEquipment(string serial, [FromBody] UpdateEquipmentRequest request)
         {
             try
             {
@@ -109,7 +109,7 @@ namespace Armory.Api.Controllers.Armament.Equipments
             }
             catch (EquipmentNotFound)
             {
-                return EquipmentNotFound(code);
+                return EquipmentNotFound(serial);
             }
 
             return Ok();
