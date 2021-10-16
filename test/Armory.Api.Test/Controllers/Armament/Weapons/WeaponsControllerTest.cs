@@ -60,12 +60,11 @@ namespace Armory.Api.Test.Controllers.Armament.Weapons
 
         [Test]
         [Order(1)]
-        public async Task Should_be_save_weapon()
+        public async Task RegisterWeapon_ShouldRegisterWeapon()
         {
             Mediator.Setup(x => x.Send(It.IsAny<CreateWeaponCommand>(), CancellationToken.None)).Verifiable();
             Mediator.Setup(x => x.Send(It.IsAny<GenerateWeaponQrQuery>(), CancellationToken.None))
                 .ReturnsAsync(new MemoryStream());
-
             var result = await _controller.RegisterWeapon(new CreateWeaponRequest
             {
                 Serial = "00240",
@@ -86,14 +85,14 @@ namespace Armory.Api.Test.Controllers.Armament.Weapons
 
         [Test]
         [Order(2)]
-        public async Task Should_be_get_all_weapons()
+        public async Task GetWeapons_ShouldReturnsAllWeapons()
         {
             Mediator.Setup(x => x.Send(It.IsAny<SearchAllWeaponsQuery>(), CancellationToken.None))
                 .ReturnsAsync(_weapons);
 
             var result = (await _controller.GetWeapons()).Result as OkObjectResult;
-            Assert.IsNotNull(result);
 
+            Assert.IsNotNull(result);
             var value = result.Value as IEnumerable<WeaponResponse>;
             Assert.IsNotNull(value);
             Assert.AreEqual(2, value.Count());
@@ -101,7 +100,7 @@ namespace Armory.Api.Test.Controllers.Armament.Weapons
 
         [Test]
         [Order(3)]
-        public async Task Should_be_get_all_weapons_by_flight()
+        public async Task GetWeaponsByFlight_ShouldReturnsOnlyWeaponsOnFlight()
         {
             Mediator.Setup(x => x.Send(It.IsAny<SearchAllWeaponsByFlightQuery>(), CancellationToken.None))
                 .ReturnsAsync((SearchAllWeaponsByFlightQuery query, CancellationToken _) =>
@@ -109,16 +108,18 @@ namespace Armory.Api.Test.Controllers.Armament.Weapons
 
             const string flightCode = "ESEG105";
             var result = (await _controller.GetWeaponsByFlight(flightCode)).Result as OkObjectResult;
-            Assert.IsNotNull(result);
 
+            Assert.IsNotNull(result);
             var value = result.Value as IEnumerable<WeaponResponse>;
             Assert.IsNotNull(value);
-            Assert.AreEqual(1, value.Count());
+            var weapons = value.ToList();
+            Assert.AreEqual(1, weapons.Count);
+            Assert.AreEqual(flightCode, weapons.ElementAt(0).FlightCode);
         }
 
         [Test]
         [Order(4)]
-        public async Task Should_be_get_weapon()
+        public async Task GetWeapon_ShouldReturnWeapon()
         {
             Mediator.Setup(x => x.Send(It.IsAny<FindWeaponQuery>(), CancellationToken.None))
                 .ReturnsAsync((FindWeaponQuery query, CancellationToken _) =>
@@ -134,13 +135,12 @@ namespace Armory.Api.Test.Controllers.Armament.Weapons
 
         [Test]
         [Order(5)]
-        public async Task Should_not_be_get_weapon()
+        public async Task GetWeapon_ShouldReturnNotFoundObjectResult()
         {
             const string serial = "111";
-
             var result = (await _controller.GetWeapon(serial)).Result as NotFoundObjectResult;
-            Assert.IsNotNull(result);
 
+            Assert.IsNotNull(result);
             var details = result.Value as ValidationProblemDetails;
             Assert.IsNotNull(details);
             Assert.IsTrue(details.Errors.TryGetValue("WeaponNotFound", out var errors));
