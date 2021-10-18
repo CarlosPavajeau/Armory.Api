@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Application.Generate;
 using Armory.Shared.Domain.Bus.Command;
 
 namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Application.Create
@@ -10,14 +9,11 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
         CreateWarMaterialAndSpecialEquipmentAssignmentFormatCommand, int>
     {
         private readonly WarMaterialAndSpecialEquipmentAssignmentFormatCreator _creator;
-        private readonly WarMaterialAndSpecialEquipmentAssignmentFormatGenerator _generator;
 
         public CreateWarMaterialAndSpecialEquipmentAssignmentFormatCommandHandler(
-            WarMaterialAndSpecialEquipmentAssignmentFormatCreator creator,
-            WarMaterialAndSpecialEquipmentAssignmentFormatGenerator generator)
+            WarMaterialAndSpecialEquipmentAssignmentFormatCreator creator)
         {
             _creator = creator;
-            _generator = generator;
         }
 
         public async Task<int> Handle(CreateWarMaterialAndSpecialEquipmentAssignmentFormatCommand request,
