@@ -15,5 +15,7 @@ namespace Armory.Shared.Domain.Repositories
         Task<bool> Any(Expression<Func<T, bool>> predicate);
 
         Task<IEnumerable<T>> SearchAll();
+
+        Task Delete(T entity);
     }
 }

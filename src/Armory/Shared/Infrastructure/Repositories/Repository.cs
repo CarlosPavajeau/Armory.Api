@@ -35,5 +35,11 @@ namespace Armory.Shared.Infrastructure.Repositories
         {
             return await Context.Set<T>().AsNoTracking().ToListAsync();
         }
+
+        public async Task Delete(T entity)
+        {
+            Context.Set<T>().Remove(entity);
+            await Context.SaveChangesAsync();
+        }
     }
 }
