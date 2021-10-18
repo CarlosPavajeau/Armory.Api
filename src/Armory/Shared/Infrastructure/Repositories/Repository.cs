@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Armory.Shared.Infrastructure.Repositories
 {
-    public abstract class Repository<T, TKey> : IRepository<T, TKey> where T : class
+    public abstract class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : class
     {
         protected readonly ArmoryDbContext Context;
 
@@ -17,28 +17,28 @@ namespace Armory.Shared.Infrastructure.Repositories
             Context = context;
         }
 
-        public async Task Save(T entity)
+        public async Task Save(TEntity entity)
         {
-            await Context.Set<T>().AddAsync(entity);
+            await Context.Set<TEntity>().AddAsync(entity);
             await Context.SaveChangesAsync();
         }
 
-        public abstract Task<T> Find(TKey key, bool noTracking);
-        public abstract Task<T> Find(TKey key);
+        public abstract Task<TEntity> Find(TKey key, bool noTracking);
+        public abstract Task<TEntity> Find(TKey key);
 
-        public async Task<bool> Any(Expression<Func<T, bool>> predicate)
+        public async Task<bool> Any(Expression<Func<TEntity, bool>> predicate)
         {
-            return await Context.Set<T>().AnyAsync(predicate);
+            return await Context.Set<TEntity>().AnyAsync(predicate);
         }
 
-        public virtual async Task<IEnumerable<T>> SearchAll()
+        public virtual async Task<IEnumerable<TEntity>> SearchAll()
         {
-            return await Context.Set<T>().AsNoTracking().ToListAsync();
+            return await Context.Set<TEntity>().AsNoTracking().ToListAsync();
         }
 
-        public async Task Delete(T entity)
+        public async Task Delete(TEntity entity)
         {
-            Context.Set<T>().Remove(entity);
+            Context.Set<TEntity>().Remove(entity);
             await Context.SaveChangesAsync();
         }
     }

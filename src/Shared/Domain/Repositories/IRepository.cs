@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 
 namespace Armory.Shared.Domain.Repositories
 {
-    public interface IRepository<T, in TKey> where T : class
+    public interface IRepository<TEntity, in TKey> where TEntity : class
     {
-        Task Save(T entity);
+        Task Save(TEntity entity);
 
-        Task<T> Find(TKey key, bool noTracking);
-        Task<T> Find(TKey key);
+        Task<TEntity> Find(TKey key, bool noTracking);
+        Task<TEntity> Find(TKey key);
 
-        Task<bool> Any(Expression<Func<T, bool>> predicate);
+        Task<bool> Any(Expression<Func<TEntity, bool>> predicate);
 
-        Task<IEnumerable<T>> SearchAll();
+        Task<IEnumerable<TEntity>> SearchAll();
 
-        Task Delete(T entity);
+        Task Delete(TEntity entity);
     }
 }
