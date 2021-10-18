@@ -1,31 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
+using Armory.Shared.Infrastructure.Repositories;
 using Armory.Squads.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Armory.Squads.Infrastructure.Persistence
 {
-    public class MySqlSquadsRepository : ISquadsRepository
+    public class MySqlSquadsRepository : Repository<Squad, string>, ISquadsRepository
     {
-        private readonly ArmoryDbContext _context;
-
-        public MySqlSquadsRepository(ArmoryDbContext context)
+        public MySqlSquadsRepository(ArmoryDbContext context) : base(context)
         {
-            _context = context;
         }
 
-        public async Task Save(Squad squad)
+        public override async Task<Squad> Find(string code, bool noTracking)
         {
-            await _context.Squads.AddAsync(squad);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<Squad> Find(string code, bool noTracking)
-        {
-            var query = noTracking ? _context.Squads.AsNoTracking() : _context.Squads.AsTracking();
+            var query = noTracking ? Context.Squads.AsNoTracking() : Context.Squads.AsTracking();
 
             return await query
                 .Include(s => s.Owner)
@@ -33,19 +23,14 @@ namespace Armory.Squads.Infrastructure.Persistence
                 .FirstOrDefaultAsync(s => s.Code == code);
         }
 
-        public async Task<Squad> Find(string code)
+        public override async Task<Squad> Find(string code)
         {
             return await Find(code, true).ConfigureAwait(false);
         }
 
-        public async Task<bool> Any(Expression<Func<Squad, bool>> predicate)
+        public override async Task<IEnumerable<Squad>> SearchAll()
         {
-            return await _context.Squads.AnyAsync(predicate);
-        }
-
-        public async Task<IEnumerable<Squad>> SearchAll()
-        {
-            return await _context.Squads
+            return await Context.Squads
                 .AsNoTracking()
                 .Include(s => s.Owner)
                 .ThenInclude(o => o.Degree)

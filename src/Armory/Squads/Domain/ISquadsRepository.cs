@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
+﻿using Armory.Shared.Domain.Repositories;
 
 namespace Armory.Squads.Domain
 {
-    public interface ISquadsRepository
+    public interface ISquadsRepository : IRepository<Squad, string>
     {
-        Task Save(Squad squad);
-        Task<Squad> Find(string code, bool noTracking);
-        Task<Squad> Find(string code);
-
-        Task<bool> Any(Expression<Func<Squad, bool>> predicate);
-
-        Task<IEnumerable<Squad>> SearchAll();
     }
 }
