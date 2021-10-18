@@ -39,7 +39,10 @@ namespace Armory.Api.Controllers.Squads
             catch (DbUpdateException)
             {
                 var exists = await _mediator.Send(new CheckSquadExistsQuery { SquadCode = request.Code });
-                if (!exists) throw;
+                if (!exists)
+                {
+                    throw;
+                }
 
                 ModelState.AddModelError("SquadAlreadyRegistered",
                     $"Ya esxiste un escuadrón con el código '{request.Code}'");
@@ -66,7 +69,10 @@ namespace Armory.Api.Controllers.Squads
         public async Task<ActionResult<SquadResponse>> GetSquad(string code)
         {
             var squad = await _mediator.Send(new FindSquadQuery { Code = code });
-            if (squad != null) return Ok(squad);
+            if (squad != null)
+            {
+                return Ok(squad);
+            }
 
             return SquadNotFound(code);
         }

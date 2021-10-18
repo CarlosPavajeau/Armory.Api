@@ -205,7 +205,10 @@ namespace Armory.Api.Extensions
             try
             {
                 var context = services.GetRequiredService<T>();
-                if (context.Database.GetPendingMigrations().Any()) context.Database.Migrate();
+                if (context.Database.GetPendingMigrations().Any())
+                {
+                    context.Database.Migrate();
+                }
             }
             catch (Exception e)
             {
