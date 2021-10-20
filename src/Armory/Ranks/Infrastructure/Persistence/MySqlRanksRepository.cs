@@ -1,48 +1,22 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Armory.Ranks.Domain;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
+using Armory.Shared.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Armory.Ranks.Infrastructure.Persistence
 {
-    public class MySqlRanksRepository : IRanksRepository
+    public class MySqlRanksRepository : Repository<Rank, int>, IRanksRepository
     {
-        private readonly ArmoryDbContext _context;
-
-        public MySqlRanksRepository(ArmoryDbContext context)
+        public MySqlRanksRepository(ArmoryDbContext context) : base(context)
         {
-            _context = context;
         }
 
-        public async Task Save(Rank rank)
+        public override async Task<Rank> Find(int id, bool noTracking)
         {
-            await _context.Ranks.AddAsync(rank);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<Rank> Find(int id, bool noTracking)
-        {
-            var query = noTracking ? _context.Ranks.AsNoTracking() : _context.Ranks.AsTracking();
+            var query = noTracking ? Context.Ranks.AsNoTracking() : Context.Ranks.AsTracking();
 
             return await query.FirstOrDefaultAsync(r => r.Id == id);
-        }
-
-        public async Task<Rank> Find(int id)
-        {
-            return await Find(id, true);
-        }
-
-        public async Task<IEnumerable<Rank>> SearchAll(bool noTracking)
-        {
-            var query = noTracking ? _context.Ranks.AsNoTracking() : _context.Ranks.AsTracking();
-
-            return await query.ToListAsync();
-        }
-
-        public async Task<IEnumerable<Rank>> SearchAll()
-        {
-            return await SearchAll(true);
         }
     }
 }

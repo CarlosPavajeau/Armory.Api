@@ -29,11 +29,6 @@ namespace Armory.People.Infrastructure.Persistence
                 .FirstOrDefaultAsync(p => p.Id == personId);
         }
 
-        public override async Task<Person> Find(string personId)
-        {
-            return await Find(personId, true);
-        }
-
         public async Task<Person> FindByArmoryUserId(string armoryUserId)
         {
             return await Context.People

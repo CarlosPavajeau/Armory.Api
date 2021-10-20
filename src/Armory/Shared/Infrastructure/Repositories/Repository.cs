@@ -24,7 +24,11 @@ namespace Armory.Shared.Infrastructure.Repositories
         }
 
         public abstract Task<TEntity> Find(TKey key, bool noTracking);
-        public abstract Task<TEntity> Find(TKey key);
+
+        public async Task<TEntity> Find(TKey key)
+        {
+            return await Find(key, true);
+        }
 
         public async Task<bool> Any(Expression<Func<TEntity, bool>> predicate)
         {

@@ -1,11 +1,10 @@
-using System.Threading.Tasks;
+using Armory.Shared.Domain.Repositories;
 
 namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain
 {
-    public interface IWarMaterialAndSpecialEquipmentAssignmentFormatsRepository
+    public interface
+        IWarMaterialAndSpecialEquipmentAssignmentFormatsRepository : IRepository<
+            WarMaterialAndSpecialEquipmentAssignmentFormat, int>
     {
-        Task Save(WarMaterialAndSpecialEquipmentAssignmentFormat format);
-        Task<WarMaterialAndSpecialEquipmentAssignmentFormat> Find(int id, bool noTracking);
-        Task<WarMaterialAndSpecialEquipmentAssignmentFormat> Find(int id);
     }
 }

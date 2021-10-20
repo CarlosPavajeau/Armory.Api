@@ -25,11 +25,6 @@ namespace Armory.Troopers.Infrastructure.Persistence
                 .FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public override async Task<Troop> Find(string id)
-        {
-            return await Find(id, true);
-        }
-
         public override async Task<IEnumerable<Troop>> SearchAll()
         {
             return await Context.Troopers

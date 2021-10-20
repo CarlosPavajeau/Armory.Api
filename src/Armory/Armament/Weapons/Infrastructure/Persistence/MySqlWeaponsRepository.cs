@@ -1,32 +1,22 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Armory.Armament.Weapons.Domain;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
+using Armory.Shared.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Armory.Armament.Weapons.Infrastructure.Persistence
 {
-    public class MySqlWeaponsRepository : IWeaponsRepository
+    public class MySqlWeaponsRepository : Repository<Weapon, string>, IWeaponsRepository
     {
-        private readonly ArmoryDbContext _context;
-
-        public MySqlWeaponsRepository(ArmoryDbContext context)
+        public MySqlWeaponsRepository(ArmoryDbContext context) : base(context)
         {
-            _context = context;
         }
 
-        public async Task Save(Weapon weapon)
+        public override async Task<Weapon> Find(string serial, bool noTracking)
         {
-            await _context.Weapons.AddAsync(weapon);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<Weapon> Find(string serial, bool noTracking)
-        {
-            var query = noTracking ? _context.Weapons.AsNoTracking() : _context.Weapons.AsTracking();
+            var query = noTracking ? Context.Weapons.AsNoTracking() : Context.Weapons.AsTracking();
 
             return await query
                 .Include(w => w.Holder)
@@ -34,42 +24,26 @@ namespace Armory.Armament.Weapons.Infrastructure.Persistence
                 .FirstOrDefaultAsync(w => w.Serial == serial);
         }
 
-        public async Task<Weapon> Find(string serial)
+        public override async Task<IEnumerable<Weapon>> SearchAll()
         {
-            return await Find(serial, true).ConfigureAwait(false);
-        }
-
-        public async Task<IEnumerable<Weapon>> SearchAll(bool noTracking)
-        {
-            var query = noTracking ? _context.Weapons.AsNoTracking() : _context.Weapons.AsTracking();
-
-            return await query
+            return await Context.Weapons
+                .AsNoTracking()
                 .Include(w => w.Holder)
                 .ThenInclude(h => h.Degree)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Weapon>> SearchAll()
-        {
-            return await SearchAll(true).ConfigureAwait(false);
-        }
-
         public async Task<IEnumerable<Weapon>> SearchAllByFlight(string flightCode)
         {
-            return await _context.Weapons.AsNoTracking()
+            return await Context.Weapons.AsNoTracking()
                 .Where(w => w.FlightCode == flightCode)
                 .ToListAsync();
         }
 
-        public async Task<bool> Any(Expression<Func<Weapon, bool>> predicate)
-        {
-            return await _context.Weapons.AnyAsync(predicate);
-        }
-
         public async Task Update(Weapon newWeapon)
         {
-            _context.Update(newWeapon);
-            await _context.SaveChangesAsync();
+            Context.Update(newWeapon);
+            await Context.SaveChangesAsync();
         }
     }
 }

@@ -23,11 +23,6 @@ namespace Armory.Squads.Infrastructure.Persistence
                 .FirstOrDefaultAsync(s => s.Code == code);
         }
 
-        public override async Task<Squad> Find(string code)
-        {
-            return await Find(code, true).ConfigureAwait(false);
-        }
-
         public override async Task<IEnumerable<Squad>> SearchAll()
         {
             return await Context.Squads

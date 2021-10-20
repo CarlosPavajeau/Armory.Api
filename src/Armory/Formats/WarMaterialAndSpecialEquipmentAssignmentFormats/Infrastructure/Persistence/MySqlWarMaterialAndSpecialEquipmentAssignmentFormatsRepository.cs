@@ -2,32 +2,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
+using Armory.Shared.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Infrastructure.Persistence
 {
     public class
         MySqlWarMaterialAndSpecialEquipmentAssignmentFormatsRepository :
+            Repository<WarMaterialAndSpecialEquipmentAssignmentFormat, int>,
             IWarMaterialAndSpecialEquipmentAssignmentFormatsRepository
     {
-        private readonly ArmoryDbContext _context;
-
-        public MySqlWarMaterialAndSpecialEquipmentAssignmentFormatsRepository(ArmoryDbContext context)
+        public MySqlWarMaterialAndSpecialEquipmentAssignmentFormatsRepository(ArmoryDbContext context) : base(context)
         {
-            _context = context;
         }
 
-        public async Task Save(WarMaterialAndSpecialEquipmentAssignmentFormat format)
-        {
-            await _context.WarMaterialAndSpecialEquipmentAssignmentFormats.AddAsync(format);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<WarMaterialAndSpecialEquipmentAssignmentFormat> Find(int id, bool noTracking)
+        public override async Task<WarMaterialAndSpecialEquipmentAssignmentFormat> Find(int id, bool noTracking)
         {
             var query = noTracking
-                ? _context.WarMaterialAndSpecialEquipmentAssignmentFormats.AsNoTracking()
-                : _context.WarMaterialAndSpecialEquipmentAssignmentFormats.AsTracking();
+                ? Context.WarMaterialAndSpecialEquipmentAssignmentFormats.AsNoTracking()
+                : Context.WarMaterialAndSpecialEquipmentAssignmentFormats.AsTracking();
             var format = await query
                 .AsSplitQuery()
                 .Include(f => f.WarMaterialAndSpecialEquipmentAssignmentFormatAmmunition)
@@ -76,11 +69,6 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Infrast
             }
 
             return format;
-        }
-
-        public async Task<WarMaterialAndSpecialEquipmentAssignmentFormat> Find(int id)
-        {
-            return await Find(id, true);
         }
     }
 }
