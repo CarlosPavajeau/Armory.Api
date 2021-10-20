@@ -1,17 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
+using Armory.Shared.Domain.Repositories;
 
 namespace Armory.Flights.Domain
 {
-    public interface IFlightsRepository
+    public interface IFlightsRepository : IRepository<Flight, string>
     {
-        Task Save(Flight flight);
-        Task<Flight> Find(string code, bool noTracking);
-        Task<Flight> Find(string code);
-        Task<bool> Any(Expression<Func<Flight, bool>> predicate);
-        Task<IEnumerable<Flight>> SearchAll(bool noTracking);
-        Task<IEnumerable<Flight>> SearchAll();
     }
 }

@@ -1,19 +1,12 @@
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Armory.Shared.Domain.Repositories;
 
 namespace Armory.Armament.Equipments.Domain
 {
-    public interface IEquipmentsRepository
+    public interface IEquipmentsRepository : IRepository<Equipment, string>
     {
-        Task Save(Equipment equipment);
-        Task<Equipment> Find(string serial, bool noTracking);
-        Task<Equipment> Find(string serial);
-        Task<IEnumerable<Equipment>> SearchAll(bool noTracking);
-        Task<IEnumerable<Equipment>> SearchAll();
         Task<IEnumerable<Equipment>> SearchAllByFlight(string flightCode);
-        Task<bool> Any(Expression<Func<Equipment, bool>> predicate);
         Task Update(Equipment newEquipment);
     }
 }
