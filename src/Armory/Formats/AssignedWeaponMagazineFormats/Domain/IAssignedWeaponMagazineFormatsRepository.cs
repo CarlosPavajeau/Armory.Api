@@ -1,11 +1,8 @@
-using System.Threading.Tasks;
+using Armory.Shared.Domain.Repositories;
 
 namespace Armory.Formats.AssignedWeaponMagazineFormats.Domain
 {
-    public interface IAssignedWeaponMagazineFormatsRepository
+    public interface IAssignedWeaponMagazineFormatsRepository : IRepository<AssignedWeaponMagazineFormat, int>
     {
-        Task Save(AssignedWeaponMagazineFormat format);
-        Task<AssignedWeaponMagazineFormat> Find(int id, bool noTracking);
-        Task<AssignedWeaponMagazineFormat> Find(int id);
     }
 }

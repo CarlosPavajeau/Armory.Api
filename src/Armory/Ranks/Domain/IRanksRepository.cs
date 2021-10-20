@@ -1,14 +1,8 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Armory.Shared.Domain.Repositories;
 
 namespace Armory.Ranks.Domain
 {
-    public interface IRanksRepository
+    public interface IRanksRepository : IRepository<Rank, int>
     {
-        Task Save(Rank rank);
-        Task<Rank> Find(int id, bool noTracking);
-        Task<Rank> Find(int id);
-        Task<IEnumerable<Rank>> SearchAll(bool noTracking);
-        Task<IEnumerable<Rank>> SearchAll();
     }
 }

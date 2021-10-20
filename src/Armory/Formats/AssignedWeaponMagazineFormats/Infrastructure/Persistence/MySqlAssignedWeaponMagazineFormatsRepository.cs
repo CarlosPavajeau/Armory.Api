@@ -1,30 +1,23 @@
 using System.Threading.Tasks;
 using Armory.Formats.AssignedWeaponMagazineFormats.Domain;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
+using Armory.Shared.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Armory.Formats.AssignedWeaponMagazineFormats.Infrastructure.Persistence
 {
-    public class MySqlAssignedWeaponMagazineFormatsRepository : IAssignedWeaponMagazineFormatsRepository
+    public class MySqlAssignedWeaponMagazineFormatsRepository : Repository<AssignedWeaponMagazineFormat, int>,
+        IAssignedWeaponMagazineFormatsRepository
     {
-        private readonly ArmoryDbContext _context;
-
-        public MySqlAssignedWeaponMagazineFormatsRepository(ArmoryDbContext context)
+        public MySqlAssignedWeaponMagazineFormatsRepository(ArmoryDbContext context) : base(context)
         {
-            _context = context;
         }
 
-        public async Task Save(AssignedWeaponMagazineFormat format)
-        {
-            await _context.AssignedWeaponMagazineFormats.AddAsync(format);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<AssignedWeaponMagazineFormat> Find(int id, bool noTracking)
+        public override async Task<AssignedWeaponMagazineFormat> Find(int id, bool noTracking)
         {
             var query = noTracking
-                ? _context.AssignedWeaponMagazineFormats.AsNoTracking()
-                : _context.AssignedWeaponMagazineFormats.AsTracking();
+                ? Context.AssignedWeaponMagazineFormats.AsNoTracking()
+                : Context.AssignedWeaponMagazineFormats.AsTracking();
 
             return await query
                 .Include(f => f.Records)
@@ -39,11 +32,6 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Infrastructure.Persistenc
                 .Include(f => f.Fireteam)
                 .ThenInclude(f => f.Owner)
                 .FirstOrDefaultAsync(f => f.Id == id);
-        }
-
-        public async Task<AssignedWeaponMagazineFormat> Find(int id)
-        {
-            return await Find(id, true);
         }
     }
 }

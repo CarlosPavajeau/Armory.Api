@@ -1,20 +1,13 @@
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Armory.Shared.Domain.Repositories;
 
 namespace Armory.Troopers.Domain
 {
-    public interface ITroopersRepository
+    public interface ITroopersRepository : IRepository<Troop, string>
     {
-        Task Save(Troop troop);
-        Task<Troop> Find(string id, bool noTracking);
-        Task<Troop> Find(string id);
-        Task<IEnumerable<Troop>> SearchAll(bool noTracking);
-        Task<IEnumerable<Troop>> SearchAll();
-        Task<IEnumerable<Troop>> SearchAllByFireteam(string fireteamCode, bool noTracking);
-        Task<IEnumerable<Troop>> SearchAllByFireteam(string fireteamCode);
-        Task<bool> Any(Expression<Func<Troop, bool>> predicate);
+        Task<IEnumerable<Troop>> SearchAllByFireTeam(string fireTeamCode);
+
         Task Update(Troop newTroop);
     }
 }

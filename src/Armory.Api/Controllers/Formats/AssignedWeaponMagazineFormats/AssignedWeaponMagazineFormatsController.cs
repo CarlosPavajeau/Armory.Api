@@ -75,7 +75,10 @@ namespace Armory.Api.Controllers.Formats.AssignedWeaponMagazineFormats
         public async Task<ActionResult<AssignedWeaponMagazineFormatResponse>> GetAssignedWeaponMagazineFormat(int id)
         {
             var format = await _mediator.Send(new FindAssignedWeaponMagazineFormatQuery(id));
-            if (format != null) return Ok(format);
+            if (format != null)
+            {
+                return Ok(format);
+            }
 
             return AssignedWeaponMagazineFormatNotFound(id);
         }

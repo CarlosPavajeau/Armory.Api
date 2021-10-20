@@ -2,30 +2,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
+using Armory.Shared.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Infrastructure.Persistence
 {
-    public class MySqlWarMaterialDeliveryCertificateFormatsRepository : IWarMaterialDeliveryCertificateFormatsRepository
+    public class MySqlWarMaterialDeliveryCertificateFormatsRepository :
+        Repository<WarMaterialDeliveryCertificateFormat, int>, IWarMaterialDeliveryCertificateFormatsRepository
     {
-        private readonly ArmoryDbContext _context;
-
-        public MySqlWarMaterialDeliveryCertificateFormatsRepository(ArmoryDbContext context)
+        public MySqlWarMaterialDeliveryCertificateFormatsRepository(ArmoryDbContext context) : base(context)
         {
-            _context = context;
         }
 
-        public async Task Save(WarMaterialDeliveryCertificateFormat format)
-        {
-            await _context.WarMaterialDeliveryCertificateFormats.AddAsync(format);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<WarMaterialDeliveryCertificateFormat> Find(int id, bool noTracking)
+        public override async Task<WarMaterialDeliveryCertificateFormat> Find(int id, bool noTracking)
         {
             var query = noTracking
-                ? _context.WarMaterialDeliveryCertificateFormats.AsNoTracking()
-                : _context.WarMaterialDeliveryCertificateFormats.AsTracking();
+                ? Context.WarMaterialDeliveryCertificateFormats.AsNoTracking()
+                : Context.WarMaterialDeliveryCertificateFormats.AsTracking();
 
             var format = await query
                 .AsSplitQuery()
@@ -82,11 +75,6 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Infrastructure.Pe
             }
 
             return format;
-        }
-
-        public async Task<WarMaterialDeliveryCertificateFormat> Find(int id)
-        {
-            return await Find(id, true);
         }
     }
 }

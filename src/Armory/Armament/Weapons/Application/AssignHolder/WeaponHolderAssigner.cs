@@ -18,7 +18,10 @@ namespace Armory.Armament.Weapons.Application.AssignHolder
         public async Task AssignHolder(string weaponSerial, string troopId)
         {
             var weapon = await _repository.Find(weaponSerial, false);
-            if (weapon == null) throw new WeaponNotFound();
+            if (weapon == null)
+            {
+                throw new WeaponNotFound();
+            }
 
             weapon.TroopId = troopId;
             weapon.State = WeaponState.Assigned;

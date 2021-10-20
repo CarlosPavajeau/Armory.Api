@@ -15,7 +15,7 @@ namespace Armory.Troopers.Application.SearchAllByFireteam
 
         public async Task<IEnumerable<Troop>> SearchAllByFireteam(string fireteamCode)
         {
-            return await _repository.SearchAllByFireteam(fireteamCode);
+            return await _repository.SearchAllByFireTeam(fireteamCode);
         }
     }
 }

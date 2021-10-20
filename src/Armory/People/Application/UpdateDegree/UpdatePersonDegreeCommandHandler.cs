@@ -20,7 +20,10 @@ namespace Armory.People.Application.UpdateDegree
         protected override async Task Handle(UpdatePersonDegreeCommand request, CancellationToken cancellationToken)
         {
             var person = await _finder.Find(request.Id, false);
-            if (person == null) throw new PersonNotFound();
+            if (person == null)
+            {
+                throw new PersonNotFound();
+            }
 
             await _updater.UpdateDegree(person, request.DegreeId);
         }

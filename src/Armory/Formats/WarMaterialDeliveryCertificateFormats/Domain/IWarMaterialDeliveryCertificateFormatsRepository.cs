@@ -1,11 +1,9 @@
-using System.Threading.Tasks;
+using Armory.Shared.Domain.Repositories;
 
 namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain
 {
-    public interface IWarMaterialDeliveryCertificateFormatsRepository
+    public interface
+        IWarMaterialDeliveryCertificateFormatsRepository : IRepository<WarMaterialDeliveryCertificateFormat, int>
     {
-        Task Save(WarMaterialDeliveryCertificateFormat format);
-        Task<WarMaterialDeliveryCertificateFormat> Find(int id, bool noTracking);
-        Task<WarMaterialDeliveryCertificateFormat> Find(int id);
     }
 }

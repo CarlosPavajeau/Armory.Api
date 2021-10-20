@@ -96,7 +96,11 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Gener
             }
 
             var maxNumOfElements = Math.Max(format.Ammunition.Count, format.Weapons.Count);
-            if (maxNumOfElements == 0) maxNumOfElements = 1;
+            if (maxNumOfElements == 0)
+            {
+                maxNumOfElements = 1;
+            }
+
             var workedRange = worksheet.Range($"A14:M{start + maxNumOfElements - 1}");
             WorksheetManager.SetRangeBorders(workedRange, XLBorderStyleValues.Thin);
             WorksheetManager.SetRangeFontName(workedRange, "Arial");
@@ -177,7 +181,11 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Application.Gener
             }
 
             var maxNumOfElements = Math.Max(format.Explosives.Count, format.Equipments.Count);
-            if (maxNumOfElements == 0) maxNumOfElements = 1;
+            if (maxNumOfElements == 0)
+            {
+                maxNumOfElements = 1;
+            }
+
             var workedRange = worksheet.Range($"A{previousEnd}:E{previousEnd + maxNumOfElements - 1}");
             WorksheetManager.SetRangeBorders(workedRange, XLBorderStyleValues.Thin);
             WorksheetManager.SetRangeFontName(workedRange, "Arial");
