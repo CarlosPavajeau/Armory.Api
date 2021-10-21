@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Armory.Flights.Domain;
 using Armory.Shared.Infrastructure.Persistence.EntityFramework;
@@ -20,6 +21,15 @@ namespace Armory.Flights.Infrastructure.Persistence
                 .Include(s => s.Owner)
                 .ThenInclude(o => o.Degree)
                 .FirstOrDefaultAsync(s => s.Code == code);
+        }
+
+        public override async Task<IEnumerable<Flight>> SearchAll()
+        {
+            return await Context.Flights
+                .AsNoTracking()
+                .Include(s => s.Owner)
+                .ThenInclude(o => o.Degree)
+                .ToListAsync();
         }
     }
 }
