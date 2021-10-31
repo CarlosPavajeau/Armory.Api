@@ -6,6 +6,8 @@ using Armory.Flights.Application.CheckExists;
 using Armory.Flights.Application.Create;
 using Armory.Flights.Application.Find;
 using Armory.Flights.Application.SearchAll;
+using Armory.Flights.Application.UpdateCommander;
+using Armory.Flights.Domain;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -59,6 +61,13 @@ namespace Armory.Api.Controllers.Flights
             return Ok(response);
         }
 
+        private NotFoundObjectResult NotFoundFlight(string code)
+        {
+            ModelState.AddModelError("FlightNotFound",
+                $"La escuadrilla con el código '{code}' no se encuentra registrado.");
+            return NotFound(new ValidationProblemDetails(ModelState));
+        }
+
         [HttpGet("{code}")]
         public async Task<ActionResult<FlightResponse>> GetFlight(string code)
         {
@@ -68,9 +77,7 @@ namespace Armory.Api.Controllers.Flights
                 return Ok(response);
             }
 
-            ModelState.AddModelError("FlightNotFound",
-                $"La escuadrilla con el código '{code}' no se encuentra registrado.");
-            return NotFound(new ValidationProblemDetails(ModelState));
+            return NotFound(code);
         }
 
         [HttpGet("Exists/{code}")]
@@ -78,6 +85,22 @@ namespace Armory.Api.Controllers.Flights
         {
             var exists = await _mediator.Send(new CheckFlightExistsQuery(code));
             return Ok(exists);
+        }
+
+        [HttpPut("Commander")]
+        public async Task<ActionResult> UpdateCommander([FromBody] UpdateFlightCommanderRequest request)
+        {
+            try
+            {
+                var command = _mapper.Map<UpdateFlightCommanderCommand>(request);
+                await _mediator.Send(command);
+            }
+            catch (FlightNotFound)
+            {
+                return NotFoundFlight(request.Code);
+            }
+
+            return Ok();
         }
     }
 }
