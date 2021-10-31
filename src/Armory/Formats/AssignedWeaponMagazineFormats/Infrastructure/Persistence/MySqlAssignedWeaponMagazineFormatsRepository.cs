@@ -28,7 +28,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Infrastructure.Persistenc
                 .Include(f => f.Squad)
                 .ThenInclude(s => s.Owner)
                 .Include(f => f.Flight)
-                .ThenInclude(f => f.Owner)
+                .ThenInclude(f => f.Commander)
                 .Include(f => f.Fireteam)
                 .ThenInclude(f => f.Owner)
                 .FirstOrDefaultAsync(f => f.Id == id);

@@ -37,7 +37,7 @@ namespace Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Applica
             WorksheetManager.MergeRangeAndSetValue(worksheet.Range("H7:M7"),
                 $"ALMACÉN DE ARMAMENTO: {warehouse}");
             WorksheetManager.MergeRangeAndSetValue(worksheet.Range("A8:F8"),
-                $"Solicitante: {format.Flight.Owner.Degree.Name}. {format.Flight.Owner.FullName}");
+                $"Solicitante: {format.Flight.Commander.Degree.Name}. {format.Flight.Commander.FullName}");
             WorksheetManager.MergeRangeAndSetValue(worksheet.Range("A9:F9"),
                 $"Dependencia: {format.Squad.Name}");
 

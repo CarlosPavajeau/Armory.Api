@@ -33,7 +33,7 @@ namespace Armory.Formats.WarMaterialDeliveryCertificateFormats.Infrastructure.Pe
                 .Include(f => f.Squad)
                 .ThenInclude(s => s.Owner)
                 .Include(f => f.Flight)
-                .ThenInclude(x => x.Owner)
+                .ThenInclude(x => x.Commander)
                 .Include(f => f.Fireteam)
                 .ThenInclude(x => x.Owner)
                 .Include(f => f.Receiver)

@@ -36,6 +36,7 @@ using Armory.Flights.Application.CheckExists;
 using Armory.Flights.Application.Create;
 using Armory.Flights.Application.Find;
 using Armory.Flights.Application.SearchAll;
+using Armory.Flights.Application.UpdateCommander;
 using Armory.Formats.AssignedWeaponMagazineFormats.Application.AddItem;
 using Armory.Formats.AssignedWeaponMagazineFormats.Application.Create;
 using Armory.Formats.AssignedWeaponMagazineFormats.Application.Find;
@@ -120,6 +121,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<FlightFinder, FlightFinder>();
             services.AddScoped<FlightExistsChecker, FlightExistsChecker>();
             services.AddScoped<FlightsSearcher, FlightsSearcher>();
+            services.AddScoped<FlightCommanderUpdater, FlightCommanderUpdater>();
 
             services.AddScoped<FireteamCreator, FireteamCreator>();
             services.AddScoped<FireteamFinder, FireteamFinder>();

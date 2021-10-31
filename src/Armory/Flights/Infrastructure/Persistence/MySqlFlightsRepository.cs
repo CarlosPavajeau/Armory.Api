@@ -18,7 +18,7 @@ namespace Armory.Flights.Infrastructure.Persistence
             var query = noTracking ? Context.Flights.AsNoTracking() : Context.Flights.AsTracking();
 
             return await query
-                .Include(s => s.Owner)
+                .Include(s => s.Commander)
                 .ThenInclude(o => o.Degree)
                 .FirstOrDefaultAsync(s => s.Code == code);
         }
@@ -27,7 +27,7 @@ namespace Armory.Flights.Infrastructure.Persistence
         {
             return await Context.Flights
                 .AsNoTracking()
-                .Include(s => s.Owner)
+                .Include(s => s.Commander)
                 .ThenInclude(o => o.Degree)
                 .ToListAsync();
         }

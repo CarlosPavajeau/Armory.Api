@@ -16,7 +16,7 @@ namespace Armory.Test.Flights.Infrastructure.Persistence
         {
             var flight = new Flight("ESCON105", "Escuadrilla de Control Operacional 105", "123")
             {
-                Owner = new Person("0006", "Diego", null, "Angulo", "Roman", null)
+                Commander = new Person("0006", "Diego", null, "Angulo", "Roman", null)
                 {
                     Degree = new Degree("SL", 1)
                     {

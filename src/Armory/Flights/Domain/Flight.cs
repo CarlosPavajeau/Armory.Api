@@ -25,7 +25,7 @@ namespace Armory.Flights.Domain
         [Required] [MaxLength(128)] public string Name { get; set; }
         [Required] public string PersonId { get; set; }
 
-        [ForeignKey("PersonId")] public Person Owner { get; set; }
+        [ForeignKey("PersonId")] public Person Commander { get; set; }
 
         [Required] public string SquadCode { get; set; }
         [ForeignKey("SquadCode")] public Squad Squad { get; set; }

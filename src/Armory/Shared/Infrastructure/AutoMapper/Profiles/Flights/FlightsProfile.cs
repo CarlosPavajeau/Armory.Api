@@ -12,7 +12,9 @@ namespace Armory.Shared.Infrastructure.AutoMapper.Profiles.Flights
             CreateMap<Flight, FlightResponse>()
                 .ForMember(s => s.OwnerName,
                     ownerName => ownerName.MapFrom(src =>
-                        src.Owner == null ? string.Empty : $"{src.Owner.Degree.Name} - {src.Owner.FullName}"));
+                        src.Commander == null
+                            ? string.Empty
+                            : $"{src.Commander.Degree.Name} - {src.Commander.FullName}"));
             CreateMap<CreateFlightCommand, Flight>();
         }
     }
