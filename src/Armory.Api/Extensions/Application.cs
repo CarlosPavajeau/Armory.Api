@@ -32,6 +32,7 @@ using Armory.Fireteams.Application.Create;
 using Armory.Fireteams.Application.Find;
 using Armory.Fireteams.Application.SearchAll;
 using Armory.Fireteams.Application.SearchAllByFlight;
+using Armory.Fireteams.Application.UpdateCommander;
 using Armory.Flights.Application.CheckExists;
 using Armory.Flights.Application.Create;
 using Armory.Flights.Application.Find;
@@ -128,6 +129,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<FireteamExistsChecker, FireteamExistsChecker>();
             services.AddScoped<FireteamsSearcher, FireteamsSearcher>();
             services.AddScoped<FireteamsByFlightSearcher, FireteamsByFlightSearcher>();
+            services.AddScoped<FireTeamCommanderUpdater, FireTeamCommanderUpdater>();
 
             services.AddScoped<WeaponCreator, WeaponCreator>();
             services.AddScoped<WeaponSearcher, WeaponSearcher>();

@@ -7,6 +7,8 @@ using Armory.Fireteams.Application.Create;
 using Armory.Fireteams.Application.Find;
 using Armory.Fireteams.Application.SearchAll;
 using Armory.Fireteams.Application.SearchAllByFlight;
+using Armory.Fireteams.Application.UpdateCommander;
+using Armory.Fireteams.Domain;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -67,6 +69,13 @@ namespace Armory.Api.Controllers.Fireteams
             return Ok(response);
         }
 
+        private NotFoundObjectResult FireTeamNotFound(string code)
+        {
+            ModelState.AddModelError("FireteamNotFound",
+                $"El escuadrón con el código '{code}' no se encuentra registrado.");
+            return NotFound(new ValidationProblemDetails(ModelState));
+        }
+
         [HttpGet("{code}")]
         public async Task<ActionResult<FireteamResponse>> GetFireteam(string code)
         {
@@ -76,9 +85,7 @@ namespace Armory.Api.Controllers.Fireteams
                 return Ok(response);
             }
 
-            ModelState.AddModelError("FireteamNotFound",
-                $"El escuadrón con el código '{code}' no se encuentra registrado.");
-            return NotFound(new ValidationProblemDetails(ModelState));
+            return FireTeamNotFound(code);
         }
 
         [HttpGet("Exists/{code}")]
@@ -86,6 +93,22 @@ namespace Armory.Api.Controllers.Fireteams
         {
             var exists = await _mediator.Send(new CheckFireteamExistsQuery(code));
             return Ok(exists);
+        }
+
+        [HttpPut("Commander")]
+        public async Task<ActionResult> UpdateCommander([FromBody] UpdateFireTeamCommanderRequest request)
+        {
+            try
+            {
+                var command = _mapper.Map<UpdateFireTeamCommanderCommand>(request);
+                await _mediator.Send(command);
+            }
+            catch (FireTeamNotFound)
+            {
+                return FireTeamNotFound(request.Code);
+            }
+
+            return Ok();
         }
     }
 }
