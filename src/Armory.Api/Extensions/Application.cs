@@ -65,6 +65,7 @@ using Armory.Squads.Application.CheckExists;
 using Armory.Squads.Application.Create;
 using Armory.Squads.Application.Find;
 using Armory.Squads.Application.SearchAll;
+using Armory.Squads.UpdateCommander;
 using Armory.Troopers.Application.CheckExists;
 using Armory.Troopers.Application.Create;
 using Armory.Troopers.Application.Find;
@@ -117,6 +118,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<SquadExistsChecker, SquadExistsChecker>();
             services.AddScoped<SquadFinder, SquadFinder>();
             services.AddScoped<SquadsSearcher, SquadsSearcher>();
+            services.AddScoped<SquadCommanderUpdater, SquadCommanderUpdater>();
 
             services.AddScoped<FlightCreator, FlightCreator>();
             services.AddScoped<FlightFinder, FlightFinder>();

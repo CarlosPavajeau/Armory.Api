@@ -6,6 +6,8 @@ using Armory.Squads.Application.CheckExists;
 using Armory.Squads.Application.Create;
 using Armory.Squads.Application.Find;
 using Armory.Squads.Application.SearchAll;
+using Armory.Squads.Domain;
+using Armory.Squads.UpdateCommander;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -75,6 +77,22 @@ namespace Armory.Api.Controllers.Squads
             }
 
             return SquadNotFound(code);
+        }
+
+        [HttpPut("Commander")]
+        public async Task<ActionResult> UpdateCommander([FromBody] UpdateSquadCommanderRequest request)
+        {
+            try
+            {
+                var command = _mapper.Map<UpdateSquadCommanderCommand>(request);
+                await _mediator.Send(command);
+            }
+            catch (SquadNotFoundException)
+            {
+                return SquadNotFound(request.Code);
+            }
+
+            return Ok();
         }
     }
 }
