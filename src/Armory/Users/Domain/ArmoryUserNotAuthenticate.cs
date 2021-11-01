@@ -2,7 +2,10 @@ using System;
 
 namespace Armory.Users.Domain
 {
-    public class ArmoryUserNotAuthenticate : Exception
+    /// <summary>
+    ///     Represents errors that occur when armory user is not authenticate
+    /// </summary>
+    public class ArmoryUserNotAuthenticate : ArgumentException
     {
     }
 }

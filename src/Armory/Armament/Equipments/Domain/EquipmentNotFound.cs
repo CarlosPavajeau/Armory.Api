@@ -1,8 +1,11 @@
-using System;
+using Armory.Shared.Domain;
 
 namespace Armory.Armament.Equipments.Domain
 {
-    public class EquipmentNotFound : Exception
+    /// <summary>
+    ///     Represents errors that occur when equipment is not found
+    /// </summary>
+    public class EquipmentNotFound : ArmoryException
     {
     }
 }

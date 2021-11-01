@@ -1,8 +1,11 @@
-using System;
+using Armory.Shared.Domain;
 
 namespace Armory.Armament.Explosives.Domain
 {
-    public class ExplosiveNotFound : Exception
+    /// <summary>
+    ///     Represents errors that occur when explosive is not found
+    /// </summary>
+    public class ExplosiveNotFound : ArmoryException
     {
     }
 }

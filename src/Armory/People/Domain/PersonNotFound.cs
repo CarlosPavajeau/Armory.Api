@@ -1,8 +1,11 @@
-using System;
+using Armory.Shared.Domain;
 
 namespace Armory.People.Domain
 {
-    public class PersonNotFound : Exception
+    /// <summary>
+    ///     Represents errors that occur when person is not found
+    /// </summary>
+    public class PersonNotFound : ArmoryException
     {
     }
 }

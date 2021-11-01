@@ -1,10 +1,13 @@
-using System;
 using System.Collections.Generic;
+using Armory.Shared.Domain;
 using Microsoft.AspNetCore.Identity;
 
 namespace Armory.Users.Domain
 {
-    public class ArmoryUserNotCreated : Exception
+    /// <summary>
+    ///     Represents errors that occur when armory user is not create
+    /// </summary>
+    public class ArmoryUserNotCreated : ArmoryException
     {
         public ArmoryUserNotCreated(IEnumerable<IdentityError> errors)
         {

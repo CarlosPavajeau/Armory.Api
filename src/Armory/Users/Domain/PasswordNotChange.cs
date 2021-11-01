@@ -1,10 +1,13 @@
-using System;
 using System.Collections.Generic;
+using Armory.Shared.Domain;
 using Microsoft.AspNetCore.Identity;
 
 namespace Armory.Users.Domain
 {
-    public class PasswordNotChange : Exception
+    /// <summary>
+    ///     Represents errors that occur when password is not change
+    /// </summary>
+    public class PasswordNotChange : ArmoryException
     {
         public PasswordNotChange(IEnumerable<IdentityError> errors)
         {

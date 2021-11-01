@@ -1,8 +1,11 @@
-using System;
+using Armory.Shared.Domain;
 
 namespace Armory.Troopers.Domain
 {
-    public class TroopNotFound : Exception
+    /// <summary>
+    ///     Represents errors that occur when troop is not found
+    /// </summary>
+    public class TroopNotFound : ArmoryException
     {
     }
 }
