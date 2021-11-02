@@ -65,7 +65,7 @@ using Armory.Squads.Application.CheckExists;
 using Armory.Squads.Application.Create;
 using Armory.Squads.Application.Find;
 using Armory.Squads.Application.SearchAll;
-using Armory.Squads.UpdateCommander;
+using Armory.Squads.Application.UpdateCommander;
 using Armory.Troopers.Application.CheckExists;
 using Armory.Troopers.Application.Create;
 using Armory.Troopers.Application.Find;

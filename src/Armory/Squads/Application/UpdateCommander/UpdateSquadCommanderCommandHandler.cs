@@ -4,7 +4,7 @@ using Armory.Shared.Domain.Bus.Command;
 using Armory.Squads.Application.Find;
 using Armory.Squads.Domain;
 
-namespace Armory.Squads.UpdateCommander
+namespace Armory.Squads.Application.UpdateCommander
 {
     public class UpdateSquadCommanderCommandHandler : CommandHandler<UpdateSquadCommanderCommand>
     {

@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Armory.Shared.Domain.Persistence.EntityFramework;
 using Armory.Squads.Domain;
 
-namespace Armory.Squads.UpdateCommander
+namespace Armory.Squads.Application.UpdateCommander
 {
     public class SquadCommanderUpdater
     {

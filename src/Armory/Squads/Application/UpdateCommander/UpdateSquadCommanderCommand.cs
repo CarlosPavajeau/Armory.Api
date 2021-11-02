@@ -1,6 +1,6 @@
 using Armory.Shared.Domain.Bus.Command;
 
-namespace Armory.Squads.UpdateCommander
+namespace Armory.Squads.Application.UpdateCommander
 {
     public class UpdateSquadCommanderCommand : Command
     {

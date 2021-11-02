@@ -1,6 +1,6 @@
 ﻿using Armory.Api.Controllers.Squads.Requests;
 using Armory.Squads.Application.Create;
-using Armory.Squads.UpdateCommander;
+using Armory.Squads.Application.UpdateCommander;
 using AutoMapper;
 
 namespace Armory.Api.Profiles
