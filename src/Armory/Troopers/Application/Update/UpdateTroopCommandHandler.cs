@@ -22,7 +22,7 @@ namespace Armory.Troopers.Application.Update
             var troop = await _finder.Find(request.Id);
             if (troop == null)
             {
-                throw new TroopNotFound();
+                throw new TroopNotFoundException();
             }
 
             await _updater.Update(troop, request.FirstName, request.SecondName, request.LastName,

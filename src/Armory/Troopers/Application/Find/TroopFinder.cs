@@ -12,9 +12,14 @@ namespace Armory.Troopers.Application.Find
             _repository = repository;
         }
 
+        public async Task<Troop> Find(string id, bool noTracking)
+        {
+            return await _repository.Find(id, noTracking);
+        }
+
         public async Task<Troop> Find(string id)
         {
-            return await _repository.Find(id);
+            return await Find(id, true);
         }
     }
 }

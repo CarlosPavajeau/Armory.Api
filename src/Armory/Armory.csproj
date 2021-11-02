@@ -7,7 +7,6 @@
   <ItemGroup>
     <Folder Include="Armament\Weapons"/>
     <Folder Include="Flights"/>
-    <Folder Include="Troopers\Application\UpdateFireTeam"/>
     <Folder Include="Users"/>
   </ItemGroup>
 

@@ -72,6 +72,7 @@ using Armory.Troopers.Application.Find;
 using Armory.Troopers.Application.SearchAll;
 using Armory.Troopers.Application.SearchAllByFireteam;
 using Armory.Troopers.Application.Update;
+using Armory.Troopers.Application.UpdateFireTeam;
 using Armory.Users.Application.AddToRole;
 using Armory.Users.Application.Authenticate;
 using Armory.Users.Application.ChangePassword;
@@ -177,6 +178,7 @@ namespace Armory.Api.Extensions
             services.AddScoped<AllTroopsSearcher, AllTroopsSearcher>();
             services.AddScoped<TroopersByFireteamSearcher, TroopersByFireteamSearcher>();
             services.AddScoped<TroopUpdater, TroopUpdater>();
+            services.AddScoped<TroopFireTeamUpdater, TroopFireTeamUpdater>();
 
             services
                 .AddScoped<WarMaterialAndSpecialEquipmentAssignmentFormatCreator,

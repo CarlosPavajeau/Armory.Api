@@ -8,6 +8,7 @@ using Armory.Troopers.Application.Find;
 using Armory.Troopers.Application.SearchAll;
 using Armory.Troopers.Application.SearchAllByFireteam;
 using Armory.Troopers.Application.Update;
+using Armory.Troopers.Application.UpdateFireTeam;
 using Armory.Troopers.Domain;
 using AutoMapper;
 using MediatR;
@@ -107,9 +108,25 @@ namespace Armory.Api.Controllers.Troopers
             {
                 return BadRequest();
             }
-            catch (TroopNotFound)
+            catch (TroopNotFoundException)
             {
                 return TroopNotFound(id);
+            }
+
+            return Ok();
+        }
+
+        [HttpPut("FireTeam")]
+        public async Task<ActionResult> UpdateFireTeam([FromBody] UpdateTroopFireTeamRequest request)
+        {
+            try
+            {
+                var command = _mapper.Map<UpdateTroopFireTeamCommand>(request);
+                await _mediator.Send(command);
+            }
+            catch (TroopNotFoundException)
+            {
+                return TroopNotFound(request.Id);
             }
 
             return Ok();

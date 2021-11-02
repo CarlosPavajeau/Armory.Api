@@ -5,7 +5,7 @@ namespace Armory.Troopers.Domain
     /// <summary>
     ///     Represents errors that occur when troop is not found
     /// </summary>
-    public class TroopNotFound : ArmoryException
+    public class TroopNotFoundException : ArmoryException
     {
     }
 }
