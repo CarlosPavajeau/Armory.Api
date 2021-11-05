@@ -71,7 +71,7 @@ namespace Armory.Api.Controllers.Ranks
             return RankNotFound(id);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpPut("{id:int}")]
         public async Task<ActionResult> UpdateRank(int id, [FromBody] UpdateRankRequest request)
         {
             try
