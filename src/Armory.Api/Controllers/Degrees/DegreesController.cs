@@ -6,6 +6,8 @@ using Armory.Degrees.Application.Create;
 using Armory.Degrees.Application.Find;
 using Armory.Degrees.Application.SearchAll;
 using Armory.Degrees.Application.SearchAllByRank;
+using Armory.Degrees.Application.Update;
+using Armory.Degrees.Domain;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -75,6 +77,22 @@ namespace Armory.Api.Controllers.Degrees
             }
 
             return DegreeNotFound(id);
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> UpdateDegree(int id, [FromBody] UpdateDegreeRequest request)
+        {
+            try
+            {
+                var command = _mapper.Map<UpdateDegreeCommand>(request);
+                await _mediator.Send(command);
+            }
+            catch (DegreeNotFoundException)
+            {
+                return DegreeNotFound(id);
+            }
+
+            return Ok();
         }
     }
 }

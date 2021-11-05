@@ -1,5 +1,6 @@
 using Armory.Api.Controllers.Degrees.Requests;
 using Armory.Degrees.Application.Create;
+using Armory.Degrees.Application.Update;
 using AutoMapper;
 
 namespace Armory.Api.Profiles
@@ -9,6 +10,7 @@ namespace Armory.Api.Profiles
         public DegreesProfile()
         {
             CreateMap<CreateDegreeRequest, CreateDegreeCommand>();
+            CreateMap<UpdateDegreeRequest, UpdateDegreeCommand>();
         }
     }
 }

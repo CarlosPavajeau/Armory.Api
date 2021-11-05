@@ -2,6 +2,7 @@ using Armory.Degrees.Application.Create;
 using Armory.Degrees.Application.Find;
 using Armory.Degrees.Application.SearchAll;
 using Armory.Degrees.Application.SearchAllByRank;
+using Armory.Degrees.Application.Update;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Armory.Api.Extensions.DependencyInjection.Degrees
@@ -14,6 +15,7 @@ namespace Armory.Api.Extensions.DependencyInjection.Degrees
             services.AddScoped<DegreeFinder, DegreeFinder>();
             services.AddScoped<AllDegreesSearcher, AllDegreesSearcher>();
             services.AddScoped<DegreesByRankSearcher, DegreesByRankSearcher>();
+            services.AddScoped<DegreeUpdater, DegreeUpdater>();
 
             return services;
         }

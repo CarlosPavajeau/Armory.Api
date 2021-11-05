@@ -9,7 +9,10 @@ using Armory.Degrees.Application.Create;
 using Armory.Degrees.Application.Find;
 using Armory.Degrees.Application.SearchAll;
 using Armory.Degrees.Application.SearchAllByRank;
+using Armory.Degrees.Application.Update;
+using Armory.Degrees.Domain;
 using AutoMapper;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
@@ -128,6 +131,41 @@ namespace Armory.Api.Test.Controllers.Degrees
             Assert.IsTrue(validationDetails.Errors.TryGetValue("DegreeNotFound", out var errors));
             Assert.IsTrue(errors.Any());
             Assert.AreEqual("No se encontró ningun grado con el código '2'.", errors[0]);
+        }
+
+        [Test]
+        [Order(6)]
+        public async Task UpdateDegree_Should_Update_A_Degree()
+        {
+            Mediator.Setup(x => x.Send(It.IsAny<UpdateDegreeCommand>(), CancellationToken.None)).Verifiable();
+
+            var request = new UpdateDegreeRequest
+            {
+                Id = 1,
+                Name = "Estudiante 2"
+            };
+
+            var result = await _controller.UpdateDegree(request.Id, request);
+
+            result.Should().NotBeNull().And.BeAssignableTo<OkResult>();
+        }
+
+        [Test]
+        [Order(7)]
+        public async Task UpdateDegree_Should_Return_Not_Found()
+        {
+            Mediator.Setup(x => x.Send(It.IsAny<UpdateDegreeCommand>(), CancellationToken.None))
+                .Throws<DegreeNotFoundException>();
+
+            var request = new UpdateDegreeRequest
+            {
+                Id = 2,
+                Name = "Estudiante 2"
+            };
+
+            var result = await _controller.UpdateDegree(request.Id, request);
+
+            result.Should().NotBeNull().And.BeAssignableTo<NotFoundObjectResult>();
         }
     }
 }
