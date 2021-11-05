@@ -5,6 +5,8 @@ using Armory.Ranks.Application;
 using Armory.Ranks.Application.Create;
 using Armory.Ranks.Application.Find;
 using Armory.Ranks.Application.SearchAll;
+using Armory.Ranks.Application.Update;
+using Armory.Ranks.Domain;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -67,6 +69,22 @@ namespace Armory.Api.Controllers.Ranks
             }
 
             return RankNotFound(id);
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult> UpdateRank(int id, [FromBody] UpdateRankRequest request)
+        {
+            try
+            {
+                var command = _mapper.Map<UpdateRankCommand>(request);
+                await _mediator.Send(command);
+            }
+            catch (RankNotFoundException)
+            {
+                return RankNotFound(id);
+            }
+
+            return Ok();
         }
     }
 }

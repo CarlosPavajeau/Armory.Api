@@ -8,7 +8,11 @@ using Armory.Ranks.Application;
 using Armory.Ranks.Application.Create;
 using Armory.Ranks.Application.Find;
 using Armory.Ranks.Application.SearchAll;
+using Armory.Ranks.Application.Update;
+using Armory.Ranks.Domain;
 using AutoMapper;
+using FluentAssertions;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -116,6 +120,40 @@ namespace Armory.Api.Test.Controllers.Ranks
             Assert.IsTrue(validationDetails.Errors.TryGetValue("RankNotFound", out var errors));
             Assert.IsTrue(errors.Any());
             Assert.AreEqual("No se encontró ningun rango con el código '2'.", errors[0]);
+        }
+
+        [Test]
+        [Order(6)]
+        public async Task UpdateRank_ShouldUpdateRank()
+        {
+            Mediator.Setup(x => x.Send(It.IsAny<UpdateRankCommand>(), CancellationToken.None))
+                .ReturnsAsync((UpdateRankCommand command, CancellationToken _) =>
+                    command.Id == 1 ? Unit.Value : throw new RankNotFoundException());
+
+            var request = new UpdateRankRequest
+            {
+                Id = 1,
+                Name = "Estudiante"
+            };
+
+            var result = await _controller.UpdateRank(request.Id, request);
+
+            result.Should().NotBeNull().And.BeAssignableTo<OkResult>();
+        }
+
+        [Test]
+        [Order(7)]
+        public async Task UpdateRank_ShouldReturnNotFound()
+        {
+            var request = new UpdateRankRequest
+            {
+                Id = 2,
+                Name = "Estudiante"
+            };
+
+            var result = await _controller.UpdateRank(request.Id, request);
+
+            result.Should().NotBeNull().And.BeAssignableTo<NotFoundObjectResult>();
         }
     }
 }
