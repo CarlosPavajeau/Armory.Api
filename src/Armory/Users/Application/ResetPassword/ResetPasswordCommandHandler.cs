@@ -15,7 +15,7 @@ namespace Armory.Users.Application.ResetPassword
 
         protected override async Task Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
         {
-            await _restorer.ResetPassword(request.UsernameOrEmail, request.Token, request.NewPassword);
+            await _restorer.ResetPassword(request.Email, request.Token, request.NewPassword);
         }
     }
 }

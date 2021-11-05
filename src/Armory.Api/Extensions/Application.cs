@@ -8,6 +8,7 @@ using Armory.Api.Extensions.DependencyInjection.Ranks;
 using Armory.Api.Extensions.DependencyInjection.Squads;
 using Armory.Api.Extensions.DependencyInjection.Troopers;
 using Armory.Api.Extensions.DependencyInjection.Users;
+using Armory.Notifications.Application.SendResetPasswordEmail;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Armory.Api.Extensions
@@ -25,7 +26,8 @@ namespace Armory.Api.Extensions
                 .AddPeopleApplication()
                 .AddRanksApplication()
                 .AddSquadsApplication()
-                .AddTroopersApplication();
+                .AddTroopersApplication()
+                .AddScoped<ResetPasswordEmailSender, ResetPasswordEmailSender>();
 
             return services;
         }

@@ -22,10 +22,13 @@ using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Domain;
 using Armory.Formats.WarMaterialAndSpecialEquipmentAssignmentFormats.Infrastructure.Persistence;
 using Armory.Formats.WarMaterialDeliveryCertificateFormats.Domain;
 using Armory.Formats.WarMaterialDeliveryCertificateFormats.Infrastructure.Persistence;
+using Armory.Notifications.Domain;
+using Armory.Notifications.Infrastructure;
 using Armory.People.Domain;
 using Armory.People.Infrastructure.Persistence;
 using Armory.Ranks.Domain;
 using Armory.Ranks.Infrastructure.Persistence;
+using Armory.Shared.Domain;
 using Armory.Shared.Domain.Bus.Event;
 using Armory.Shared.Domain.ClosedXML;
 using Armory.Shared.Domain.Persistence.EntityFramework;
@@ -87,6 +90,9 @@ namespace Armory.Api.Extensions
             services.AddAutoMapper(AssemblyHelper.GetInstance(Assemblies.Armory));
 
             services.Configure<SecretKey>(configuration.GetSection("SecretKey"));
+            services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
+            services.Configure<ApplicationProperties>(configuration.GetSection("ApplicationProperties"));
+
             services.AddRouting(options => { options.LowercaseUrls = true; });
 
             services.AddScoped<IArmoryUsersRepository, MySqlArmoryUsersRepository>();
@@ -114,6 +120,8 @@ namespace Armory.Api.Extensions
             services.AddScoped<ITransactionInitializer, TransactionInitializer>();
             services.AddScoped<IWorksheetManager, WorksheetManager>();
             services.AddScoped<IEventBus, InMemoryEventBus>();
+
+            services.AddScoped<IEmailSender, EmailSender>();
 
             return services;
         }

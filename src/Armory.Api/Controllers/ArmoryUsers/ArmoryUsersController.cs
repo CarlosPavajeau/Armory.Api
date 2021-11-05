@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Armory.Api.Controllers.ArmoryUsers.Requests;
-using Armory.Shared.Domain;
+using Armory.Notifications.Application.SendResetPasswordEmail;
 using Armory.Users.Application;
 using Armory.Users.Application.ChangePassword;
 using Armory.Users.Application.ConfirmEmail;
@@ -55,12 +55,22 @@ namespace Armory.Api.Controllers.ArmoryUsers
         {
             var response = await _mediator.Send(
                 new GeneratePasswordResetTokenQuery(userNameOrEmail));
-            return response.TokenGenerated
-                ? Ok(Utils.StringToBase64(response.Token))
-                : ArmoryUserNotFound(userNameOrEmail);
+            if (!response.TokenGenerated)
+            {
+                return ArmoryUserNotFound(userNameOrEmail);
+            }
+
+            await _mediator.Send(
+                new SendResetPasswordEmailCommand
+                {
+                    Email = userNameOrEmail,
+                    Token = response.Token
+                });
+
+            return Ok();
         }
 
-        [HttpPost("[action]/{usernameOrEmail}")]
+        [HttpPut("[action]/{usernameOrEmail}")]
         [AllowAnonymous]
         public async Task<IActionResult> ResetPassword(string usernameOrEmail, [FromBody] ResetPasswordRequest request)
         {

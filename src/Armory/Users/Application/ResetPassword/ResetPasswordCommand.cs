@@ -4,14 +4,14 @@ namespace Armory.Users.Application.ResetPassword
 {
     public class ResetPasswordCommand : Command
     {
-        public ResetPasswordCommand(string usernameOrEmail, string token, string newPassword)
+        public ResetPasswordCommand(string email, string token, string newPassword)
         {
-            UsernameOrEmail = usernameOrEmail;
+            Email = email;
             Token = token;
             NewPassword = newPassword;
         }
 
-        public string UsernameOrEmail { get; }
+        public string Email { get; }
         public string Token { get; }
         public string NewPassword { get; }
     }
