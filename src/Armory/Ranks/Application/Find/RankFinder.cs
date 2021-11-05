@@ -12,9 +12,14 @@ namespace Armory.Ranks.Application.Find
             _repository = repository;
         }
 
+        public async Task<Rank> Find(int id, bool noTracking)
+        {
+            return await _repository.Find(id, noTracking);
+        }
+
         public async Task<Rank> Find(int id)
         {
-            return await _repository.Find(id);
+            return await Find(id, true).ConfigureAwait(false);
         }
     }
 }

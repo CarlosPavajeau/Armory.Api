@@ -19,7 +19,7 @@ namespace Armory.Ranks.Application.Update
 
         protected override async Task Handle(UpdateRankCommand request, CancellationToken cancellationToken)
         {
-            var rank = await _finder.Find(request.Id);
+            var rank = await _finder.Find(request.Id, false);
             if (rank is null)
             {
                 throw new RankNotFoundException();
