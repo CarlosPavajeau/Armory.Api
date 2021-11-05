@@ -2,7 +2,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Armory.Api.Controllers.ArmoryUsers;
-using Armory.Shared.Domain;
 using Armory.Users.Application.GeneratePasswordResetToken;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -40,13 +39,7 @@ namespace Armory.Api.Test.Controllers.ArmoryUsers
 
             ShouldHaveForgottenPasswordQuery();
             Assert.IsNotNull(result);
-            Assert.IsInstanceOf<OkObjectResult>(result);
-
-            var okResult = result as OkObjectResult;
-
-            Assert.IsNotNull(okResult);
-            Assert.IsInstanceOf<string>(okResult.Value);
-            Assert.AreEqual("reset_token", Utils.Base64ToString(okResult.Value as string));
+            Assert.IsInstanceOf<OkResult>(result);
         }
 
         [Test]
