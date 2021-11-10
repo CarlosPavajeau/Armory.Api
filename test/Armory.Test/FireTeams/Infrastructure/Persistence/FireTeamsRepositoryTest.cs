@@ -17,7 +17,10 @@ namespace Armory.Test.FireTeams.Infrastructure.Persistence
         {
             var fireTeam = new Fireteam("ESCON1051", "Escuadra de Control Operacional 105", "00011", "ESCON105")
             {
-                Flight = new Flight("ESCON105", "Escuadrilla de Control Operacional 105", "0006"),
+                Flight = new Flight("ESCON105", "Escuadrilla de Control Operacional 105", "0006")
+                {
+                    SquadCode = "ESDEB105"
+                },
                 Owner = new Person("00011", "Andres", null, "Gamboa", "Rodriguez", null)
                 {
                     Degree = new Degree("SL", 1)

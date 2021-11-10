@@ -26,7 +26,8 @@ namespace Armory.Test.Flights.Infrastructure.Persistence
                             Id = 1
                         }
                     }
-                }
+                },
+                SquadCode = "ESDEB105"
             };
 
             await Repository.Save(flight);
