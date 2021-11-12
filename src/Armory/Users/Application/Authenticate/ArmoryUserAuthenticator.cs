@@ -17,7 +17,7 @@ namespace Armory.Users.Application.Authenticate
             var user = await _repository.FindByUsernameOrEmail(usernameOrEmail);
             if (user == null)
             {
-                throw new ArmoryUserNotFound();
+                throw new ArmoryUserNotFoundException();
             }
 
             var result = await _repository.Authenticate(user, password, isPersistent);

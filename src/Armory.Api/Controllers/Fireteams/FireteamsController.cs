@@ -103,7 +103,7 @@ namespace Armory.Api.Controllers.Fireteams
                 var command = _mapper.Map<UpdateFireTeamCommanderCommand>(request);
                 await _mediator.Send(command);
             }
-            catch (FireTeamNotFound)
+            catch (FireTeamNotFoundException)
             {
                 return FireTeamNotFound(request.Code);
             }

@@ -22,7 +22,7 @@ namespace Armory.People.Application.Update
             var person = await _finder.Find(request.Id);
             if (person == null)
             {
-                throw new PersonNotFound();
+                throw new PersonNotFoundException();
             }
 
             await _updater.Update(person, request.FirstName, request.SecondName, request.LastName,

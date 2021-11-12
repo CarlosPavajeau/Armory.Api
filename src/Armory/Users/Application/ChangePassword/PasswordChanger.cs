@@ -17,13 +17,13 @@ namespace Armory.Users.Application.ChangePassword
             var user = await _repository.FindByUsernameOrEmail(usernameOrEmail);
             if (user == null)
             {
-                throw new ArmoryUserNotFound();
+                throw new ArmoryUserNotFoundException();
             }
 
             var result = await _repository.ChangePassword(user, oldPassword, newPassword);
             if (!result.Succeeded)
             {
-                throw new PasswordNotChange(result.Errors);
+                throw new PasswordNotChangeException(result.Errors);
             }
         }
     }

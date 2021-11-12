@@ -20,7 +20,7 @@ namespace Armory.Armament.Weapons.Application.AssignHolder
             var weapon = await _repository.Find(weaponSerial, false);
             if (weapon == null)
             {
-                throw new WeaponNotFound();
+                throw new WeaponNotFoundException();
             }
 
             weapon.TroopId = troopId;

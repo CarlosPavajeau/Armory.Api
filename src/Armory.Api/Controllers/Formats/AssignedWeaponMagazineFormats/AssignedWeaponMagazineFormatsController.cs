@@ -65,7 +65,7 @@ namespace Armory.Api.Controllers.Formats.AssignedWeaponMagazineFormats
 
                 return Ok(item);
             }
-            catch (AssignedWeaponMagazineFormatNotFound)
+            catch (AssignedWeaponMagazineFormatNotFoundException)
             {
                 return AssignedWeaponMagazineFormatNotFound(id);
             }
@@ -93,7 +93,7 @@ namespace Armory.Api.Controllers.Formats.AssignedWeaponMagazineFormats
                 stream.Position = 0;
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "format.xlsx");
             }
-            catch (AssignedWeaponMagazineFormatNotFound)
+            catch (AssignedWeaponMagazineFormatNotFoundException)
             {
                 return AssignedWeaponMagazineFormatNotFound(id);
             }

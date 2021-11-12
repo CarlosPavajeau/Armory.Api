@@ -73,7 +73,7 @@ namespace Armory.Api.Controllers.People
                     "Ya existe una persona con los datos digitados. Verifique identificación, email y teléfono");
                 return Conflict(new ValidationProblemDetails(ModelState));
             }
-            catch (ArmoryUserNotCreated e)
+            catch (ArmoryUserNotCreatedException e)
             {
                 return IdentityErrors(e.Errors);
             }
@@ -143,7 +143,7 @@ namespace Armory.Api.Controllers.People
                 var command = _mapper.Map<UpdatePersonCommand>(request);
                 await _mediator.Send(command);
             }
-            catch (PersonNotFound)
+            catch (PersonNotFoundException)
             {
                 return PersonNotFound(id);
             }
@@ -159,7 +159,7 @@ namespace Armory.Api.Controllers.People
                 var command = _mapper.Map<UpdatePersonDegreeCommand>(request);
                 await _mediator.Send(command);
             }
-            catch (PersonNotFound)
+            catch (PersonNotFoundException)
             {
                 return PersonNotFound(id);
             }
@@ -174,7 +174,7 @@ namespace Armory.Api.Controllers.People
             {
                 await _mediator.Send(new DeletePersonCommand(id));
             }
-            catch (PersonNotFound)
+            catch (PersonNotFoundException)
             {
                 return PersonNotFound(id);
             }

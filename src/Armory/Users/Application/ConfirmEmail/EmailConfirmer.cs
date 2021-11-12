@@ -18,13 +18,13 @@ namespace Armory.Users.Application.ConfirmEmail
             var user = await _repository.FindByUsernameOrEmail(usernameOrEmail);
             if (user == null)
             {
-                throw new ArmoryUserNotFound();
+                throw new ArmoryUserNotFoundException();
             }
 
             var result = await _repository.ConfirmEmail(user, Utils.Base64ToString(token));
             if (!result.Succeeded)
             {
-                throw new EmailNotConfirmed(result.Errors);
+                throw new EmailNotConfirmedException(result.Errors);
             }
         }
     }

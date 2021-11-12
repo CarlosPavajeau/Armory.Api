@@ -22,7 +22,7 @@ namespace Armory.Armament.Weapons.Application.Update
             var weapon = await _finder.Find(request.Code);
             if (weapon == null)
             {
-                throw new WeaponNotFound();
+                throw new WeaponNotFoundException();
             }
 
             await _updater.Update(weapon, request.Type, request.Mark, request.Model, request.Caliber,

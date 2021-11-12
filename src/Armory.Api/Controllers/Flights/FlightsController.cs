@@ -95,7 +95,7 @@ namespace Armory.Api.Controllers.Flights
                 var command = _mapper.Map<UpdateFlightCommanderCommand>(request);
                 await _mediator.Send(command);
             }
-            catch (FlightNotFound)
+            catch (FlightNotFoundException)
             {
                 return NotFoundFlight(request.Code);
             }

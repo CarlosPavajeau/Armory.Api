@@ -77,7 +77,7 @@ namespace Armory.Api.Test.Controllers.ArmoryUsers.Authentication
         public async Task Authenticate_With_Invalid_Username()
         {
             Mediator.Setup(x => x.Send(It.IsAny<AuthenticateCommand>(), CancellationToken.None))
-                .Throws<ArmoryUserNotFound>();
+                .Throws<ArmoryUserNotFoundException>();
 
             var result = await _controller.Authenticate(new AuthenticationRequest
             {

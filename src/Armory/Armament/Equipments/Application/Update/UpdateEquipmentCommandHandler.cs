@@ -22,7 +22,7 @@ namespace Armory.Armament.Equipments.Application.Update
             var equipment = await _finder.Find(request.Serial);
             if (equipment == null)
             {
-                throw new EquipmentNotFound();
+                throw new EquipmentNotFoundException();
             }
 
             await _updater.Update(equipment, request.Type, request.Model, request.Series, request.QuantityAvailable);

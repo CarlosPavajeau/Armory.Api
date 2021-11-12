@@ -17,7 +17,7 @@ namespace Armory.People.Application.Delete
             var person = await _repository.Find(id);
             if (person == null)
             {
-                throw new PersonNotFound();
+                throw new PersonNotFoundException();
             }
 
             await _repository.Delete(person);

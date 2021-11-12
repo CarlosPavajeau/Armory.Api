@@ -24,7 +24,7 @@ namespace Armory.Formats.AssignedWeaponMagazineFormats.Application.AddItem
             var format = await _repository.Find(formatId, false);
             if (format == null)
             {
-                throw new AssignedWeaponMagazineFormatNotFound();
+                throw new AssignedWeaponMagazineFormatNotFoundException();
             }
 
             format.Records.Add(AssignedWeaponMagazineFormatItem.Create(troopId, weaponSerial, safetyCartridge,

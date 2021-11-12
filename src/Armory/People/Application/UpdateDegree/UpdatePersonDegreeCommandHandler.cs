@@ -22,7 +22,7 @@ namespace Armory.People.Application.UpdateDegree
             var person = await _finder.Find(request.Id, false);
             if (person == null)
             {
-                throw new PersonNotFound();
+                throw new PersonNotFoundException();
             }
 
             await _updater.UpdateDegree(person, request.DegreeId);

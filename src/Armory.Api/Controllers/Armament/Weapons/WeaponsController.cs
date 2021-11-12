@@ -107,7 +107,7 @@ namespace Armory.Api.Controllers.Armament.Weapons
                 stream.Position = 0;
                 return File(stream, "application/octet-stream", $"{serial}.pdf");
             }
-            catch (WeaponNotFound)
+            catch (WeaponNotFoundException)
             {
                 return WeaponNotFound(serial);
             }
@@ -125,7 +125,7 @@ namespace Armory.Api.Controllers.Armament.Weapons
             {
                 return BadRequest();
             }
-            catch (WeaponNotFound)
+            catch (WeaponNotFoundException)
             {
                 return WeaponNotFound(code);
             }

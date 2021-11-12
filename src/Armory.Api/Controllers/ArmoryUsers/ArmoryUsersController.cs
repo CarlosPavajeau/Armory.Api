@@ -84,11 +84,11 @@ namespace Armory.Api.Controllers.ArmoryUsers
                 ModelState.AddModelError("InvalidToken", "El token de restablecimiento de contraseña es inválido.");
                 return BadRequest(new ValidationProblemDetails(ModelState));
             }
-            catch (ArmoryUserNotFound)
+            catch (ArmoryUserNotFoundException)
             {
                 return ArmoryUserNotFound(usernameOrEmail);
             }
-            catch (PasswordNotReset e)
+            catch (PasswordNotResetException e)
             {
                 return IdentityErrors(e.Errors);
             }
@@ -105,11 +105,11 @@ namespace Armory.Api.Controllers.ArmoryUsers
                 var command = _mapper.Map<ChangePasswordCommand>(request);
                 await _mediator.Send(command);
             }
-            catch (ArmoryUserNotFound)
+            catch (ArmoryUserNotFoundException)
             {
                 return ArmoryUserNotFound(usernameOrEmail);
             }
-            catch (PasswordNotChange e)
+            catch (PasswordNotChangeException e)
             {
                 return IdentityErrors(e.Errors);
             }
@@ -124,11 +124,11 @@ namespace Armory.Api.Controllers.ArmoryUsers
             {
                 await _mediator.Send(new ConfirmEmailCommand(usernameOrEmail, token));
             }
-            catch (ArmoryUserNotFound)
+            catch (ArmoryUserNotFoundException)
             {
                 return ArmoryUserNotFound(usernameOrEmail);
             }
-            catch (EmailNotConfirmed e)
+            catch (EmailNotConfirmedException e)
             {
                 return IdentityErrors(e.Errors);
             }

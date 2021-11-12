@@ -23,7 +23,7 @@ namespace Armory.Armament.Weapons.Application.GenerateQR
             var weapon = await _repository.Find(weaponSerial);
             if (weapon == null)
             {
-                throw new WeaponNotFound();
+                throw new WeaponNotFoundException();
             }
 
             var qrGenerator = new QRCodeGenerator();

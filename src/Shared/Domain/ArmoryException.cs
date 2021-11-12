@@ -38,7 +38,7 @@ namespace Armory.Shared.Domain
         /// </summary>
         /// <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown.</param>
         /// <param name="context">The StreamingContext that contains contextual information about the source or destination.</param>
-        public ArmoryException(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected ArmoryException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
 

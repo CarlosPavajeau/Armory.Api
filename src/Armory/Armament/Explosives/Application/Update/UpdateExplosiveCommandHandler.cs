@@ -22,7 +22,7 @@ namespace Armory.Armament.Explosives.Application.Update
             var explosive = await _finder.Find(request.Code);
             if (explosive == null)
             {
-                throw new ExplosiveNotFound();
+                throw new ExplosiveNotFoundException();
             }
 
             await _updater.Update(explosive, request.Type, request.Caliber, request.Mark, request.Lot,

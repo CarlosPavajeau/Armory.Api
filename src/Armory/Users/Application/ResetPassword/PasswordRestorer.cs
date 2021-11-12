@@ -18,13 +18,13 @@ namespace Armory.Users.Application.ResetPassword
             var user = await _repository.FindByUsernameOrEmail(usernameOrEmail);
             if (user == null)
             {
-                throw new ArmoryUserNotFound();
+                throw new ArmoryUserNotFoundException();
             }
 
             var result = await _repository.ResetPassword(user, Utils.Base64ToString(token), newPassword);
             if (!result.Succeeded)
             {
-                throw new PasswordNotReset(result.Errors);
+                throw new PasswordNotResetException(result.Errors);
             }
         }
     }

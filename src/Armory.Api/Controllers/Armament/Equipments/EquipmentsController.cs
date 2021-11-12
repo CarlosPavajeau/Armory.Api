@@ -107,7 +107,7 @@ namespace Armory.Api.Controllers.Armament.Equipments
             {
                 return BadRequest();
             }
-            catch (EquipmentNotFound)
+            catch (EquipmentNotFoundException)
             {
                 return EquipmentNotFound(serial);
             }

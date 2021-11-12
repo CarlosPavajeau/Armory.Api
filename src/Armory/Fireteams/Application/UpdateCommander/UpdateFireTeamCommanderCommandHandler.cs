@@ -24,7 +24,7 @@ namespace Armory.Fireteams.Application.UpdateCommander
             var fireTeam = await _finder.Find(request.Code, false);
             if (fireTeam is null)
             {
-                throw new FireTeamNotFound();
+                throw new FireTeamNotFoundException();
             }
 
             await _updater.UpdateCommander(fireTeam, request.PersonId);

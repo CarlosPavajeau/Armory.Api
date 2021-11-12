@@ -107,7 +107,7 @@ namespace Armory.Api.Controllers.Armament.Explosives
             {
                 return BadRequest();
             }
-            catch (ExplosiveNotFound)
+            catch (ExplosiveNotFoundException)
             {
                 return ExplosiveNotFound(code);
             }

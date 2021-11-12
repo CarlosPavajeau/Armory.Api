@@ -54,7 +54,7 @@ namespace Armory.Test.Users.Application.Create
 
                 Assert.Fail();
             }
-            catch (ArmoryUserNotCreated)
+            catch (ArmoryUserNotCreatedException)
             {
                 ShouldHaveSave();
                 Assert.Pass();

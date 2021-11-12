@@ -22,7 +22,7 @@ namespace Armory.Flights.Application.UpdateCommander
             var flight = await _finder.Find(request.Code, false);
             if (flight == null)
             {
-                throw new FlightNotFound();
+                throw new FlightNotFoundException();
             }
 
             await _updater.UpdateCommander(flight, request.PersonId);

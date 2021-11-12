@@ -35,7 +35,7 @@ namespace Armory.Api.Controllers.ArmoryUsers.Authentication
                 ModelState.AddModelError("IncorrectPassword", "Contraseña de acceso incorrecta.");
                 return BadRequest(new ValidationProblemDetails(ModelState));
             }
-            catch (ArmoryUserNotFound)
+            catch (ArmoryUserNotFoundException)
             {
                 ModelState.AddModelError("UserNotFound",
                     $"El usuario identificado con '{request.UsernameOrEmail}' no se encuentra registrado.");
