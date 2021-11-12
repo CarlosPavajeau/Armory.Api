@@ -53,25 +53,18 @@ namespace Armory.Api.Controllers.Armament.Ammunition
             return Ok();
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<AmmunitionResponse>>> GetAmmunition()
-        {
-            var ammunition = await _mediator.Send(new SearchAllAmmunitionQuery());
-            return Ok(ammunition);
-        }
-
-        [HttpGet("ByFlight/{flightCode}")]
-        public async Task<ActionResult<IEnumerable<AmmunitionResponse>>> GetAmmunitionByFlight(string flightCode)
-        {
-            var ammunition = await _mediator.Send(new SearchAllAmmunitionByFlightQuery { FlightCode = flightCode });
-            return Ok(ammunition);
-        }
-
         private NotFoundObjectResult AmmunitionNotFound(string code)
         {
             ModelState.AddModelError("AmmunitionNotFound",
                 $"No se encontró ninguna munición con el código '{code}'.");
             return NotFound(new ValidationProblemDetails(ModelState));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<AmmunitionResponse>>> GetAmmunition()
+        {
+            var ammunition = await _mediator.Send(new SearchAllAmmunitionQuery());
+            return Ok(ammunition);
         }
 
         [HttpGet("{code}")]
@@ -84,6 +77,13 @@ namespace Armory.Api.Controllers.Armament.Ammunition
             }
 
             return AmmunitionNotFound(code);
+        }
+
+        [HttpGet("ByFlight/{flightCode}")]
+        public async Task<ActionResult<IEnumerable<AmmunitionResponse>>> GetAmmunitionByFlight(string flightCode)
+        {
+            var ammunition = await _mediator.Send(new SearchAllAmmunitionByFlightQuery { FlightCode = flightCode });
+            return Ok(ammunition);
         }
 
         [HttpGet("Exists/{code}")]
