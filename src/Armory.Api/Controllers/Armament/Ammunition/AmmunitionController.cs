@@ -7,6 +7,8 @@ using Armory.Armament.Ammunition.Application.Create;
 using Armory.Armament.Ammunition.Application.Find;
 using Armory.Armament.Ammunition.Application.SearchAll;
 using Armory.Armament.Ammunition.Application.SearchAllByFlight;
+using Armory.Armament.Ammunition.Application.Update;
+using Armory.Armament.Ammunition.Domain;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -91,6 +93,23 @@ namespace Armory.Api.Controllers.Armament.Ammunition
         {
             var exists = await _mediator.Send(new CheckAmmunitionExistsQuery(code));
             return Ok(exists);
+        }
+
+        [HttpPut("{lot}")]
+        public async Task<ActionResult> UpdateAmmunition(string lot, [FromBody] UpdateAmmunitionRequest request)
+        {
+            try
+            {
+                var command = _mapper.Map<UpdateAmmunitionCommand>(request);
+                command.Lot = lot;
+                await _mediator.Send(command);
+            }
+            catch (AmmunitionNotFoundException)
+            {
+                return AmmunitionNotFound(lot);
+            }
+
+            return Ok();
         }
     }
 }

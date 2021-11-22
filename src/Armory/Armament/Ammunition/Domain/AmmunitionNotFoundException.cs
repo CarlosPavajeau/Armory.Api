@@ -10,6 +10,10 @@ namespace Armory.Armament.Ammunition.Domain
     [Serializable]
     public class AmmunitionNotFoundException : ArmoryException
     {
+        public AmmunitionNotFoundException()
+        {
+        }
+
         public AmmunitionNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
