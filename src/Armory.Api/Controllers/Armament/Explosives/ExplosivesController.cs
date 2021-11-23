@@ -69,10 +69,10 @@ namespace Armory.Api.Controllers.Armament.Explosives
             return Ok(explosives);
         }
 
-        private NotFoundObjectResult ExplosiveNotFound(string code)
+        private NotFoundObjectResult ExplosiveNotFound(string serial)
         {
             ModelState.AddModelError("ExplosiveNotFound",
-                $"No se encontró ningún explosivo con el código '{code}'.");
+                $"No se encontró ningún explosivo con el número de serie '{serial}'.");
             return NotFound(new ValidationProblemDetails(ModelState));
         }
 
