@@ -19,14 +19,13 @@ namespace Armory.Armament.Explosives.Application.Update
 
         protected override async Task Handle(UpdateExplosiveCommand request, CancellationToken cancellationToken)
         {
-            var explosive = await _finder.Find(request.Code);
+            var explosive = await _finder.Find(request.Serial, false);
             if (explosive == null)
             {
                 throw new ExplosiveNotFoundException();
             }
 
-            await _updater.Update(explosive, request.Type, request.Caliber, request.Mark, request.Lot,
-                request.Series, request.QuantityAvailable);
+            await _updater.Update(explosive, request);
         }
     }
 }

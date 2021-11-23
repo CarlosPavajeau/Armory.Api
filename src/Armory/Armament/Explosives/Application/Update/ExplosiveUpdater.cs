@@ -1,22 +1,25 @@
 using System.Threading.Tasks;
 using Armory.Armament.Explosives.Domain;
+using Armory.Shared.Domain.Persistence.EntityFramework;
+using AutoMapper;
 
 namespace Armory.Armament.Explosives.Application.Update
 {
     public class ExplosiveUpdater
     {
-        private readonly IExplosivesRepository _repository;
+        private readonly IMapper _mapper;
+        private readonly IUnitWork _unitWork;
 
-        public ExplosiveUpdater(IExplosivesRepository repository)
+        public ExplosiveUpdater(IUnitWork unitWork, IMapper mapper)
         {
-            _repository = repository;
+            _unitWork = unitWork;
+            _mapper = mapper;
         }
 
-        public async Task Update(Explosive explosive, string type, string caliber, string mark, string lot,
-            string series, int quantityAvailable)
+        public async Task Update(Explosive explosive, UpdateExplosiveCommand command)
         {
-            explosive.Update(type, caliber, mark, lot, series, quantityAvailable);
-            await _repository.Update(explosive);
+            _mapper.Map(explosive, command);
+            await _unitWork.SaveChanges();
         }
     }
 }

@@ -95,12 +95,13 @@ namespace Armory.Api.Controllers.Armament.Explosives
             return Ok(exists);
         }
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> UpdateExplosive(string code, [FromBody] UpdateExplosiveRequest request)
+        [HttpPut("{serial}")]
+        public async Task<IActionResult> UpdateExplosive(string serial, [FromBody] UpdateExplosiveRequest request)
         {
             try
             {
                 var command = _mapper.Map<UpdateExplosiveCommand>(request);
+                command.Serial = serial;
                 await _mediator.Send(command);
             }
             catch (DbUpdateException)
@@ -109,7 +110,7 @@ namespace Armory.Api.Controllers.Armament.Explosives
             }
             catch (ExplosiveNotFoundException)
             {
-                return ExplosiveNotFound(code);
+                return ExplosiveNotFound(serial);
             }
 
             return Ok();
