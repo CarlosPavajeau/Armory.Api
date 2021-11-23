@@ -4,19 +4,9 @@ namespace Armory.Armament.Equipments.Application.Update
 {
     public class UpdateEquipmentCommand : Command
     {
-        public UpdateEquipmentCommand(string serial, string type, string model, string series, int quantityAvailable)
-        {
-            Serial = serial;
-            Type = type;
-            Model = model;
-            Series = series;
-            QuantityAvailable = quantityAvailable;
-        }
-
-        public string Serial { get; }
-        public string Type { get; }
-        public string Model { get; }
-        public string Series { get; }
-        public int QuantityAvailable { get; }
+        public string Serial { get; set; }
+        public string Type { get; init; }
+        public string Model { get; init; }
+        public int QuantityAvailable { get; init; }
     }
 }

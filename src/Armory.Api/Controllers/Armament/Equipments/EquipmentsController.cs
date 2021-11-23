@@ -101,6 +101,7 @@ namespace Armory.Api.Controllers.Armament.Equipments
             try
             {
                 var command = _mapper.Map<UpdateEquipmentCommand>(request);
+                command.Serial = serial;
                 await _mediator.Send(command);
             }
             catch (DbUpdateException)
