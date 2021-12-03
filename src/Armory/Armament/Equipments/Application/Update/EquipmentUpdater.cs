@@ -18,7 +18,7 @@ namespace Armory.Armament.Equipments.Application.Update
 
         public async Task Update(Equipment equipment, UpdateEquipmentCommand command)
         {
-            _mapper.Map(equipment, command);
+            _mapper.Map(command, equipment);
             await _unitWork.SaveChanges();
         }
     }

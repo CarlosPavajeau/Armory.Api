@@ -18,7 +18,7 @@ namespace Armory.Armament.Explosives.Application.Update
 
         public async Task Update(Explosive explosive, UpdateExplosiveCommand command)
         {
-            _mapper.Map(explosive, command);
+            _mapper.Map(command, explosive);
             await _unitWork.SaveChanges();
         }
     }
