@@ -12,9 +12,14 @@ namespace Armory.Armament.Weapons.Application.Find
             _repository = repository;
         }
 
+        public async Task<Weapon> Find(string serial, bool noTracking)
+        {
+            return await _repository.Find(serial, noTracking);
+        }
+
         public async Task<Weapon> Find(string code)
         {
-            return await _repository.Find(code);
+            return await Find(code, true);
         }
     }
 }

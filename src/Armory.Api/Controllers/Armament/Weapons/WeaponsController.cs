@@ -113,12 +113,13 @@ namespace Armory.Api.Controllers.Armament.Weapons
             }
         }
 
-        [HttpPut("{code}")]
-        public async Task<IActionResult> UpdateWeapon(string code, [FromBody] UpdateWeaponRequest request)
+        [HttpPut("{serial}")]
+        public async Task<IActionResult> UpdateWeapon(string serial, [FromBody] UpdateWeaponRequest request)
         {
             try
             {
                 var command = _mapper.Map<UpdateWeaponCommand>(request);
+                command.Serial = serial;
                 await _mediator.Send(command);
             }
             catch (DbUpdateException)
@@ -127,7 +128,7 @@ namespace Armory.Api.Controllers.Armament.Weapons
             }
             catch (WeaponNotFoundException)
             {
-                return WeaponNotFound(code);
+                return WeaponNotFound(serial);
             }
 
             return Ok();
