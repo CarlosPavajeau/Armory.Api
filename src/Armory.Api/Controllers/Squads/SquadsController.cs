@@ -6,6 +6,7 @@ using Armory.Squads.Application.CheckExists;
 using Armory.Squads.Application.Create;
 using Armory.Squads.Application.Find;
 using Armory.Squads.Application.SearchAll;
+using Armory.Squads.Application.Update;
 using Armory.Squads.Application.UpdateCommander;
 using Armory.Squads.Domain;
 using AutoMapper;
@@ -40,7 +41,7 @@ namespace Armory.Api.Controllers.Squads
             }
             catch (DbUpdateException)
             {
-                var exists = await _mediator.Send(new CheckSquadExistsQuery { SquadCode = request.Code });
+                var exists = await _mediator.Send(new CheckSquadExistsQuery {SquadCode = request.Code});
                 if (!exists)
                 {
                     throw;
@@ -70,13 +71,31 @@ namespace Armory.Api.Controllers.Squads
         [HttpGet("{code}")]
         public async Task<ActionResult<SquadResponse>> GetSquad(string code)
         {
-            var squad = await _mediator.Send(new FindSquadQuery { Code = code });
+            var squad = await _mediator.Send(new FindSquadQuery {Code = code});
             if (squad != null)
             {
                 return Ok(squad);
             }
 
             return SquadNotFound(code);
+        }
+
+        [HttpPut("{code}")]
+        public async Task<ActionResult> Update(string code, [FromBody] UpdateSquadRequest request)
+        {
+            try
+            {
+                var command = _mapper.Map<UpdateSquadCommand>(request);
+                command.Code = code;
+
+                await _mediator.Send(command);
+            }
+            catch (SquadNotFoundException)
+            {
+                return SquadNotFound(code);
+            }
+
+            return Ok();
         }
 
         [HttpPut("Commander")]

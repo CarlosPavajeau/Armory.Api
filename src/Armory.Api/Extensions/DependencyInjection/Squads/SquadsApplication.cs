@@ -2,6 +2,7 @@ using Armory.Squads.Application.CheckExists;
 using Armory.Squads.Application.Create;
 using Armory.Squads.Application.Find;
 using Armory.Squads.Application.SearchAll;
+using Armory.Squads.Application.Update;
 using Armory.Squads.Application.UpdateCommander;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +17,7 @@ namespace Armory.Api.Extensions.DependencyInjection.Squads
             services.AddScoped<SquadFinder, SquadFinder>();
             services.AddScoped<SquadsSearcher, SquadsSearcher>();
             services.AddScoped<SquadCommanderUpdater, SquadCommanderUpdater>();
+            services.AddScoped<SquadUpdater, SquadUpdater>();
 
             return services;
         }
