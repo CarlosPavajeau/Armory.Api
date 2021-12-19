@@ -7,6 +7,7 @@ using Armory.Fireteams.Application.Create;
 using Armory.Fireteams.Application.Find;
 using Armory.Fireteams.Application.SearchAll;
 using Armory.Fireteams.Application.SearchAllByFlight;
+using Armory.Fireteams.Application.Update;
 using Armory.Fireteams.Application.UpdateCommander;
 using Armory.Fireteams.Domain;
 using AutoMapper;
@@ -93,6 +94,24 @@ namespace Armory.Api.Controllers.Fireteams
         {
             var exists = await _mediator.Send(new CheckFireteamExistsQuery(code));
             return Ok(exists);
+        }
+
+        [HttpPut("{code}")]
+        public async Task<ActionResult> UpdateFireTeam(string code, [FromBody] UpdateFireTeamRequest request)
+        {
+            try
+            {
+                var command = _mapper.Map<UpdateFireTeamCommand>(request);
+                command.Code = code;
+
+                await _mediator.Send(command);
+            }
+            catch (FireTeamNotFoundException)
+            {
+                return FireTeamNotFound(code);
+            }
+
+            return Ok();
         }
 
         [HttpPut("Commander")]
